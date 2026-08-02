@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L1 MATHS // SYNTHÉTIQUE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="crt">
+
+  <header class="site-header">
+    <pre class="ascii-frame">╔═══════════════════════════════╗
+║  ⬛⬜⬛  L1 MATHS  ⬛⬜⬛         ║
+╚═══════════════════════════════╝</pre>
+    <h1 class="logo"><span class="gear">⚙</span> SYNTHÉTIQUE <span class="gear">⚙</span></h1>
+    <div class="subtitle">FICHES DE RÉVISION — LICENCE 1</div>
+    <div class="pixel-rule">════════════════════════════════════════════════</div>
+  </header>
+
+  <main>
+    <p class="cours" style="text-align:center;">
+      &gt; Sélectionnez un chapitre pour démarrer la révision.<br>
+      &gt; Votre progression est enregistrée automatiquement (localStorage).
+    </p>
+
+    <section class="chapter-grid" id="chapterGrid" aria-label="Liste des chapitres">
+      <!-- injecté par app.js -->
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="pixel-rule">════════════════════════════════════════════════</div>
+    <div id="footerHint">CHOISIR CHAPITRE <span class="cursor">_</span></div>
+  </footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
