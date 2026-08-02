@@ -1,6 +1,7 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — TERMINAL PIXELISÉ
-   Noir et blanc, police Micro 5, box-drawing Unicode, sans glow.
+   Noir et blanc, box-drawing Unicode, sans glow.
+   Micro 5 (titres) / Silkscreen (sous-titre) / Jersey 10 (texte).
    ============================================================ */
 
 :root{
@@ -11,12 +12,15 @@
   --ok:        #3ddc72;
   --amber:     #ffb000;
   --red:       #ff3b3b;
-  --font-term: 'Micro 5', monospace;
+  --font-title:    'Micro 5', monospace;
+  --font-subtitle: 'Silkscreen', monospace;
+  --font-body:     'Jersey 10', monospace;
+  --font-term: var(--font-body);
 }
 
 *{ box-sizing:border-box; }
 
-html{ font-size:20px; }
+html{ font-size:19px; }
 
 html,body{
   margin:0;
@@ -125,6 +129,7 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .logo{
+  font-family:var(--font-title);
   font-size:2.6rem;
   letter-spacing:.35rem;
   color:var(--fg);
@@ -132,10 +137,11 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .subtitle{
+  font-family:var(--font-subtitle);
   color:var(--fg-dim);
-  letter-spacing:.1rem;
-  font-size:1.1rem;
-  margin-top:4px;
+  letter-spacing:.05rem;
+  font-size:1rem;
+  margin-top:8px;
 }
 
 .pixel-rule{
@@ -192,6 +198,7 @@ a:hover{ color:var(--fg-dim); }
 .chapter-card.locked:hover{ transform:none; box-shadow:4px 4px 0 var(--fg-dim); }
 
 .chapter-card__title{
+  font-family:var(--font-title);
   font-size:1.55rem;
   letter-spacing:.08rem;
   display:flex;
@@ -260,6 +267,7 @@ a:hover{ color:var(--fg-dim); }
 
 /* ---------- fiche pages ---------- */
 .fiche-title{
+  font-family:var(--font-title);
   font-size:2.2rem;
   letter-spacing:.2rem;
   text-align:center;
@@ -281,6 +289,7 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .section__title{
+  font-family:var(--font-title);
   font-size:1.6rem;
   letter-spacing:.1rem;
   border-bottom:1px dashed var(--fg-dim);
