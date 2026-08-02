@@ -87,39 +87,40 @@ a:hover{ color:var(--fg-dim); }
   border:2px solid var(--fg);
   background:var(--bg);
   color:var(--fg);
-  font-size:1.5rem;
   cursor:pointer;
   z-index:60;
+  perspective:200px;
 }
-.menu-btn:hover{ background:var(--fg); color:#000; }
+.menu-btn:hover{ background:var(--fg); }
 
-.menu-btn .radar-wrap{
+.menu-btn .gem{
+  width:20px;
+  height:20px;
+  display:inline-block;
   position:relative;
-  width:16px;
-  height:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  overflow:hidden;
+  clip-path:polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  background:linear-gradient(135deg, #ffd9d9 0%, #e0384f 45%, #4a0d12 100%);
+  transform-style:preserve-3d;
+  animation:gem-spin 2.4s linear infinite;
 }
-.menu-btn .radar-ping{
+.menu-btn .gem .glare{
   position:absolute;
-  width:16px;
-  height:16px;
-  border:2px solid currentColor;
-  border-radius:50%;
-  animation:radar 1.6s ease-out infinite;
+  top:-40%;
+  left:-60%;
+  width:40%;
+  height:180%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
+  transform:rotate(20deg);
+  animation:gem-sweep 1.4s ease-in-out infinite;
 }
-.menu-btn .radar-dot{
-  width:8px;
-  height:8px;
-  background:currentColor;
-  border-radius:50%;
-  position:relative;
-  z-index:1;
+@keyframes gem-spin{
+  from{ transform:rotateY(0deg); }
+  to{ transform:rotateY(360deg); }
 }
-@keyframes radar{
-  0%{ transform:scale(.6); opacity:1; }
-  100%{ transform:scale(2.4); opacity:0; }
+@keyframes gem-sweep{
+  0%{ left:-60%; }
+  100%{ left:120%; }
 }
 
 /* ---------- header ---------- */
