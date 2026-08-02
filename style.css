@@ -1,6 +1,6 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — TERMINAL PIXELISÉ
-   Noir et blanc, police VT323, box-drawing Unicode, sans glow.
+   Noir et blanc, police Micro 5, box-drawing Unicode, sans glow.
    ============================================================ */
 
 :root{
@@ -11,10 +11,12 @@
   --ok:        #3ddc72;
   --amber:     #ffb000;
   --red:       #ff3b3b;
-  --font-term: 'VT323', monospace;
+  --font-term: 'Micro 5', monospace;
 }
 
 *{ box-sizing:border-box; }
+
+html{ font-size:20px; }
 
 html,body{
   margin:0;
@@ -87,6 +89,35 @@ a:hover{ color:var(--fg-dim); }
 }
 .menu-btn:hover{ background:var(--fg); color:#000; }
 
+.menu-btn .radar-wrap{
+  position:relative;
+  width:16px;
+  height:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.menu-btn .radar-ping{
+  position:absolute;
+  width:16px;
+  height:16px;
+  border:2px solid currentColor;
+  border-radius:50%;
+  animation:radar 1.6s ease-out infinite;
+}
+.menu-btn .radar-dot{
+  width:8px;
+  height:8px;
+  background:currentColor;
+  border-radius:50%;
+  position:relative;
+  z-index:1;
+}
+@keyframes radar{
+  0%{ transform:scale(.6); opacity:1; }
+  100%{ transform:scale(2.4); opacity:0; }
+}
+
 /* ---------- header ---------- */
 .site-header{
   text-align:center;
@@ -105,15 +136,6 @@ a:hover{ color:var(--fg-dim); }
   letter-spacing:.1rem;
   font-size:1.1rem;
   margin-top:4px;
-}
-
-.gear{
-  display:inline-block;
-  animation:spin 4s linear infinite;
-}
-@keyframes spin{
-  from{ transform:rotate(0deg); }
-  to{ transform:rotate(360deg); }
 }
 
 .pixel-rule{
