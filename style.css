@@ -324,37 +324,6 @@ a:hover{ color:var(--fg-dim); }
   margin-bottom:10px;
 }
 
-.exo__controls{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-}
-
-.term-input{
-  background:#000;
-  border:1px solid var(--fg);
-  color:var(--fg);
-  font-family:var(--font-term);
-  font-size:1.15rem;
-  padding:6px 8px;
-  flex:1;
-  min-width:180px;
-}
-.term-input:focus{ outline:none; box-shadow:2px 2px 0 var(--fg); }
-
-.term-btn{
-  background:#000;
-  border:1px solid var(--fg);
-  color:var(--fg);
-  font-family:var(--font-term);
-  font-size:1.1rem;
-  padding:6px 14px;
-  cursor:pointer;
-  letter-spacing:.05rem;
-}
-.term-btn:hover{ background:var(--fg); color:#000; }
-
 .qcm-options{
   display:flex;
   flex-direction:column;

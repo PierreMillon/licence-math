@@ -168,11 +168,7 @@ function exoControlsHTML(ex){
   const opts = ex.options.map((opt, i) => `
     <label><input type="radio" name="${ex.id}" value="${i}"> <span>${opt}</span></label>
   `).join('');
-  return `
-    <div class="qcm-options">${opts}</div>
-    <div class="exo__controls">
-      <button class="term-btn" data-action="validate">VALIDER</button>
-    </div>`;
+  return `<div class="qcm-options">${opts}</div>`;
 }
 
 function renderSections(){
@@ -205,7 +201,8 @@ function renderSections(){
 }
 
 /* ---------- vérification ---------- */
-function applyFeedback(ex, isCorrect, state){
+function applyFeedback(ex, selectedIndex, state){
+  const isCorrect = selectedIndex === ex.correctIndex;
   const exoEl = document.getElementById(`exo-${ex.id}`);
   const feedbackEl = document.getElementById(`feedback-${ex.id}`);
 
@@ -221,23 +218,18 @@ function applyFeedback(ex, isCorrect, state){
     typesetMath(feedbackEl);
   }
 
-  state[ex.id] = { answered: true, correct: isCorrect };
+  state[ex.id] = { answered: true, correct: isCorrect, selectedIndex };
   saveState(state);
 }
 
 function bindExercise(ex, state){
   const exoEl = document.getElementById(`exo-${ex.id}`);
-  const validateBtn = exoEl.querySelector('[data-action="validate"]');
+  const radios = exoEl.querySelectorAll(`input[name="${ex.id}"]`);
 
-  validateBtn.addEventListener('click', () => {
-    const checked = exoEl.querySelector(`input[name="${ex.id}"]:checked`);
-    if(!checked){
-      const fb = document.getElementById(`feedback-${ex.id}`);
-      fb.classList.remove('ok'); fb.classList.add('ko');
-      fb.textContent = '✗ Choisissez une réponse.';
-      return;
-    }
-    applyFeedback(ex, Number(checked.value) === ex.correctIndex, state);
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      applyFeedback(ex, Number(radio.value), state);
+    });
   });
 }
 
@@ -250,6 +242,10 @@ function restoreState(state){
       exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
       feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
       feedbackEl.textContent = s.correct ? '✓ CORRECT (déjà validé)' : '✗ INCORRECT (déjà tenté — vous pouvez réessayer)';
+      if(typeof s.selectedIndex === 'number'){
+        const radio = exoEl.querySelector(`input[name="${ex.id}"][value="${s.selectedIndex}"]`);
+        if(radio) radio.checked = true;
+      }
     }
   });
 }
