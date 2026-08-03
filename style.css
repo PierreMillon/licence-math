@@ -214,6 +214,10 @@ a:hover{ color:var(--fg-dim); }
   opacity:.8;
 }
 
+.global-progress-bar{
+  margin:16px 0 0;
+}
+
 /* ---------- breadcrumb / back link ---------- */
 .nav-back{
   display:inline-block;

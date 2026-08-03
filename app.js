@@ -86,6 +86,24 @@ function renderChapters(){
   });
 }
 
+function renderGlobalProgress(){
+  const fill = document.getElementById('globalProgressFill');
+  if(!fill) return;
+  const progress = loadProgress();
+
+  let totalExercises = 0;
+  let totalCorrect = 0;
+  CHAPTERS.forEach(ch => {
+    if(ch.total <= 0) return;
+    totalExercises += ch.total;
+    const p = progress[ch.id] || { completed: 0, correct: 0 };
+    totalCorrect += p.correct;
+  });
+
+  const pct = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 100) : 0;
+  fill.style.width = pct + '%';
+}
+
 function renderTreasure(){
   const grid = document.getElementById('treasureGrid');
   if(!grid) return;
@@ -148,6 +166,7 @@ function renderFooterCycle(){
 
 document.addEventListener('DOMContentLoaded', () => {
   renderChapters();
+  renderGlobalProgress();
   renderTreasure();
   renderFooterCycle();
 });
