@@ -463,10 +463,35 @@ a:hover{ color:var(--fg-dim); }
   cursor:pointer;
   display:flex;
   gap:8px;
-  align-items:baseline;
+  align-items:center;
   font-size:1.1rem;
 }
-.qcm-options input{ accent-color:var(--fg); }
+.qcm-options input[type="radio"]{
+  appearance:none;
+  -webkit-appearance:none;
+  width:20px;
+  height:20px;
+  min-width:20px;
+  margin:0;
+  border:2px solid var(--fg);
+  border-radius:50%;
+  background:#000;
+  position:relative;
+  cursor:pointer;
+}
+.qcm-options input[type="radio"]:checked::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#000;
+  border:2px solid var(--fg);
+  transform:translate(-50%, -50%);
+}
+.qcm-options input[type="radio"]:checked{ background:var(--fg); }
 
 .exo__feedback{
   margin-top:10px;
