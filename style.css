@@ -103,7 +103,11 @@ a:hover{ color:var(--fg-dim); }
   padding:3px 8px;
   z-index:60;
   background:var(--bg);
+  text-decoration:none;
+  display:inline-block;
+  cursor:pointer;
 }
+.version-badge:hover{ border-color:var(--fg); color:var(--fg); }
 
 .gem{
   width:20px;

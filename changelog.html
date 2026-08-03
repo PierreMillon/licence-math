@@ -3,43 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SYNTHÈSE // L1 MATHS</title>
+<title>HISTORIQUE // SYNTHÈSE L1 MATHS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=37">
+<style>
+  .changelog{ max-width:640px; margin:0 auto; }
+  .changelog__entry{
+    border:1px solid var(--fg-dim);
+    background:var(--bg-panel);
+    padding:12px 16px;
+    margin-bottom:10px;
+  }
+  .changelog__entry.current{ border-color:var(--fg); }
+  .changelog__head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .changelog__v{
+    font-family:var(--font-title);
+    font-size:1.15rem;
+    color:var(--amber);
+    flex:none;
+  }
+  .changelog__tag{
+    font-family:var(--font-subtitle);
+    font-size:.75rem;
+    color:var(--fg-dim);
+    border:1px solid var(--fg-dim);
+    padding:1px 6px;
+  }
+  .changelog__desc{ font-size:1.05rem; line-height:1.4; }
+  .changelog__gap{
+    font-family:var(--font-subtitle);
+    color:var(--fg-dim);
+    font-size:.8rem;
+    text-align:center;
+    margin:6px 0 16px;
+  }
+</style>
 </head>
 <body>
 <a href="index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
 <div class="crt">
 
+  <a class="nav-back" href="index.html">&lt;&lt; RETOUR</a>
+
   <header class="site-header">
-    <h1 class="logo">SYNTHÈSE</h1>
-    <div class="subtitle">LICENCE 1 DE MATHS À CHAMPOLLION, ALBI, 2026/2027</div>
-    <div class="progress-row global-progress-row">
-      <div class="progress-bar global-progress-bar" id="globalProgressBar" aria-label="Progression globale du site"></div>
-      <div class="global-progress-score" id="globalProgressScore">0/0</div>
-    </div>
+    <h1 class="fiche-title">HISTORIQUE</h1>
+    <div class="subtitle">TOUTES LES VERSIONS DU SITE, DE LA PLUS RÉCENTE À LA PREMIÈRE</div>
+    <div class="pixel-rule">════════════════════════════════════════════════</div>
   </header>
 
-  <main>
-    <section class="chapter-grid" id="chapterGrid" aria-label="Liste des chapitres">
-      <!-- injecté par app.js -->
-    </section>
-
-    <div class="treasure-title">SALLE DU TRÉSOR</div>
-    <section class="treasure-grid" id="treasureGrid" aria-label="Diamants débloqués">
-      <!-- injecté par app.js -->
-    </section>
+  <main class="changelog" id="changelogContainer">
+    <!-- injecté par changelog.js -->
   </main>
 
   <footer class="site-footer">
     <div class="pixel-rule">════════════════════════════════════════════════</div>
-    <div id="footerHint">CHOISIR CHAPITRE <span class="cursor">_</span></div>
+    <div>FIN DE L'HISTORIQUE <span class="cursor">_</span></div>
   </footer>
 
 </div>
 <script src="menu.js?v=37"></script>
-<script src="app.js?v=37"></script>
+<script src="changelog.js?v=37"></script>
 </body>
 </html>
