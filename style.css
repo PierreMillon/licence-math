@@ -366,6 +366,26 @@ a:hover{ color:var(--fg-dim); }
   font-size:1.15rem;
 }
 
+.exo-progress-bar{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:4px;
+  margin:14px 0;
+}
+.exo-progress-bar__sq{
+  width:15px;
+  height:15px;
+  flex:none;
+  padding:0;
+  background:#000;
+  border:1px solid var(--fg);
+  cursor:pointer;
+}
+.exo-progress-bar__sq:hover{ border-color:var(--amber); }
+.exo-progress-bar__sq.correct{ background:var(--ok); border-color:var(--ok); }
+.exo-progress-bar__sq.incorrect{ background:var(--red); border-color:var(--red); }
+
 .reset-btn{
   display:flex;
   flex-direction:column;
@@ -522,16 +542,6 @@ code{
 
 .exo.answered.ok{ border-color:var(--ok); }
 .exo.answered.ko{ border-color:var(--red); }
-
-/* coming soon */
-.soon-box{
-  text-align:center;
-  border:2px dashed var(--fg-dim);
-  padding:40px 20px;
-  color:var(--fg-dim);
-  font-size:1.3rem;
-  margin:30px 0;
-}
 
 @media (max-width:520px){
   body{ font-size:18px; }

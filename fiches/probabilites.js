@@ -6,11 +6,6 @@
    (L1 INU Champollion, semestre 2).
    ============================================================ */
 
-const PROGRESS_KEY = 'l1maths_progress';
-const STATE_KEY = 'l1maths_probabilites_state';
-const CHAPTER_ID = 'probabilites';
-
-/* ---------- données des exercices (QCM, 3 réponses) ---------- */
 const EXERCISES = [
 {
     id: 'ex1', section: 'denombrement',
@@ -203,9 +198,9 @@ const SECTIONS = [
 {
   id: 'denombrement',
   title: '§1 — DÉNOMBREMENT',
-  cours: `Probabilité uniforme (équiprobabilité) sur un univers fini \\(\\Omega\\) : <span class="math">P(A) = \\dfrac{|A|}{|\\Omega|}</span> (cas favorables / cas possibles).<br>
-<span class="math">P(A\\cup B) = P(A)+P(B)-P(A\\cap B)</span> ; si A, B incompatibles (\\(A\\cap B=\\emptyset\\)) : \\(P(A\\cup B)=P(A)+P(B)\\). Toujours : \\(P(\\bar A)=1-P(A)\\).<br>
-Arrangements (l'ordre compte, sans répétition) : <span class="math">A_n^p = \\dfrac{n!}{(n-p)!}</span>. Combinaisons (l'ordre ne compte pas) : <span class="math">C_n^p=\\dfrac{n!}{p!(n-p)!}</span>. Cardinal de l'ensemble des parties : \\(|\\mathcal P(E)|=2^n\\).<br>
+  cours: `Probabilité uniforme (équiprobabilité) sur un univers fini \\(\\Omega\\) : \\(P(A) = \\dfrac{|A|}{|\\Omega|}\\) (cas favorables / cas possibles).<br>
+\\(P(A\\cup B) = P(A)+P(B)-P(A\\cap B)\\) ; si A, B incompatibles (\\(A\\cap B=\\emptyset\\)) : \\(P(A\\cup B)=P(A)+P(B)\\). Toujours : \\(P(\\bar A)=1-P(A)\\).<br>
+Arrangements (l'ordre compte, sans répétition) : \\(A_n^p = \\dfrac{n!}{(n-p)!}\\). Combinaisons (l'ordre ne compte pas) : \\(C_n^p=\\dfrac{n!}{p!(n-p)!}\\). Cardinal de l'ensemble des parties : \\(|\\mathcal P(E)|=2^n\\).<br>
 Anagrammes : n lettres distinctes → n! anagrammes ; si des lettres se répètent, on divise par le produit des factorielles des répétitions.<br>
 Tirages avec/sans remise : le dénombrement change selon le cas. <span class="math">Problème de Galilée</span> : pour 3 dés, les sommes 9 et 10 ont chacune 6 combinaisons non ordonnées, mais un nombre différent de tirages ORDONNÉS (25 contre 27 sur 216) — l'équiprobabilité porte sur les résultats ordonnés, pas sur les combinaisons.`
 },
@@ -238,162 +233,4 @@ Piège : l'indépendance deux à deux de 3 événements n'entraîne PAS leur ind
 }
 ];
 
-/* ---------- typographie LaTeX (KaTeX) ---------- */
-function typesetMath(el){
-  if(window.renderMathInElement && el){
-    window.renderMathInElement(el, {
-      delimiters: [
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true },
-      ],
-      throwOnError: false,
-    });
-  }
-}
-
-/* ---------- état / progression ---------- */
-function loadState(){
-  try{ return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; }
-  catch(e){ return {}; }
-}
-
-function saveState(state){
-  localStorage.setItem(STATE_KEY, JSON.stringify(state));
-  syncProgress(state);
-}
-
-function syncProgress(state){
-  const entries = Object.values(state);
-  const completed = entries.filter(e => e.answered).length;
-  const correct = entries.filter(e => e.correct).length;
-
-  let progress = {};
-  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
-  catch(e){ progress = {}; }
-
-  progress[CHAPTER_ID] = { completed, correct };
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  updateScoreHeader(completed, correct);
-}
-
-function updateScoreHeader(completed, correct){
-  const el = document.getElementById('ficheScore');
-  if(el){
-    el.textContent = `SCORE : ${correct}/${EXERCISES.length}   —   COMPLÉTÉS : ${completed}/${EXERCISES.length}`;
-  }
-}
-
-/* ---------- rendu ---------- */
-function exoControlsHTML(ex){
-  const opts = ex.options.map((opt, i) => `
-    <label><input type="radio" name="${ex.id}" value="${i}"> <span>${opt}</span></label>
-  `).join('');
-  return `<div class="qcm-options">${opts}</div>`;
-}
-
-function renderSections(){
-  const container = document.getElementById('sectionsContainer');
-  if(!container) return;
-
-  container.innerHTML = SECTIONS.map(sec => {
-    const exos = EXERCISES.filter(e => e.section === sec.id);
-    const exosHTML = exos.map(ex => `
-      <div class="exo" id="exo-${ex.id}" data-id="${ex.id}">
-        <div class="exo__head">
-          <span>EXERCICE ${EXERCISES.indexOf(ex) + 1}/${EXERCISES.length}</span>
-        </div>
-        <div class="exo__statement">${ex.statement}</div>
-        ${exoControlsHTML(ex)}
-        <div class="exo__feedback" id="feedback-${ex.id}"></div>
-      </div>
-    `).join('');
-
-    return `
-      <section class="section" id="section-${sec.id}">
-        <div class="section__title">${sec.title}</div>
-        <p class="cours">${sec.cours}</p>
-        ${exosHTML}
-      </section>
-    `;
-  }).join('');
-
-  typesetMath(container);
-}
-
-/* ---------- vérification ---------- */
-function applyFeedback(ex, selectedIndex, state){
-  const isCorrect = selectedIndex === ex.correctIndex;
-  const exoEl = document.getElementById(`exo-${ex.id}`);
-  const feedbackEl = document.getElementById(`feedback-${ex.id}`);
-
-  exoEl.classList.remove('answered', 'ok', 'ko');
-  exoEl.classList.add('answered', isCorrect ? 'ok' : 'ko');
-  feedbackEl.classList.remove('ok', 'ko');
-  feedbackEl.classList.add(isCorrect ? 'ok' : 'ko');
-
-  if(isCorrect){
-    feedbackEl.textContent = '✓ CORRECT';
-  }else{
-    const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
-    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}${explainLine}`;
-    typesetMath(feedbackEl);
-  }
-
-  state[ex.id] = { answered: true, correct: isCorrect, selectedIndex };
-  saveState(state);
-}
-
-function bindExercise(ex, state){
-  const exoEl = document.getElementById(`exo-${ex.id}`);
-  const radios = exoEl.querySelectorAll(`input[name="${ex.id}"]`);
-
-  radios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      applyFeedback(ex, Number(radio.value), state);
-    });
-  });
-}
-
-function restoreState(state){
-  EXERCISES.forEach(ex => {
-    const s = state[ex.id];
-    if(s && s.answered){
-      const exoEl = document.getElementById(`exo-${ex.id}`);
-      const feedbackEl = document.getElementById(`feedback-${ex.id}`);
-      exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
-      feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
-      if(s.correct){
-        feedbackEl.textContent = '✓ CORRECT (déjà validé)';
-      }else{
-        const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
-        feedbackEl.innerHTML = `✗ INCORRECT (déjà tenté — vous pouvez réessayer)${explainLine}`;
-        typesetMath(feedbackEl);
-      }
-      if(typeof s.selectedIndex === 'number'){
-        const radio = exoEl.querySelector(`input[name="${ex.id}"][value="${s.selectedIndex}"]`);
-        if(radio) radio.checked = true;
-      }
-    }
-  });
-}
-
-function resetChapter(){
-  if(!confirm('Réinitialiser ce chapitre ? Toutes tes réponses seront effacées.')) return;
-  localStorage.removeItem(STATE_KEY);
-  let progress = {};
-  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
-  catch(e){ progress = {}; }
-  delete progress[CHAPTER_ID];
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.reload();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderSections();
-  const state = loadState();
-  EXERCISES.forEach(ex => bindExercise(ex, state));
-  restoreState(state);
-  syncProgress(state);
-  const resetBtn = document.getElementById('resetChapterBtn');
-  if(resetBtn) resetBtn.addEventListener('click', resetChapter);
-});
+initFiche({ STATE_KEY: 'l1maths_probabilites_state', CHAPTER_ID: 'probabilites', EXERCISES, SECTIONS });

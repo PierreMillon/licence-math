@@ -249,14 +249,8 @@ const FOOTER_MESSAGES = [
 const FOOTER_BAG_KEY = 'l1maths_footer_bag';
 const FOOTER_LAST_KEY = 'l1maths_footer_last';
 
-function shuffledIndices(length){
-  const arr = Array.from({ length }, (_, i) => i);
-  for(let i = arr.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
+/* shuffledIndices() est définie dans menu.js, chargé avant app.js sur
+   cette page — réutilisée ici pour éviter une deuxième copie. */
 
 function nextFooterIndex(){
   let bag = [];
