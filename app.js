@@ -88,6 +88,7 @@ function renderChapters(){
 
 function renderGlobalProgress(){
   const fill = document.getElementById('globalProgressFill');
+  const scoreEl = document.getElementById('globalProgressScore');
   if(!fill) return;
   const progress = loadProgress();
 
@@ -102,6 +103,7 @@ function renderGlobalProgress(){
 
   const pct = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 100) : 0;
   fill.style.width = pct + '%';
+  if(scoreEl) scoreEl.textContent = `${totalCorrect}/${totalExercises}`;
 }
 
 function renderTreasure(){
