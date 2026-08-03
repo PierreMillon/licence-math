@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 41, date: "03/08/2026", desc: "Le titre de l'accueil passe de « SYNTHÈSE » à « L1 MATHS »." },
   { v: 40, date: "03/08/2026", desc: "Corrige les symboles mathématiques mal rendus (≤, ≥, ⊆…) : les formules gardent la police KaTeX d'origine, seul le texte autour reste en police pixel." },
   { v: 39, date: "03/08/2026", desc: "Corrige un pixel manquant en haut à droite du grand crâne ; ajoute les dates à cet historique ; retire les références nominatives aux enseignants du code et des contenus." },
   { v: 38, date: "03/08/2026", desc: "La phrase « FIN DE FICHE » devient une question ouverte, encourageante, tirée au hasard sans répétition." },
