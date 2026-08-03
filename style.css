@@ -89,22 +89,20 @@ a:hover{ color:var(--fg-dim); }
   color:var(--fg);
   cursor:pointer;
   z-index:60;
-  perspective:200px;
 }
 .menu-btn:hover{ background:var(--fg); }
 
-.menu-btn .gem{
+.gem{
   width:20px;
   height:20px;
   display:inline-block;
   position:relative;
   overflow:hidden;
   clip-path:polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-  background:linear-gradient(135deg, #ffd9d9 0%, #e0384f 45%, #4a0d12 100%);
-  transform-style:preserve-3d;
+  background:linear-gradient(135deg, var(--g1,#ffd9d9) 0%, var(--g2,#e0384f) 45%, var(--g3,#4a0d12) 100%);
   animation:gem-spin 2.4s linear infinite;
 }
-.menu-btn .gem .glare{
+.gem .glare{
   position:absolute;
   top:-40%;
   left:-60%;
@@ -114,14 +112,62 @@ a:hover{ color:var(--fg-dim); }
   transform:rotate(20deg);
   animation:gem-sweep 1.4s ease-in-out infinite;
 }
+.gem.locked{
+  background:linear-gradient(135deg, #3a3a3a, #161616);
+  animation:none;
+}
+.gem.locked .glare{ display:none; }
 @keyframes gem-spin{
-  from{ transform:rotateY(0deg); }
-  to{ transform:rotateY(360deg); }
+  0%{ transform:scaleX(1); }
+  25%{ transform:scaleX(.15); }
+  50%{ transform:scaleX(-1); }
+  75%{ transform:scaleX(.15); }
+  100%{ transform:scaleX(1); }
 }
 @keyframes gem-sweep{
   0%{ left:-60%; }
   100%{ left:120%; }
 }
+
+/* ---------- salle du trésor ---------- */
+.treasure-title{
+  font-family:var(--font-title);
+  text-align:center;
+  font-size:1.2rem;
+  letter-spacing:.1rem;
+  color:var(--fg-dim);
+  margin:34px 0 4px;
+}
+.treasure-grid{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin:14px 0 10px;
+}
+.treasure-slot{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--fg-dim);
+  background:var(--bg-panel);
+  padding:14px 10px 10px;
+  width:104px;
+}
+.treasure-slot .gem{ width:32px; height:32px; }
+.treasure-slot .treasure-name{
+  font-family:var(--font-title);
+  font-size:.95rem;
+  text-align:center;
+}
+.treasure-slot .treasure-status{
+  font-size:.8rem;
+  color:var(--fg-dim);
+  text-align:center;
+}
+.treasure-slot.unlocked{ border-color:var(--fg); }
+.treasure-slot.locked{ opacity:.6; }
 
 /* ---------- header ---------- */
 .site-header{

@@ -7,11 +7,20 @@
 const STORAGE_KEY = 'l1maths_progress';
 
 const CHAPTERS = [
-  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 10, available: true  },
-  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 0,  available: false },
-  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 0,  available: false },
-  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 0,  available: false },
-  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 0,  available: false },
+  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 10, available: true,
+    gem: { g1: '#ffd9d9', g2: '#e0384f', g3: '#4a0d12' } }, // rubis
+  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 0,  available: false,
+    gem: { g1: '#dbe9ff', g2: '#3b82f6', g3: '#0b2c5c' } }, // saphir
+  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 0,  available: false,
+    gem: { g1: '#d9ffe6', g2: '#2ecc71', g3: '#0b5c2e' } }, // émeraude
+  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 0,  available: false,
+    gem: { g1: '#ecdcff', g2: '#9b59b6', g3: '#3c1a5c' } }, // améthyste
+  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 0,  available: false,
+    gem: { g1: '#fff6d8', g2: '#ffd873', g3: '#8a6300' } }, // or
+  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 0,  available: false,
+    gem: { g1: '#f0d9a0', g2: '#b5772f', g3: '#3d2409' } }, // bronze
+  { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 0,  available: false,
+    gem: { g1: '#ffe873', g2: '#4b8bbe', g3: '#1e3a5c' } }, // python (bleu/jaune)
 ];
 
 function loadProgress(){
@@ -73,6 +82,33 @@ function renderChapters(){
   });
 }
 
+function renderTreasure(){
+  const grid = document.getElementById('treasureGrid');
+  if(!grid) return;
+  const progress = loadProgress();
+
+  grid.innerHTML = CHAPTERS.map(ch => {
+    const p = progress[ch.id] || { completed: 0, correct: 0 };
+    const unlocked = ch.total > 0 && p.correct >= ch.total;
+    const style = `--g1:${ch.gem.g1};--g2:${ch.gem.g2};--g3:${ch.gem.g3};`;
+
+    if(unlocked){
+      return `
+        <div class="treasure-slot unlocked">
+          <span class="gem" style="${style}"><span class="glare"></span></span>
+          <div class="treasure-name">${ch.name}</div>
+          <div class="treasure-status">DÉBLOQUÉ</div>
+        </div>`;
+    }
+    return `
+      <div class="treasure-slot locked">
+        <span class="gem locked"></span>
+        <div class="treasure-name">?</div>
+        <div class="treasure-status">[ VERROUILLÉ ]</div>
+      </div>`;
+  }).join('');
+}
+
 function renderFooterCycle(){
   const el = document.getElementById('footerHint');
   if(!el) return;
@@ -90,5 +126,6 @@ function renderFooterCycle(){
 
 document.addEventListener('DOMContentLoaded', () => {
   renderChapters();
+  renderTreasure();
   renderFooterCycle();
 });

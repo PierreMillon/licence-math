@@ -1,7 +1,7 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — fiches/logique.js
    Rendu + vérification des 10 exercices de la fiche LOGIQUE.
-   Tous les exercices sont des QCM à 4 réponses. Les formules
+   Tous les exercices sont des QCM à 3 réponses. Les formules
    sont écrites en LaTeX et typesetées avec KaTeX.
    ============================================================ */
 
@@ -9,7 +9,7 @@ const PROGRESS_KEY = 'l1maths_progress';
 const STATE_KEY = 'l1maths_logique_state';
 const CHAPTER_ID = 'logique';
 
-/* ---------- données des exercices (QCM, 4 réponses) ---------- */
+/* ---------- données des exercices (QCM, 3 réponses) ---------- */
 const EXERCISES = [
   {
     id: 'ex1', section: 'propositions',
@@ -18,20 +18,19 @@ const EXERCISES = [
       'Une tautologie (toujours vraie)',
       'Une contradiction (toujours fausse)',
       'Vraie seulement si \\(P\\) est vraie',
-      'Indéterminable',
     ],
     correctIndex: 0,
   },
   {
     id: 'ex2', section: 'propositions',
     statement: 'La négation de \\(P \\Rightarrow Q\\) est équivalente à :',
-    options: ['\\(\\neg P \\Rightarrow \\neg Q\\)', '\\(P \\land \\neg Q\\)', '\\(\\neg P \\lor Q\\)', '\\(Q \\Rightarrow P\\)'],
-    correctIndex: 1,
+    options: ['\\(P \\land \\neg Q\\)', '\\(\\neg P \\lor Q\\)', '\\(Q \\Rightarrow P\\)'],
+    correctIndex: 0,
   },
   {
     id: 'ex3', section: 'propositions',
     statement: 'La négation de \\(P \\land Q\\) (loi de De Morgan) est :',
-    options: ['\\(\\neg P \\lor \\neg Q\\)', '\\(\\neg P \\land \\neg Q\\)', '\\(P \\lor Q\\)', '\\(\\neg(P \\lor Q)\\)'],
+    options: ['\\(\\neg P \\lor \\neg Q\\)', '\\(\\neg P \\land \\neg Q\\)', '\\(P \\lor Q\\)'],
     correctIndex: 0,
   },
   {
@@ -41,7 +40,6 @@ const EXERCISES = [
       '\\(\\neg Q \\Rightarrow \\neg P\\) (contraposée)',
       '\\(Q \\Rightarrow P\\) (réciproque)',
       '\\(\\neg P \\Rightarrow \\neg Q\\)',
-      '\\(P \\land \\neg Q\\)',
     ],
     correctIndex: 0,
   },
@@ -52,7 +50,6 @@ const EXERCISES = [
       '\\(\\exists x \\in \\mathbb{R},\\ x^2 < 0\\)',
       '\\(\\forall x \\in \\mathbb{R},\\ x^2 < 0\\)',
       '\\(\\exists x \\in \\mathbb{R},\\ x^2 \\geq 0\\)',
-      '\\(\\forall x \\in \\mathbb{R},\\ x^2 \\leq 0\\)',
     ],
     correctIndex: 0,
   },
@@ -63,7 +60,6 @@ const EXERCISES = [
       '\\(\\exists x \\in E,\\ \\neg P(x)\\)',
       '\\(\\forall x \\in E,\\ \\neg P(x)\\)',
       '\\(\\forall x \\in E,\\ P(x)\\)',
-      'Cette proposition n’a pas de négation',
     ],
     correctIndex: 1,
   },
@@ -74,20 +70,19 @@ const EXERCISES = [
       '\\(\\forall x \\in \\mathbb{N},\\ x + 1 \\neq 0\\)',
       '\\(\\exists x \\in \\mathbb{N},\\ x + 1 \\neq 0\\)',
       '\\(\\forall x \\in \\mathbb{N},\\ x + 1 = 0\\)',
-      '\\(\\exists x \\in \\mathbb{Z},\\ x + 1 = 0\\)',
     ],
     correctIndex: 0,
   },
   {
     id: 'ex8', section: 'raisonnements',
     statement: 'La contraposée de \\(P \\Rightarrow Q\\) est :',
-    options: ['\\(\\neg Q \\Rightarrow \\neg P\\)', '\\(Q \\Rightarrow P\\)', '\\(\\neg P \\Rightarrow \\neg Q\\)', '\\(\\neg P \\Rightarrow Q\\)'],
+    options: ['\\(\\neg Q \\Rightarrow \\neg P\\)', '\\(Q \\Rightarrow P\\)', '\\(\\neg P \\Rightarrow \\neg Q\\)'],
     correctIndex: 0,
   },
   {
     id: 'ex9', section: 'raisonnements',
     statement: 'En appliquant la loi de De Morgan, \\(\\neg(P \\lor Q)\\) est égal à :',
-    options: ['\\(\\neg P \\land \\neg Q\\)', '\\(\\neg P \\lor \\neg Q\\)', '\\(P \\land Q\\)', '\\(\\neg P \\Rightarrow \\neg Q\\)'],
+    options: ['\\(\\neg P \\land \\neg Q\\)', '\\(\\neg P \\lor \\neg Q\\)', '\\(P \\land Q\\)'],
     correctIndex: 0,
   },
   {
@@ -97,7 +92,6 @@ const EXERCISES = [
       '\\(P(n_0)\\) vraie, puis \\(P(n) \\Rightarrow P(n+1)\\)',
       '\\(P(n_0)\\) vraie, puis \\(P(n+1) \\Rightarrow P(n)\\)',
       '\\(P(n)\\) vraie pour un seul \\(n\\)',
-      '\\(P(n_0)\\) fausse, puis \\(P(n) \\Rightarrow P(n+1)\\)',
     ],
     correctIndex: 0,
   },
