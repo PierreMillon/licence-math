@@ -46,9 +46,6 @@ function renderChapters(){
       ? `${p.correct}/${total}`
       : '--/--';
     const done = p.completed >= total && total > 0;
-    const status = ch.available
-      ? (done ? '[ TERMINÉ ]' : '[ DISPONIBLE ]')
-      : '[ À VENIR ]';
     const lockedClass = ch.available ? '' : ' locked';
     const doneClass = done ? ' done' : '';
 
@@ -56,7 +53,6 @@ function renderChapters(){
       <div class="chapter-card${lockedClass}${doneClass}" data-file="${ch.file}" data-available="${ch.available}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
         <div class="chapter-card__title">
           <span>${ch.name}</span>
-          <span class="chapter-card__badge">${total} exos</span>
         </div>
         <div class="chapter-card__meta">
           <span>SCORE</span>
@@ -65,7 +61,6 @@ function renderChapters(){
         <div class="progress-bar" aria-hidden="true">
           <div class="progress-bar__fill" style="width:${pct}%"></div>
         </div>
-        <div class="chapter-card__status">${status}</div>
       </div>
     `;
   }).join('');

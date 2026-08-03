@@ -272,17 +272,6 @@ a:hover{ color:var(--fg-dim); }
   font-family:var(--font-title);
   font-size:1.55rem;
   letter-spacing:.08rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-}
-
-.chapter-card__badge{
-  font-size:.95rem;
-  border:1px solid var(--fg-dim);
-  padding:1px 8px;
-  color:var(--fg-dim);
 }
 
 .chapter-card__meta{
@@ -308,14 +297,7 @@ a:hover{ color:var(--fg-dim); }
   transition:width .4s ease;
 }
 
-.chapter-card__status{
-  font-size:.95rem;
-  letter-spacing:.1rem;
-  color:var(--fg-dim);
-}
-.chapter-card.locked .chapter-card__status{ color:var(--red); }
 .chapter-card.done .chapter-card__score{ color:var(--ok); }
-.chapter-card.done .chapter-card__status{ color:var(--ok); }
 
 /* ---------- footer ---------- */
 .site-footer{
