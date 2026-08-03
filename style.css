@@ -446,18 +446,10 @@ code{
   font-size:1.05em;
 }
 
-/* Lettres, chiffres et texte des formules KaTeX en police pixelisée.
-   Les symboles construits par KaTeX (racines, fractions, sommes,
-   intégrales...) restent dans la police KaTeX d'origine : ce sont
-   des glyphes avec des métriques précises, les remplacer casse
-   l'alignement (barre de fraction, signe racine, etc.). */
-.katex .mathdefault,
-.katex .mathit,
-.katex .mathrm,
-.katex .mathnormal,
-.katex .textrm{
-  font-family:'Jersey 10', monospace !important;
-}
+/* Les formules KaTeX restent dans la police mathématique d'origine :
+   forcer une police pixelisée dessus casse des symboles comme ≤, ≥,
+   ⊆ (glyphes non prévus par ces polices). Seul le texte des
+   explications autour des formules reste en police pixel. */
 
 .exo{
   border:1px solid var(--fg-dim);

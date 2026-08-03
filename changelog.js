@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 40, date: "03/08/2026", desc: "Corrige les symboles mathématiques mal rendus (≤, ≥, ⊆…) : les formules gardent la police KaTeX d'origine, seul le texte autour reste en police pixel." },
   { v: 39, date: "03/08/2026", desc: "Corrige un pixel manquant en haut à droite du grand crâne ; ajoute les dates à cet historique ; retire les références nominatives aux enseignants du code et des contenus." },
   { v: 38, date: "03/08/2026", desc: "La phrase « FIN DE FICHE » devient une question ouverte, encourageante, tirée au hasard sans répétition." },
   { v: 37, date: "03/08/2026", desc: "Le numéro de version devient un lien vers cette page d'historique." },
@@ -43,7 +44,7 @@ const VERSIONS = [
   { v: 4,  date: "02/08/2026", desc: "Choix de l'icône animée du menu (radar) et de la police pixel Micro 5." },
   { v: 3,  date: "02/08/2026", desc: "Refonte visuelle noir et blanc ; les exercices passent en QCM avec rendu LaTeX." },
   { v: 2,  date: "02/08/2026", desc: "Premier lancement du site de révision L1 Maths, esthétique terminal pixelisé." },
-  { v: 1,  date: "03/08/2026", desc: "Amorce du dépôt du site." },
+  { v: 1,  date: "02/08/2026", desc: "Amorce du dépôt du site." },
 ];
 
 function renderChangelog(){
