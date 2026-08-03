@@ -373,6 +373,19 @@ a:hover{ color:var(--fg-dim); }
   padding:0 4px;
 }
 
+/* Lettres, chiffres et texte des formules KaTeX en police pixelisée.
+   Les symboles construits par KaTeX (racines, fractions, sommes,
+   intégrales...) restent dans la police KaTeX d'origine : ce sont
+   des glyphes avec des métriques précises, les remplacer casse
+   l'alignement (barre de fraction, signe racine, etc.). */
+.katex .mathdefault,
+.katex .mathit,
+.katex .mathrm,
+.katex .mathnormal,
+.katex .textrm{
+  font-family:'Jersey 10', monospace !important;
+}
+
 .exo{
   border:1px solid var(--fg-dim);
   padding:12px 14px;

@@ -10,7 +10,7 @@
    cache — voir bug du 2026-08-03).
    ============================================================ */
 
-const SITE_VERSION = 14;
+const SITE_VERSION = 15;
 
 const MENU_CHAPTERS = [
   { name: 'LOGIQUE',       file: 'logique.html',       available: true  },

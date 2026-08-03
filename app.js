@@ -111,19 +111,37 @@ function renderTreasure(){
   }).join('');
 }
 
+const FOOTER_MESSAGES = [
+  'CHOISIR CHAPITRE',
+  'APPUYEZ SUR UNE CARTE',
+  'BONNE RÉVISION',
+  "L'infini existe, paraît-il. C'est déjà plus que ce qu'on espérait pour ce semestre.",
+  "Un mathématicien est quelqu'un qui préfère un problème qu'il ne résoudra jamais à une vie qu'il pourrait vivre.",
+  "Je ne crains pas l'échec au partiel. Je crains juste d'être présent quand il arrivera.",
+  "Deux droites parallèles ne se rencontrent jamais, ce qui est déjà plus que ce qu'on peut dire de moi et de mes révisions.",
+  "L'éternité c'est long, surtout vers la fin du chapitre sur les intégrales.",
+  "Je ne crois pas à la vie après le cc, mais j'apporte quand même mes fiches au cas où.",
+  "0,999... = 1, à condition d'y croire très fort et de ne jamais y repenser.",
+  "Ce diamant en haut à droite ne mène nulle part d'important. Comme presque tout le reste.",
+  "La différence entre un optimiste et un pessimiste en maths, c'est que le pessimiste a déjà vérifié.",
+  "Certains cherchent le sens de la vie. Moi je cherche juste où j'ai perdu mon epsilon.",
+  "Un théorème n'est jamais vraiment terminé, il est juste abandonné par son démonstrateur.",
+  "La barre de progression avance. Contrairement à moi face à ce chapitre.",
+  "Je ne suis pas contre le travail, c'est juste qu'il arrive toujours pendant que je fais autre chose.",
+];
+let footerLast = -1;
+
 function renderFooterCycle(){
   const el = document.getElementById('footerHint');
   if(!el) return;
-  const messages = [
-    'CHOISIR CHAPITRE',
-    'APPUYEZ SUR UNE CARTE',
-    'BONNE RÉVISION',
-  ];
-  let i = 0;
   setInterval(() => {
-    i = (i + 1) % messages.length;
-    el.firstChild.textContent = messages[i] + ' ';
-  }, 2600);
+    let i = Math.floor(Math.random() * FOOTER_MESSAGES.length);
+    if(FOOTER_MESSAGES.length > 1){
+      while(i === footerLast) i = Math.floor(Math.random() * FOOTER_MESSAGES.length);
+    }
+    footerLast = i;
+    el.firstChild.textContent = FOOTER_MESSAGES[i] + ' ';
+  }, 3800);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
