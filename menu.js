@@ -10,7 +10,7 @@
    cache — voir bug du 2026-08-03).
    ============================================================ */
 
-const SITE_VERSION = 16;
+const SITE_VERSION = 17;
 
 const MENU_CHAPTERS = [
   { name: 'LOGIQUE',       file: 'logique.html',       available: true  },
@@ -58,7 +58,7 @@ function buildDrawer(){
     <a class="drawer__link" href="${homeHref()}">&lt;&lt; ACCUEIL</a>
     <div class="drawer__sep"></div>
     ${itemsHTML}
-    <button class="drawer__reset" id="resetSiteBtn" type="button">[ RÉINITIALISER TOUT LE SITE ]</button>
+    <button class="drawer__reset" id="resetSiteBtn" type="button">💀 RÉINITIALISER LA PROGRESSION DE TOUT LE SITE 💀</button>
   `;
 
   document.body.appendChild(overlay);
