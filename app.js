@@ -33,6 +33,21 @@ function loadProgress(){
   }
 }
 
+const PROGRESS_SEGMENTS = 20;
+
+function progressSegmentsHTML(pct){
+  const filled = Math.round((pct / 100) * PROGRESS_SEGMENTS);
+  let segs = '';
+  for(let i = 0; i < PROGRESS_SEGMENTS; i++){
+    segs += `<div class="progress-bar__seg${i < filled ? ' filled' : ''}"></div>`;
+  }
+  return segs;
+}
+
+function progressBarHTML(pct){
+  return `<div class="progress-bar" aria-hidden="true">${progressSegmentsHTML(pct)}</div>`;
+}
+
 function renderChapters(){
   const grid = document.getElementById('chapterGrid');
   if(!grid) return;
@@ -54,12 +69,9 @@ function renderChapters(){
         <div class="chapter-card__title">
           <span>${ch.name}</span>
         </div>
-        <div class="chapter-card__meta">
-          <span>SCORE</span>
+        <div class="progress-row">
+          ${progressBarHTML(pct)}
           <span class="chapter-card__score">${scoreLabel}</span>
-        </div>
-        <div class="progress-bar" aria-hidden="true">
-          <div class="progress-bar__fill" style="width:${pct}%"></div>
         </div>
       </div>
     `;
@@ -82,9 +94,9 @@ function renderChapters(){
 }
 
 function renderGlobalProgress(){
-  const fill = document.getElementById('globalProgressFill');
+  const bar = document.getElementById('globalProgressBar');
   const scoreEl = document.getElementById('globalProgressScore');
-  if(!fill) return;
+  if(!bar) return;
   const progress = loadProgress();
 
   let totalExercises = 0;
@@ -97,7 +109,7 @@ function renderGlobalProgress(){
   });
 
   const pct = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 100) : 0;
-  fill.style.width = pct + '%';
+  bar.innerHTML = progressSegmentsHTML(pct);
   if(scoreEl) scoreEl.textContent = `${totalCorrect}/${totalExercises}`;
 }
 
