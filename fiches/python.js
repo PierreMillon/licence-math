@@ -3,7 +3,7 @@
    Rendu + vérification des exercices de la fiche PYTHON.
    Tous les exercices sont des QCM à 3 réponses.
    Contenu construit à partir de « Découverte de la programmation »
-   (Pascal Ortiz, L1 INU Champollion). Variables, Matplotlib,
+   (L1 INU Champollion). Variables, Matplotlib,
    conditions, boucle for, listes, boucle while et fonctions
    reprennent des exemples et résultats vérifiés du PDF source
    (splitté par l'utilisateur pour contourner la limite d'extraction).

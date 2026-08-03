@@ -1,7 +1,7 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — fiches/algebre.js
    Fiche ALGÈBRE — Nombres complexes.
-   Source : Algèbre linéaire 1, Pascal Ortiz, L1 mathématiques,
+   Source : Algèbre linéaire 1, L1 mathématiques,
    INU Champollion (chapitre I : Nombres complexes).
    QCM à 3 réponses, formules en LaTeX typesetées avec KaTeX.
    ============================================================ */

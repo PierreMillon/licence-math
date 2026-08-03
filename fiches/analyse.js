@@ -1,6 +1,6 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — fiches/analyse.js
-   Fiche ANALYSE — Analyse 2, Pascal Ortiz, L1 mathématiques,
+   Fiche ANALYSE — Analyse 2, L1 mathématiques,
    INU Champollion (limites, continuité, dérivation, fonctions
    usuelles, développements limités, intégration, primitives).
    QCM à 3 réponses, formules en LaTeX typesetées avec KaTeX.

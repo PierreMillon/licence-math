@@ -3,7 +3,7 @@
    Rendu + vérification des exercices de la fiche LOGIQUE.
    Tous les exercices sont des QCM à 3 réponses.
    Reconstruit intégralement à partir de « Raisonnement et ensembles »
-   (Pascal Ortiz, L1 INU Champollion) : 6 chapitres (raisonnement,
+   (L1 INU Champollion) : 6 chapitres (raisonnement,
    ensembles, fonctions/applications, injections/surjections/
    bijections, image directe/réciproque, relations d'équivalence).
    ============================================================ */

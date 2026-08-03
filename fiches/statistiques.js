@@ -3,7 +3,7 @@
    Rendu + vérification des exercices de la fiche STATISTIQUES.
    Tous les exercices sont des QCM à 3 réponses.
    Contenu construit à partir des TDs 2/3 et des CC1/Session 2
-   (Pascal Ortiz, L1 INU Champollion, semestre 2).
+   (L1 INU Champollion, semestre 2).
    ============================================================ */
 
 const PROGRESS_KEY = 'l1maths_progress';

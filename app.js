@@ -194,7 +194,7 @@ const FOOTER_MESSAGES = [
   "Au-delà des étoiles, dans le vide indifférent, personne ne se soucie que tu aies compris les matrices ou non.",
   "L'univers est vaste, froid, et parfaitement indifférent à ton chapitre sur les probabilités.",
   "J'ai regardé trop longtemps dans l'abîme des ensembles infinis. L'abîme m'a donné un exercice supplémentaire.",
-  "Il existe des géométries que l'esprit humain ne peut concevoir sans sombrer dans la folie, et Pascal Ortiz en a fait un chapitre.",
+  "Il existe des géométries que l'esprit humain ne peut concevoir sans sombrer dans la folie, et ce cours en a fait un chapitre.",
   "Quelque chose d'ancien et d'innommable sommeille dans ce chapitre sur les séries. Je préfère ne pas le réveiller.",
   "Les anciens dieux savaient peut-être calculer une primitive. Nous, mortels, on galère.",
   "Ce théorème existait avant l'humanité et existera après elle, indifférent à mes révisions.",

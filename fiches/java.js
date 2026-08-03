@@ -3,7 +3,7 @@
    Rendu + vérification des exercices de la fiche JAVA.
    Tous les exercices sont des QCM à 3 réponses.
    Java n'a jamais fait partie du programme officiel de L1 (ajout
-   personnel, hors matériel Pascal Ortiz) : contenu construit sur la
+   personnel, hors matériel de cours) : contenu construit sur la
    syntaxe Java standard plutôt qu'extrait d'un cours spécifique.
    ============================================================ */
 
