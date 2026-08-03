@@ -100,15 +100,15 @@ const EXERCISES = [
 const SECTIONS = [
   {
     id: 'propositions', title: '§1 — PROPOSITIONS',
-    cours: 'Une proposition est un énoncé vrai ou faux. On la combine avec les connecteurs \\(\\neg\\) (non), \\(\\land\\) (et), \\(\\lor\\) (ou), \\(\\Rightarrow\\) (implique), \\(\\Leftrightarrow\\) (équivalent). Une <span class="math">tautologie</span> est une proposition toujours vraie, quelles que soient les valeurs de vérité de ses composantes.',
+    cours: 'Proposition = énoncé vrai ou faux<br>\\(\\neg\\) (non), \\(\\land\\) (et), \\(\\lor\\) (ou), \\(\\Rightarrow\\) (implique), \\(\\Leftrightarrow\\) (équivalent)<br><span class="math">Tautologie</span> = toujours vraie',
   },
   {
     id: 'quantificateurs', title: '§2 — QUANTIFICATEURS',
-    cours: 'Le quantificateur universel \\(\\forall\\) signifie « pour tout », l’existentiel \\(\\exists\\) signifie « il existe ». Règle de négation : \\(\\neg(\\forall x,\\ P(x)) \\Leftrightarrow \\exists x,\\ \\neg P(x)\\), et \\(\\neg(\\exists x,\\ P(x)) \\Leftrightarrow \\forall x,\\ \\neg P(x)\\). On inverse le quantificateur et on nie la proposition.',
+    cours: '\\(\\forall\\) = pour tout, \\(\\exists\\) = il existe<br>\\(\\neg(\\forall x,\\ P(x)) \\Leftrightarrow \\exists x,\\ \\neg P(x)\\)<br>\\(\\neg(\\exists x,\\ P(x)) \\Leftrightarrow \\forall x,\\ \\neg P(x)\\)',
   },
   {
     id: 'raisonnements', title: '§3 — RAISONNEMENTS',
-    cours: 'La <span class="math">contraposée</span> de \\(P \\Rightarrow Q\\) est \\(\\neg Q \\Rightarrow \\neg P\\) (logiquement équivalente). Les lois de <span class="math">De Morgan</span> : \\(\\neg(P \\lor Q) \\Leftrightarrow \\neg P \\land \\neg Q\\) et \\(\\neg(P \\land Q) \\Leftrightarrow \\neg P \\lor \\neg Q\\). Le <span class="math">raisonnement par récurrence</span> établit \\(P(n_0)\\) (initialisation) puis \\(P(n) \\Rightarrow P(n+1)\\) (hérédité) pour conclure \\(P(n)\\) vrai pour tout \\(n \\geq n_0\\).',
+    cours: '<span class="math">Contraposée</span> : \\(P \\Rightarrow Q \\Leftrightarrow \\neg Q \\Rightarrow \\neg P\\)<br><span class="math">De Morgan</span> : \\(\\neg(P \\lor Q) \\Leftrightarrow \\neg P \\land \\neg Q\\), \\(\\neg(P \\land Q) \\Leftrightarrow \\neg P \\lor \\neg Q\\)<br><span class="math">Récurrence</span> : \\(P(n_0)\\) puis \\(P(n) \\Rightarrow P(n+1)\\) \\(\\Rightarrow\\) \\(P(n)\\) vrai \\(\\forall n \\geq n_0\\)',
   },
 ];
 

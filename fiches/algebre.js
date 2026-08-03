@@ -104,19 +104,19 @@ const EXERCISES = [
 const SECTIONS = [
   {
     id: 'definition', title: '§1 — DÉFINITION DE ℂ',
-    cours: 'On construit un ensemble \\(\\mathbb{C}\\) contenant \\(\\mathbb{R}\\), muni d’une addition et d’une multiplication qui prolongent celles de \\(\\mathbb{R}\\), et contenant un nombre \\(i\\) tel que \\(i^2 = -1\\). Tout nombre complexe \\(z\\) s’écrit de manière <span class="math">unique</span> \\(z = a + ib\\) avec \\(a, b \\in \\mathbb{R}\\). \\(\\mathbb{C}\\) a, comme \\(\\mathbb{R}\\), une structure de <span class="math">corps commutatif</span> : addition et multiplication y sont commutatives, associatives, distributives, avec éléments neutres et inverses.',
+    cours: '\\(\\mathbb{C} \\supset \\mathbb{R}\\), contient \\(i\\) tel que \\(i^2 = -1\\)<br>Tout \\(z \\in \\mathbb{C}\\) s’écrit de façon <span class="math">unique</span> \\(z = a + ib\\) (\\(a, b \\in \\mathbb{R}\\))<br>\\(\\mathbb{C}\\) = <span class="math">corps commutatif</span>, comme \\(\\mathbb{R}\\)',
   },
   {
     id: 'algebrique', title: '§2 — FORME ALGÉBRIQUE',
-    cours: 'Pour \\(z = a + ib\\), \\(a = \\text{Re}(z)\\) est la partie réelle et \\(b = \\text{Im}(z)\\) la partie imaginaire. Le <span class="math">conjugué</span> de \\(z\\) est \\(\\bar z = a - ib\\), avec \\(\\text{Re}(z) = \\dfrac{z+\\bar z}{2}\\) et \\(\\text{Im}(z) = \\dfrac{z-\\bar z}{2i}\\). Le <span class="math">module</span> \\(|z| = \\sqrt{a^2+b^2} = \\sqrt{z\\bar z}\\) vérifie \\(|zz\'| = |z||z\'|\\) et l’inégalité triangulaire \\(|z+z\'| \\leq |z|+|z\'|\\).',
+    cours: '\\(z = a+ib\\) : \\(\\text{Re}(z) = a\\), \\(\\text{Im}(z) = b\\)<br><span class="math">Conjugué</span> \\(\\bar z = a - ib\\)<br><span class="math">Module</span> \\(|z| = \\sqrt{a^2+b^2} = \\sqrt{z\\bar z}\\), avec \\(|zz\'| = |z||z\'|\\)',
   },
   {
     id: 'trigo', title: '§3 — FORME TRIGONOMÉTRIQUE ET EXPONENTIELLE',
-    cours: 'Pour \\(z \\neq 0\\), on écrit \\(z = \\varrho(\\cos\\theta + i\\sin\\theta) = \\varrho e^{i\\theta}\\) où \\(\\varrho = |z|\\) et \\(\\theta = \\arg(z)\\) (unique modulo \\(2\\pi\\)). <span class="math">Formules d’Euler</span> : \\(\\cos t = \\dfrac{e^{it}+e^{-it}}{2}\\), \\(\\sin t = \\dfrac{e^{it}-e^{-it}}{2i}\\). <span class="math">Formule de Moivre</span> : \\((e^{it})^n = e^{int}\\). À connaître par cœur : \\(i = e^{i\\pi/2}\\), \\(-i = e^{-i\\pi/2}\\), \\(-1 = e^{i\\pi}\\).',
+    cours: '\\(z \\neq 0\\) : \\(z = \\varrho e^{i\\theta}\\), \\(\\varrho = |z|\\), \\(\\theta = \\arg(z)\\)<br><span class="math">Euler</span> : \\(\\cos t = \\dfrac{e^{it}+e^{-it}}{2}\\)<br><span class="math">Moivre</span> : \\((e^{it})^n = e^{int}\\)<br>Par cœur : \\(i = e^{i\\pi/2}\\), \\(-1 = e^{i\\pi}\\)',
   },
   {
     id: 'equations', title: '§4 — ÉQUATIONS DANS ℂ',
-    cours: 'Tout \\(z \\in \\mathbb{C}^*\\) admet exactement deux <span class="math">racines carrées</span> complexes, opposées (jamais notées \\(\\sqrt{z}\\), sauf si \\(z\\) est réel positif). Pour \\(az^2+bz+c=0\\) (\\(a \\neq 0\\)), on calcule \\(\\Delta = b^2-4ac \\in \\mathbb{C}\\) : si \\(\\Delta = 0\\), une solution \\(-\\dfrac{b}{2a}\\) ; sinon deux solutions \\(\\dfrac{-b \\pm \\delta}{2a}\\) où \\(\\delta^2 = \\Delta\\). L’équation \\(Z^n = z\\) (\\(z \\neq 0\\)) admet exactement \\(n\\) solutions, les <span class="math">racines n-ièmes</span>.',
+    cours: '\\(z \\neq 0\\) \\(\\Rightarrow\\) 2 <span class="math">racines carrées</span> opposées<br>\\(az^2+bz+c=0\\) : \\(\\Delta = b^2-4ac\\) \\(\\Rightarrow\\) \\(z = \\dfrac{-b \\pm \\delta}{2a}\\)<br>\\(Z^n = z\\) \\(\\Rightarrow\\) \\(n\\) solutions',
   },
 ];
 
