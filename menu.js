@@ -2,7 +2,15 @@
    L1 MATHS — SYNTHÈSE — menu.js
    Menu coulissant (chapitres) déclenché par le bouton diamant.
    Chargé sur toutes les pages (index + fiches).
+
+   IMPORTANT : à chaque changement de style.css, menu.js, app.js
+   ou d'un fichier JS de fiche, incrémenter SITE_VERSION ci-dessous
+   ET le paramètre ?v=N sur tous les <link>/<script> locaux dans
+   les fichiers HTML (sinon le navigateur sert une version en
+   cache — voir bug du 2026-08-03).
    ============================================================ */
+
+const SITE_VERSION = 11;
 
 const MENU_CHAPTERS = [
   { name: 'LOGIQUE',       file: 'logique.html',       available: true  },
@@ -71,4 +79,14 @@ function buildDrawer(){
   });
 }
 
-document.addEventListener('DOMContentLoaded', buildDrawer);
+function buildVersionBadge(){
+  const badge = document.createElement('div');
+  badge.className = 'version-badge';
+  badge.textContent = 'v' + SITE_VERSION;
+  document.body.appendChild(badge);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildDrawer();
+  buildVersionBadge();
+});
