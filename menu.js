@@ -10,7 +10,7 @@
    cache — voir bug du 2026-08-03).
    ============================================================ */
 
-const SITE_VERSION = 15;
+const SITE_VERSION = 16;
 
 const MENU_CHAPTERS = [
   { name: 'LOGIQUE',       file: 'logique.html',       available: true  },
@@ -58,6 +58,7 @@ function buildDrawer(){
     <a class="drawer__link" href="${homeHref()}">&lt;&lt; ACCUEIL</a>
     <div class="drawer__sep"></div>
     ${itemsHTML}
+    <button class="drawer__reset" id="resetSiteBtn" type="button">[ RÉINITIALISER TOUT LE SITE ]</button>
   `;
 
   document.body.appendChild(overlay);
@@ -77,6 +78,16 @@ function buildDrawer(){
   drawer.querySelector('.drawer__close').addEventListener('click', close);
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape') close();
+  });
+
+  drawer.querySelector('#resetSiteBtn').addEventListener('click', () => {
+    if(!confirm('Réinitialiser TOUT le site ? Toute la progression de tous les chapitres sera effacée.')) return;
+    localStorage.removeItem('l1maths_progress');
+    MENU_CHAPTERS.forEach(ch => {
+      const id = ch.file.replace('.html', '');
+      localStorage.removeItem('l1maths_' + id + '_state');
+    });
+    window.location.reload();
   });
 }
 

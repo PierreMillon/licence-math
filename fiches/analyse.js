@@ -16,6 +16,7 @@ const EXERCISES = [
     statement: 'Si \\(f(x) \\geq 0\\) près de \\(a\\) et \\(\\lim_{x \\to a} f(x) = l\\) existe, alors :',
     options: ['\\(l \\geq 0\\)', '\\(l > 0\\)', '\\(l = 0\\)'],
     correctIndex: 0,
+    explain: 'Le passage à la limite ne conserve que les inégalités larges : par exemple \\(f(x)=x^2 \\geq 0\\) près de 0, mais sa limite en 0 est \\(0\\), pas strictement positive.',
   },
   {
     id: 'ex2', section: 'limites',
@@ -26,12 +27,14 @@ const EXERCISES = [
       '\\(\\lim_{x \\to a} (f(x) - g(x)) = 0\\)',
     ],
     correctIndex: 0,
+    explain: 'C’est la définition même de l’équivalence de deux fonctions en un point.',
   },
   {
     id: 'ex3', section: 'limites',
     statement: 'L’équivalence de fonctions \\(\\sim_a\\) est compatible avec :',
     options: ['Le produit et le quotient', 'L’addition', 'Toute composition à gauche'],
     correctIndex: 0,
+    explain: 'L’équivalence se comporte comme une égalité pour produits/quotients, mais pas pour l’addition : \\(1-x \\sim_0 1+x\\) et \\(-1 \\sim_0 -1\\), pourtant leur différence \\(x \\sim_0 -x\\) est fausse.',
   },
   {
     id: 'ex4', section: 'continuite',
@@ -42,54 +45,63 @@ const EXERCISES = [
       '\\(f(a) = f(b)\\)',
     ],
     correctIndex: 0,
+    explain: '\\(f(a)\\) et \\(f(b)\\) sont de signes opposés, donc \\(0\\) est une valeur intermédiaire entre les deux : le TVI garantit l’existence de \\(c\\).',
   },
   {
     id: 'ex5', section: 'continuite',
     statement: 'Une fonction continue sur un segment \\([a,b]\\) est :',
     options: ['Bornée, et elle atteint ses bornes', 'Seulement bornée', 'Pas nécessairement bornée'],
     correctIndex: 0,
+    explain: 'C’est le théorème des bornes atteintes : sur un intervalle fermé ET borné (un segment), une fonction continue est bornée et atteint son min et son max.',
   },
   {
     id: 'ex6', section: 'continuite',
     statement: 'L’image d’un intervalle par une fonction continue est :',
     options: ['Un intervalle', 'Toujours un segment', 'Un ensemble fini'],
     correctIndex: 0,
+    explain: 'La continuité interdit les « sauts » : l’image ne peut pas avoir de trou. Ce n’est un segment que si l’ensemble de départ en est un.',
   },
   {
     id: 'ex7', section: 'derivation',
     statement: 'Si \\(f\\) est dérivable en \\(a\\), alors \\(f\\) est nécessairement :',
     options: ['Continue en \\(a\\)', 'Croissante en \\(a\\)', 'Bornée sur \\(\\mathbb{R}\\)'],
     correctIndex: 0,
+    explain: 'Si le taux d’accroissement a une limite finie en \\(a\\) (dérivabilité), alors \\(f(x) \\to f(a)\\) quand \\(x \\to a\\) : c’est la continuité.',
   },
   {
     id: 'ex8', section: 'derivation',
     statement: 'D’après le théorème de Rolle, si \\(f(a) = f(b)\\), il existe \\(c \\in ]a,b[\\) tel que :',
     options: ['\\(f\'(c) = 0\\)', '\\(f(c) = 0\\)', '\\(f\'\'(c) = 0\\)'],
     correctIndex: 0,
+    explain: 'Le théorème de Rolle garantit un point à tangente horizontale entre deux points de même hauteur.',
   },
   {
     id: 'ex9', section: 'derivation',
     statement: 'Le théorème des accroissements finis (TAF) affirme qu’il existe \\(c \\in ]a,b[\\) tel que :',
     options: ['\\(f(b) - f(a) = (b-a) f\'(c)\\)', '\\(f(b) = f(a)\\)', '\\(f\'(c) = 0\\)'],
     correctIndex: 0,
+    explain: 'Géométriquement : il existe un point où la tangente est parallèle à la corde reliant \\((a,f(a))\\) et \\((b,f(b))\\).',
   },
   {
     id: 'ex10', section: 'usuelles',
     statement: '\\(\\arccos(x) + \\arcsin(x)\\) est toujours égal à :',
     options: ['\\(\\pi/2\\)', '\\(\\pi\\)', '\\(0\\)'],
     correctIndex: 0,
+    explain: 'Identité à connaître par cœur, valable pour tout \\(x \\in [-1,1]\\).',
   },
   {
     id: 'ex11', section: 'usuelles',
     statement: 'Le domaine de définition de \\(\\arctan\\) est :',
     options: ['\\(\\mathbb{R}\\) tout entier', '\\([-1,1]\\)', '\\(]0,+\\infty[\\)'],
     correctIndex: 0,
+    explain: 'Contrairement à \\(\\arccos\\)/\\(\\arcsin\\) (définis sur \\([-1,1]\\), car \\(\\cos\\) et \\(\\sin\\) sont bornés), \\(\\tan\\) prend toutes les valeurs réelles : son inverse \\(\\arctan\\) est donc défini sur \\(\\mathbb{R}\\).',
   },
   {
     id: 'ex12', section: 'usuelles',
     statement: 'La dérivée de \\(\\arctan(x)\\) est :',
     options: ['\\(\\dfrac{1}{1+x^2}\\)', '\\(\\dfrac{1}{\\sqrt{1-x^2}}\\)', '\\(-\\dfrac{1}{1+x^2}\\)'],
     correctIndex: 0,
+    explain: 'À connaître par cœur ; contrairement à \\(\\arcsin\\)/\\(\\arccos\\), cette dérivée est valable sur \\(\\mathbb{R}\\) tout entier (pas de bornes \\(\\pm1\\) à exclure).',
   },
   {
     id: 'ex13', section: 'dl',
@@ -100,6 +112,7 @@ const EXERCISES = [
       '\\(1 + \\dfrac{x^2}{2} + o(x^2)\\)',
     ],
     correctIndex: 0,
+    explain: 'Le DL de \\(e^x\\) à l’ordre \\(n\\) est \\(1+x+\\frac{x^2}{2!}+\\cdots+\\frac{x^n}{n!}\\) ; à l’ordre 2, on garde les termes jusqu’à \\(x^2/2\\).',
   },
   {
     id: 'ex14', section: 'dl',
@@ -110,6 +123,7 @@ const EXERCISES = [
       '\\(x - \\dfrac{x^2}{2} + o(x^3)\\)',
     ],
     correctIndex: 0,
+    explain: '\\(\\sin\\) étant impaire, son DL ne contient que des puissances impaires, avec un signe qui alterne : \\(x - x^3/3! + \\cdots\\)',
   },
   {
     id: 'ex15', section: 'dl',
@@ -120,18 +134,21 @@ const EXERCISES = [
       '\\(f(a) - f\'(a)(x-a)\\)',
     ],
     correctIndex: 0,
+    explain: 'Un DL à l’ordre 1 en \\(a\\) redonne exactement la définition de la dérivabilité de \\(f\\) en \\(a\\).',
   },
   {
     id: 'ex16', section: 'integration',
     statement: 'Si \\(\\Phi\\) est une primitive de \\(f\\) sur \\([a,b]\\), alors \\(\\displaystyle\\int_a^b f(t)\\,dt\\) est égal à :',
     options: ['\\(\\Phi(b) - \\Phi(a)\\)', '\\(\\Phi(a) - \\Phi(b)\\)', '\\(\\Phi(b) + \\Phi(a)\\)'],
     correctIndex: 0,
+    explain: 'C’est le corollaire fondamental du calcul intégral : l’intégrale se calcule à l’aide de n’importe quelle primitive \\(\\Phi\\) de \\(f\\).',
   },
   {
     id: 'ex17', section: 'integration',
     statement: 'Le théorème fondamental du calcul intégral dit que \\(F(x) = \\int_a^x f(t)\\,dt\\) est de classe \\(C^1\\), avec :',
     options: ['\\(F\' = f\\)', '\\(F = f\'\\)', '\\(F\' = f^2\\)'],
     correctIndex: 0,
+    explain: 'La fonction « aire sous la courbe » \\(F\\) est dérivable, et sa dérivée est \\(f\\) elle-même.',
   },
   {
     id: 'ex18', section: 'integration',
@@ -142,12 +159,14 @@ const EXERCISES = [
       '\\(\\int_u^v f = \\int_v^u f\\)',
     ],
     correctIndex: 0,
+    explain: 'La relation de Chasles découpe l’intervalle d’intégration en sous-intervalles dont les contributions s’additionnent.',
   },
   {
     id: 'ex19', section: 'primitives',
     statement: 'Pour \\(\\alpha \\neq -1\\), une primitive de \\(x^\\alpha\\) est :',
     options: ['\\(\\dfrac{x^{\\alpha+1}}{\\alpha+1}\\)', '\\(\\alpha x^{\\alpha-1}\\)', '\\(\\dfrac{x^\\alpha}{\\alpha}\\)'],
     correctIndex: 0,
+    explain: 'On augmente l’exposant de 1 et on divise par ce nouvel exposant — c’est l’opération inverse de la dérivation des puissances.',
   },
   {
     id: 'ex20', section: 'primitives',
@@ -158,12 +177,14 @@ const EXERCISES = [
       '\\(\\int_a^b \\varphi\'(t)\\,dt = f(b) - f(a)\\)',
     ],
     correctIndex: 0,
+    explain: 'Poser \\(x=\\varphi(t)\\) transforme \\(dx\\) en \\(\\varphi\'(t)\\,dt\\), et les bornes deviennent \\(\\varphi(a)\\) et \\(\\varphi(b)\\).',
   },
   {
     id: 'ex21', section: 'primitives',
     statement: 'Deux primitives d’une même fonction \\(f\\) sur un intervalle \\(I\\) diffèrent :',
     options: ['D’une constante', 'D’un facteur multiplicatif', 'L’une de l’autre par leur dérivée'],
     correctIndex: 0,
+    explain: 'Si \\(F\\) et \\(G\\) ont la même dérivée \\(f\\) sur \\(I\\), alors \\((F-G)\'=0\\) sur \\(I\\), donc \\(F-G\\) est constante.',
   },
 ];
 
@@ -294,7 +315,8 @@ function applyFeedback(ex, selectedIndex, state){
   if(isCorrect){
     feedbackEl.textContent = '✓ CORRECT';
   }else{
-    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}`;
+    const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}${explainLine}`;
     typesetMath(feedbackEl);
   }
 
@@ -321,7 +343,13 @@ function restoreState(state){
       const feedbackEl = document.getElementById(`feedback-${ex.id}`);
       exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
       feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
-      feedbackEl.textContent = s.correct ? '✓ CORRECT (déjà validé)' : '✗ INCORRECT (déjà tenté — vous pouvez réessayer)';
+      if(s.correct){
+        feedbackEl.textContent = '✓ CORRECT (déjà validé)';
+      }else{
+        const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+        feedbackEl.innerHTML = `✗ INCORRECT (déjà tenté — vous pouvez réessayer)${explainLine}`;
+        typesetMath(feedbackEl);
+      }
       if(typeof s.selectedIndex === 'number'){
         const radio = exoEl.querySelector(`input[name="${ex.id}"][value="${s.selectedIndex}"]`);
         if(radio) radio.checked = true;
@@ -330,10 +358,23 @@ function restoreState(state){
   });
 }
 
+function resetChapter(){
+  if(!confirm('Réinitialiser ce chapitre ? Toutes tes réponses seront effacées.')) return;
+  localStorage.removeItem(STATE_KEY);
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
+  catch(e){ progress = {}; }
+  delete progress[CHAPTER_ID];
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.reload();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderSections();
   const state = loadState();
   EXERCISES.forEach(ex => bindExercise(ex, state));
   restoreState(state);
   syncProgress(state);
+  const resetBtn = document.getElementById('resetChapterBtn');
+  if(resetBtn) resetBtn.addEventListener('click', resetChapter);
 });

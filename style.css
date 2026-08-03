@@ -337,9 +337,36 @@ a:hover{ color:var(--fg-dim); }
 .fiche-total-score{
   text-align:center;
   color:var(--amber);
-  margin-bottom:22px;
+  margin-bottom:8px;
   font-size:1.15rem;
 }
+
+.reset-btn{
+  display:block;
+  margin:0 auto 22px;
+  background:#000;
+  border:1px solid var(--red);
+  color:var(--red);
+  font-family:var(--font-title);
+  font-size:.85rem;
+  padding:5px 12px;
+  cursor:pointer;
+  letter-spacing:.03rem;
+}
+.reset-btn:hover{ background:var(--red); color:#000; }
+
+.drawer__reset{
+  margin-top:auto;
+  background:#000;
+  border:1px solid var(--red);
+  color:var(--red);
+  font-family:var(--font-title);
+  font-size:.9rem;
+  padding:8px 10px;
+  cursor:pointer;
+  letter-spacing:.03rem;
+}
+.drawer__reset:hover{ background:var(--red); color:#000; }
 
 .section{
   border:1px solid var(--fg-dim);

@@ -16,42 +16,49 @@ const EXERCISES = [
     statement: '\\(i^2\\) est égal à :',
     options: ['\\(-1\\)', '\\(1\\)', '\\(i\\)'],
     correctIndex: 0,
+    explain: 'Par définition, \\(i\\) est un nombre tel que \\(i^2=-1\\) — c’est la propriété fondatrice de \\(\\mathbb{C}\\).',
   },
   {
     id: 'ex2', section: 'definition',
     statement: 'L’écriture \\(z = a + ib\\) (avec \\(a, b \\in \\mathbb{R}\\)) d’un nombre complexe \\(z\\) est :',
     options: ['Toujours unique', 'Possible seulement si \\(b = 0\\)', 'Jamais unique'],
     correctIndex: 0,
+    explain: 'L’unicité de l’écriture algébrique (parties réelle et imaginaire) est une propriété fondamentale de la construction de \\(\\mathbb{C}\\).',
   },
   {
     id: 'ex3', section: 'definition',
     statement: 'Pour \\(a, b \\in \\mathbb{C}\\), \\(a^2 + b^2\\) se factorise en :',
     options: ['\\((a+ib)(a-ib)\\)', '\\((a+b)^2\\)', '\\((a-ib)^2\\)'],
     correctIndex: 0,
+    explain: 'En développant \\((a+ib)(a-ib) = a^2 - (ib)^2 = a^2 + b^2\\) car \\(i^2=-1\\).',
   },
   {
     id: 'ex4', section: 'algebrique',
     statement: 'Si \\(z = 3 - 4i\\), alors \\(|z|\\) vaut :',
     options: ['\\(5\\)', '\\(7\\)', '\\(1\\)'],
     correctIndex: 0,
+    explain: '\\(|z| = \\sqrt{\\text{Re}(z)^2+\\text{Im}(z)^2} = \\sqrt{3^2+4^2} = \\sqrt{25} = 5\\).',
   },
   {
     id: 'ex5', section: 'algebrique',
     statement: 'Le conjugué de \\(z = a + ib\\) est :',
     options: ['\\(a - ib\\)', '\\(-a + ib\\)', '\\(-a - ib\\)'],
     correctIndex: 0,
+    explain: 'Le conjugué garde la partie réelle inchangée et inverse uniquement le signe de la partie imaginaire.',
   },
   {
     id: 'ex6', section: 'algebrique',
     statement: 'Pour \\(z, z\' \\in \\mathbb{C}\\), \\(|zz\'|\\) est égal à :',
     options: ['\\(|z| \\times |z\'|\\)', '\\(|z| + |z\'|\\)', '\\(|z| - |z\'|\\)'],
     correctIndex: 0,
+    explain: 'Le module est multiplicatif : \\(|zz\'|^2 = (zz\')\\overline{(zz\')} = (z\\bar z)(z\'\\overline{z\'}) = |z|^2|z\'|^2\\).',
   },
   {
     id: 'ex7', section: 'trigo',
     statement: 'La forme exponentielle de \\(i\\) est :',
     options: ['\\(e^{i\\pi/2}\\)', '\\(e^{i\\pi}\\)', '\\(e^{2i\\pi}\\)'],
     correctIndex: 0,
+    explain: '\\(i\\) est de module 1 et d’argument \\(\\pi/2\\) : sur le cercle trigonométrique, c’est l’angle droit.',
   },
   {
     id: 'ex8', section: 'trigo',
@@ -62,6 +69,7 @@ const EXERCISES = [
       '\\(\\cos^n t + i\\sin^n t\\)',
     ],
     correctIndex: 0,
+    explain: 'Moivre multiplie l’angle par \\(n\\) (car \\((e^{it})^n=e^{int}\\)) — elle n’élève pas \\(\\cos\\) et \\(\\sin\\) séparément à la puissance \\(n\\).',
   },
   {
     id: 'ex9', section: 'trigo',
@@ -72,6 +80,7 @@ const EXERCISES = [
       '\\(\\dfrac{e^{it}}{2}\\)',
     ],
     correctIndex: 0,
+    explain: '\\(\\cos t\\) est la moyenne de \\(e^{it}\\) et de son conjugué \\(e^{-it}\\) ; la différence (divisée par \\(2i\\)) donne \\(\\sin t\\).',
   },
   {
     id: 'ex10', section: 'equations',
@@ -82,12 +91,14 @@ const EXERCISES = [
       'Trois racines carrées',
     ],
     correctIndex: 0,
+    explain: 'Si \\(Z_0\\) est une racine carrée de \\(z\\), alors \\((-Z_0)^2 = Z_0^2 = z\\) aussi : les deux racines sont toujours opposées.',
   },
   {
     id: 'ex11', section: 'equations',
     statement: 'Dans \\(\\mathbb{C}\\), l’équation \\(az^2 + bz + c = 0\\) (avec \\(a \\neq 0\\)) admet toujours :',
     options: ['Au moins une solution', 'Zéro ou deux solutions', 'Exactement une solution'],
     correctIndex: 0,
+    explain: 'Contrairement à \\(\\mathbb{R}\\), tout nombre complexe (même un \\(\\Delta\\) « négatif ») admet une racine carrée dans \\(\\mathbb{C}\\) : il y a donc toujours au moins une solution.',
   },
   {
     id: 'ex12', section: 'equations',
@@ -98,6 +109,7 @@ const EXERCISES = [
       'Un cercle de rayon \\(n\\)',
     ],
     correctIndex: 0,
+    explain: 'Elles sont toutes de module 1, régulièrement espacées d’un angle \\(2\\pi/n\\) : leurs images dessinent un polygone régulier.',
   },
 ];
 
@@ -216,7 +228,8 @@ function applyFeedback(ex, selectedIndex, state){
   if(isCorrect){
     feedbackEl.textContent = '✓ CORRECT';
   }else{
-    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}`;
+    const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}${explainLine}`;
     typesetMath(feedbackEl);
   }
 
@@ -243,7 +256,13 @@ function restoreState(state){
       const feedbackEl = document.getElementById(`feedback-${ex.id}`);
       exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
       feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
-      feedbackEl.textContent = s.correct ? '✓ CORRECT (déjà validé)' : '✗ INCORRECT (déjà tenté — vous pouvez réessayer)';
+      if(s.correct){
+        feedbackEl.textContent = '✓ CORRECT (déjà validé)';
+      }else{
+        const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+        feedbackEl.innerHTML = `✗ INCORRECT (déjà tenté — vous pouvez réessayer)${explainLine}`;
+        typesetMath(feedbackEl);
+      }
       if(typeof s.selectedIndex === 'number'){
         const radio = exoEl.querySelector(`input[name="${ex.id}"][value="${s.selectedIndex}"]`);
         if(radio) radio.checked = true;
@@ -252,10 +271,23 @@ function restoreState(state){
   });
 }
 
+function resetChapter(){
+  if(!confirm('Réinitialiser ce chapitre ? Toutes tes réponses seront effacées.')) return;
+  localStorage.removeItem(STATE_KEY);
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
+  catch(e){ progress = {}; }
+  delete progress[CHAPTER_ID];
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.reload();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderSections();
   const state = loadState();
   EXERCISES.forEach(ex => bindExercise(ex, state));
   restoreState(state);
   syncProgress(state);
+  const resetBtn = document.getElementById('resetChapterBtn');
+  if(resetBtn) resetBtn.addEventListener('click', resetChapter);
 });

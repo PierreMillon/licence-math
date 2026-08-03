@@ -20,18 +20,21 @@ const EXERCISES = [
       'Vraie seulement si \\(P\\) est vraie',
     ],
     correctIndex: 0,
+    explain: 'L’une des deux propositions \\(P\\) ou \\(\\neg P\\) est forcément vraie, quelle que soit la valeur de \\(P\\).',
   },
   {
     id: 'ex2', section: 'propositions',
     statement: 'La négation de \\(P \\Rightarrow Q\\) est équivalente à :',
     options: ['\\(P \\land \\neg Q\\)', '\\(\\neg P \\lor Q\\)', '\\(Q \\Rightarrow P\\)'],
     correctIndex: 0,
+    explain: '\\(P \\Rightarrow Q\\) équivaut à \\(\\neg P \\lor Q\\) ; nier ce « ou » donne un « et » avec chaque terme nié.',
   },
   {
     id: 'ex3', section: 'propositions',
     statement: 'La négation de \\(P \\land Q\\) (loi de De Morgan) est :',
     options: ['\\(\\neg P \\lor \\neg Q\\)', '\\(\\neg P \\land \\neg Q\\)', '\\(P \\lor Q\\)'],
     correctIndex: 0,
+    explain: 'La négation d’un « et » devient un « ou » de négations (loi de De Morgan).',
   },
   {
     id: 'ex4', section: 'propositions',
@@ -42,6 +45,7 @@ const EXERCISES = [
       '\\(\\neg P \\Rightarrow \\neg Q\\)',
     ],
     correctIndex: 0,
+    explain: 'La contraposée a exactement la même table de vérité que l’implication de départ ; la réciproque n’est pas équivalente.',
   },
   {
     id: 'ex5', section: 'quantificateurs',
@@ -52,6 +56,7 @@ const EXERCISES = [
       '\\(\\exists x \\in \\mathbb{R},\\ x^2 \\geq 0\\)',
     ],
     correctIndex: 0,
+    explain: 'Nier un \\(\\forall\\) donne un \\(\\exists\\), et on nie aussi l’inégalité (\\(\\geq\\) devient \\(<\\)).',
   },
   {
     id: 'ex6', section: 'quantificateurs',
@@ -62,6 +67,7 @@ const EXERCISES = [
       '\\(\\forall x \\in E,\\ P(x)\\)',
     ],
     correctIndex: 1,
+    explain: 'Nier un \\(\\exists\\) donne un \\(\\forall\\), appliqué à la négation de \\(P(x)\\) — le quantificateur ET la proposition changent.',
   },
   {
     id: 'ex7', section: 'quantificateurs',
@@ -72,18 +78,21 @@ const EXERCISES = [
       '\\(\\forall x \\in \\mathbb{N},\\ x + 1 = 0\\)',
     ],
     correctIndex: 0,
+    explain: 'On inverse le quantificateur (\\(\\exists \\to \\forall\\)) et on nie l’égalité (\\(=\\) devient \\(\\neq\\)).',
   },
   {
     id: 'ex8', section: 'raisonnements',
     statement: 'La contraposée de \\(P \\Rightarrow Q\\) est :',
     options: ['\\(\\neg Q \\Rightarrow \\neg P\\)', '\\(Q \\Rightarrow P\\)', '\\(\\neg P \\Rightarrow \\neg Q\\)'],
     correctIndex: 0,
+    explain: 'La contraposée s’obtient en inversant les deux membres de l’implication ET en les niant tous les deux.',
   },
   {
     id: 'ex9', section: 'raisonnements',
     statement: 'En appliquant la loi de De Morgan, \\(\\neg(P \\lor Q)\\) est égal à :',
     options: ['\\(\\neg P \\land \\neg Q\\)', '\\(\\neg P \\lor \\neg Q\\)', '\\(P \\land Q\\)'],
     correctIndex: 0,
+    explain: 'Nier un « ou » donne un « et » de négations — symétrique de la négation d’un « et ».',
   },
   {
     id: 'ex10', section: 'raisonnements',
@@ -94,6 +103,7 @@ const EXERCISES = [
       '\\(P(n)\\) vraie pour un seul \\(n\\)',
     ],
     correctIndex: 0,
+    explain: 'L’hérédité \\(P(n) \\Rightarrow P(n+1)\\) combinée à l’initialisation propage la vérité de proche en proche à tous les rangs suivants.',
   },
 ];
 
@@ -208,7 +218,8 @@ function applyFeedback(ex, selectedIndex, state){
   if(isCorrect){
     feedbackEl.textContent = '✓ CORRECT';
   }else{
-    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}`;
+    const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+    feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}${explainLine}`;
     typesetMath(feedbackEl);
   }
 
@@ -235,7 +246,13 @@ function restoreState(state){
       const feedbackEl = document.getElementById(`feedback-${ex.id}`);
       exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
       feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
-      feedbackEl.textContent = s.correct ? '✓ CORRECT (déjà validé)' : '✗ INCORRECT (déjà tenté — vous pouvez réessayer)';
+      if(s.correct){
+        feedbackEl.textContent = '✓ CORRECT (déjà validé)';
+      }else{
+        const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+        feedbackEl.innerHTML = `✗ INCORRECT (déjà tenté — vous pouvez réessayer)${explainLine}`;
+        typesetMath(feedbackEl);
+      }
       if(typeof s.selectedIndex === 'number'){
         const radio = exoEl.querySelector(`input[name="${ex.id}"][value="${s.selectedIndex}"]`);
         if(radio) radio.checked = true;
@@ -244,10 +261,23 @@ function restoreState(state){
   });
 }
 
+function resetChapter(){
+  if(!confirm('Réinitialiser ce chapitre ? Toutes tes réponses seront effacées.')) return;
+  localStorage.removeItem(STATE_KEY);
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
+  catch(e){ progress = {}; }
+  delete progress[CHAPTER_ID];
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.reload();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderSections();
   const state = loadState();
   EXERCISES.forEach(ex => bindExercise(ex, state));
   restoreState(state);
   syncProgress(state);
+  const resetBtn = document.getElementById('resetChapterBtn');
+  if(resetBtn) resetBtn.addEventListener('click', resetChapter);
 });
