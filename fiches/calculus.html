@@ -3,28 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANALYSE // SYNTHÈSE L1 MATHS</title>
+<title>CALCULUS // SYNTHÈSE L1 MATHS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css?v=12">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <a href="../index.html" class="menu-btn" aria-label="Menu"><span class="gem"><span class="glare"></span></span></a>
 <div class="crt">
+
   <a class="nav-back" href="../index.html">&lt;&lt; RETOUR</a>
+
   <header class="site-header">
-    <h1 class="fiche-title">ANALYSE</h1>
+    <h1 class="fiche-title">CALCULUS</h1>
+    <div class="fiche-total-score" id="ficheScore">SCORE : 0/18   —   COMPLÉTÉS : 0/18</div>
     <div class="pixel-rule">════════════════════════════════════════════════</div>
   </header>
-  <main>
-    <div class="soon-box">[ FICHE EN CONSTRUCTION ]<br>Revenez bientôt.</div>
+
+  <main id="sectionsContainer">
+    <!-- injecté par calculus.js -->
   </main>
+
   <footer class="site-footer">
     <div class="pixel-rule">════════════════════════════════════════════════</div>
-    <div>À VENIR <span class="cursor">_</span></div>
+    <div>FIN DE FICHE <span class="cursor">_</span></div>
   </footer>
+
 </div>
 <script src="../menu.js?v=12"></script>
+<script src="calculus.js?v=12"></script>
 </body>
 </html>
