@@ -7,21 +7,21 @@
 const STORAGE_KEY = 'l1maths_progress';
 
 const CHAPTERS = [
-  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 34, available: true,
+  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 34,
     gem: { g1: '#ffd9d9', g2: '#e0384f', g3: '#4a0d12' } }, // rubis
-  { id: 'calculus',      name: 'CALCULUS',      file: 'fiches/calculus.html',      total: 27, available: true,
+  { id: 'calculus',      name: 'CALCULUS',      file: 'fiches/calculus.html',      total: 27,
     gem: { g1: '#ffffff', g2: '#cfe3ff', g3: '#6c7a8c' } }, // diamant
-  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 12, available: true,
+  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 12,
     gem: { g1: '#dbe9ff', g2: '#3b82f6', g3: '#0b2c5c' } }, // saphir
-  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21, available: true,
+  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21,
     gem: { g1: '#d9ffe6', g2: '#2ecc71', g3: '#0b5c2e' } }, // émeraude
-  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 23, available: true,
+  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 23,
     gem: { g1: '#ecdcff', g2: '#9b59b6', g3: '#3c1a5c' } }, // améthyste
-  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17, available: true,
+  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17,
     gem: { g1: '#fff6d8', g2: '#ffd873', g3: '#8a6300' } }, // or
-  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 27, available: true,
+  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 27,
     gem: { g1: '#f0d9a0', g2: '#b5772f', g3: '#3d2409' } }, // bronze
-  { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 43, available: true,
+  { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 43,
     gem: { g1: '#ffe873', g2: '#4b8bbe', g3: '#1e3a5c' } }, // python (bleu/jaune)
 ];
 
@@ -61,11 +61,10 @@ function renderChapters(){
       ? `${p.correct}/${total}`
       : '--/--';
     const done = p.completed >= total && total > 0;
-    const lockedClass = ch.available ? '' : ' locked';
     const doneClass = done ? ' done' : '';
 
     return `
-      <div class="chapter-card${lockedClass}${doneClass}" data-file="${ch.file}" data-available="${ch.available}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
+      <div class="chapter-card${doneClass}" data-file="${ch.file}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
         <div class="chapter-card__title">
           <span>${ch.name}</span>
         </div>
@@ -78,11 +77,7 @@ function renderChapters(){
   }).join('');
 
   grid.querySelectorAll('.chapter-card').forEach(card => {
-    const open = () => {
-      if(card.dataset.available === 'true'){
-        window.location.href = card.dataset.file;
-      }
-    };
+    const open = () => { window.location.href = card.dataset.file; };
     card.addEventListener('click', open);
     card.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' '){
