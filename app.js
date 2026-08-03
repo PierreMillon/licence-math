@@ -15,9 +15,9 @@ const CHAPTERS = [
     gem: { g1: '#dbe9ff', g2: '#3b82f6', g3: '#0b2c5c' } }, // saphir
   { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21, available: true,
     gem: { g1: '#d9ffe6', g2: '#2ecc71', g3: '#0b5c2e' } }, // émeraude
-  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 0,  available: false,
+  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 23, available: true,
     gem: { g1: '#ecdcff', g2: '#9b59b6', g3: '#3c1a5c' } }, // améthyste
-  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 0,  available: false,
+  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17, available: true,
     gem: { g1: '#fff6d8', g2: '#ffd873', g3: '#8a6300' } }, // or
   { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 0,  available: false,
     gem: { g1: '#f0d9a0', g2: '#b5772f', g3: '#3d2409' } }, // bronze
