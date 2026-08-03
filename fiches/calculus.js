@@ -125,6 +125,76 @@ const EXERCISES = [
     ],
     correctIndex: 0,
   },
+  {
+    id: 'ex19', section: 'factorisation',
+    statement: '\\(a^3 - b^3\\) se factorise en :',
+    options: ['\\((a-b)(a^2+ab+b^2)\\)', '\\((a-b)(a^2-ab+b^2)\\)', '\\((a+b)(a^2-ab+b^2)\\)'],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex20', section: 'factorisation',
+    statement: '\\((a+b)^3\\) développé donne :',
+    options: ['\\(a^3+3a^2b+3ab^2+b^3\\)', '\\(a^3+b^3\\)', '\\(a^3+3ab^2+b^3\\)'],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex21', section: 'factorisation',
+    statement: '\\(a^n - b^n\\) admet toujours pour facteur :',
+    options: ['\\((a-b)\\)', '\\((a+b)\\)', '\\((a^2-b^2)\\)'],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex22', section: 'primitives',
+    statement: 'La formule d’intégration par parties s’écrit :',
+    options: [
+      '\\(\\int u\'v = uv - \\int uv\'\\)',
+      '\\(\\int u\'v = \\int uv\'\\)',
+      '\\(\\int u\'v = uv + \\int uv\'\\)',
+    ],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex23', section: 'primitives',
+    statement: 'Une primitive de \\(e^x\\) est :',
+    options: ['\\(e^x\\)', '\\(xe^x\\)', '\\(e^x/x\\)'],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex24', section: 'primitives',
+    statement: 'Une primitive de \\(\\dfrac{1}{x}\\) sur \\(]0, +\\infty[\\) est :',
+    options: ['\\(\\ln x\\)', '\\(\\dfrac{1}{x^2}\\)', '\\(-\\dfrac{1}{x^2}\\)'],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex25', section: 'systemes',
+    statement: 'Un système linéaire peut avoir :',
+    options: [
+      'Une solution unique, aucune, ou une infinité',
+      'Toujours exactement une solution',
+      'Toujours une infinité de solutions',
+    ],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex26', section: 'systemes',
+    statement: 'Pour résoudre un système linéaire, une méthode standard consiste à :',
+    options: [
+      'Combiner les équations pour éliminer des inconnues (pivot de Gauss)',
+      'Dériver chaque équation terme à terme',
+      'Calculer le discriminant du système',
+    ],
+    correctIndex: 0,
+  },
+  {
+    id: 'ex27', section: 'systemes',
+    statement: 'Quand un système dépend d’un paramètre \\(m\\), on :',
+    options: [
+      'Discute suivant les valeurs de \\(m\\)',
+      'Remplace \\(m\\) par \\(0\\) systématiquement',
+      'Ignore \\(m\\)',
+    ],
+    correctIndex: 0,
+  },
 ];
 
 const SECTIONS = [
@@ -151,6 +221,18 @@ const SECTIONS = [
   {
     id: 'sommes', title: '§6 — SOMMES',
     cours: '\\(\\displaystyle\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}\\)<br>\\(\\displaystyle\\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}\\)<br>\\((a+b)^n = \\displaystyle\\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}\\)',
+  },
+  {
+    id: 'factorisation', title: '§7 — DÉVELOPPEMENT ET FACTORISATION',
+    cours: '\\((a+b)^3 = a^3+3a^2b+3ab^2+b^3\\)<br>\\(a^3+b^3=(a+b)(a^2-ab+b^2)\\), \\(a^3-b^3=(a-b)(a^2+ab+b^2)\\)<br>\\(a^n-b^n=(a-b)(a^{n-1}+a^{n-2}b+\\cdots+b^{n-1})\\)',
+  },
+  {
+    id: 'primitives', title: '§8 — PRIMITIVES',
+    cours: '<span class="math">Intégration par parties</span> : \\(\\int u\'v = uv - \\int uv\'\\)<br>Pas de primitive « classique » pour \\(u^n\\), \\(e^u\\), \\(\\sin u\\) si \\(u\\) est une fonction composée<br>Primitive de \\(e^x\\) : \\(e^x\\) ; primitive de \\(1/x\\) : \\(\\ln|x|\\)',
+  },
+  {
+    id: 'systemes', title: '§9 — SYSTÈMES LINÉAIRES',
+    cours: 'Résolution par substitution ou combinaison (<span class="math">pivot de Gauss</span>)<br>Un système peut avoir : une solution unique, aucune, ou une infinité<br>Paramètre \\(m\\) \\(\\to\\) discuter suivant sa valeur',
   },
 ];
 
