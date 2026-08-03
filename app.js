@@ -141,9 +141,6 @@ function renderTreasure(){
 }
 
 const FOOTER_MESSAGES = [
-  'CHOISIR CHAPITRE',
-  'APPUYEZ SUR UNE CARTE',
-  'BONNE RÉVISION',
   "L'infini existe, paraît-il. C'est déjà plus que ce qu'on espérait pour ce semestre.",
   "Un mathématicien est quelqu'un qui préfère un problème qu'il ne résoudra jamais à une vie qu'il pourrait vivre.",
   "Je ne crains pas l'échec au partiel. Je crains juste d'être présent quand il arrivera.",
@@ -249,8 +246,8 @@ const FOOTER_MESSAGES = [
   "Je crois profondément en moi-même, sauf les soirs de révision, où je m'en méfie beaucoup.",
 ];
 
-let footerBag = [];
-let footerBagIndex = 0;
+const FOOTER_BAG_KEY = 'l1maths_footer_bag';
+const FOOTER_LAST_KEY = 'l1maths_footer_last';
 
 function shuffledIndices(length){
   const arr = Array.from({ length }, (_, i) => i);
@@ -262,24 +259,28 @@ function shuffledIndices(length){
 }
 
 function nextFooterIndex(){
-  if(footerBagIndex >= footerBag.length){
-    const previousLast = footerBag[footerBag.length - 1];
-    let newBag = shuffledIndices(FOOTER_MESSAGES.length);
+  let bag = [];
+  try{ bag = JSON.parse(sessionStorage.getItem(FOOTER_BAG_KEY)) || []; }
+  catch(e){ bag = []; }
+
+  if(!Array.isArray(bag) || bag.length === 0){
+    const previousLast = Number(sessionStorage.getItem(FOOTER_LAST_KEY));
+    bag = shuffledIndices(FOOTER_MESSAGES.length);
     if(FOOTER_MESSAGES.length > 1){
-      while(newBag[0] === previousLast) newBag = shuffledIndices(FOOTER_MESSAGES.length);
+      while(bag[0] === previousLast) bag = shuffledIndices(FOOTER_MESSAGES.length);
     }
-    footerBag = newBag;
-    footerBagIndex = 0;
   }
-  return footerBag[footerBagIndex++];
+
+  const idx = bag.shift();
+  sessionStorage.setItem(FOOTER_BAG_KEY, JSON.stringify(bag));
+  sessionStorage.setItem(FOOTER_LAST_KEY, String(idx));
+  return idx;
 }
 
 function renderFooterCycle(){
   const el = document.getElementById('footerHint');
   if(!el) return;
-  setInterval(() => {
-    el.firstChild.textContent = FOOTER_MESSAGES[nextFooterIndex()] + ' ';
-  }, 3800);
+  el.firstChild.textContent = FOOTER_MESSAGES[nextFooterIndex()] + ' ';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
