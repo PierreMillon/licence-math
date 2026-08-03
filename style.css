@@ -293,6 +293,95 @@ a:hover{ color:var(--fg-dim); }
   margin-left:4px;
 }
 
+.victory-scene{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin:8px 0 34px;
+  padding:22px 14px;
+  border:1px solid var(--fg-dim);
+}
+.victory-scene[hidden]{
+  display:none;
+}
+.victory-title{
+  font-family:var(--font-title);
+  font-size:1.4rem;
+  letter-spacing:.15rem;
+  color:var(--ok);
+}
+.victory-stage{
+  position:relative;
+  width:240px;
+  height:210px;
+}
+.victory-dragon{
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%) rotate(8deg);
+  opacity:.5;
+}
+.victory-dragon svg{
+  display:block;
+  width:200px;
+  height:auto;
+  color:var(--fg-dim);
+}
+.victory-knight{
+  position:absolute;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:110px;
+  height:179px;
+}
+.victory-knight .knight-piece-wrap{
+  position:absolute;
+  inset:0;
+}
+.victory-knight .knight-piece{
+  display:block;
+  width:100%;
+  height:100%;
+  color:var(--fg);
+}
+.victory-sword{
+  position:absolute;
+  left:50%;
+  top:2px;
+  transform:translateX(-50%) rotate(14deg);
+}
+.victory-sword svg{
+  display:block;
+  width:54px;
+  height:auto;
+  color:var(--fg);
+}
+.victory-caption{
+  font-family:var(--font-subtitle);
+  font-size:.85rem;
+  color:var(--fg-dim);
+  text-align:center;
+  max-width:320px;
+  line-height:1.5;
+}
+.victory-dismiss{
+  font-family:var(--font-title);
+  font-size:.9rem;
+  letter-spacing:.08rem;
+  background:transparent;
+  color:var(--fg);
+  border:1px solid var(--fg);
+  padding:8px 20px;
+  cursor:pointer;
+}
+.victory-dismiss:hover{
+  background:var(--fg);
+  color:var(--bg);
+}
+
 .progress-row .progress-bar{
   flex:1;
   margin:0;

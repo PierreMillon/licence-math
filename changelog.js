@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 50, date: "03/08/2026", desc: "Ajoute l'illustration de victoire du combat hebdomadaire : quand 80% des exercices sont faits avant le reset, le chevalier en armure complète apparaît, épée plantée sur le dragon vaincu, à la place de la scène de combat habituelle." },
   { v: 49, date: "03/08/2026", desc: "Ajoute un décor château + vallée en pixel art derrière la scène chevalier/dragon." },
   { v: 48, date: "03/08/2026", desc: "Le chevalier du combat hebdomadaire s'équipe en pixel art : chaque chapitre complété cette semaine ajoute sa pièce (bottes, jambières, gantelets, plastron, bouclier, cape, casque, épée)." },
   { v: 47, date: "03/08/2026", desc: "Ajoute le combat hebdomadaire chevalier/dragon : une couche de progression séparée qui se remet à zéro chaque lundi, avec un score cumulé (victoires/défaites) selon que 80% des exercices ont été refaits dans la semaine." },

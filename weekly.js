@@ -17,6 +17,7 @@ const WEEKLY_THRESHOLD = 0.8;
 const WEEKLY_META_KEY = 'l1maths_weekly_meta';
 const WEEKLY_PROGRESS_KEY = 'l1maths_weekly_progress';
 const WEEKLY_SCORE_KEY = 'l1maths_weekly_score';
+const LAST_RESULT_KEY = 'l1maths_last_battle_result';
 
 function weeklyStateKey(chapterId){
   return 'l1maths_weekly_' + chapterId + '_state';
@@ -85,9 +86,11 @@ function resolveAndResetWeek(newWeekStart){
 
   if(hasAnyActivity){
     const score = loadWeeklyScore();
-    if(ratio >= WEEKLY_THRESHOLD) score.wins += 1;
+    const won = ratio >= WEEKLY_THRESHOLD;
+    if(won) score.wins += 1;
     else score.losses += 1;
     localStorage.setItem(WEEKLY_SCORE_KEY, JSON.stringify(score));
+    localStorage.setItem(LAST_RESULT_KEY, won ? 'victory' : 'defeat');
   }
 
   Object.keys(CHAPTER_TOTALS).forEach(id => {
