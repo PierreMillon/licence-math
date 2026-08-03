@@ -45,13 +45,15 @@ function renderChapters(){
     const scoreLabel = total > 0
       ? `${p.correct}/${total}`
       : '--/--';
+    const done = p.completed >= total && total > 0;
     const status = ch.available
-      ? (p.completed >= total && total > 0 ? '[ TERMINÉ ]' : '[ DISPONIBLE ]')
+      ? (done ? '[ TERMINÉ ]' : '[ DISPONIBLE ]')
       : '[ À VENIR ]';
     const lockedClass = ch.available ? '' : ' locked';
+    const doneClass = done ? ' done' : '';
 
     return `
-      <div class="chapter-card${lockedClass}" data-file="${ch.file}" data-available="${ch.available}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
+      <div class="chapter-card${lockedClass}${doneClass}" data-file="${ch.file}" data-available="${ch.available}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
         <div class="chapter-card__title">
           <span>${ch.name}</span>
           <span class="chapter-card__badge">${total} exos</span>

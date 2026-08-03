@@ -93,7 +93,7 @@ a:hover{ color:var(--fg-dim); }
 .menu-btn:hover{ background:var(--fg); }
 
 .version-badge{
-  position:fixed;
+  position:absolute;
   top:14px;
   left:14px;
   border:1px solid var(--fg-dim);
@@ -303,6 +303,8 @@ a:hover{ color:var(--fg-dim); }
   color:var(--fg-dim);
 }
 .chapter-card.locked .chapter-card__status{ color:var(--red); }
+.chapter-card.done .chapter-card__score{ color:var(--ok); }
+.chapter-card.done .chapter-card__status{ color:var(--ok); }
 
 /* ---------- footer ---------- */
 .site-footer{
@@ -342,7 +344,10 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .reset-btn{
-  display:block;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
   margin:32px auto 0;
   background:#000;
   border:1px solid var(--fg);
@@ -356,6 +361,10 @@ a:hover{ color:var(--fg-dim); }
 .reset-btn:hover{ background:var(--fg); color:#000; }
 
 .drawer__reset{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
   margin-top:auto;
   background:#000;
   border:1px solid var(--fg);
@@ -367,6 +376,14 @@ a:hover{ color:var(--fg-dim); }
   letter-spacing:.03rem;
 }
 .drawer__reset:hover{ background:var(--fg); color:#000; }
+
+.skull-icon{
+  display:inline-block;
+  width:.62em;
+  height:1.3em;
+  flex:none;
+  shape-rendering:crispEdges;
+}
 
 .section{
   border:1px solid var(--fg-dim);
