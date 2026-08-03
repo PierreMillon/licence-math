@@ -6,6 +6,8 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 46, date: "03/08/2026", desc: "Refonte complète de la fiche JAVA (27 → 40 QCM, 6 → 10 sections) à partir du vrai support de cours (POO, syntaxe, tableaux, String, classes usuelles, héritage/abstraction, interfaces)." },
+  { v: 45, date: "03/08/2026", desc: "Mascotte oiseau/dragon qui grandit selon les jours d'inactivité, pile de crânes, estimation de note théorique/20, retrait de la salle au trésor et des gemmes." },
   { v: 44, date: "03/08/2026", desc: "Retire le système « chapitre pas encore sorti » (devenu inutile, les 8 chapitres sont tous disponibles) : champ available, carte grisée, étiquette [ À VENIR ]." },
   { v: 43, date: "03/08/2026", desc: "Grand nettoyage : le moteur des fiches (rendu, QCM, progression) devient un seul fichier partagé au lieu d'être dupliqué dans les 8 chapitres. La barre sous le titre de chaque chapitre devient une grille de carrés cliquables (un par exercice, noir/vert/rouge). Corrige 4 formules de PROBABILITÉS qui ne passaient pas par KaTeX. Retire du code mort (CSS orpheline, fonction dupliquée)." },
   { v: 42, date: "03/08/2026", desc: "Supprime le sous-titre sous le titre de l'accueil." },

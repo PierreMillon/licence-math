@@ -13,7 +13,7 @@ const CHAPTERS = [
   { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21 },
   { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 23 },
   { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17 },
-  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 27 },
+  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 40 },
   { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 43 },
 ];
 
