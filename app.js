@@ -19,9 +19,9 @@ const CHAPTERS = [
     gem: { g1: '#ecdcff', g2: '#9b59b6', g3: '#3c1a5c' } }, // améthyste
   { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17, available: true,
     gem: { g1: '#fff6d8', g2: '#ffd873', g3: '#8a6300' } }, // or
-  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 0,  available: false,
+  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 27, available: true,
     gem: { g1: '#f0d9a0', g2: '#b5772f', g3: '#3d2409' } }, // bronze
-  { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 22, available: true,
+  { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 43, available: true,
     gem: { g1: '#ffe873', g2: '#4b8bbe', g3: '#1e3a5c' } }, // python (bleu/jaune)
 ];
 
