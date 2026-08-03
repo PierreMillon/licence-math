@@ -13,7 +13,7 @@ const CHAPTERS = [
     gem: { g1: '#ffffff', g2: '#cfe3ff', g3: '#6c7a8c' } }, // diamant
   { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 12, available: true,
     gem: { g1: '#dbe9ff', g2: '#3b82f6', g3: '#0b2c5c' } }, // saphir
-  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 0,  available: false,
+  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21, available: true,
     gem: { g1: '#d9ffe6', g2: '#2ecc71', g3: '#0b5c2e' } }, // émeraude
   { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 0,  available: false,
     gem: { g1: '#ecdcff', g2: '#9b59b6', g3: '#3c1a5c' } }, // améthyste

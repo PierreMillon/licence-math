@@ -10,13 +10,13 @@
    cache — voir bug du 2026-08-03).
    ============================================================ */
 
-const SITE_VERSION = 13;
+const SITE_VERSION = 14;
 
 const MENU_CHAPTERS = [
   { name: 'LOGIQUE',       file: 'logique.html',       available: true  },
   { name: 'CALCULUS',      file: 'calculus.html',      available: true  },
   { name: 'ALGÈBRE',       file: 'algebre.html',       available: true  },
-  { name: 'ANALYSE',       file: 'analyse.html',       available: false },
+  { name: 'ANALYSE',       file: 'analyse.html',       available: true  },
   { name: 'PROBABILITÉS',  file: 'probabilites.html',  available: false },
   { name: 'STATISTIQUES',  file: 'statistiques.html',  available: false },
   { name: 'JAVA',          file: 'java.html',          available: false },

@@ -7,24 +7,34 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=13">
+<link rel="stylesheet" href="../style.css?v=14">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <a href="../index.html" class="menu-btn" aria-label="Menu"><span class="gem"><span class="glare"></span></span></a>
 <div class="crt">
+
   <a class="nav-back" href="../index.html">&lt;&lt; RETOUR</a>
+
   <header class="site-header">
     <h1 class="fiche-title">ANALYSE</h1>
+    <div class="fiche-total-score" id="ficheScore">SCORE : 0/21   —   COMPLÉTÉS : 0/21</div>
     <div class="pixel-rule">════════════════════════════════════════════════</div>
   </header>
-  <main>
-    <div class="soon-box">[ FICHE EN CONSTRUCTION ]<br>Revenez bientôt.</div>
+
+  <main id="sectionsContainer">
+    <!-- injecté par analyse.js -->
   </main>
+
   <footer class="site-footer">
     <div class="pixel-rule">════════════════════════════════════════════════</div>
-    <div>À VENIR <span class="cursor">_</span></div>
+    <div>FIN DE FICHE <span class="cursor">_</span></div>
   </footer>
+
 </div>
-<script src="../menu.js?v=13"></script>
+<script src="../menu.js?v=14"></script>
+<script src="analyse.js?v=14"></script>
 </body>
 </html>
