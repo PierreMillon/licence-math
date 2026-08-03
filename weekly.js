@@ -70,6 +70,14 @@ function weeklyTotals(){
   return { total, correct };
 }
 
+function isChapterWeeklyComplete(chapterId){
+  const progress = loadWeeklyProgress();
+  const total = CHAPTER_TOTALS[chapterId] || 0;
+  const correct = (progress[chapterId] && progress[chapterId].correct) || 0;
+  return total > 0 && correct >= total;
+}
+window.isChapterWeeklyComplete = isChapterWeeklyComplete;
+
 function resolveAndResetWeek(newWeekStart){
   const { total, correct } = weeklyTotals();
   const ratio = total > 0 ? correct / total : 0;

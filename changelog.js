@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 48, date: "03/08/2026", desc: "Le chevalier du combat hebdomadaire s'équipe en pixel art : chaque chapitre complété cette semaine ajoute sa pièce (bottes, jambières, gantelets, plastron, bouclier, cape, casque, épée)." },
   { v: 47, date: "03/08/2026", desc: "Ajoute le combat hebdomadaire chevalier/dragon : une couche de progression séparée qui se remet à zéro chaque lundi, avec un score cumulé (victoires/défaites) selon que 80% des exercices ont été refaits dans la semaine." },
   { v: 46, date: "03/08/2026", desc: "Refonte complète de la fiche JAVA (27 → 40 QCM, 6 → 10 sections) à partir du vrai support de cours (POO, syntaxe, tableaux, String, classes usuelles, héritage/abstraction, interfaces)." },
   { v: 45, date: "03/08/2026", desc: "Mascotte oiseau/dragon qui grandit selon les jours d'inactivité, pile de crânes, estimation de note théorique/20, retrait de la salle au trésor et des gemmes." },
