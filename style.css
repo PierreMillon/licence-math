@@ -214,15 +214,24 @@ a:hover{ color:var(--fg-dim); }
   opacity:.8;
 }
 
+.global-progress-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+}
+
 .global-progress-score{
   font-family:var(--font-title);
   font-size:1.1rem;
   color:var(--amber);
-  margin-top:18px;
+  flex:none;
+  white-space:nowrap;
 }
 
 .global-progress-bar{
-  margin:8px 0 0;
+  flex:1;
+  margin:0;
 }
 
 /* ---------- breadcrumb / back link ---------- */
