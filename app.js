@@ -7,7 +7,7 @@
 const STORAGE_KEY = 'l1maths_progress';
 
 const CHAPTERS = [
-  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 10, available: true,
+  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 34, available: true,
     gem: { g1: '#ffd9d9', g2: '#e0384f', g3: '#4a0d12' } }, // rubis
   { id: 'calculus',      name: 'CALCULUS',      file: 'fiches/calculus.html',      total: 27, available: true,
     gem: { g1: '#ffffff', g2: '#cfe3ff', g3: '#6c7a8c' } }, // diamant
