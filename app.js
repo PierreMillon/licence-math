@@ -9,7 +9,7 @@ const STORAGE_KEY = 'l1maths_progress';
 const CHAPTERS = [
   { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 10, available: true,
     gem: { g1: '#ffd9d9', g2: '#e0384f', g3: '#4a0d12' } }, // rubis
-  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 0,  available: false,
+  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 12, available: true,
     gem: { g1: '#dbe9ff', g2: '#3b82f6', g3: '#0b2c5c' } }, // saphir
   { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 0,  available: false,
     gem: { g1: '#d9ffe6', g2: '#2ecc71', g3: '#0b5c2e' } }, // émeraude
