@@ -109,43 +109,6 @@ a:hover{ color:var(--fg-dim); }
 }
 .version-badge:hover{ border-color:var(--fg); color:var(--fg); }
 
-.gem{
-  width:20px;
-  height:20px;
-  display:inline-block;
-  position:relative;
-  overflow:hidden;
-  clip-path:polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-  background:linear-gradient(135deg, var(--g1,#ffd9d9) 0%, var(--g2,#e0384f) 45%, var(--g3,#4a0d12) 100%);
-  animation:gem-spin 2.4s linear infinite;
-}
-.gem .glare{
-  position:absolute;
-  top:-40%;
-  left:-60%;
-  width:40%;
-  height:180%;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
-  transform:rotate(20deg);
-  animation:gem-sweep 1.4s ease-in-out infinite;
-}
-.gem.locked{
-  background:linear-gradient(135deg, #3a3a3a, #161616);
-  animation:none;
-}
-.gem.locked .glare{ display:none; }
-@keyframes gem-spin{
-  0%{ transform:scaleX(1); }
-  25%{ transform:scaleX(.15); }
-  50%{ transform:scaleX(-1); }
-  75%{ transform:scaleX(.15); }
-  100%{ transform:scaleX(1); }
-}
-@keyframes gem-sweep{
-  0%{ left:-60%; }
-  100%{ left:120%; }
-}
-
 .heart-icon{
   width:20px;
   height:auto;
@@ -160,46 +123,6 @@ a:hover{ color:var(--fg-dim); }
   45%{ transform:scale(1.12); }
   60%{ transform:scale(1); }
 }
-
-/* ---------- salle du trésor ---------- */
-.treasure-title{
-  font-family:var(--font-title);
-  text-align:center;
-  font-size:1.2rem;
-  letter-spacing:.1rem;
-  color:var(--fg-dim);
-  margin:34px 0 4px;
-}
-.treasure-grid{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:14px;
-  margin:14px 0 10px;
-}
-.treasure-slot{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  border:1px solid var(--fg-dim);
-  background:var(--bg-panel);
-  padding:14px 10px 10px;
-  width:104px;
-}
-.treasure-slot .gem{ width:32px; height:32px; }
-.treasure-slot .treasure-name{
-  font-family:var(--font-title);
-  font-size:.95rem;
-  text-align:center;
-}
-.treasure-slot .treasure-status{
-  font-size:.8rem;
-  color:var(--fg-dim);
-  text-align:center;
-}
-.treasure-slot.unlocked{ border-color:var(--fg); }
-.treasure-slot.locked{ opacity:.6; }
 
 /* ---------- header ---------- */
 .site-header{
@@ -249,6 +172,68 @@ a:hover{ color:var(--fg-dim); }
   color:var(--amber);
   flex:none;
   white-space:nowrap;
+}
+
+.grade-estimate{
+  font-family:var(--font-subtitle);
+  font-size:.82rem;
+  color:var(--fg-dim);
+  margin-top:8px;
+  line-height:1.5;
+}
+
+.creature-zone{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin:8px 0 34px;
+  min-height:90px;
+}
+.creature-bubble{
+  font-family:var(--font-title);
+  font-size:1.3rem;
+  letter-spacing:.1rem;
+  color:var(--red);
+  border:1px solid var(--red);
+  padding:2px 10px;
+  min-height:1.6em;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .2s ease, transform .2s ease;
+}
+.creature-bubble.visible{ opacity:1; transform:translateY(0); }
+.creature-figure{
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  min-height:70px;
+}
+.creature-icon{
+  display:block;
+  width:auto;
+  color:var(--fg);
+  transition:height .3s ease;
+}
+.skull-pile{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:2px;
+  max-width:280px;
+}
+.skull-pile__icon{
+  width:14px;
+  height:auto;
+  color:var(--fg-dim);
+  flex:none;
+}
+.skull-pile__more{
+  font-family:var(--font-subtitle);
+  font-size:.75rem;
+  color:var(--fg-dim);
+  align-self:center;
+  margin-left:4px;
 }
 
 .progress-row .progress-bar{

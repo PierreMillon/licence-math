@@ -139,9 +139,11 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
       typesetMath(feedbackEl);
     }
 
+    const isFirstAnswer = !(state[ex.id] && state[ex.id].answered);
     state[ex.id] = { answered: true, correct: isCorrect, selectedIndex };
     saveState(state);
     updateExoProgressSquare(state, ex);
+    if(isFirstAnswer && window.decrementLateness) window.decrementLateness();
   }
 
   function bindExercise(ex, state){
@@ -186,6 +188,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     catch(e){ progress = {}; }
     delete progress[CHAPTER_ID];
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    if(window.incrementSkullPile) window.incrementSkullPile();
     window.location.reload();
   }
 

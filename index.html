@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=44">
+<link rel="stylesheet" href="style.css?v=45">
 </head>
 <body>
 <a href="index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
@@ -19,15 +19,17 @@
       <div class="progress-bar global-progress-bar" id="globalProgressBar" aria-label="Progression globale du site"></div>
       <div class="global-progress-score" id="globalProgressScore">0/0</div>
     </div>
+    <div class="grade-estimate" id="gradeEstimate"></div>
   </header>
+
+  <div class="creature-zone" id="creatureZone">
+    <div class="creature-bubble" id="creatureBubble"></div>
+    <div class="creature-figure" id="creatureFigure"></div>
+    <div class="skull-pile" id="skullPile" aria-label="Réinitialisations effectuées"></div>
+  </div>
 
   <main>
     <section class="chapter-grid" id="chapterGrid" aria-label="Liste des chapitres">
-      <!-- injecté par app.js -->
-    </section>
-
-    <div class="treasure-title">SALLE DU TRÉSOR</div>
-    <section class="treasure-grid" id="treasureGrid" aria-label="Diamants débloqués">
       <!-- injecté par app.js -->
     </section>
   </main>
@@ -38,7 +40,9 @@
   </footer>
 
 </div>
-<script src="menu.js?v=44"></script>
-<script src="app.js?v=44"></script>
+<script src="menu.js?v=45"></script>
+<script src="creature-svgs.js?v=45"></script>
+<script src="creature.js?v=45"></script>
+<script src="app.js?v=45"></script>
 </body>
 </html>
