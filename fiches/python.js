@@ -3,12 +3,14 @@
    Rendu + vérification des exercices de la fiche PYTHON.
    Tous les exercices sont des QCM à 3 réponses.
    Contenu construit à partir de « Découverte de la programmation »
-   (Pascal Ortiz, L1 INU Champollion) pour les chapitres I à III
-   (variables, Matplotlib, conditions) et le début du chapitre IV
-   (boucle for) ; le PDF source (452 pages, 20 Mo) dépasse la limite
-   d'extraction disponible, donc listes/boucle while/fonctions/chaînes
-   sont construits sur la syntaxe Python standard (non extraits
-   verbatim du PDF).
+   (Pascal Ortiz, L1 INU Champollion). Variables, Matplotlib,
+   conditions, boucle for, listes, boucle while et fonctions
+   reprennent des exemples et résultats vérifiés du PDF source
+   (splitté par l'utilisateur pour contourner la limite d'extraction).
+   Le chapitre « chaînes de caractères » du PDF n'a pas encore été
+   reçu : un seul exercice (ex38) est ancré sur un extrait réel
+   (parcours de "ALIBABA"), le reste repose sur la syntaxe Python
+   standard.
    ============================================================ */
 
 const PROGRESS_KEY = 'l1maths_progress';
@@ -173,38 +175,38 @@ const EXERCISES = [
   },
   {
     id: "ex23", section: "listes",
-    statement: "Soit <code>L = [10, 20, 30, 40]</code>. Que vaut <code>L[1]</code> ?",
-    options: ["<code>10</code>", "<code>20</code>", "<code>30</code>"],
-    correctIndex: 1,
-    explain: "L'indexation commence à 0 : L[0]=10, L[1]=20, L[2]=30, L[3]=40.",
+    statement: "<code>L = [65, 31, 9, 32, 81, 82, 46, 12]<br>for z in L:<br>&nbsp;&nbsp;if z % 2 == 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(z)</code><br>Que s'affiche-t-il ?",
+    options: ["<code>32</code>, <code>82</code>, <code>46</code>, <code>12</code> chacun sur sa ligne", "Tous les éléments de L, chacun sur sa ligne", "<code>65</code>, <code>31</code>, <code>9</code>, <code>81</code> chacun sur sa ligne"],
+    correctIndex: 0,
+    explain: "Le filtrage <code>if z % 2 == 0</code> ne laisse passer que les éléments pairs de L, dans leur ordre d'apparition : 32, 82, 46, 12.",
   },
   {
     id: "ex24", section: "listes",
-    statement: "Soit <code>L = [10, 20, 30, 40]</code>. Que vaut <code>L[-1]</code> ?",
-    options: ["<code>10</code>", "<code>30</code>", "<code>40</code>"],
-    correctIndex: 2,
-    explain: "L'indice -1 désigne le dernier élément de la liste, ici 40.",
+    statement: "<code>L = [65, 31, 9, 32, 81, 82, 46, 12]<br>cpt = 0<br>for z in L:<br>&nbsp;&nbsp;if z % 2 == 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;cpt = cpt + 1<br>print(cpt)</code><br>Que vaut <code>cpt</code> affiché à la fin ?",
+    options: ["<code>4</code>", "<code>8</code>", "<code>12</code>"],
+    correctIndex: 0,
+    explain: "cpt est un compteur associé au filtre « z pair » : L contient exactement 4 entiers pairs (32, 82, 46, 12), donc cpt vaut 4 à la fin.",
   },
   {
     id: "ex25", section: "listes",
-    statement: "Soit <code>L = [1, 2, 3, 4, 5]</code>. Que vaut <code>L[1:3]</code> ?",
-    options: ["<code>[2, 3]</code>", "<code>[1, 2, 3]</code>", "<code>[2, 3, 4]</code>"],
-    correctIndex: 0,
-    explain: "L[1:3] prend les indices 1 et 2 (3 est exclu, comme pour range), soit [2, 3].",
+    statement: "<code>L = [10, 3, 12, 5]<br>maxi = L[0]<br>for i in range(1, len(L)):<br>&nbsp;&nbsp;if L[i] &gt; maxi:<br>&nbsp;&nbsp;&nbsp;&nbsp;maxi = L[i]<br>print(maxi)</code><br>Que s'affiche-t-il ?",
+    options: ["<code>10</code>", "<code>12</code>", "<code>5</code>"],
+    correctIndex: 1,
+    explain: "maxi est initialisé au premier terme puis mis à jour à chaque fois qu'un plus grand terme est trouvé ; le plus grand élément de L est 12.",
   },
   {
     id: "ex26", section: "listes",
-    statement: "Que produit <code>[x**2 for x in [1, 2, 3]]</code> ?",
-    options: ["<code>[1, 2, 3]</code>", "<code>[1, 4, 9]</code>", "<code>9</code>"],
+    statement: "<code>L = [310, 12, 8100, 90, 31]<br>s = 0<br>for z in L:<br>&nbsp;&nbsp;s = s + z<br>s = s - L[0] - L[len(L)-1]<br>print(s)</code><br>Que s'affiche-t-il ?",
+    options: ["<code>8543</code>", "<code>8202</code>", "<code>8161</code>"],
     correctIndex: 1,
-    explain: "La liste en compréhension applique x**2 à chaque élément : 1²=1, 2²=4, 3²=9, ce qui donne [1, 4, 9].",
+    explain: "s vaut d'abord la somme de tous les termes de L (8543), puis on lui retire le premier terme (310) et le dernier (31) : 8543 − 310 − 31 = 8202.",
   },
   {
     id: "ex27", section: "listes",
-    statement: "Après <code>L = [1, 2, 3]</code> puis <code>L.append(4)</code>, que vaut <code>L</code> ?",
-    options: ["<code>[1, 2, 3, 4]</code>", "<code>[4, 1, 2, 3]</code>", "<code>[1, 2, 3]</code> (append ne modifie rien)"],
+    statement: "<code>L = [42, 33, 0, 0, 81, 0, 82, 31]</code><br>En ne comptant que les valeurs non nulles de L, dans l'ordre, quelle est la 4ᵉ valeur non nulle et à quel indice se trouve-t-elle dans L ?",
+    options: ["<code>82</code>, à l'indice 6", "<code>81</code>, à l'indice 4", "<code>31</code>, à l'indice 7"],
     correctIndex: 0,
-    explain: "append ajoute l'élément à la fin de la liste et la modifie directement (les listes sont mutables).",
+    explain: "Les valeurs non nulles de L, dans l'ordre, sont 42, 33, 81, 82, 31 : la 4ᵉ est 82, qui se trouve à l'indice 6 de L.",
   },
   {
     id: "ex28", section: "listes",
@@ -215,17 +217,17 @@ const EXERCISES = [
   },
   {
     id: "ex29", section: "boucle-while",
-    statement: "<code>i = 0<br>while i &lt; 3:<br>&nbsp;&nbsp;print(i)<br>&nbsp;&nbsp;i = i + 1</code><br>Combien de fois print(i) s'exécute-t-il ?",
-    options: ["2 fois", "3 fois", "4 fois"],
-    correctIndex: 1,
-    explain: "La condition i&lt;3 est vraie pour i=0,1,2 (3 tours), puis fausse pour i=3 : la boucle s'arrête.",
+    statement: "<code>i = 1<br>while i &lt;= 5:<br>&nbsp;&nbsp;print(10 * i)<br>&nbsp;&nbsp;i = i + 1</code><br>Que s'affiche-t-il ?",
+    options: ["<code>10 20 30 40 50</code>, chacun sur sa ligne", "<code>0 10 20 30 40</code>, chacun sur sa ligne", "Une boucle infinie"],
+    correctIndex: 0,
+    explain: "La condition i≤5 est vraie pour i=1,2,3,4,5 : le code affiche successivement 10, 20, 30, 40, 50, puis s'arrête quand i devient 6.",
   },
   {
     id: "ex30", section: "boucle-while",
-    statement: "Que se passe-t-il si on oublie la ligne <code>i = i + 1</code> dans une boucle <code>while i &lt; 3:</code> ?",
-    options: ["Une boucle infinie, car i ne change jamais", "Le programme s'arrête après un seul tour", "Une erreur de syntaxe est levée"],
-    correctIndex: 0,
-    explain: "Sans mise à jour de la variable de contrôle, la condition reste vraie indéfiniment : c'est le risque classique de boucle infinie avec while.",
+    statement: "<code>n = 42<br>k = 0<br>while 10 * k &lt; n:<br>&nbsp;&nbsp;k = k + 1<br>print(k)</code><br>Que vaut <code>k</code> affiché à la fin ?",
+    options: ["<code>4</code>", "<code>5</code>", "<code>42</code>"],
+    correctIndex: 1,
+    explain: "La condition 10k&lt;42 reste vraie pour k=0,1,2,3,4 (10×4=40&lt;42) mais devient fausse pour k=5 (10×5=50, qui n'est pas &lt;42) : la boucle s'arrête donc avec k=5.",
   },
   {
     id: "ex31", section: "boucle-while",
@@ -243,31 +245,31 @@ const EXERCISES = [
   },
   {
     id: "ex33", section: "fonctions-py",
-    statement: "<code>def carre(x):<br>&nbsp;&nbsp;return x * x<br>print(carre(5))</code><br>Que s'affiche-t-il ?",
-    options: ["<code>10</code>", "<code>25</code>", "<code>x * x</code>"],
+    statement: "<code>from math import pi<br>def aire_disque(r):<br>&nbsp;&nbsp;return pi * r**2<br>print(aire_disque(10))</code><br>Que s'affiche-t-il (approximativement) ?",
+    options: ["<code>31.4</code>", "<code>314.159...</code>", "<code>100</code>"],
     correctIndex: 1,
-    explain: "carre(5) renvoie 5*5=25, qui est ensuite affiché par print.",
+    explain: "aire_disque(10) renvoie π×10² ≈ 314.1592653589793, la valeur exacte fournie par le module math de Python.",
   },
   {
     id: "ex34", section: "fonctions-py",
-    statement: "<code>def f(x):<br>&nbsp;&nbsp;y = x + 1<br>print(f(3))</code><br>(pas d'instruction return) — que s'affiche-t-il ?",
-    options: ["<code>4</code>", "<code>None</code>", "Une erreur, il manque un return"],
-    correctIndex: 1,
-    explain: "Une fonction sans instruction return renvoie implicitement None, quelle que soit la valeur calculée à l'intérieur.",
+    statement: "<code>def consecutifs(n):<br>&nbsp;&nbsp;return list(range(1, n+1))<br>print(consecutifs(4))</code><br>Que s'affiche-t-il ?",
+    options: ["<code>[1, 2, 3, 4]</code>", "<code>[0, 1, 2, 3]</code>", "<code>[1, 2, 3, 4, 5]</code>"],
+    correctIndex: 0,
+    explain: "consecutifs(n) doit renvoyer la liste de tous les entiers consécutifs entre 1 et n, donc consecutifs(4) renvoie [1, 2, 3, 4].",
   },
   {
     id: "ex35", section: "fonctions-py",
-    statement: "<code>def f(x, n=2):<br>&nbsp;&nbsp;return x ** n<br>print(f(5))</code><br>Que s'affiche-t-il ?",
-    options: ["<code>5</code>", "<code>25</code>", "Une erreur, il manque le second argument"],
-    correctIndex: 1,
-    explain: "n a une valeur par défaut 2, donc f(5) équivaut à f(5, 2) = 5**2 = 25.",
+    statement: "Une fonction <code>diviseurs(n)</code> renvoie la liste de tous les diviseurs de n. D'après <code>diviseurs(42)</code>, laquelle de ces listes est correcte ?",
+    options: ["<code>[1, 2, 3, 6, 7, 14, 21, 42]</code>", "<code>[1, 2, 3, 7, 14, 42]</code>", "<code>[2, 3, 6, 7, 14, 21]</code>"],
+    correctIndex: 0,
+    explain: "42 = 2×3×7 : ses diviseurs sont 1, 2, 3, 6, 7, 14, 21 et 42 lui-même.",
   },
   {
     id: "ex36", section: "fonctions-py",
-    statement: "<code>def f():<br>&nbsp;&nbsp;y = 10<br>f()<br>print(y)</code><br>Que se passe-t-il ?",
-    options: ["Une erreur NameError : y n'existe pas en dehors de f", "Affiche 10", "Affiche None"],
+    statement: "Un entier est dit premier s'il admet exactement deux diviseurs. Lequel de ces deux nombres est premier : 41 ou 42 ?",
+    options: ["41 seulement (ses seuls diviseurs sont 1 et 41)", "42 seulement", "Les deux sont premiers"],
     correctIndex: 0,
-    explain: "y est une variable locale à f : elle est créée et détruite à chaque appel de f, elle n'est pas accessible en dehors.",
+    explain: "42 admet au moins trois diviseurs (1, 6 et 42 par exemple), il n'est donc pas premier ; 41 n'a que deux diviseurs, 1 et 41, il est donc premier.",
   },
   {
     id: "ex37", section: "fonctions-py",
@@ -278,10 +280,10 @@ const EXERCISES = [
   },
   {
     id: "ex38", section: "chaines",
-    statement: "Que vaut <code>len(\"Python\")</code> ?",
-    options: ["<code>5</code>", "<code>6</code>", "<code>7</code>"],
-    correctIndex: 1,
-    explain: "\"Python\" contient 6 caractères (P-y-t-h-o-n), donc len renvoie 6.",
+    statement: "<code>for c in \"ALIBABA\":<br>&nbsp;&nbsp;print(c * 2)</code><br>Combien de lignes ce code affiche-t-il ?",
+    options: ["7 (autant que de caractères dans \"ALIBABA\")", "1 seule ligne, tout concaténé", "14"],
+    correctIndex: 0,
+    explain: "\"ALIBABA\" contient 7 caractères ; le parcours avec for se fait un caractère à la fois et chaque tour fait un print, donc 7 lignes s'affichent (AA, LL, II, BB, AA, BB, AA).",
   },
   {
     id: "ex39", section: "chaines",
