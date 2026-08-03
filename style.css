@@ -413,10 +413,14 @@ a:hover{ color:var(--fg-dim); }
   line-height:1.5;
 }
 .cours br{ content:""; display:block; margin-top:.55em; }
-.cours code, .math{
+code, .math{
   color:#fff;
   background:rgba(255,255,255,.1);
   padding:0 4px;
+}
+code{
+  font-family:var(--font-body);
+  font-size:1.05em;
 }
 
 /* Lettres, chiffres et texte des formules KaTeX en police pixelisée.
