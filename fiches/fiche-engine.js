@@ -144,6 +144,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     saveState(state);
     updateExoProgressSquare(state, ex);
     if(isFirstAnswer && window.decrementLateness) window.decrementLateness();
+    if(window.recordWeeklyAnswer) window.recordWeeklyAnswer(CHAPTER_ID, ex.id, isCorrect);
   }
 
   function bindExercise(ex, state){
