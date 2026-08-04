@@ -95,9 +95,25 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
   }
 
   /* ---------- rendu ---------- */
+  /* Ordre des réponses mélangé à chaque rendu (chaque visite de la
+     fiche) pour qu'on ne puisse pas répondre juste en retenant une
+     position fixe. Les questions elles-mêmes ne bougent jamais.
+     Le mélange ne touche que l'ordre d'affichage : la valeur de
+     chaque radio reste l'index d'origine dans ex.options, donc
+     correctIndex / selectedIndex / l'état sauvegardé restent inchangés. */
+  function shuffledIndices(n){
+    const order = Array.from({ length: n }, (_, i) => i);
+    for(let i = order.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return order;
+  }
+
   function exoControlsHTML(ex){
-    const opts = ex.options.map((opt, i) => `
-      <label><input type="radio" name="${ex.id}" value="${i}"> <span>${opt}</span></label>
+    const order = shuffledIndices(ex.options.length);
+    const opts = order.map(i => `
+      <label><input type="radio" name="${ex.id}" value="${i}"> <span>${ex.options[i]}</span></label>
     `).join('');
     return `<div class="qcm-options">${opts}</div>`;
   }
