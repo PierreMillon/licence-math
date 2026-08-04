@@ -130,7 +130,7 @@ a:hover{ color:var(--fg-dim); }
 .scroll-top-btn.at-top .scroll-top-icon{
   transform:rotate(-90deg);
 }
-.scroll-top-btn.at-rest .scroll-top-icon{
+.scroll-top-btn.grail-shown .scroll-top-icon{
   opacity:0;
 }
 .grail-icon{
@@ -140,32 +140,28 @@ a:hover{ color:var(--fg-dim); }
   height:22px;
   width:auto;
   opacity:0;
-  transform:translate(-50%,-50%) scale(.55);
+  transform:translate(-50%,-50%) scale(.5);
   transition:opacity .25s ease, transform .25s ease;
   pointer-events:none;
 }
-.scroll-top-btn.at-rest .grail-icon{
+.scroll-top-btn.grail-shown .grail-icon{
   opacity:1;
-  transform:translate(-50%,-50%) scale(1);
-}
-.scroll-top-btn.icon-hidden .scroll-top-icon,
-.scroll-top-btn.icon-hidden .grail-icon{
-  opacity:0;
+  transform:translate(-50%,-50%) scale(var(--gscale, 1));
 }
 @keyframes scrollTopWobble{
   0%, 100% { transform:rotate(-90deg); }
   30% { transform:rotate(-104deg); }
   70% { transform:rotate(-76deg); }
 }
-.scroll-top-btn.wobble .scroll-top-icon{
+.scroll-top-btn.wobble:not(.grail-shown) .scroll-top-icon{
   animation:scrollTopWobble .35s ease;
 }
 @keyframes grailWobble{
-  0%, 100% { transform:translate(-50%,-50%) scale(1) rotate(0deg); }
-  30% { transform:translate(-50%,-50%) scale(1) rotate(-8deg); }
-  70% { transform:translate(-50%,-50%) scale(1) rotate(8deg); }
+  0%, 100% { transform:translate(-50%,-50%) scale(var(--gscale, 1)) rotate(0deg); }
+  30% { transform:translate(-50%,-50%) scale(var(--gscale, 1)) rotate(-10deg); }
+  70% { transform:translate(-50%,-50%) scale(var(--gscale, 1)) rotate(10deg); }
 }
-.scroll-top-btn.wobble.at-rest .grail-icon{
+.scroll-top-btn.wobble.grail-shown .grail-icon{
   animation:grailWobble .35s ease;
 }
 
@@ -627,17 +623,6 @@ a:hover{ color:var(--fg-dim); }
   margin:0;
 }
 
-/* ---------- breadcrumb / back link ---------- */
-.nav-back{
-  display:inline-block;
-  margin-top:44px;
-  margin-bottom:18px;
-  border:1px solid var(--fg-dim);
-  padding:4px 12px;
-  font-size:1.1rem;
-}
-.nav-back:hover{ border-color:var(--fg); background:rgba(255,255,255,.08); color:var(--fg); }
-
 /* ---------- chapter grid ---------- */
 .chapter-grid{
   display:grid;
@@ -732,6 +717,7 @@ a:hover{ color:var(--fg-dim); }
   font-size:2.2rem;
   letter-spacing:.2rem;
   text-align:center;
+  margin-top:44px;
   margin-bottom:4px;
 }
 
