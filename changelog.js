@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 58, date: "04/08/2026", desc: "Ajoute l'illustration de défaite du combat hebdomadaire (symétrique de la victoire) : quand moins de 80% des exercices sont refaits avant le reset, le dragon debout et le chevalier au sol remplacent la scène de combat habituelle." },
   { v: 57, date: "04/08/2026", desc: "Le combat de la semaine affiche des pièces d'or (victoires) et des crânes rouges (défaites) en pixel art à la place des nombres en texte, avec bascule sur un compteur ×N au-delà de 5." },
   { v: 56, date: "04/08/2026", desc: "<ul><li>Le dragon/oiseau passe à gauche de la scène de combat, le chevalier à droite</li><li>Le chevalier a maintenant une silhouette de base toujours visible (sans armure) ; seules les pièces d'équipement gagnées viennent s'ajouter par dessus</li><li>Pile de crânes plus compacte au-delà de 5 : bascule sur un compteur ×N</li></ul>" },
   { v: 55, date: "04/08/2026", desc: "<ul><li>JAVA complété avec 2 sections tirées du cours (exceptions, AWT/événementiel) : 40 → 52 QCM</li><li>La note/20 ne s'affiche plus en permanence : elle apparaît avec son explication dans une bulle en appuyant directement sur la barre de progression globale</li><li>Corrige un flash grisé au relâchement du doigt sur la bulle</li><li>Le bouton « haut de page » devient un raccourci accueil quand on est déjà tout en haut : l'épée pivote vers la gauche pour l'indiquer</li></ul>" },

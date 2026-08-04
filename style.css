@@ -494,6 +494,83 @@ a:hover{ color:var(--fg-dim); }
   color:var(--bg);
 }
 
+.defeat-scene{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin:8px 0 34px;
+  padding:22px 14px;
+  border:1px solid var(--fg-dim);
+}
+.defeat-scene[hidden]{
+  display:none;
+}
+.defeat-title{
+  font-family:var(--font-title);
+  font-size:1.4rem;
+  letter-spacing:.15rem;
+  color:var(--red);
+}
+.defeat-stage{
+  position:relative;
+  width:240px;
+  height:210px;
+}
+.defeat-dragon{
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%);
+}
+.defeat-dragon svg{
+  display:block;
+  width:220px;
+  height:auto;
+  color:var(--fg);
+}
+.defeat-knight{
+  position:absolute;
+  left:50%;
+  bottom:2px;
+  transform:translateX(-50%) rotate(88deg);
+  width:110px;
+  height:179px;
+  opacity:.5;
+}
+.defeat-knight .knight-piece-wrap{
+  position:absolute;
+  inset:0;
+}
+.defeat-knight .knight-piece{
+  display:block;
+  width:100%;
+  height:100%;
+  color:var(--fg-dim);
+}
+.defeat-caption{
+  font-family:var(--font-subtitle);
+  font-size:.85rem;
+  color:var(--fg-dim);
+  text-align:center;
+  max-width:320px;
+  line-height:1.5;
+}
+.defeat-dismiss{
+  font-family:var(--font-title);
+  font-size:.9rem;
+  letter-spacing:.08rem;
+  background:transparent;
+  color:var(--fg);
+  border:1px solid var(--fg);
+  padding:8px 20px;
+  cursor:pointer;
+}
+.defeat-dismiss:hover{
+  background:var(--fg);
+  color:var(--bg);
+}
+
 .progress-row .progress-bar{
   flex:1;
   margin:0;
