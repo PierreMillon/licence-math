@@ -78,7 +78,7 @@ a:hover{ color:var(--fg-dim); }
 .menu-btn{
   position:fixed;
   top:14px;
-  right:14px;
+  right:16px;
   width:42px;
   height:42px;
   display:flex;
@@ -89,6 +89,8 @@ a:hover{ color:var(--fg-dim); }
   color:var(--fg);
   cursor:pointer;
   z-index:60;
+  transform:translateZ(0);
+  will-change:transform;
 }
 .menu-btn:hover{ background:var(--fg); }
 
@@ -96,7 +98,7 @@ a:hover{ color:var(--fg-dim); }
 .scroll-top-btn{
   position:fixed;
   bottom:14px;
-  right:14px;
+  right:16px;
   width:42px;
   height:42px;
   display:flex;
@@ -108,8 +110,11 @@ a:hover{ color:var(--fg-dim); }
   cursor:pointer;
   z-index:60;
   padding:0;
+  transform:translateZ(0);
+  will-change:transform;
 }
 .scroll-top-btn:hover{ background:var(--fg); }
+.scroll-top-btn:hover .scroll-top-icon{ color:var(--bg); }
 .scroll-top-icon{
   height:26px;
   width:auto;
@@ -118,7 +123,7 @@ a:hover{ color:var(--fg-dim); }
 .version-badge{
   position:absolute;
   top:14px;
-  left:14px;
+  left:16px;
   width:42px;
   height:42px;
   display:flex;
@@ -205,13 +210,56 @@ a:hover{ color:var(--fg-dim); }
   white-space:nowrap;
 }
 
+.grade-estimate-wrap{
+  position:relative;
+  margin-top:8px;
+}
+
 .grade-estimate{
   font-family:var(--font-subtitle);
   font-size:.82rem;
   color:var(--fg-dim);
-  margin-top:8px;
   line-height:1.5;
 }
+
+.grade-brace{
+  display:block;
+  width:min(70%, 220px);
+  margin:2px auto 0;
+  padding:6px 0;
+  border:0;
+  background:none;
+  color:var(--fg-dim);
+  cursor:pointer;
+}
+.grade-brace:hover{ color:var(--fg); }
+.grade-brace-icon{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.grade-tooltip{
+  position:absolute;
+  left:50%;
+  top:100%;
+  transform:translate(-50%, 4px);
+  width:max-content;
+  max-width:260px;
+  border:1px solid var(--fg);
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-subtitle);
+  font-size:.78rem;
+  line-height:1.5;
+  text-align:center;
+  padding:8px 12px;
+  opacity:0;
+  pointer-events:none;
+  z-index:70;
+  transition:opacity .15s ease;
+}
+.grade-tooltip.visible{ opacity:1; }
 
 .weekly-score{
   font-family:var(--font-title);

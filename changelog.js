@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 53, date: "04/08/2026", desc: "<ul><li>Note théorique/20 raccourcie, avec une accolade pixel art : cliquer dessus (ou rester appuyé sur mobile, la bulle suit le doigt) affiche l'explication complète</li><li>Badge, boutons et cartes de contenu alignés au pixel près sur les bords gauche/droite</li><li>Épée du bouton « haut de page » : lame fine sans le triangle à la base, pointe vers le haut</li><li>Icône du bouton « haut de page » qui devenait invisible au survol/appui → corrigé</li><li>Boutons fixes qui tremblaient légèrement au défilement → stabilisés</li></ul>" },
   { v: 52, date: "04/08/2026", desc: "<ul><li>Bouton retour en haut de page (épée pixel art, bas droite)</li><li>Badge version + titre + bouton menu alignés sur une ligne</li><li>Œil de l'oiseau : un seul pixel au lieu d'un bloc de deux</li></ul>" },
   { v: 51, date: "04/08/2026", desc: "<ul><li>Badge de version qui chevauchait le bouton RETOUR → corrigé</li><li>Formule de LOGIQUE (quantificateurs) non rendue en KaTeX → corrigée</li><li>Pile de crânes farmable par resets répétés sans progrès → corrigée</li></ul>" },
   { v: 50, date: "03/08/2026", desc: "80% des exercices avant le reset = illustration de victoire : chevalier en armure, épée plantée sur le dragon vaincu." },

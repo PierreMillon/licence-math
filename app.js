@@ -100,10 +100,58 @@ function renderGlobalProgress(){
   if(scoreEl) scoreEl.textContent = `${totalCorrect}/${totalExercises}`;
 
   const gradeEl = document.getElementById('gradeEstimate');
+  const tooltipEl = document.getElementById('gradeTooltip');
   if(gradeEl){
     const grade = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 20 * 10) / 10 : 0;
-    gradeEl.textContent = `≈ ${grade}/20 — note théorique si l'examen ne testait que ce que tu maîtrises déjà`;
+    gradeEl.textContent = `≈ ${grade}/20`;
   }
+  if(tooltipEl){
+    tooltipEl.textContent = "note théorique si l'examen ne testait que ce que tu maîtrises déjà";
+  }
+}
+
+function initGradeTooltip(){
+  const brace = document.getElementById('gradeBrace');
+  const tooltip = document.getElementById('gradeTooltip');
+  if(!brace || !tooltip) return;
+
+  function show(){ tooltip.classList.add('visible'); }
+  function reset(){
+    tooltip.classList.remove('visible');
+    tooltip.style.position = '';
+    tooltip.style.left = '';
+    tooltip.style.top = '';
+    tooltip.style.transform = '';
+  }
+  function positionAt(x, y){
+    tooltip.style.position = 'fixed';
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = (y - 14) + 'px';
+    tooltip.style.transform = 'translate(-50%, -100%)';
+  }
+
+  brace.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(tooltip.classList.contains('visible')) reset();
+    else show();
+  });
+  document.addEventListener('click', (e) => {
+    if(e.target !== brace && !brace.contains(e.target) && !tooltip.contains(e.target)) reset();
+  });
+
+  brace.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const t = e.touches[0];
+    positionAt(t.clientX, t.clientY);
+    show();
+  }, { passive: false });
+  brace.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const t = e.touches[0];
+    positionAt(t.clientX, t.clientY);
+  }, { passive: false });
+  brace.addEventListener('touchend', reset);
+  brace.addEventListener('touchcancel', reset);
 }
 
 const FOOTER_MESSAGES = [
@@ -247,4 +295,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderChapters();
   renderGlobalProgress();
   renderFooterCycle();
+  initGradeTooltip();
 });
