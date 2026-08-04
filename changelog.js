@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 66, date: "04/08/2026", desc: "<ul><li>Les boutons de réinitialisation (par chapitre et pour tout le site) n'affichent plus la fenêtre système du navigateur : ils suppriment directement, puis se transforment en « REGRETS ? » avec un compte à rebours de 60 secondes pendant lequel un nouveau clic annule et restaure tout</li><li>L'épée du bouton haut de page pointe désormais toujours vers la droite au repos, y compris sur l'accueil (au lieu de pointer à gauche)</li></ul>" },
   { v: 65, date: "04/08/2026", desc: "Sur l'historique des versions (atteint via le numéro de version), l'épée du bouton pointe vers la droite pour indiquer le retour, au lieu de la gauche comme partout ailleurs." },
   { v: 64, date: "04/08/2026", desc: "Corrige le Graal du bouton haut de page qui devenait invisible au survol à la souris (sur ordinateur) — fond et icône passaient blancs en même temps." },
   { v: 63, date: "04/08/2026", desc: "Ajoute des bruitages synthétisés (aucun fichier audio, générés en direct) au Graal du bouton haut de page : un petit arpège féerique quand il apparaît, un blip discret à chaque clic pendant qu'il rétrécit, un « womp womp » comique quand il disparaît complètement." },

@@ -193,15 +193,81 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     });
   }
 
-  function resetChapter(){
-    if(!confirm('Réinitialiser ce chapitre ? Toutes tes réponses seront effacées.')) return;
-    localStorage.removeItem(STATE_KEY);
+  /* ---------- réinitialisation avec fenêtre de regret (60s, sans popup système) ---------- */
+  const UNDO_WINDOW_MS = 60000;
+  const UNDO_KEY = 'l1maths_undo_chapter_' + CHAPTER_ID;
+
+  function pendingUndo(){
+    let undo;
+    try{ undo = JSON.parse(localStorage.getItem(UNDO_KEY)); }
+    catch(e){ undo = null; }
+    if(!undo || typeof undo.expiresAt !== 'number') return null;
+    if(Date.now() >= undo.expiresAt){
+      localStorage.removeItem(UNDO_KEY);
+      return null;
+    }
+    return undo;
+  }
+
+  function performReset(){
+    const stateRaw = localStorage.getItem(STATE_KEY);
     let progress = {};
     try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
     catch(e){ progress = {}; }
+    const undo = {
+      expiresAt: Date.now() + UNDO_WINDOW_MS,
+      stateRaw: stateRaw,
+      progressEntry: progress[CHAPTER_ID] || null,
+    };
+    localStorage.setItem(UNDO_KEY, JSON.stringify(undo));
+
+    localStorage.removeItem(STATE_KEY);
     delete progress[CHAPTER_ID];
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
     window.location.reload();
+  }
+
+  function undoReset(){
+    const undo = pendingUndo();
+    if(!undo) return;
+    if(undo.stateRaw != null) localStorage.setItem(STATE_KEY, undo.stateRaw);
+    let progress = {};
+    try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
+    catch(e){ progress = {}; }
+    if(undo.progressEntry) progress[CHAPTER_ID] = undo.progressEntry;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    localStorage.removeItem(UNDO_KEY);
+    window.location.reload();
+  }
+
+  function setupResetButton(){
+    const btn = document.getElementById('resetChapterBtn');
+    if(!btn) return;
+    const originalHTML = btn.innerHTML;
+    let timer = null;
+
+    function showNormal(){
+      clearInterval(timer);
+      btn.classList.remove('undo-mode');
+      btn.innerHTML = originalHTML;
+      btn.onclick = performReset;
+    }
+
+    function showUndo(undo){
+      btn.classList.add('undo-mode');
+      const tick = () => {
+        const remaining = Math.max(0, Math.ceil((undo.expiresAt - Date.now()) / 1000));
+        btn.textContent = `REGRETS ? (${remaining}s)`;
+        if(remaining <= 0) showNormal();
+      };
+      tick();
+      timer = setInterval(tick, 250);
+      btn.onclick = undoReset;
+    }
+
+    const pending = pendingUndo();
+    if(pending) showUndo(pending);
+    else showNormal();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -212,7 +278,6 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     restoreState(state);
     syncProgress(state);
     renderFichePieceBadge();
-    const resetBtn = document.getElementById('resetChapterBtn');
-    if(resetBtn) resetBtn.addEventListener('click', resetChapter);
+    setupResetButton();
   });
 }

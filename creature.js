@@ -75,6 +75,11 @@ function incrementSkullPile(){
 }
 window.incrementSkullPile = incrementSkullPile;
 
+function decrementSkullPile(){
+  localStorage.setItem(SKULL_PILE_KEY, String(Math.max(0, loadSkullPile() - 1)));
+}
+window.decrementSkullPile = decrementSkullPile;
+
 function bubbleText(lateness){
   if(lateness < 3) return '';
   if(lateness === 3) return '!';
