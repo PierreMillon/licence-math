@@ -267,15 +267,42 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .weekly-score{
+  margin:8px 0 30px;
+}
+.weekly-score-text{
   font-family:var(--font-title);
   font-size:.95rem;
   color:var(--fg-dim);
   text-align:center;
-  margin:8px 0 30px;
   letter-spacing:.02rem;
 }
-.weekly-score__wins{ color:var(--ok); }
-.weekly-score__losses{ color:var(--red); }
+.weekly-score-icons{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.weekly-score-group{
+  display:flex;
+  align-items:center;
+  gap:2px;
+  min-height:16px;
+}
+.weekly-score-group--wins{ color:var(--amber); }
+.weekly-score-group--losses{ color:var(--red); }
+.weekly-score-group .coin-small,
+.weekly-score-group .skull-pile__icon{
+  width:15px;
+  height:auto;
+  flex:none;
+}
+.weekly-score-more{
+  font-family:var(--font-subtitle);
+  font-size:.72rem;
+  margin-left:3px;
+}
 
 .battle-scene{
   position:relative;

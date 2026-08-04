@@ -128,6 +128,12 @@ function recordWeeklyAnswer(chapterId, exId, isCorrect){
 }
 window.recordWeeklyAnswer = recordWeeklyAnswer;
 
+function iconRow(n, iconSvg, cap){
+  if(n === 0) return '';
+  if(n <= cap) return Array.from({ length: n }, () => iconSvg).join('');
+  return iconSvg + `<span class="weekly-score-more">×${n}</span>`;
+}
+
 function renderWeeklyScore(){
   const el = document.getElementById('weeklyScore');
   if(!el) return;
@@ -135,7 +141,14 @@ function renderWeeklyScore(){
   const score = loadWeeklyScore();
   const { total, correct } = weeklyTotals();
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
-  el.innerHTML = `COMBAT DE LA SEMAINE : ${pct}% (objectif 80%) — <span class="weekly-score__wins">${score.wins} victoire${score.wins > 1 ? 's' : ''}</span> / <span class="weekly-score__losses">${score.losses} défaite${score.losses > 1 ? 's' : ''}</span>`;
+  const ICON_CAP = 5;
+  const hasScore = score.wins > 0 || score.losses > 0;
+  const iconsHTML = hasScore ? `
+    <div class="weekly-score-icons">
+      <span class="weekly-score-group weekly-score-group--wins">${iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP)}</span>
+      <span class="weekly-score-group weekly-score-group--losses">${iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP)}</span>
+    </div>` : '';
+  el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif 80%)</div>${iconsHTML}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
