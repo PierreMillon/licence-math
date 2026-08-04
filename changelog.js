@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 71, date: "04/08/2026", desc: "Deux corrections : (1) remettre à zéro un chapitre ne faisait pas disparaître l'équipement du chevalier gagné cette semaine sur ce chapitre — c'est réparé (idem pour la réinitialisation globale du site) ; (2) certaines formules mathématiques pouvaient s'afficher en double sur certains réseaux (police externe bloquée) — tout le moteur de rendu des formules est maintenant hébergé directement sur le site, sans dépendre d'un service externe." },
   { v: 70, date: "04/08/2026", desc: "Correction importante : la bonne réponse était presque toujours en première position sur les QCM (repérable sans lire les questions). L'ordre d'affichage des réponses est maintenant mélangé à chaque visite d'une fiche — l'ordre des questions, lui, ne change jamais." },
   { v: 69, date: "04/08/2026", desc: "Nouveaux dessins pour la mascotte : un corbeau remplace l'oiseau, un monstre rond remplace le dragon — tracés au pixel près à partir des références envoyées, adaptés en silhouette pleine pour rester dans le style du site." },
   { v: 68, date: "04/08/2026", desc: "Le score du combat hebdomadaire, en bas du château, passe sur une seule ligne avec un fond sombre pour rester lisible même par-dessus le chevalier ou le dragon." },

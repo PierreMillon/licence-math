@@ -230,16 +230,35 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     let progress = {};
     try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
     catch(e){ progress = {}; }
+
+    /* Progression permanente ET progression hebdomadaire (celle qui
+       pilote l'affichage de la pièce d'équipement gagnée) doivent
+       toutes les deux être remises à zéro, sinon l'équipement du
+       chapitre reste affiché malgré la réinitialisation. */
+    const weeklyKey = window.weeklyStateKey ? window.weeklyStateKey(CHAPTER_ID) : null;
+    const weeklyStateRaw = weeklyKey ? localStorage.getItem(weeklyKey) : null;
+    let weeklyProgress = {};
+    try{ weeklyProgress = JSON.parse(localStorage.getItem(window.WEEKLY_PROGRESS_KEY)) || {}; }
+    catch(e){ weeklyProgress = {}; }
+
     const undo = {
       expiresAt: Date.now() + UNDO_WINDOW_MS,
       stateRaw: stateRaw,
       progressEntry: progress[CHAPTER_ID] || null,
+      weeklyStateRaw: weeklyStateRaw,
+      weeklyProgressEntry: weeklyProgress[CHAPTER_ID] || null,
     };
     localStorage.setItem(UNDO_KEY, JSON.stringify(undo));
 
     localStorage.removeItem(STATE_KEY);
     delete progress[CHAPTER_ID];
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+
+    if(weeklyKey) localStorage.removeItem(weeklyKey);
+    if(window.WEEKLY_PROGRESS_KEY){
+      delete weeklyProgress[CHAPTER_ID];
+      localStorage.setItem(window.WEEKLY_PROGRESS_KEY, JSON.stringify(weeklyProgress));
+    }
     window.location.reload();
   }
 
@@ -252,6 +271,17 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     catch(e){ progress = {}; }
     if(undo.progressEntry) progress[CHAPTER_ID] = undo.progressEntry;
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+
+    const weeklyKey = window.weeklyStateKey ? window.weeklyStateKey(CHAPTER_ID) : null;
+    if(weeklyKey && undo.weeklyStateRaw != null) localStorage.setItem(weeklyKey, undo.weeklyStateRaw);
+    if(window.WEEKLY_PROGRESS_KEY){
+      let weeklyProgress = {};
+      try{ weeklyProgress = JSON.parse(localStorage.getItem(window.WEEKLY_PROGRESS_KEY)) || {}; }
+      catch(e){ weeklyProgress = {}; }
+      if(undo.weeklyProgressEntry) weeklyProgress[CHAPTER_ID] = undo.weeklyProgressEntry;
+      localStorage.setItem(window.WEEKLY_PROGRESS_KEY, JSON.stringify(weeklyProgress));
+    }
+
     localStorage.removeItem(UNDO_KEY);
     window.location.reload();
   }

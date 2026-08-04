@@ -22,6 +22,8 @@ const LAST_RESULT_KEY = 'l1maths_last_battle_result';
 function weeklyStateKey(chapterId){
   return 'l1maths_weekly_' + chapterId + '_state';
 }
+window.weeklyStateKey = weeklyStateKey;
+window.WEEKLY_PROGRESS_KEY = WEEKLY_PROGRESS_KEY;
 
 function mondayOf(date){
   const d = new Date(date);

@@ -88,10 +88,10 @@ const EXERCISES = [
   },
   {
     id: "ex12", section: "operations-ensembles",
-    statement: "D'après les lois de De Morgan du cours, le complémentaire de A∩B est :",
-    options: ["le complémentaire de A réuni au complémentaire de B", "le complémentaire de A intersecté au complémentaire de B", "A ∪ B"],
+    statement: "D'après les lois de De Morgan du cours, \\(\\overline{A \\cap B}\\) est égal à :",
+    options: ["\\(\\overline{A} \\cup \\overline{B}\\)", "\\(\\overline{A} \\cap \\overline{B}\\)", "\\(A \\cup B\\)"],
     correctIndex: 0,
-    explain: "Le cours énonce : le complémentaire d'une intersection est la réunion des complémentaires.",
+    explain: "Le cours énonce : \\(\\overline{A\\cap B}=\\overline{A}\\cup\\overline{B}\\) — le complémentaire d'une intersection est la réunion des complémentaires.",
   },
   {
     id: "ex13", section: "operations-ensembles",
