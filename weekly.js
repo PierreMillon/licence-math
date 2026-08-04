@@ -79,6 +79,15 @@ function isChapterWeeklyComplete(chapterId){
 }
 window.isChapterWeeklyComplete = isChapterWeeklyComplete;
 
+function weeklyChapterFraction(chapterId){
+  const progress = loadWeeklyProgress();
+  const total = CHAPTER_TOTALS[chapterId] || 0;
+  if(total <= 0) return 0;
+  const correct = (progress[chapterId] && progress[chapterId].correct) || 0;
+  return Math.min(1, correct / total);
+}
+window.weeklyChapterFraction = weeklyChapterFraction;
+
 function resolveAndResetWeek(newWeekStart){
   const { total, correct } = weeklyTotals();
   const ratio = total > 0 ? correct / total : 0;
@@ -136,19 +145,17 @@ function iconRow(n, iconSvg, cap){
 
 function renderWeeklyScore(){
   const el = document.getElementById('weeklyScore');
-  if(!el) return;
+  const coinsEl = document.getElementById('knightCoins');
+  const lossesEl = document.getElementById('creatureLosses');
   ensureWeekCurrent();
   const score = loadWeeklyScore();
   const { total, correct } = weeklyTotals();
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
   const ICON_CAP = 5;
-  const hasScore = score.wins > 0 || score.losses > 0;
-  const iconsHTML = hasScore ? `
-    <div class="weekly-score-icons">
-      <span class="weekly-score-group weekly-score-group--wins">${iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP)}</span>
-      <span class="weekly-score-group weekly-score-group--losses">${iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP)}</span>
-    </div>` : '';
-  el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif 80%)</div>${iconsHTML}`;
+
+  if(el) el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif 80%)</div>`;
+  if(coinsEl) coinsEl.innerHTML = iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP);
+  if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -276,28 +276,6 @@ a:hover{ color:var(--fg-dim); }
   text-align:center;
   letter-spacing:.02rem;
 }
-.weekly-score-icons{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  margin-top:8px;
-  flex-wrap:wrap;
-}
-.weekly-score-group{
-  display:flex;
-  align-items:center;
-  gap:2px;
-  min-height:16px;
-}
-.weekly-score-group--wins{ color:var(--amber); }
-.weekly-score-group--losses{ color:var(--red); }
-.weekly-score-group .coin-small,
-.weekly-score-group .skull-pile__icon{
-  width:15px;
-  height:auto;
-  flex:none;
-}
 .weekly-score-more{
   font-family:var(--font-subtitle);
   font-size:.72rem;
@@ -332,12 +310,19 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .knight-zone{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin:0;
+}
+.knight-figure{
   position:relative;
   width:120px;
   height:196px;
   flex:none;
 }
-.knight-zone.has-pieces{
+.knight-zone.has-pieces .knight-figure{
   border-bottom:1px solid var(--fg-dim);
 }
 .knight-piece-wrap{
@@ -349,6 +334,18 @@ a:hover{ color:var(--fg-dim); }
   width:100%;
   height:100%;
   color:var(--fg);
+}
+.knight-coins{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:3px;
+  min-height:16px;
+  color:var(--fg);
+}
+.knight-coins .coin-small{
+  width:15px;
+  height:auto;
 }
 
 .creature-zone{
@@ -403,6 +400,22 @@ a:hover{ color:var(--fg-dim); }
   color:var(--fg-dim);
   align-self:center;
   margin-left:4px;
+}
+
+.creature-losses{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:3px;
+  min-height:16px;
+  color:var(--fg);
+}
+.creature-losses .skull-pile__icon{
+  width:15px;
+  color:var(--fg);
+}
+.creature-losses .weekly-score-more{
+  color:var(--fg);
 }
 
 .victory-scene{
@@ -618,6 +631,16 @@ a:hover{ color:var(--fg-dim); }
   font-family:var(--font-title);
   font-size:1.55rem;
   letter-spacing:.08rem;
+}
+
+.chapter-card__piece{
+  position:absolute;
+  top:10px;
+  right:12px;
+  width:20px;
+  height:auto;
+  color:var(--fg-dim);
+  pointer-events:none;
 }
 
 .chapter-card__score{

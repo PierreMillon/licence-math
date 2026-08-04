@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 59, date: "04/08/2026", desc: "<ul><li>Pièces d'or et crânes du combat de la semaine séparés : pièces sous le chevalier (droite), crânes sous le dragon (gauche), en blanc comme le reste du pixel art</li><li>Chaque carte de chapitre affiche désormais un badge miniature de la pièce d'équipement correspondante, qui se remplit du bas vers le haut selon la progression de la semaine</li></ul>" },
   { v: 58, date: "04/08/2026", desc: "Ajoute l'illustration de défaite du combat hebdomadaire (symétrique de la victoire) : quand moins de 80% des exercices sont refaits avant le reset, le dragon debout et le chevalier au sol remplacent la scène de combat habituelle." },
   { v: 57, date: "04/08/2026", desc: "Le combat de la semaine affiche des pièces d'or (victoires) et des crânes rouges (défaites) en pixel art à la place des nombres en texte, avec bascule sur un compteur ×N au-delà de 5." },
   { v: 56, date: "04/08/2026", desc: "<ul><li>Le dragon/oiseau passe à gauche de la scène de combat, le chevalier à droite</li><li>Le chevalier a maintenant une silhouette de base toujours visible (sans armure) ; seules les pièces d'équipement gagnées viennent s'ajouter par dessus</li><li>Pile de crânes plus compacte au-delà de 5 : bascule sur un compteur ×N</li></ul>" },

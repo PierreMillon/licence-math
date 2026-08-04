@@ -55,8 +55,18 @@ function renderChapters(){
     const done = p.completed >= total && total > 0;
     const doneClass = done ? ' done' : '';
 
+    const piece = (typeof KNIGHT_PIECES !== 'undefined') ? KNIGHT_PIECES.find(kp => kp.chapterId === ch.id) : null;
+    let pieceHTML = '';
+    if(piece && window.weeklyChapterFraction && window.miniPieceClipStyle && window.knightPieceMiniSVG){
+      const fraction = window.weeklyChapterFraction(ch.id);
+      const clip = window.miniPieceClipStyle(fraction);
+      const miniSvg = window.knightPieceMiniSVG(ch.id, piece.svg());
+      pieceHTML = `<div class="chapter-card__piece" style="${clip}" aria-hidden="true">${miniSvg}</div>`;
+    }
+
     return `
       <div class="chapter-card${doneClass}" data-file="${ch.file}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
+        ${pieceHTML}
         <div class="chapter-card__title">
           <span>${ch.name}</span>
         </div>
