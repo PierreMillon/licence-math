@@ -159,7 +159,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     feedbackEl.classList.add(isCorrect ? 'ok' : 'ko');
 
     if(isCorrect){
-      feedbackEl.textContent = '✓ CORRECT';
+      feedbackEl.textContent = '✓ BRAVO !';
     }else{
       const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
       feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}${explainLine}`;
@@ -195,7 +195,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
         exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
         feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
         if(s.correct){
-          feedbackEl.textContent = '✓ CORRECT (déjà validé)';
+          feedbackEl.textContent = '✓ BRAVO ! (déjà validé)';
         }else{
           const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
           feedbackEl.innerHTML = `✗ INCORRECT (déjà tenté — vous pouvez réessayer)${explainLine}`;
