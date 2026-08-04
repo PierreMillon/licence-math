@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 65, date: "04/08/2026", desc: "Sur l'historique des versions (atteint via le numéro de version), l'épée du bouton pointe vers la droite pour indiquer le retour, au lieu de la gauche comme partout ailleurs." },
   { v: 64, date: "04/08/2026", desc: "Corrige le Graal du bouton haut de page qui devenait invisible au survol à la souris (sur ordinateur) — fond et icône passaient blancs en même temps." },
   { v: 63, date: "04/08/2026", desc: "Ajoute des bruitages synthétisés (aucun fichier audio, générés en direct) au Graal du bouton haut de page : un petit arpège féerique quand il apparaît, un blip discret à chaque clic pendant qu'il rétrécit, un « womp womp » comique quand il disparaît complètement." },
   { v: 62, date: "04/08/2026", desc: "<ul><li>Corrige le pantalon d'algèbre : la pièce était identique au chevalier sans armure, donc invisible une fois révélée — élargie pour se voir clairement</li><li>Bouton « haut de page » : l'épée reste l'épée à l'accueil (avec un petit mouvement pour dire « rien à faire ici »), le Graal n'apparaît qu'au 3ᵉ appui et rétrécit progressivement jusqu'à disparaître au 10ᵉ appui suivant</li><li>Supprime le lien « RETOUR » en haut des fiches et de l'historique, devenu redondant avec le bouton unique en bas à droite</li></ul>" },

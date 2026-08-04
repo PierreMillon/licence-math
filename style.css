@@ -132,6 +132,11 @@ a:hover{ color:var(--fg-dim); }
 .scroll-top-btn.at-top .scroll-top-icon{
   transform:rotate(-90deg);
 }
+/* Historique atteint en partant "à gauche" (badge de version) : l'épée
+   pointe vers la droite au retour, dans le sens du trajet inverse. */
+body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
+  transform:rotate(90deg);
+}
 .scroll-top-btn.grail-shown .scroll-top-icon{
   opacity:0;
 }
