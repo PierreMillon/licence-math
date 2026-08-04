@@ -92,7 +92,10 @@ a:hover{ color:var(--fg-dim); }
   transform:translateZ(0);
   will-change:transform;
 }
-.menu-btn:hover{ background:var(--fg); }
+@media (hover:hover) and (pointer:fine){
+  .menu-btn:hover{ background:var(--fg); }
+}
+.menu-btn.flash{ background:var(--fg); }
 
 /* ---------- scroll-to-top button (bas droite) ---------- */
 .scroll-top-btn{
@@ -113,8 +116,12 @@ a:hover{ color:var(--fg-dim); }
   transform:translateZ(0);
   will-change:transform;
 }
-.scroll-top-btn:hover{ background:var(--fg); }
-.scroll-top-btn:hover .scroll-top-icon{ color:var(--bg); }
+@media (hover:hover) and (pointer:fine){
+  .scroll-top-btn:hover{ background:var(--fg); }
+  .scroll-top-btn:hover .scroll-top-icon{ color:var(--bg); }
+}
+.scroll-top-btn.flash{ background:var(--fg); }
+.scroll-top-btn.flash .scroll-top-icon{ color:var(--bg); }
 .scroll-top-icon{
   height:26px;
   width:auto;
@@ -198,46 +205,60 @@ a:hover{ color:var(--fg-dim); }
   gap:10px;
 }
 
-.global-progress-row{
+.grade-block{
+  display:grid;
+  grid-template-columns:1fr auto;
+  column-gap:10px;
+  row-gap:2px;
+  align-items:center;
   margin-top:18px;
 }
 
+.global-progress-bar{
+  grid-column:1;
+  grid-row:1;
+}
+
 .global-progress-score{
+  grid-column:2;
+  grid-row:1;
   font-family:var(--font-title);
   font-size:1.1rem;
   color:var(--amber);
-  flex:none;
   white-space:nowrap;
 }
 
-.grade-estimate-wrap{
-  position:relative;
-  margin-top:8px;
-}
-
-.grade-estimate{
-  font-family:var(--font-subtitle);
-  font-size:.82rem;
-  color:var(--fg-dim);
-  line-height:1.5;
-}
-
 .grade-brace{
+  grid-column:1;
+  grid-row:2;
   display:block;
-  width:min(70%, 220px);
-  margin:2px auto 0;
-  padding:6px 0;
-  border:0;
-  background:none;
+  width:100%;
+  padding-top:3px;
   color:var(--fg-dim);
-  cursor:pointer;
 }
-.grade-brace:hover{ color:var(--fg); }
 .grade-brace-icon{
   display:block;
   width:100%;
   height:auto;
 }
+
+.grade-estimate-wrap{
+  grid-column:1 / span 2;
+  grid-row:3;
+  position:relative;
+  text-align:center;
+  margin-top:4px;
+}
+
+.grade-estimate{
+  display:inline-block;
+  font-family:var(--font-subtitle);
+  font-size:.82rem;
+  color:var(--fg-dim);
+  line-height:1.5;
+  cursor:pointer;
+}
+.grade-estimate:hover{ color:var(--fg); }
 
 .grade-tooltip{
   position:absolute;
@@ -265,7 +286,8 @@ a:hover{ color:var(--fg-dim); }
   font-family:var(--font-title);
   font-size:.95rem;
   color:var(--fg-dim);
-  margin-top:10px;
+  text-align:center;
+  margin:8px 0 30px;
   letter-spacing:.02rem;
 }
 .weekly-score__wins{ color:var(--ok); }

@@ -103,7 +103,7 @@ function renderGlobalProgress(){
   const tooltipEl = document.getElementById('gradeTooltip');
   if(gradeEl){
     const grade = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 20 * 10) / 10 : 0;
-    gradeEl.textContent = `≈ ${grade}/20`;
+    gradeEl.textContent = `${grade}/20`;
   }
   if(tooltipEl){
     tooltipEl.textContent = "note théorique si l'examen ne testait que ce que tu maîtrises déjà";
@@ -111,9 +111,9 @@ function renderGlobalProgress(){
 }
 
 function initGradeTooltip(){
-  const brace = document.getElementById('gradeBrace');
+  const trigger = document.getElementById('gradeEstimate');
   const tooltip = document.getElementById('gradeTooltip');
-  if(!brace || !tooltip) return;
+  if(!trigger || !tooltip) return;
 
   function show(){ tooltip.classList.add('visible'); }
   function reset(){
@@ -130,28 +130,28 @@ function initGradeTooltip(){
     tooltip.style.transform = 'translate(-50%, -100%)';
   }
 
-  brace.addEventListener('click', (e) => {
+  trigger.addEventListener('click', (e) => {
     e.stopPropagation();
     if(tooltip.classList.contains('visible')) reset();
     else show();
   });
   document.addEventListener('click', (e) => {
-    if(e.target !== brace && !brace.contains(e.target) && !tooltip.contains(e.target)) reset();
+    if(e.target !== trigger && !trigger.contains(e.target) && !tooltip.contains(e.target)) reset();
   });
 
-  brace.addEventListener('touchstart', (e) => {
+  trigger.addEventListener('touchstart', (e) => {
     e.preventDefault();
     const t = e.touches[0];
     positionAt(t.clientX, t.clientY);
     show();
   }, { passive: false });
-  brace.addEventListener('touchmove', (e) => {
+  trigger.addEventListener('touchmove', (e) => {
     e.preventDefault();
     const t = e.touches[0];
     positionAt(t.clientX, t.clientY);
   }, { passive: false });
-  brace.addEventListener('touchend', reset);
-  brace.addEventListener('touchcancel', reset);
+  trigger.addEventListener('touchend', reset);
+  trigger.addEventListener('touchcancel', reset);
 }
 
 const FOOTER_MESSAGES = [
