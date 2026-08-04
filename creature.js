@@ -119,11 +119,14 @@ function renderCreature(){
 
   if(pile){
     const n = loadSkullPile();
-    const shown = Math.min(n, 30);
-    const extra = n - shown;
-    pile.innerHTML = shown > 0
-      ? Array.from({ length: shown }, () => SKULL_SMALL_SVG).join('') + (extra > 0 ? `<span class="skull-pile__more">+${extra}</span>` : '')
-      : '';
+    const ICON_CAP = 5;
+    if(n === 0){
+      pile.innerHTML = '';
+    }else if(n <= ICON_CAP){
+      pile.innerHTML = Array.from({ length: n }, () => SKULL_SMALL_SVG).join('');
+    }else{
+      pile.innerHTML = SKULL_SMALL_SVG + `<span class="skull-pile__more">×${n}</span>`;
+    }
   }
 }
 

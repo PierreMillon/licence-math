@@ -28,7 +28,8 @@ function renderVictoryScene(){
   if(dragonZone) dragonZone.innerHTML = DRAGON_SVG;
   if(knightZone && typeof KNIGHT_PIECES !== 'undefined'){
     const sorted = KNIGHT_PIECES.slice().sort((a, b) => a.z - b.z);
-    knightZone.innerHTML = sorted.map(p => `<div class="knight-piece-wrap">${p.svg()}</div>`).join('');
+    const baseHTML = typeof KNIGHT_BASE_SVG !== 'undefined' ? `<div class="knight-piece-wrap">${KNIGHT_BASE_SVG}</div>` : '';
+    knightZone.innerHTML = baseHTML + sorted.map(p => `<div class="knight-piece-wrap">${p.svg()}</div>`).join('');
   }
   if(swordZone) swordZone.innerHTML = SWORD_SVG;
 }
