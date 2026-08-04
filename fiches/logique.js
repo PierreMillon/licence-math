@@ -39,7 +39,7 @@ const EXERCISES = [
   },
   {
     id: "ex5", section: "quantificateurs",
-    statement: "D'après le cours, les assertions « ∀m∈ℝ,∃x∈ℝ, m=2x+1 » et « ∃x∈ℝ,∀m∈ℝ, m=2x+1 » sont-elles équivalentes ?",
+    statement: "D'après le cours, les assertions « \\(\\forall m \\in \\mathbb{R}, \\exists x \\in \\mathbb{R}, m = 2x+1\\) » et « \\(\\exists x \\in \\mathbb{R}, \\forall m \\in \\mathbb{R}, m = 2x+1\\) » sont-elles équivalentes ?",
     options: ["Non : la première est vraie (x dépend de m) mais la seconde est fausse (il faudrait un x fixe convenant à tout m)", "Oui, l'ordre des quantificateurs ∀ et ∃ ne change jamais le sens d'une assertion", "Non, c'est l'inverse : la première est fausse et la seconde est vraie"],
     correctIndex: 0,
     explain: "Le cours souligne que changer l'ordre des quantificateurs ∀∃ peut changer complètement le sens : ici seule la première assertion (où x peut dépendre de m) est vraie.",

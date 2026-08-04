@@ -189,7 +189,6 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     catch(e){ progress = {}; }
     delete progress[CHAPTER_ID];
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-    if(window.incrementSkullPile) window.incrementSkullPile();
     window.location.reload();
   }
 

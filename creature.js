@@ -4,7 +4,10 @@
    le nombre de jours sans exercice répondu augmente (à partir du
    2e jour, plafonné à 40 jours), et redescend d'un cran à chaque
    exercice répondu. Bulle d'alerte progressive au-delà de 3 jours.
-   Pile de crânes : +1 à chaque réinitialisation (chapitre ou site).
+   Pile de crânes : +1 uniquement à la réinitialisation de TOUT le
+   site, et seulement s'il y avait une vraie progression à perdre
+   (jamais sur une réinitialisation de chapitre, jamais si le site
+   était déjà à zéro — pour ne pas pouvoir en farmer gratuitement).
    Chargé sur toutes les pages ; ne rend la mascotte que si
    #creatureZone existe (page d'accueil).
    ============================================================ */

@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 51, date: "04/08/2026", desc: "Corrige 3 bugs : le badge de version chevauchait le bouton « RETOUR » en haut des fiches et de l'historique ; une formule de LOGIQUE (équivalence des quantificateurs) ne passait pas par KaTeX ; la pile de crânes pouvait être « farmée » en réinitialisant plusieurs fois sans progrès — désormais seule une réinitialisation de tout le site, avec une vraie progression à perdre, donne un crâne (plus jamais une réinitialisation de chapitre seul)." },
   { v: 50, date: "03/08/2026", desc: "Ajoute l'illustration de victoire du combat hebdomadaire : quand 80% des exercices sont faits avant le reset, le chevalier en armure complète apparaît, épée plantée sur le dragon vaincu, à la place de la scène de combat habituelle." },
   { v: 49, date: "03/08/2026", desc: "Ajoute un décor château + vallée en pixel art derrière la scène chevalier/dragon." },
   { v: 48, date: "03/08/2026", desc: "Le chevalier du combat hebdomadaire s'équipe en pixel art : chaque chapitre complété cette semaine ajoute sa pièce (bottes, jambières, gantelets, plastron, bouclier, cape, casque, épée)." },
