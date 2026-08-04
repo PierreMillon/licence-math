@@ -130,6 +130,14 @@ a:hover{ color:var(--fg-dim); }
 .scroll-top-btn.at-top .scroll-top-icon{
   transform:rotate(-90deg);
 }
+@keyframes scrollTopWobble{
+  0%, 100% { transform:rotate(-90deg); }
+  30% { transform:rotate(-104deg); }
+  70% { transform:rotate(-76deg); }
+}
+.scroll-top-btn.wobble .scroll-top-icon{
+  animation:scrollTopWobble .35s ease;
+}
 
 .version-badge{
   position:absolute;
@@ -443,24 +451,24 @@ a:hover{ color:var(--fg-dim); }
 }
 .victory-dragon{
   position:absolute;
-  left:50%;
-  bottom:8px;
-  transform:translateX(-50%) rotate(8deg);
+  left:34%;
+  bottom:4px;
+  transform:translateX(-50%) rotate(20deg);
   opacity:.5;
 }
 .victory-dragon svg{
   display:block;
-  width:200px;
+  width:190px;
   height:auto;
   color:var(--fg-dim);
 }
 .victory-knight{
   position:absolute;
-  left:50%;
+  left:70%;
   bottom:0;
   transform:translateX(-50%);
-  width:110px;
-  height:179px;
+  width:100px;
+  height:163px;
 }
 .victory-knight .knight-piece-wrap{
   position:absolute;
@@ -474,13 +482,13 @@ a:hover{ color:var(--fg-dim); }
 }
 .victory-sword{
   position:absolute;
-  left:50%;
-  top:2px;
-  transform:translateX(-50%) rotate(14deg);
+  left:38%;
+  bottom:38px;
+  transform:translateX(-50%) rotate(58deg);
 }
 .victory-sword svg{
   display:block;
-  width:54px;
+  width:50px;
   height:auto;
   color:var(--fg);
 }
@@ -723,6 +731,33 @@ a:hover{ color:var(--fg-dim); }
 .exo-progress-bar__sq:hover{ border-color:var(--amber); }
 .exo-progress-bar__sq.correct{ background:var(--ok); border-color:var(--ok); }
 .exo-progress-bar__sq.incorrect{ background:var(--red); border-color:var(--red); }
+
+.fiche-piece-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin:24px auto 0;
+}
+.fiche-piece-badge{
+  width:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--fg);
+}
+.fiche-piece-badge svg{
+  width:100%;
+  height:auto;
+}
+.fiche-piece-label{
+  font-family:var(--font-subtitle);
+  font-size:.72rem;
+  color:var(--fg-dim);
+  letter-spacing:.03rem;
+  text-align:center;
+}
 
 .reset-btn{
   display:flex;

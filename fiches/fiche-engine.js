@@ -53,6 +53,17 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     }
   }
 
+  function renderFichePieceBadge(){
+    const badge = document.getElementById('fichePieceBadge');
+    if(!badge || typeof KNIGHT_PIECES === 'undefined') return;
+    const piece = KNIGHT_PIECES.find(p => p.chapterId === CHAPTER_ID);
+    if(!piece || !window.weeklyChapterFraction || !window.miniPieceClipStyle || !window.knightPieceMiniSVG) return;
+    const fraction = window.weeklyChapterFraction(CHAPTER_ID);
+    const clip = window.miniPieceClipStyle(fraction);
+    const miniSvg = window.knightPieceMiniSVG(CHAPTER_ID, piece.svg());
+    badge.innerHTML = `<div style="${clip}">${miniSvg}</div>`;
+  }
+
   /* ---------- barre de progression par carrés (un carré = un exercice) ---------- */
   function exoProgressSquareState(state, ex){
     const s = state[ex.id];
@@ -145,6 +156,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     updateExoProgressSquare(state, ex);
     if(isFirstAnswer && window.decrementLateness) window.decrementLateness();
     if(window.recordWeeklyAnswer) window.recordWeeklyAnswer(CHAPTER_ID, ex.id, isCorrect);
+    renderFichePieceBadge();
   }
 
   function bindExercise(ex, state){
@@ -199,6 +211,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     EXERCISES.forEach(ex => bindExercise(ex, state));
     restoreState(state);
     syncProgress(state);
+    renderFichePieceBadge();
     const resetBtn = document.getElementById('resetChapterBtn');
     if(resetBtn) resetBtn.addEventListener('click', resetChapter);
   });
