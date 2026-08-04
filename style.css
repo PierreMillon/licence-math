@@ -130,7 +130,17 @@ a:hover{ color:var(--fg-dim); }
   transition:transform .2s ease, opacity .25s ease;
 }
 .scroll-top-btn.at-top .scroll-top-icon{
+  transform:rotate(-90deg);
+}
+/* Historique atteint en partant "à gauche" (badge de version) : l'épée
+   pointe vers la droite au retour, sens du trajet inverse. */
+body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   transform:rotate(90deg);
+}
+/* Accueil : déjà tout en haut de la destination elle-même, l'épée
+   garde son orientation naturelle (vers le haut), sans rotation. */
+.scroll-top-btn.at-rest .scroll-top-icon{
+  transform:rotate(0deg);
 }
 .scroll-top-btn.grail-shown .scroll-top-icon{
   opacity:0;
@@ -151,9 +161,9 @@ a:hover{ color:var(--fg-dim); }
   transform:translate(-50%,-50%) scale(var(--gscale, 1));
 }
 @keyframes scrollTopWobble{
-  0%, 100% { transform:rotate(90deg); }
-  30% { transform:rotate(104deg); }
-  70% { transform:rotate(76deg); }
+  0%, 100% { transform:rotate(0deg); }
+  30% { transform:rotate(14deg); }
+  70% { transform:rotate(-14deg); }
 }
 .scroll-top-btn.wobble:not(.grail-shown) .scroll-top-icon{
   animation:scrollTopWobble .35s ease;
@@ -303,12 +313,18 @@ a:hover{ color:var(--fg-dim); }
 }
 
 .weekly-score{
-  margin:8px 0 30px;
+  position:absolute;
+  top:8px;
+  left:0;
+  right:0;
+  z-index:1;
+  margin:0;
+  padding:0 8px;
 }
 .weekly-score-text{
   font-family:var(--font-title);
-  font-size:.95rem;
-  color:var(--fg-dim);
+  font-size:.8rem;
+  color:var(--fg);
   text-align:center;
   letter-spacing:.02rem;
 }
@@ -321,8 +337,8 @@ a:hover{ color:var(--fg-dim); }
 .battle-scene{
   position:relative;
   overflow:hidden;
-  margin:8px 0 34px;
-  padding-top:10px;
+  margin:8px 0 24px;
+  padding-top:40px;
 }
 .castle-bg{
   position:absolute;
@@ -755,7 +771,7 @@ a:hover{ color:var(--fg-dim); }
   flex-direction:column;
   align-items:center;
   gap:6px;
-  margin:24px auto 0;
+  margin:0 auto 20px;
 }
 .fiche-piece-badge{
   width:46px;
@@ -978,18 +994,10 @@ code{
 }
 .drawer.open{ transform:translateX(0); }
 
-.drawer__head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-family:var(--font-title);
-  font-size:1.2rem;
-  letter-spacing:.08rem;
-  margin-bottom:14px;
-  padding-bottom:10px;
-  border-bottom:1px dashed var(--fg-dim);
-}
 .drawer__close{
+  position:absolute;
+  top:14px;
+  right:14px;
   background:none;
   border:1px solid var(--fg-dim);
   color:var(--fg);
@@ -1011,4 +1019,5 @@ code{
   border-bottom:1px solid var(--fg-dim);
 }
 .drawer__link:hover{ background:rgba(255,255,255,.08); }
-.drawer__sep{ height:1px; background:var(--fg-dim); opacity:.3; margin:8px 0; }
+.drawer__link:last-of-type{ border-bottom:none; }
+.drawer__link:first-of-type{ margin-top:34px; }
