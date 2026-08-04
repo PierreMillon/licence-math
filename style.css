@@ -314,19 +314,21 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 .weekly-score{
   position:absolute;
-  top:8px;
-  left:0;
-  right:0;
-  z-index:1;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:2;
   margin:0;
-  padding:0 8px;
 }
 .weekly-score-text{
   font-family:var(--font-title);
-  font-size:.8rem;
+  font-size:.68rem;
   color:var(--fg);
   text-align:center;
-  letter-spacing:.02rem;
+  letter-spacing:.01rem;
+  white-space:nowrap;
+  background:rgba(0,0,0,.55);
+  padding:3px 8px;
 }
 .weekly-score-more{
   font-family:var(--font-subtitle);
@@ -338,7 +340,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   position:relative;
   overflow:hidden;
   margin:8px 0 24px;
-  padding-top:40px;
+  padding-top:8px;
 }
 .castle-bg{
   position:absolute;
