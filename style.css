@@ -119,9 +119,11 @@ a:hover{ color:var(--fg-dim); }
 @media (hover:hover) and (pointer:fine){
   .scroll-top-btn:hover{ background:var(--fg); }
   .scroll-top-btn:hover .scroll-top-icon{ color:var(--bg); }
+  .scroll-top-btn:hover .grail-icon{ color:var(--bg); }
 }
 .scroll-top-btn.flash{ background:var(--fg); }
 .scroll-top-btn.flash .scroll-top-icon{ color:var(--bg); }
+.scroll-top-btn.flash .grail-icon{ color:var(--bg); }
 .scroll-top-icon{
   height:26px;
   width:auto;
