@@ -125,10 +125,32 @@ a:hover{ color:var(--fg-dim); }
 .scroll-top-icon{
   height:26px;
   width:auto;
-  transition:transform .2s ease;
+  transition:transform .2s ease, opacity .25s ease;
 }
 .scroll-top-btn.at-top .scroll-top-icon{
   transform:rotate(-90deg);
+}
+.scroll-top-btn.at-rest .scroll-top-icon{
+  opacity:0;
+}
+.grail-icon{
+  position:absolute;
+  top:50%;
+  left:50%;
+  height:22px;
+  width:auto;
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.55);
+  transition:opacity .25s ease, transform .25s ease;
+  pointer-events:none;
+}
+.scroll-top-btn.at-rest .grail-icon{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+.scroll-top-btn.icon-hidden .scroll-top-icon,
+.scroll-top-btn.icon-hidden .grail-icon{
+  opacity:0;
 }
 @keyframes scrollTopWobble{
   0%, 100% { transform:rotate(-90deg); }
@@ -137,6 +159,14 @@ a:hover{ color:var(--fg-dim); }
 }
 .scroll-top-btn.wobble .scroll-top-icon{
   animation:scrollTopWobble .35s ease;
+}
+@keyframes grailWobble{
+  0%, 100% { transform:translate(-50%,-50%) scale(1) rotate(0deg); }
+  30% { transform:translate(-50%,-50%) scale(1) rotate(-8deg); }
+  70% { transform:translate(-50%,-50%) scale(1) rotate(8deg); }
+}
+.scroll-top-btn.wobble.at-rest .grail-icon{
+  animation:grailWobble .35s ease;
 }
 
 .version-badge{
