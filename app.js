@@ -13,7 +13,7 @@ const CHAPTERS = [
   { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21 },
   { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 23 },
   { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17 },
-  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 40 },
+  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 52 },
   { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 43 },
 ];
 
@@ -99,29 +99,32 @@ function renderGlobalProgress(){
   bar.innerHTML = progressSegmentsHTML(pct);
   if(scoreEl) scoreEl.textContent = `${totalCorrect}/${totalExercises}`;
 
-  const gradeEl = document.getElementById('gradeEstimate');
   const tooltipEl = document.getElementById('gradeTooltip');
-  if(gradeEl){
-    const grade = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 20 * 10) / 10 : 0;
-    gradeEl.textContent = `${grade}/20`;
-  }
   if(tooltipEl){
-    tooltipEl.textContent = "note théorique si l'examen ne testait que ce que tu maîtrises déjà";
+    const grade = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 20 * 10) / 10 : 0;
+    tooltipEl.innerHTML = `<span class="grade-tooltip__num">${grade}/20</span>note théorique si l'examen ne testait que ce que tu maîtrises déjà`;
   }
 }
 
 function initGradeTooltip(){
-  const trigger = document.getElementById('gradeEstimate');
+  const trigger = document.getElementById('globalProgressBar');
   const tooltip = document.getElementById('gradeTooltip');
   if(!trigger || !tooltip) return;
 
   function show(){ tooltip.classList.add('visible'); }
-  function reset(){
-    tooltip.classList.remove('visible');
+  function clearPosition(){
     tooltip.style.position = '';
     tooltip.style.left = '';
     tooltip.style.top = '';
     tooltip.style.transform = '';
+  }
+  function reset(){
+    tooltip.classList.remove('visible');
+    clearPosition();
+  }
+  function hideKeepingPosition(){
+    tooltip.classList.remove('visible');
+    setTimeout(clearPosition, 200);
   }
   function positionAt(x, y){
     tooltip.style.position = 'fixed';
@@ -150,8 +153,8 @@ function initGradeTooltip(){
     const t = e.touches[0];
     positionAt(t.clientX, t.clientY);
   }, { passive: false });
-  trigger.addEventListener('touchend', reset);
-  trigger.addEventListener('touchcancel', reset);
+  trigger.addEventListener('touchend', hideKeepingPosition);
+  trigger.addEventListener('touchcancel', hideKeepingPosition);
 }
 
 const FOOTER_MESSAGES = [

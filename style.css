@@ -125,6 +125,10 @@ a:hover{ color:var(--fg-dim); }
 .scroll-top-icon{
   height:26px;
   width:auto;
+  transition:transform .2s ease;
+}
+.scroll-top-btn.at-top .scroll-top-icon{
+  transform:rotate(-90deg);
 }
 
 .version-badge{
@@ -205,18 +209,23 @@ a:hover{ color:var(--fg-dim); }
   gap:10px;
 }
 
+.grade-block-wrap{
+  position:relative;
+  margin-top:18px;
+}
+
 .grade-block{
   display:grid;
   grid-template-columns:1fr auto;
   column-gap:10px;
-  row-gap:2px;
   align-items:center;
-  margin-top:18px;
 }
 
 .global-progress-bar{
   grid-column:1;
   grid-row:1;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 
 .global-progress-score{
@@ -228,43 +237,11 @@ a:hover{ color:var(--fg-dim); }
   white-space:nowrap;
 }
 
-.grade-brace{
-  grid-column:1;
-  grid-row:2;
-  display:block;
-  width:100%;
-  padding-top:3px;
-  color:var(--fg-dim);
-}
-.grade-brace-icon{
-  display:block;
-  width:100%;
-  height:auto;
-}
-
-.grade-estimate-wrap{
-  grid-column:1 / span 2;
-  grid-row:3;
-  position:relative;
-  text-align:center;
-  margin-top:4px;
-}
-
-.grade-estimate{
-  display:inline-block;
-  font-family:var(--font-subtitle);
-  font-size:.82rem;
-  color:var(--fg-dim);
-  line-height:1.5;
-  cursor:pointer;
-}
-.grade-estimate:hover{ color:var(--fg); }
-
 .grade-tooltip{
   position:absolute;
   left:50%;
   top:100%;
-  transform:translate(-50%, 4px);
+  transform:translate(-50%, 8px);
   width:max-content;
   max-width:260px;
   border:1px solid var(--fg);
@@ -281,6 +258,13 @@ a:hover{ color:var(--fg-dim); }
   transition:opacity .15s ease;
 }
 .grade-tooltip.visible{ opacity:1; }
+.grade-tooltip__num{
+  display:block;
+  font-family:var(--font-title);
+  font-size:1rem;
+  color:var(--amber);
+  margin-bottom:4px;
+}
 
 .weekly-score{
   font-family:var(--font-title);

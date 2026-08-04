@@ -10,7 +10,7 @@
 
 const CHAPTER_TOTALS = {
   logique: 34, calculus: 27, algebre: 12, analyse: 21,
-  probabilites: 23, statistiques: 17, java: 40, python: 43,
+  probabilites: 23, statistiques: 17, java: 52, python: 43,
 };
 const WEEKLY_THRESHOLD = 0.8;
 

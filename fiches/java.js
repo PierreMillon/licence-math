@@ -8,7 +8,8 @@
    (S2, INU Champollion) : POO généralités, syntaxe, structures
    conditionnelles, boucles, tableaux, classe String, classes
    usuelles (Math/System/Arrays/Random/ArrayList), classes
-   personnalisées, héritage/abstraction, interfaces (Comparable).
+   personnalisées, héritage/abstraction, interfaces (Comparable),
+   gestion des exceptions, AWT et programmation événementielle.
    ============================================================ */
 
 const EXERCISES = [
@@ -292,6 +293,90 @@ const EXERCISES = [
     correctIndex: 0,
     explain: "Par exemple, Collections.sort attend en paramètre une collection d'éléments qui implémentent Comparable : implémenter cette interface rend la classe compatible avec ce contrat.",
   },
+  {
+    id: "ex41", section: "exceptions-java",
+    statement: "Qu'est-ce qu'une <b>exception</b> en Java ?",
+    options: ["Un objet qui représente une erreur survenue pendant l'exécution, levé au lieu de faire planter le programme", "Un simple message affiché dans la console qui n'arrête jamais le programme", "Un type de boucle qui s'arrête automatiquement en cas d'erreur"],
+    correctIndex: 0,
+    explain: "Au lieu de crasher directement, le programme lève (déclenche) un objet exception, qui peut ensuite être capturé et traité par un gestionnaire.",
+  },
+  {
+    id: "ex42", section: "exceptions-java",
+    statement: "Que fait un bloc <code>try</code> / <code>catch</code> ?",
+    options: ["Il exécute le code du try, et si une exception y est levée, elle est interceptée et traitée dans le catch", "Il empêche définitivement toute exception de se produire dans le programme", "Il relance automatiquement le programme depuis le début en cas d'erreur"],
+    correctIndex: 0,
+    explain: "try délimite le code à risque ; si une exception y survient, elle est capturée par le catch correspondant, ce qui évite l'arrêt brutal du programme.",
+  },
+  {
+    id: "ex43", section: "exceptions-java",
+    statement: "Quelle est la différence entre <code>throw</code> et <code>throws</code> ?",
+    options: ["throw déclenche effectivement une exception dans le code ; throws, dans la signature d'une méthode, annonce qu'elle est susceptible d'en lever une", "Ce sont deux synonymes strictement interchangeables en Java", "throw sert aux erreurs graves, throws aux erreurs mineures"],
+    correctIndex: 0,
+    explain: "throw lève concrètement un objet exception à un endroit précis du code ; throws est une déclaration dans l'en-tête d'une méthode qui prévient qu'elle peut propager une exception.",
+  },
+  {
+    id: "ex44", section: "exceptions-java",
+    statement: "Une <b>exception personnalisée</b> doit dériver de quelle classe ?",
+    options: ["<code>java.lang.Exception</code> (directement ou indirectement)", "<code>java.lang.Object</code> uniquement, comme n'importe quelle classe", "Aucune : une exception personnalisée est une interface"],
+    correctIndex: 0,
+    explain: "Toutes les exceptions Java dérivent de java.lang.Exception ; une exception personnalisée en hérite pour bénéficier du même mécanisme de levée/capture.",
+  },
+  {
+    id: "ex45", section: "exceptions-java",
+    statement: "Si aucune méthode de la pile d'appel ne capture une exception levée, que se passe-t-il ?",
+    options: ["Elle continue à se propager jusqu'à la méthode main, et le programme s'arrête en affichant la stack trace", "Elle est ignorée silencieusement et le programme continue normalement", "Elle est automatiquement transformée en simple avertissement"],
+    correctIndex: 0,
+    explain: "Sans handler pour l'intercepter, l'exception remonte (se propage) toute la pile d'appel jusqu'à main, provoquant l'arrêt du programme.",
+  },
+  {
+    id: "ex46", section: "exceptions-java",
+    statement: "Que représente la <b>stack trace</b> d'une exception ?",
+    options: ["La pile des méthodes appelées, depuis main jusqu'à celle où l'exception a été levée, utile pour déboguer", "La liste des variables locales au moment du crash", "Le nombre de fois où l'exception a été levée pendant l'exécution"],
+    correctIndex: 0,
+    explain: "Elle retrace le chemin d'appel des méthodes jusqu'au point où l'exception a été levée, ce qui aide à localiser l'origine du problème.",
+  },
+  {
+    id: "ex47", section: "awt-java",
+    statement: "Quelle classe AWT sert de zone rectangulaire dans laquelle on peut dessiner ?",
+    options: ["<code>Canvas</code>", "<code>Frame</code>", "<code>Graphics</code>"],
+    correctIndex: 0,
+    explain: "Le Canvas est la zone de dessin ; on la personnalise en dérivant une classe qui hérite de Canvas et redéfinit sa méthode paint().",
+  },
+  {
+    id: "ex48", section: "awt-java",
+    statement: "Quelle méthode faut-il redéfinir (surcharger) pour personnaliser l'affichage d'un Canvas ?",
+    options: ["<code>paint()</code>, qui reçoit un objet Graphics en paramètre", "<code>main()</code>", "<code>toString()</code>"],
+    correctIndex: 0,
+    explain: "paint(Graphics g) est appelée pour dessiner ; les méthodes de l'objet Graphics passé en paramètre permettent de tracer formes, images, texte, etc.",
+  },
+  {
+    id: "ex49", section: "awt-java",
+    statement: "Pour associer un écouteur à un composant avec <code>X.addYListener(Z)</code>, que doit-on vérifier ?",
+    options: ["X est un composant qui émet des événements de type YEvent, et Z implémente l'interface YListener", "X et Z doivent obligatoirement être la même instance", "Y est le nom d'une méthode qu'il faut définir directement dans X"],
+    correctIndex: 0,
+    explain: "Le composant (X) est apparié à un écouteur (Z) qui implémente l'interface adéquate (YListener) pour réagir aux événements que X émet.",
+  },
+  {
+    id: "ex50", section: "awt-java",
+    statement: "Quelle est la différence entre <code>keyPressed</code> et <code>keyTyped</code> dans <code>KeyListener</code> ?",
+    options: ["keyPressed réagit à l'appui physique sur une touche (y compris flèches, touches spéciales), keyTyped réagit uniquement aux caractères produits", "Ce sont deux noms différents pour exactement le même événement", "keyTyped se déclenche systématiquement avant keyPressed"],
+    correctIndex: 0,
+    explain: "keyPressed capture toute touche physique enfoncée (utile par exemple pour les flèches directionnelles), tandis que keyTyped ne réagit qu'aux caractères réellement saisis.",
+  },
+  {
+    id: "ex51", section: "awt-java",
+    statement: "Une classe qui implémente une interface d'écouteur (ex. <code>MouseListener</code>) doit :",
+    options: ["Fournir une implémentation pour chacune des méthodes de l'interface, même vide", "Fournir uniquement le code de la méthode qui l'intéresse", "Redéfinir uniquement les méthodes statiques de l'interface"],
+    correctIndex: 0,
+    explain: "Implémenter une interface impose de fournir le code de toutes ses méthodes, quitte à laisser certains corps vides si l'événement correspondant n'est pas utile ici.",
+  },
+  {
+    id: "ex52", section: "awt-java",
+    statement: "Quelle méthode d'un Canvas permet de le redessiner après une modification (ex. une forme ajoutée) ?",
+    options: ["<code>repaint()</code>", "<code>refresh()</code>", "<code>update()</code> uniquement, sans jamais passer par repaint()"],
+    correctIndex: 0,
+    explain: "repaint() planifie un nouvel appel à paint() pour que le Canvas reflète les changements, par exemple une nouvelle forme à afficher.",
+  },
 ];
 
 const SECTIONS = [
@@ -334,6 +419,14 @@ const SECTIONS = [
   {
     id: "interfaces-java", title: "§10 — LES INTERFACES (COMPARABLE)",
     cours: "Une <span class=\"math\">interface</span> ne contient que des signatures de méthodes (méthodes abstraites), sans code ; elle ne peut pas être instanciée, seulement implémentée (mot-clé <code>implements</code>) par une ou plusieurs classes<br>L'interface propose un « contrat » plutôt qu'un service<br><code>Comparable&lt;T&gt;</code> propose une seule méthode <code>compareTo</code>, qui retourne un entier signé représentant la « différence » entre l'objet courant et l'objet comparé<br>Implémenter Comparable rend une classe compatible avec des méthodes comme <code>Collections.sort</code>, qui exigent des éléments comparables entre eux",
+  },
+  {
+    id: "exceptions-java", title: "§11 — GESTION DES EXCEPTIONS",
+    cours: "Une <span class=\"math\">exception</span> est un objet représentant une erreur survenue pendant l'exécution ; au lieu de faire planter le programme, elle est levée puis peut être capturée et traitée<br>Un bloc <code>try</code> délimite le code à risque ; si une exception y est levée, elle est interceptée par le <code>catch</code> correspondant<br><code>throw</code> lève effectivement une exception dans le code ; <code>throws</code>, dans la signature d'une méthode, annonce qu'elle est susceptible d'en lever une<br>Une exception personnalisée dérive de <code>java.lang.Exception</code><br>Sans handler pour la capturer, une exception se propage le long de la pile d'appel jusqu'à <code>main</code>, provoquant l'arrêt du programme (la <span class=\"math\">stack trace</span> retrace ce chemin d'appel)",
+  },
+  {
+    id: "awt-java", title: "§12 — AWT ET LA PROGRAMMATION ÉVÉNEMENTIELLE",
+    cours: "AWT (<span class=\"math\">Abstract Window Toolkit</span>) est le premier environnement graphique de Java ; le <code>Canvas</code> est sa zone de dessin, personnalisée en redéfinissant la méthode <code>paint(Graphics g)</code><br>Une application graphique attend des <span class=\"math\">événements</span> (clic, touche, déplacement...) plutôt que de dérouler un algorithme linéaire<br>Un <span class=\"math\">écouteur</span> (listener) est une interface Java ; une classe qui l'implémente doit fournir le code de toutes ses méthodes, même vides<br>Le montage <code>X.addYListener(Z)</code> suppose que X émette des événements de type YEvent et que Z implémente l'interface YListener<br><code>keyPressed</code> réagit à toute touche physique enfoncée, <code>keyTyped</code> uniquement aux caractères produits<br><code>repaint()</code> planifie un nouvel appel à <code>paint()</code> pour refléter un changement",
   },
 ];
 
