@@ -29,6 +29,19 @@ function renderSceneMoon(){
   el.innerHTML = MOON_SVG;
 }
 
+/* ---------- château + grotte, en arrière-plan au-dessus des personnages ---------- */
+/* Le chevalier descend du château pour affronter le dragon, qui vit
+   dans la grotte juste sous ses fondations — métaphore assumée : on ne
+   se bat pas contre quelqu'un d'autre, on va chercher en soi-même
+   (sous ses propres fondations) quelque chose qu'il faut mériter. */
+function renderSceneCastle(){
+  const castleEl = document.getElementById('sceneCastle');
+  if(castleEl && typeof CASTLE_SVG !== 'undefined') castleEl.innerHTML = CASTLE_SVG;
+
+  const caveEl = document.getElementById('sceneCave');
+  if(caveEl && typeof CAVE_SVG !== 'undefined') caveEl.innerHTML = CAVE_SVG;
+}
+
 /* ---------- oiseau : clin d'œil aléatoire (3 à 10 s) ---------- */
 function initSceneBird(){
   const el = document.getElementById('sceneBird');
@@ -174,6 +187,7 @@ function initWanderMonster(){
 document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();
   renderSceneMoon();
+  renderSceneCastle();
   initSceneBird();
   initWanderMonster();
   alignSceneBird();

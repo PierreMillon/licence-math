@@ -14,7 +14,7 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 - `fiches/fiche-engine.js` — moteur commun à toutes les fiches (rendu, progression, réinitialisation).
 - `weekly.js` — combat hebdomadaire chevalier / dragon : couche de progression séparée de la progression permanente, remise à zéro chaque lundi.
 - `knight.js`, `knight-svgs.js` — système de pièces d'équipement du chevalier, gagnées progressivement par chapitre.
-- `creature.js`, `creature-svgs.js`, `scene.js` — mascotte de progression (oiseau qui grossit en dragon si le site n'est pas visité), scène de combat (dragon, oiseau, chevalier), petit monstre qui traverse l'écran après une pause.
+- `creature.js`, `creature-svgs.js`, `scene.js` — mascotte de progression (oiseau qui grossit en dragon si le site n'est pas visité), scène de combat (château, grotte, dragon, oiseau, chevalier), petit monstre qui traverse l'écran après une pause.
 - `victory.js` — scènes de résolution du combat hebdomadaire (victoire / défaite).
 - `changelog.html` / `changelog.js` — historique des versions du site.
 - `notation.html` / `notation.js` — préférences de notation (ex. u/v vs f/g pour la dérivation), lues par `fiches/fiche-engine.js`.
@@ -39,16 +39,6 @@ Le site utilise un paramètre `?v=N` sur tous les `<link>`/`<script>` locaux pou
 
 Notes pour ne pas perdre des idées discutées mais pas encore construites :
 
-- **Lore du décor château/donjon/dragon** : le château doit être centré
-  au-dessus des deux personnages (pas à gauche), avec en dessous une
-  grotte/donjon qui abrite le dragon — le chevalier descend du château
-  pour l'affronter. Métaphore : on ne se bat pas contre quelqu'un
-  d'autre, on va chercher en soi-même (le donjon, sous ses propres
-  fondations) un trésor qu'il faut mériter par la rigueur — d'où le
-  passage du chevalier en couleur (vivant, aujourd'hui) à un
-  équipement noir & blanc (tradition, quelque chose de plus ancien
-  que soi) au fil de la progression. Le dragon reste à gauche, le
-  chevalier à droite, comme actuellement.
 - **Cycle de marche du petit monstre qui traverse l'écran** : si
   plusieurs sprites sont fournis (2 à 4 images d'un cycle de pas),
   remplacer l'unique image qui glisse par une vraie animation en
