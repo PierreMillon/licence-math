@@ -96,12 +96,12 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     const bar = document.getElementById('exoProgressBar');
     if(!bar) return;
     bar.innerHTML = EXERCISES.map((ex, i) => `
-      <button type="button" class="exo-progress-bar__sq${exoProgressSquareState(state, ex)}" data-target="exo-${ex.id}" title="Exercice ${i + 1}/${EXERCISES.length}" aria-label="Aller à l'exercice ${i + 1}"></button>
+      <button type="button" class="exo-progress-bar__sq${exoProgressSquareState(state, ex)}" data-exid="${ex.id}" title="Exercice ${i + 1}/${EXERCISES.length}" aria-label="Aller à l'exercice ${i + 1}"></button>
     `).join('');
     bar.querySelectorAll('.exo-progress-bar__sq').forEach(sq => {
       sq.addEventListener('click', () => {
-        const target = document.getElementById(sq.dataset.target);
-        if(target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const exId = sq.dataset.exid;
+        goToPage(findPageForExercise(exId), 'exo-' + exId);
       });
     });
   }
@@ -117,11 +117,12 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
 
   /* ---------- rendu ---------- */
   /* Ordre des réponses mélangé à chaque rendu (chaque visite de la
-     fiche) pour qu'on ne puisse pas répondre juste en retenant une
-     position fixe. Les questions elles-mêmes ne bougent jamais.
-     Le mélange ne touche que l'ordre d'affichage : la valeur de
-     chaque radio reste l'index d'origine dans ex.options, donc
-     correctIndex / selectedIndex / l'état sauvegardé restent inchangés. */
+     fiche, et à chaque changement de page puisqu'on re-rend) pour
+     qu'on ne puisse pas répondre juste en retenant une position fixe.
+     Les questions elles-mêmes ne bougent jamais. Le mélange ne touche
+     que l'ordre d'affichage : la valeur de chaque radio reste l'index
+     d'origine dans ex.options, donc correctIndex / selectedIndex /
+     l'état sauvegardé restent inchangés. */
   function shuffledIndices(n){
     const order = Array.from({ length: n }, (_, i) => i);
     for(let i = order.length - 1; i > 0; i--){
@@ -139,13 +140,78 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     return `<div class="qcm-options">${opts}</div>`;
   }
 
-  function renderSections(){
+  /* ---------- pagination (5-6 exercices par page) ---------- */
+  /* Une fiche entière en un seul défilement était jugée trop longue
+     (retour d'un relecteur externe) : on la découpe en pages internes
+     de PAGE_SIZE exercices, par lots simples (une section peut donc
+     être coupée entre deux pages) plutôt qu'une page par section
+     (sections de taille très inégale). Reste sur UNE SEULE URL/page
+     HTML : le score, la progression, les liens directs vers un
+     exercice (#exo-xxx, utilisés par mistakes.js) et le bouton reset
+     continuent de porter sur tout le chapitre, inchangés. */
+  const PAGE_SIZE = 6;
+  let PAGES = [];
+  let currentPageIndex = 0;
+
+  function buildPages(){
+    const pages = [];
+    let page = [];
+    let pageCount = 0;
+
+    SECTIONS.forEach(sec => {
+      const exos = EXERCISES.filter(e => e.section === sec.id);
+      let idx = 0;
+      let firstBlockOfSection = true;
+      do{
+        if(pageCount >= PAGE_SIZE){
+          pages.push(page);
+          page = [];
+          pageCount = 0;
+        }
+        const room = PAGE_SIZE - pageCount;
+        const chunk = exos.slice(idx, idx + room);
+        page.push({ section: sec, exercises: chunk, continuation: !firstBlockOfSection });
+        idx += chunk.length;
+        pageCount += chunk.length;
+        firstBlockOfSection = false;
+      }while(idx < exos.length);
+    });
+    if(page.length) pages.push(page);
+    return pages;
+  }
+
+  function findPageForExercise(exId){
+    for(let i = 0; i < PAGES.length; i++){
+      if(PAGES[i].some(block => block.exercises.some(e => e.id === exId))) return i;
+    }
+    return 0;
+  }
+
+  function renderPager(){
+    const el = document.getElementById('fichePager');
+    if(!el) return;
+    if(PAGES.length <= 1){ el.innerHTML = ''; return; }
+
+    el.innerHTML = `
+      <button type="button" class="fiche-pager__btn" id="pagerPrev"${currentPageIndex === 0 ? ' disabled' : ''}>← PAGE PRÉCÉDENTE</button>
+      <span class="fiche-pager__label">PAGE ${currentPageIndex + 1}/${PAGES.length}</span>
+      <button type="button" class="fiche-pager__btn" id="pagerNext"${currentPageIndex === PAGES.length - 1 ? ' disabled' : ''}>PAGE SUIVANTE →</button>
+    `;
+    const prevBtn = document.getElementById('pagerPrev');
+    const nextBtn = document.getElementById('pagerNext');
+    if(prevBtn) prevBtn.addEventListener('click', () => { if(currentPageIndex > 0) goToPage(currentPageIndex - 1); });
+    if(nextBtn) nextBtn.addEventListener('click', () => { if(currentPageIndex < PAGES.length - 1) goToPage(currentPageIndex + 1); });
+  }
+
+  function renderPage(pageIndex){
     const container = document.getElementById('sectionsContainer');
     if(!container) return;
+    currentPageIndex = Math.max(0, Math.min(pageIndex, PAGES.length - 1));
+    const page = PAGES[currentPageIndex] || [];
+    const state = loadState();
 
-    container.innerHTML = SECTIONS.map(sec => {
-      const exos = EXERCISES.filter(e => e.section === sec.id);
-      const exosHTML = exos.map(ex => `
+    container.innerHTML = page.map(block => {
+      const exosHTML = block.exercises.map(ex => `
         <div class="exo" id="exo-${ex.id}" data-id="${ex.id}">
           <div class="exo__head">
             <span>EXERCICE ${EXERCISES.indexOf(ex) + 1}/${EXERCISES.length}</span>
@@ -156,16 +222,30 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
         </div>
       `).join('');
 
-      return `
-        <section class="section" id="section-${sec.id}">
-          <div class="section__title">${sec.title}</div>
-          <p class="cours">${sec.cours}</p>
-          ${exosHTML}
-        </section>
-      `;
+      const titleHTML = block.continuation
+        ? `<div class="section__title">${block.section.title} <span class="section__continued">(suite)</span></div>`
+        : `<div class="section__title">${block.section.title}</div><p class="cours">${block.section.cours}</p>`;
+
+      return `<section class="section" id="section-${block.section.id}">${titleHTML}${exosHTML}</section>`;
     }).join('');
 
     typesetMath(container);
+    renderPager();
+
+    page.forEach(block => block.exercises.forEach(ex => bindExercise(ex, state)));
+    restoreState(state, page);
+  }
+
+  function goToPage(pageIndex, scrollTargetId){
+    renderPage(pageIndex);
+    requestAnimationFrame(() => {
+      if(scrollTargetId){
+        const target = document.getElementById(scrollTargetId);
+        if(target){ target.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      }
+      const container = document.getElementById('sectionsContainer');
+      if(container) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   /* ---------- vérification ---------- */
@@ -203,6 +283,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
 
   function bindExercise(ex, state){
     const exoEl = document.getElementById(`exo-${ex.id}`);
+    if(!exoEl) return; // pas sur la page actuellement affichée
     const radios = exoEl.querySelectorAll(`input[name="${ex.id}"]`);
 
     radios.forEach(radio => {
@@ -212,12 +293,17 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     });
   }
 
-  function restoreState(state){
-    EXERCISES.forEach(ex => {
+  /* page : le tableau de blocs de la page en cours (renderPage) — ne
+     restaure que les exercices réellement rendus, les autres n'ont pas
+     d'élément dans le DOM tant qu'on n'a pas tourné la page. */
+  function restoreState(state, page){
+    const exosOnPage = page ? page.flatMap(block => block.exercises) : EXERCISES;
+    exosOnPage.forEach(ex => {
       const s = state[ex.id];
       if(s && s.answered){
         const exoEl = document.getElementById(`exo-${ex.id}`);
         const feedbackEl = document.getElementById(`feedback-${ex.id}`);
+        if(!exoEl || !feedbackEl) return;
         exoEl.classList.add('answered', s.correct ? 'ok' : 'ko');
         feedbackEl.classList.add(s.correct ? 'ok' : 'ko');
         if(s.correct){
@@ -343,11 +429,22 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    renderSections();
+    PAGES = buildPages();
+
+    /* Lien direct vers un exercice précis (ex. depuis mistakes.html,
+       #exo-ex10) : ouvre directement la page qui le contient au lieu
+       de la page 1, puis saute dessus (pas de smooth-scroll au tout
+       premier rendu, comme un ancrage classique). */
+    const hashExId = window.location.hash.replace('#exo-', '');
+    const initialPage = hashExId ? findPageForExercise(hashExId) : 0;
+    renderPage(initialPage);
+    if(hashExId){
+      const target = document.getElementById('exo-' + hashExId);
+      if(target) target.scrollIntoView({ block: 'center' });
+    }
+
     const state = loadState();
     renderExoProgressBar(state);
-    EXERCISES.forEach(ex => bindExercise(ex, state));
-    restoreState(state);
     syncProgress(state);
     renderFichePieceBadge();
     setupResetButton();

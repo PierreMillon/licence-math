@@ -339,7 +339,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   margin:8px 0 24px;
   /* padding-top réserve la place du château + de la grotte, posés en
      arrière-plan (absolus) juste au-dessus des personnages. */
-  padding-top:140px;
+  padding-top:152px;
 }
 .scene-moon{
   position:absolute;
@@ -371,12 +371,16 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-castle svg{
   display:block;
-  width:55px;
+  width:42px;
   height:auto;
 }
+/* Grotte posée sous le bas de la falaise (pas sous les tours) : le
+   château tracé inclut la falaise d'origine sur toute sa hauteur, donc
+   le bas du SVG château EST le bas de la falaise. Quelques pixels
+   d'écart (gap) pour que la grotte ne touche pas directement. */
 .scene-cave{
   position:absolute;
-  top:114px;
+  top:127px;
   left:50%;
   transform:translateX(-50%);
   z-index:0;
@@ -385,7 +389,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-cave svg{
   display:block;
-  width:52px;
+  width:40px;
   height:auto;
 }
 
@@ -903,6 +907,42 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   color:var(--fg-dim);
   letter-spacing:.03rem;
   text-align:center;
+}
+
+/* Pagination interne d'une fiche (5-6 exercices par page, même URL) :
+   distincte de .chapter-nav (qui change de CHAPITRE, pas de page à
+   l'intérieur d'un chapitre). */
+.fiche-pager{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:20px 0;
+}
+.fiche-pager__btn{
+  border:1px solid var(--fg-dim);
+  background:transparent;
+  color:var(--fg);
+  padding:8px 10px;
+  font-family:var(--font-title);
+  font-size:.8rem;
+  letter-spacing:.02rem;
+  cursor:pointer;
+}
+.fiche-pager__btn:hover:not(:disabled){ border-color:var(--fg); background:rgba(255,255,255,.06); }
+.fiche-pager__btn:disabled{ opacity:.3; cursor:default; }
+.fiche-pager__label{
+  font-family:var(--font-subtitle);
+  font-size:.75rem;
+  color:var(--fg-dim);
+  white-space:nowrap;
+}
+.section__continued{
+  font-family:var(--font-subtitle);
+  font-size:.7rem;
+  color:var(--fg-dim);
+  font-weight:normal;
+  letter-spacing:.02rem;
 }
 
 .chapter-nav{
