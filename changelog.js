@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 84, date: "05/08/2026", desc: "Le dragon victorieux de la scène de défaite fait maintenant face au chevalier (miroir horizontal), et un peu de sang apparaît sur la lame de l'épée plantée dans le dragon vaincu de la scène de victoire." },
   { v: 83, date: "05/08/2026", desc: "Le dragon victorieux (scène de défaite) utilise enfin le sprite dédié envoyé en référence, à la place du petit monstre rond qui servait de remplacement temporaire." },
   { v: 82, date: "05/08/2026", desc: "Ménage technique (aucun changement visible) : suppression d'environ 23 Ko de code mort — l'ancienne silhouette blanche du chevalier, plus utilisée depuis que le chevalier en couleur l'a remplacée, ainsi que quelques fonctions et constantes devenues inutiles avec elle." },
   { v: 81, date: "05/08/2026", desc: "Nouvelle page NOTATION (menu) : un slider permet de choisir u/v ou f/g pour les règles de dérivation (produit, quotient, composée), selon la notation apprise en cours." },

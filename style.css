@@ -644,6 +644,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   width:140px;
   height:auto;
   color:var(--fg);
+  transform:scaleX(-1);
 }
 .defeat-knight{
   position:absolute;
