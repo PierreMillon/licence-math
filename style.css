@@ -249,6 +249,23 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   opacity:.8;
 }
 
+.exercices-banner{
+  display:block;
+  text-align:center;
+  font-family:var(--font-subtitle);
+  font-size:.85rem;
+  letter-spacing:.05rem;
+  color:var(--fg-dim);
+  text-decoration:none;
+  border:1px solid var(--fg-dim);
+  padding:8px 10px;
+  margin:14px 0 0;
+}
+.exercices-banner:hover{
+  color:var(--fg);
+  border-color:var(--fg);
+}
+
 .progress-row{
   display:flex;
   align-items:center;
