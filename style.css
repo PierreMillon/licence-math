@@ -708,6 +708,26 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .progress-bar__seg.filled{ background:var(--fg); }
 
+/* Barre de progression globale : mêmes petits carrés que la barre de
+   progression par exercice des fiches (.exo-progress-bar__sq), au lieu
+   des segments fins et accolés utilisés pour les petites barres de
+   chaque carte de chapitre. */
+.global-progress-bar{
+  border:none;
+  background:transparent;
+  padding:0;
+  gap:4px;
+  flex-wrap:wrap;
+}
+.global-progress-bar .progress-bar__seg{
+  flex:none;
+  width:15px;
+  height:15px;
+  background:#000;
+  border:1px solid var(--fg);
+}
+.global-progress-bar .progress-bar__seg.filled{ background:var(--fg); }
+
 .chapter-card.done .chapter-card__score{ color:var(--ok); }
 
 /* ---------- footer ---------- */

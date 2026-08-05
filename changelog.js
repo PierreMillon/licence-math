@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 73, date: "05/08/2026", desc: "La barre de progression globale (en haut de la page d'accueil) reprend le même style de petits carrés que la barre de progression par exercice des fiches, au lieu de segments fins accolés." },
   { v: 72, date: "04/08/2026", desc: "Le message affiché sur une bonne réponse passe de « CORRECT » à « BRAVO ! »." },
   { v: 71, date: "04/08/2026", desc: "Deux corrections : (1) remettre à zéro un chapitre ne faisait pas disparaître l'équipement du chevalier gagné cette semaine sur ce chapitre — c'est réparé (idem pour la réinitialisation globale du site) ; (2) certaines formules mathématiques pouvaient s'afficher en double sur certains réseaux (police externe bloquée) — tout le moteur de rendu des formules est maintenant hébergé directement sur le site, sans dépendre d'un service externe." },
   { v: 70, date: "04/08/2026", desc: "Correction importante : la bonne réponse était presque toujours en première position sur les QCM (repérable sans lire les questions). L'ordre d'affichage des réponses est maintenant mélangé à chaque visite d'une fiche — l'ordre des questions, lui, ne change jamais." },
