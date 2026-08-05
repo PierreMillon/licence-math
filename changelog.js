@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 83, date: "05/08/2026", desc: "Le dragon victorieux (scène de défaite) utilise enfin le sprite dédié envoyé en référence, à la place du petit monstre rond qui servait de remplacement temporaire." },
   { v: 82, date: "05/08/2026", desc: "Ménage technique (aucun changement visible) : suppression d'environ 23 Ko de code mort — l'ancienne silhouette blanche du chevalier, plus utilisée depuis que le chevalier en couleur l'a remplacée, ainsi que quelques fonctions et constantes devenues inutiles avec elle." },
   { v: 81, date: "05/08/2026", desc: "Nouvelle page NOTATION (menu) : un slider permet de choisir u/v ou f/g pour les règles de dérivation (produit, quotient, composée), selon la notation apprise en cours." },
   { v: 80, date: "05/08/2026", desc: "Corrige la barre de progression globale qui pouvait paraître totalement vide sur mobile (le trait séparateur mangeait le remplissage), aligne aussi les pieds de la mascotte (oiseau/dragon) sur ceux du chevalier, repositionne les pièces d'équipement à la main sur le chevalier en couleur, et renomme le bouton « diamant » en « cœur » dans les textes internes." },

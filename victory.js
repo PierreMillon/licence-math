@@ -38,10 +38,10 @@ function renderDefeatScene(){
   const knightZone = document.getElementById('defeatKnight');
 
   /* Contrairement à la victoire (dragon vaincu, sur le dos), en cas
-     de défaite le dragon triomphe : silhouette dressée, distincte du
-     dragon endormi de la scène en cours et du dragon vaincu de la
-     victoire. */
-  if(dragonZone) dragonZone.innerHTML = MONSTER_WALK_SVG;
+     de défaite le dragon triomphe : silhouette dressée distincte,
+     tracée depuis la référence dédiée envoyée pour cette scène (pas le
+     petit monstre rond, ni le dragon endormi de la scène en cours). */
+  if(dragonZone && typeof DRAGON_VICTORIOUS_SVG !== 'undefined') dragonZone.innerHTML = DRAGON_VICTORIOUS_SVG;
   if(knightZone && typeof KNIGHT_GIRL_SVG !== 'undefined') knightZone.innerHTML = KNIGHT_GIRL_SVG;
 }
 
