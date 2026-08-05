@@ -90,6 +90,19 @@ function renderChapters(){
   });
 }
 
+/* Barre de progression globale : un petit carré par exercice du site
+   (plus de 200), qui s'allume dès qu'un exercice de plus est réussi —
+   plus granulaire et plus satisfaisant que des segments par
+   pourcentage (qui restent utilisés pour les petites barres de
+   chaque carte de chapitre, via progressBarHTML). */
+function globalProgressSquaresHTML(totalExercises, totalCorrect){
+  let squares = '';
+  for(let i = 0; i < totalExercises; i++){
+    squares += `<div class="progress-bar__seg${i < totalCorrect ? ' filled' : ''}"></div>`;
+  }
+  return squares;
+}
+
 function renderGlobalProgress(){
   const bar = document.getElementById('globalProgressBar');
   const scoreEl = document.getElementById('globalProgressScore');
@@ -105,8 +118,7 @@ function renderGlobalProgress(){
     totalCorrect += p.correct;
   });
 
-  const pct = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 100) : 0;
-  bar.innerHTML = progressSegmentsHTML(pct);
+  bar.innerHTML = globalProgressSquaresHTML(totalExercises, totalCorrect);
   if(scoreEl) scoreEl.textContent = `${totalCorrect}/${totalExercises}`;
 
   const tooltipEl = document.getElementById('gradeTooltip');

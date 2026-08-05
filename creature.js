@@ -99,6 +99,27 @@ function getCreatureLateness(){
 }
 window.getCreatureLateness = getCreatureLateness;
 
+/* Clin d'œil de l'oiseau de la mascotte (tant qu'elle est encore un
+   oiseau, L<=1) : intervalle aléatoire entre 3 et 10 secondes, comme
+   l'oiseau décoratif de scene.js. Arrêté dès que le dragon sort. */
+let birdBlinkTimer = null;
+
+function scheduleBirdBlink(figure, heightPx){
+  clearTimeout(birdBlinkTimer);
+  const delay = 3000 + Math.random() * 7000;
+  birdBlinkTimer = setTimeout(() => {
+    figure.innerHTML = BIRD_SVG_BLINK;
+    const blinkEl = figure.querySelector('.creature-icon');
+    if(blinkEl) blinkEl.style.height = heightPx + 'px';
+    setTimeout(() => {
+      figure.innerHTML = BIRD_SVG;
+      const openEl = figure.querySelector('.creature-icon');
+      if(openEl) openEl.style.height = heightPx + 'px';
+      scheduleBirdBlink(figure, heightPx);
+    }, 140);
+  }, delay);
+}
+
 function renderCreature(){
   const zone = document.getElementById('creatureZone');
   if(!zone) return;
@@ -122,6 +143,9 @@ function renderCreature(){
   figure.innerHTML = svg;
   const svgEl = figure.querySelector('.creature-icon');
   if(svgEl) svgEl.style.height = heightPx + 'px';
+
+  clearTimeout(birdBlinkTimer);
+  if(L <= 1) scheduleBirdBlink(figure, heightPx);
 
   const txt = bubbleText(L);
   if(bubble){

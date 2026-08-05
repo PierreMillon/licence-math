@@ -313,12 +313,10 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 
 .weekly-score{
-  position:absolute;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:2;
+  display:flex;
+  justify-content:center;
   margin:0;
+  margin-top:22px;
 }
 .weekly-score-text{
   font-family:var(--font-title);
@@ -327,7 +325,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   text-align:center;
   letter-spacing:.01rem;
   white-space:nowrap;
-  background:rgba(0,0,0,.55);
+  background:transparent;
   padding:3px 8px;
 }
 .weekly-score-more{
@@ -338,18 +336,8 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 .battle-scene{
   position:relative;
-  overflow:hidden;
   margin:8px 0 24px;
   padding-top:8px;
-}
-.castle-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  color:var(--fg-dim);
-  opacity:.5;
-  z-index:0;
 }
 .scene-moon{
   position:absolute;
@@ -392,25 +380,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   width:auto;
   image-rendering:pixelated;
   display:block;
-}
-.knight-figure{
-  position:relative;
-  width:56px;
-  height:92px;
-  flex:none;
-}
-.knight-zone.has-pieces .knight-figure{
-  border-bottom:1px solid var(--fg-dim);
-}
-.knight-piece-wrap{
-  position:absolute;
-  inset:0;
-}
-.knight-piece{
-  display:block;
-  width:100%;
-  height:100%;
-  color:var(--fg);
 }
 .knight-coins{
   display:flex;
@@ -647,12 +616,12 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 .defeat-dragon{
   position:absolute;
   left:26%;
-  bottom:36px;
+  bottom:2px;
   transform:translateX(-50%);
 }
 .defeat-dragon svg{
   display:block;
-  width:130px;
+  width:140px;
   height:auto;
   color:var(--fg);
 }
@@ -741,6 +710,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   top:10px;
   right:12px;
   width:20px;
+  max-height:40px;
   height:auto;
   color:var(--fg-dim);
   pointer-events:none;
@@ -768,25 +738,25 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .progress-bar__seg.filled{ background:var(--fg); }
 
-/* Barre de progression globale : mêmes petits carrés que la barre de
-   progression par exercice des fiches (.exo-progress-bar__sq), au lieu
-   des segments fins et accolés utilisés pour les petites barres de
-   chaque carte de chapitre. */
+/* Barre de progression globale : un petit carré par exercice du site
+   (plus de 200 au total) — même esprit que la barre de progression
+   par exercice des fiches (.exo-progress-bar__sq), en plus petit
+   puisqu'il y en a beaucoup plus. */
 .global-progress-bar{
   border:none;
   background:transparent;
   padding:0;
-  gap:4px;
+  gap:2px;
   flex-wrap:wrap;
 }
 .global-progress-bar .progress-bar__seg{
   flex:none;
-  width:15px;
-  height:15px;
+  width:7px;
+  height:7px;
   background:#000;
-  border:1px solid var(--fg);
+  border:1px solid var(--fg-dim);
 }
-.global-progress-bar .progress-bar__seg.filled{ background:var(--fg); }
+.global-progress-bar .progress-bar__seg.filled{ background:var(--fg); border-color:var(--fg); }
 
 .chapter-card.done .chapter-card__score{ color:var(--ok); }
 
@@ -865,7 +835,8 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .fiche-piece-badge svg{
   width:100%;
-  height:auto;
+  height:100%;
+  display:block;
 }
 .fiche-piece-label{
   font-family:var(--font-subtitle);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DÉMO // PETIT MONSTRE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=77">
+<style>
+  .demo-wrap{ max-width:640px; margin:60px auto; text-align:center; }
+  .demo-title{ font-family:var(--font-title); font-size:1.5rem; letter-spacing:.1rem; margin-bottom:16px; }
+  .demo-text{ font-family:var(--font-subtitle); font-size:.85rem; color:var(--fg-dim); line-height:1.6; margin-bottom:24px; }
+  .demo-btn{
+    font-family:var(--font-title);
+    font-size:1rem;
+    letter-spacing:.06rem;
+    background:transparent;
+    color:var(--fg);
+    border:1px solid var(--fg);
+    padding:10px 24px;
+    cursor:pointer;
+  }
+  .demo-btn:hover{ background:var(--fg); color:var(--bg); }
+</style>
+</head>
+<body>
+<a href="index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
+<div class="crt">
+  <div class="demo-wrap">
+    <div class="demo-title">DÉMO — PETIT MONSTRE</div>
+    <p class="demo-text">Page de test uniquement : sur la page d'accueil, ce monstre traverse le bas de l'écran après 3 minutes sans la moindre activité, avec un bruitage. Ici, un clic suffit — pas besoin d'attendre.</p>
+    <button type="button" class="demo-btn" id="demoBtn">FAIRE TRAVERSER LE MONSTRE</button>
+  </div>
+  <div class="wander-monster" id="wanderMonster" aria-hidden="true" hidden></div>
+</div>
+<script src="menu.js?v=77"></script>
+<script src="creature-svgs.js?v=77"></script>
+<script>
+  const el = document.getElementById('wanderMonster');
+  el.innerHTML = MONSTER_WALK_SVG;
+
+  function playMonsterGroikSound(){
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    playSlide(ctx, 220, 80, now, 0.22, { vol: 0.28, shape: 'sawtooth', attack: 0.008, release: 0.08 });
+    playSlide(ctx, 130, 65, now + 0.03, 0.24, { vol: 0.16, shape: 'square', attack: 0.008, release: 0.1 });
+  }
+
+  function runWander(){
+    el.hidden = false;
+    el.classList.remove('walking');
+    void el.offsetWidth;
+    el.classList.add('walking');
+    playMonsterGroikSound();
+  }
+  el.addEventListener('animationend', () => {
+    el.hidden = true;
+    el.classList.remove('walking');
+  });
+
+  document.getElementById('demoBtn').addEventListener('click', runWander);
+</script>
+</body>
+</html>

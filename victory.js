@@ -51,9 +51,10 @@ function renderDefeatScene(){
   const knightZone = document.getElementById('defeatKnight');
 
   /* Contrairement à la victoire (dragon vaincu, sur le dos), en cas
-     de défaite le dragon reste entier — endormi, tranquille, pas
-     dérangé par la tentative du chevalier. */
-  if(dragonZone) dragonZone.innerHTML = DRAGON_SVG;
+     de défaite le dragon triomphe : silhouette dressée, distincte du
+     dragon endormi de la scène en cours et du dragon vaincu de la
+     victoire. */
+  if(dragonZone) dragonZone.innerHTML = MONSTER_WALK_SVG;
   if(knightZone) knightZone.innerHTML = knightPiecesHTML();
 }
 
