@@ -24,7 +24,7 @@ function renderMistakesList(){
   if(!container || !window.loadMistakes) return;
 
   const mistakes = Object.values(window.loadMistakes());
-  mistakes.sort((a, b) => b.count - a.count);
+  mistakes.sort((a, b) => a.score - b.score); // le plus négatif (pire) en premier
 
   if(mistakes.length === 0){
     container.innerHTML = '<div class="mistakes-empty">Rien à signaler pour l’instant — continue comme ça.</div>';
@@ -35,12 +35,11 @@ function renderMistakesList(){
     const chapter = MENU_CHAPTERS.find(ch => ch.file === m.chapterId + '.html');
     const chapterName = chapter ? chapter.name : m.chapterId;
     const href = `fiches/${m.chapterId}.html#exo-${m.exerciseId}`;
-    const countLabel = m.count === 1 ? '1 fois' : `${m.count} fois`;
     return `
       <a class="mistake-card" href="${href}">
         <div class="mistake-card__head">
           <span class="mistake-card__chapter">${chapterName}</span>
-          <span class="mistake-card__count">raté ${countLabel}</span>
+          <span class="mistake-card__count">${m.score}</span>
         </div>
         <div class="mistake-card__statement">${m.statement}</div>
       </a>

@@ -137,10 +137,10 @@ const EXERCISES = [
   },
   {
     id: "ex19", section: "composition",
-    statement: "Si f(x) = x+1 et g(x) = 2x, que vaut (g∘f)(0) selon le calcul du cours ?",
+    statement: "Si f(x) = x+1 et g(x) = 2x, que vaut \\((g \\circ f)(0)\\) selon le calcul du cours ?",
     options: ["2", "1", "0"],
     correctIndex: 0,
-    explain: "Le cours calcule (g∘f)(x) = 2(x+1) = 2x+2, donc (g∘f)(0) = 2, différent de (f∘g)(0) = 1 (ce qui prouve g∘f ≠ f∘g).",
+    explain: "Le cours calcule \\((g \\circ f)(x) = 2(x+1) = 2x+2\\), donc \\((g \\circ f)(0) = 2\\), différent de \\((f \\circ g)(0) = 1\\) (ce qui prouve \\(g \\circ f \\neq f \\circ g\\)).",
   },
   {
     id: "ex20", section: "restriction-prolongement",
@@ -172,17 +172,17 @@ const EXERCISES = [
   },
   {
     id: "ex24", section: "bijections",
-    statement: "Si f: E→F et g: F→G sont deux bijections, alors (g∘f)⁻¹ vaut :",
-    options: ["f⁻¹ ∘ g⁻¹", "g⁻¹ ∘ f⁻¹", "(f∘g)⁻¹"],
+    statement: "Si f: E→F et g: F→G sont deux bijections, alors \\((g \\circ f)^{-1}\\) vaut :",
+    options: ["\\(f^{-1} \\circ g^{-1}\\)", "\\(g^{-1} \\circ f^{-1}\\)", "\\((f \\circ g)^{-1}\\)"],
     correctIndex: 0,
-    explain: "Le théorème du cours énonce (g∘f)⁻¹ = f⁻¹∘g⁻¹ : on inverse chaque application ET on échange l'ordre de composition.",
+    explain: "Le théorème du cours énonce \\((g \\circ f)^{-1} = f^{-1} \\circ g^{-1}\\) : on inverse chaque application ET on échange l'ordre de composition.",
   },
   {
     id: "ex25", section: "bijections",
     statement: "D'après le cours, une application f:E→F est bijective si et seulement si :",
-    options: ["il existe g:F→E telle que f∘g=IdF et g∘f=IdE", "f est seulement injective", "f est seulement surjective"],
+    options: ["il existe g:F→E telle que \\(f \\circ g = \\mathrm{Id}_F\\) et \\(g \\circ f = \\mathrm{Id}_E\\)", "f est seulement injective", "f est seulement surjective"],
     correctIndex: 0,
-    explain: "Le théorème du cours caractérise la bijectivité par l'existence d'une application g vérifiant ces deux égalités simultanément (et alors g=f⁻¹).",
+    explain: "Le théorème du cours caractérise la bijectivité par l'existence d'une application g vérifiant ces deux égalités simultanément (et alors \\(g = f^{-1}\\)).",
   },
   {
     id: "ex26", section: "image-reciproque",
