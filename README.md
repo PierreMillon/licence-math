@@ -18,14 +18,15 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 - `victory.js` — scènes de résolution du combat hebdomadaire (victoire / défaite).
 - `changelog.html` / `changelog.js` — historique des versions du site.
 - `notation.html` / `notation.js` — préférences de notation (ex. u/v vs f/g pour la dérivation), lues par `fiches/fiche-engine.js`.
+- `mistakes.html` / `mistakes.js` — liste des exercices ratés (toutes fiches confondues), alimentée par `fiches/fiche-engine.js` à chaque réponse.
 - `vendor/katex/` — KaTeX auto-hébergé (voir `vendor/katex/LICENSE`, MIT).
-- `exercices/` — section séparée, volontairement sobre (pas de pixel-art,
-  pas de score) : exercices type examen (méthode + exemple rédigé +
-  entraînement) pour l'algèbre linéaire, l'analyse et les probabilités,
-  plus une page « Python appliqué » (1-2h/semaine). Voir
-  `exercices/README.md` pour le détail. Cette section n'utilise pas le
-  système de versionnement `?v=N` décrit plus bas (fichiers indépendants
-  du reste du site).
+
+Les exercices type examen (méthode + exemple rédigé + entraînement) pour
+l'algèbre linéaire, l'analyse et les probabilités, plus une page « Python
+appliqué » (1-2h/semaine), vivent dans un dépôt séparé :
+[exercices-l1-math](https://github.com/PierreMillon/exercices-l1-math)
+(déployé sur https://pierremillon.github.io/exercices-l1-math/, lien
+depuis la bannière sous l'en-tête et le menu latéral).
 
 ## Utilisation
 

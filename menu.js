@@ -50,7 +50,8 @@ function changelogHref(){
 }
 
 function exercicesHref(){
-  return inFichesFolder() ? '../exercices/index.html' : 'exercices/index.html';
+  // Site séparé (dépôt PierreMillon/exercices-l1-math), pas un dossier local.
+  return 'https://pierremillon.github.io/exercices-l1-math/';
 }
 
 function notationHref(){
@@ -83,6 +84,55 @@ function setNotationPreference(topic, value){
 }
 window.setNotationPreference = setNotationPreference;
 
+/* ---------- erreurs fréquentes (page mistakes.html) ---------- */
+/* Suivi global (toutes fiches confondues) des exercices ratés, pour
+   cibler les révisions : une entrée par exercice raté, avec un
+   compteur qui augmente à chaque mauvaise réponse. Dès que l'exercice
+   est réussi, son entrée disparaît (ce n'est plus une « erreur
+   fréquente » à réviser) — indépendant de la remise à zéro du
+   chapitre, qui ne touche pas cette couche. Le libellé (énoncé) est
+   recopié à l'écriture pour que la page de synthèse puisse l'afficher
+   sans devoir recharger les données de chaque chapitre. */
+const MISTAKES_KEY = 'l1maths_mistakes';
+
+function loadMistakes(){
+  try{ return JSON.parse(localStorage.getItem(MISTAKES_KEY)) || {}; }
+  catch(e){ return {}; }
+}
+window.loadMistakes = loadMistakes;
+
+function saveMistakes(mistakes){
+  localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakes));
+}
+
+function recordMistake(chapterId, ex){
+  const mistakes = loadMistakes();
+  const key = chapterId + ':' + ex.id;
+  const prev = mistakes[key];
+  mistakes[key] = {
+    chapterId,
+    exerciseId: ex.id,
+    statement: ex.statement,
+    count: (prev ? prev.count : 0) + 1,
+  };
+  saveMistakes(mistakes);
+}
+window.recordMistake = recordMistake;
+
+function clearMistake(chapterId, exerciseId){
+  const mistakes = loadMistakes();
+  const key = chapterId + ':' + exerciseId;
+  if(mistakes[key]){
+    delete mistakes[key];
+    saveMistakes(mistakes);
+  }
+}
+window.clearMistake = clearMistake;
+
+function mistakesHref(){
+  return inFichesFolder() ? '../mistakes.html' : 'mistakes.html';
+}
+
 function buildDrawer(){
   const overlay = document.createElement('div');
   overlay.className = 'drawer-overlay';
@@ -100,6 +150,7 @@ function buildDrawer(){
     <a class="drawer__link" href="${homeHref()}">ACCUEIL</a>
     ${itemsHTML}
     <a class="drawer__link drawer__link--settings" href="${exercicesHref()}">EXERCICES TYPE EXAMEN</a>
+    <a class="drawer__link drawer__link--settings" href="${mistakesHref()}">MES ERREURS FRÉQUENTES</a>
     <a class="drawer__link drawer__link--settings" href="${notationHref()}">NOTATION</a>
     <button class="drawer__reset" id="resetSiteBtn" type="button">${SKULL_SVG}RÉINITIALISER LA PROGRESSION DE TOUT LE SITE</button>
   `;
@@ -449,9 +500,32 @@ function renderEndPhrase(){
   el.firstChild.textContent = END_PHRASES[nextEndPhraseIndex()] + ' ';
 }
 
+/* ---------- chapitre précédent/suivant (bas de fiche) ---------- */
+/* Accès rapide entre fiches sans repasser par le menu : suit l'ordre
+   de MENU_CHAPTERS, boucle (dernier -> premier et inversement). Ne
+   s'affiche que sur une fiche (le nom de fichier courant doit être
+   dans MENU_CHAPTERS) ; sans effet sur l'accueil ou le changelog. */
+function renderChapterNav(){
+  const el = document.getElementById('chapterNav');
+  if(!el || !inFichesFolder()) return;
+
+  const currentFile = window.location.pathname.split('/').pop();
+  const idx = MENU_CHAPTERS.findIndex(ch => ch.file === currentFile);
+  if(idx === -1) return;
+
+  const prev = MENU_CHAPTERS[(idx - 1 + MENU_CHAPTERS.length) % MENU_CHAPTERS.length];
+  const next = MENU_CHAPTERS[(idx + 1) % MENU_CHAPTERS.length];
+
+  el.innerHTML = `
+    <a class="chapter-nav__link chapter-nav__link--prev" href="${prev.file}">← ${prev.name}</a>
+    <a class="chapter-nav__link chapter-nav__link--next" href="${next.file}">${next.name} →</a>
+  `;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   buildDrawer();
   renderEndPhrase();
+  renderChapterNav();
   buildVersionBadge();
   buildScrollTopButton();
 });

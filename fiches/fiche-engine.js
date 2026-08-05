@@ -193,6 +193,11 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     updateExoProgressSquare(state, ex);
     if(isFirstAnswer && window.decrementLateness) window.decrementLateness();
     if(window.recordWeeklyAnswer) window.recordWeeklyAnswer(CHAPTER_ID, ex.id, isCorrect);
+    if(isCorrect){
+      if(window.clearMistake) window.clearMistake(CHAPTER_ID, ex.id);
+    }else{
+      if(window.recordMistake) window.recordMistake(CHAPTER_ID, ex);
+    }
     renderFichePieceBadge();
   }
 
