@@ -25,6 +25,11 @@ function renderVictoryScene(){
   if(dragonZone) dragonZone.innerHTML = DRAGON_FALLEN_SVG;
   if(knightZone && typeof KNIGHT_GIRL_SVG !== 'undefined') knightZone.innerHTML = KNIGHT_GIRL_SVG;
   if(swordZone) swordZone.innerHTML = SWORD_SVG;
+
+  const captionEl = scene.querySelector('.victory-caption');
+  if(captionEl && typeof WEEKLY_THRESHOLD !== 'undefined'){
+    captionEl.textContent = `Le chevalier a terrassé le dragon cette semaine : ${Math.round(WEEKLY_THRESHOLD * 100)}% des exercices ont été refaits avant le reset.`;
+  }
 }
 
 function renderDefeatScene(){
@@ -43,6 +48,11 @@ function renderDefeatScene(){
      petit monstre rond, ni le dragon endormi de la scène en cours). */
   if(dragonZone && typeof DRAGON_VICTORIOUS_SVG !== 'undefined') dragonZone.innerHTML = DRAGON_VICTORIOUS_SVG;
   if(knightZone && typeof KNIGHT_GIRL_SVG !== 'undefined') knightZone.innerHTML = KNIGHT_GIRL_SVG;
+
+  const captionEl = scene.querySelector('.defeat-caption');
+  if(captionEl && typeof WEEKLY_THRESHOLD !== 'undefined'){
+    captionEl.textContent = `Le dragon l'a emporté cette semaine : moins de ${Math.round(WEEKLY_THRESHOLD * 100)}% des exercices ont été refaits avant le reset.`;
+  }
 }
 
 function syncBattleOutcome(){

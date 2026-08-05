@@ -2,8 +2,8 @@
    L1 MATHS — SYNTHÈSE — weekly.js
    Combat hebdomadaire chevalier / dragon : une couche de
    progression séparée de la progression permanente, qui se
-   remet à zéro chaque lundi. Si >=80% des exercices du site sont
-   corrects au moment du reset, le joueur gagne une pièce d'or ;
+   remet à zéro chaque lundi. Si >=WEEKLY_THRESHOLD des exercices du
+   site sont corrects au moment du reset, le joueur gagne une pièce d'or ;
    sinon le dragon gagne un crâne. Score cumulé, jamais remis à
    zéro. Chargé sur toutes les pages, avant fiche-engine.js.
    ============================================================ */
@@ -12,7 +12,7 @@ const CHAPTER_TOTALS = {
   logique: 34, calculus: 27, algebre: 12, analyse: 21,
   probabilites: 23, statistiques: 17, java: 52, python: 43,
 };
-const WEEKLY_THRESHOLD = 0.8;
+const WEEKLY_THRESHOLD = 0.6;
 
 const WEEKLY_META_KEY = 'l1maths_weekly_meta';
 const WEEKLY_PROGRESS_KEY = 'l1maths_weekly_progress';
@@ -155,7 +155,8 @@ function renderWeeklyScore(){
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
   const ICON_CAP = 5;
 
-  if(el) el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif 80%)</div>`;
+  const objectifPct = Math.round(WEEKLY_THRESHOLD * 100);
+  if(el) el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif ${objectifPct}%)</div>`;
   if(coinsEl) coinsEl.innerHTML = iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP);
   if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }

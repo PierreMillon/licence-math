@@ -869,6 +869,26 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   text-align:center;
 }
 
+.chapter-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin:16px 0;
+}
+.chapter-nav__link{
+  flex:1;
+  border:1px solid var(--fg-dim);
+  padding:10px 8px;
+  text-align:center;
+  font-family:var(--font-title);
+  font-size:.85rem;
+  letter-spacing:.02rem;
+  color:var(--fg);
+}
+.chapter-nav__link:hover{ border-color:var(--fg); background:rgba(255,255,255,.06); }
+.chapter-nav__link--next{ text-align:right; }
+.chapter-nav__link--prev{ text-align:left; }
+
 .reset-btn{
   display:flex;
   flex-direction:column;

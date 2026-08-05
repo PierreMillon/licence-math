@@ -18,6 +18,7 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 - `victory.js` — scènes de résolution du combat hebdomadaire (victoire / défaite).
 - `changelog.html` / `changelog.js` — historique des versions du site.
 - `notation.html` / `notation.js` — préférences de notation (ex. u/v vs f/g pour la dérivation), lues par `fiches/fiche-engine.js`.
+- `mistakes.html` / `mistakes.js` — liste des exercices ratés (toutes fiches confondues), alimentée par `fiches/fiche-engine.js` à chaque réponse.
 - `vendor/katex/` — KaTeX auto-hébergé (voir `vendor/katex/LICENSE`, MIT).
 
 ## Utilisation
