@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 81, date: "05/08/2026", desc: "Nouvelle page NOTATION (menu) : un slider permet de choisir u/v ou f/g pour les règles de dérivation (produit, quotient, composée), selon la notation apprise en cours." },
   { v: 80, date: "05/08/2026", desc: "Corrige la barre de progression globale qui pouvait paraître totalement vide sur mobile (le trait séparateur mangeait le remplissage), aligne aussi les pieds de la mascotte (oiseau/dragon) sur ceux du chevalier, repositionne les pièces d'équipement à la main sur le chevalier en couleur, et renomme le bouton « diamant » en « cœur » dans les textes internes." },
   { v: 79, date: "05/08/2026", desc: "Oiseau décoratif réduit de moitié et aligné pile sur les pieds du chevalier, séparateurs sur la barre de progression globale, équipement de nouveau visible sur le chevalier en couleur." },
   { v: 78, date: "05/08/2026", desc: "Barre de progression globale resserrée dans son cadre d'origine, chevalier en couleur dans les scènes de victoire/défaite, notation d'équivalence resserrée sous le tilde." },

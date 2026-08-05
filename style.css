@@ -1096,3 +1096,8 @@ code{
 .drawer__link:hover{ background:rgba(255,255,255,.08); }
 .drawer__link:last-of-type{ border-bottom:none; }
 .drawer__link:first-of-type{ margin-top:34px; }
+.drawer__link--settings{
+  margin-top:10px;
+  color:var(--fg-dim);
+  font-size:.95rem;
+}

@@ -17,6 +17,7 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 - `creature.js`, `creature-svgs.js`, `scene.js` — mascotte de progression (oiseau qui grossit en dragon si le site n'est pas visité), scène de combat (dragon, oiseau, chevalier), petit monstre qui traverse l'écran après une pause.
 - `victory.js` — scènes de résolution du combat hebdomadaire (victoire / défaite).
 - `changelog.html` / `changelog.js` — historique des versions du site.
+- `notation.html` / `notation.js` — préférences de notation (ex. u/v vs f/g pour la dérivation), lues par `fiches/fiche-engine.js`.
 - `vendor/katex/` — KaTeX auto-hébergé (voir `vendor/katex/LICENSE`, MIT).
 
 ## Utilisation
@@ -56,10 +57,6 @@ Notes pour ne pas perdre des idées discutées mais pas encore construites :
   (MP3/WAV, quelques secondes) déposé sur le Drive comme les images —
   contrairement aux images, un son de quelques secondes est
   généralement hors de la plage de taille à risque pour le transfert.
-- **Préférence de notation (u/v vs f/g)** : page dédiée dans le menu
-  pour choisir la notation utilisée dans les règles de dérivation
-  (produit/quotient/composée), au cas où u/v soit plus parlant que f/g
-  selon la manière dont chacun l'a appris.
 
 ## Licence
 

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOTATION // SYNTHÈSE L1 MATHS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=81">
+<style>
+  .notation-page{ max-width:480px; margin:38px auto 0; }
+  .notation-page__title{
+    font-family:var(--font-title);
+    font-size:1.6rem;
+    letter-spacing:.05rem;
+    margin-bottom:10px;
+  }
+  .notation-page__intro{
+    font-size:.95rem;
+    color:var(--fg-dim);
+    line-height:1.5;
+    margin-bottom:28px;
+  }
+  .notation-pref{
+    border:1px solid var(--fg-dim);
+    background:var(--bg-panel);
+    padding:14px 16px 16px;
+    margin-bottom:14px;
+  }
+  .notation-pref__label{
+    font-family:var(--font-subtitle);
+    font-size:.8rem;
+    letter-spacing:.03rem;
+    color:var(--fg);
+    margin-bottom:10px;
+  }
+  .notation-slider{
+    position:relative;
+    display:flex;
+    width:220px;
+    max-width:100%;
+    height:40px;
+    border:1px solid var(--fg);
+    background:#000;
+    padding:0;
+    cursor:pointer;
+    overflow:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .notation-slider__option{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--font-title);
+    font-size:1.05rem;
+    color:var(--fg);
+    position:relative;
+    z-index:1;
+    transition:color .15s ease;
+    pointer-events:none;
+  }
+  .notation-slider__option.is-active{ color:#000; }
+  .notation-slider__thumb{
+    position:absolute;
+    top:0;
+    left:0;
+    width:50%;
+    height:100%;
+    background:var(--fg);
+    transition:transform .18s ease;
+    z-index:0;
+  }
+  .notation-slider[data-active="fg"] .notation-slider__thumb{ transform:translateX(100%); }
+  .notation-page__note{
+    font-family:var(--font-subtitle);
+    font-size:.75rem;
+    color:var(--fg-dim);
+    margin-top:20px;
+  }
+</style>
+</head>
+<body class="page-notation">
+<a href="index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
+<div class="crt">
+
+  <main class="notation-page">
+    <h1 class="notation-page__title">NOTATION</h1>
+    <p class="notation-page__intro">Certains ont appris avec des lettres différentes. Choisis celle qui te parle — ça ne change que l'affichage, jamais la règle elle-même.</p>
+
+    <div class="notation-pref" id="notationDerivation" data-topic="derivation">
+      <div class="notation-pref__label">DÉRIVATION (produit, quotient, composée)</div>
+      <button type="button" class="notation-slider" aria-label="Choisir la notation pour la dérivation">
+        <span class="notation-slider__option" data-value="uv">u / v</span>
+        <span class="notation-slider__option" data-value="fg">f / g</span>
+        <span class="notation-slider__thumb" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <p class="notation-page__note">D'autres préférences pourront s'ajouter ici plus tard.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="pixel-rule">════════════════════════════════════════════════</div>
+    <div>PRÉFÉRENCES <span class="cursor">_</span></div>
+  </footer>
+
+</div>
+<script src="menu.js?v=81"></script>
+<script src="notation.js?v=81"></script>
+</body>
+</html>

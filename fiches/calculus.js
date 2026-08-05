@@ -79,6 +79,11 @@ const EXERCISES = [
     options: ['\\(f\'g + fg\'\\)', '\\(f\'g\'\\)', '\\(f\' + g\'\\)'],
     correctIndex: 0,
     explain: 'Règle du produit : chaque facteur est dérivé à tour de rôle, l’autre restant inchangé.',
+    // Variante u/v (préférence de notation, voir menu → NOTATION) : même
+    // règle, mêmes positions de réponses, juste f→u et g→v.
+    statementUv: 'La dérivée de \\(uv\\) est :',
+    optionsUv: ['\\(u\'v + uv\'\\)', '\\(u\'v\'\\)', '\\(u\' + v\'\\)'],
+    explainUv: 'Règle du produit : chaque facteur est dérivé à tour de rôle, l’autre restant inchangé.',
   },
   {
     id: 'ex11', section: 'derivation',
@@ -86,6 +91,9 @@ const EXERCISES = [
     options: ['\\(\\dfrac{f\'g - fg\'}{g^2}\\)', '\\(\\dfrac{f\'g + fg\'}{g^2}\\)', '\\(\\dfrac{f\'}{g\'}\\)'],
     correctIndex: 0,
     explain: 'Règle du quotient : numérateur dérivé fois \\(g\\), moins \\(f\\) fois dénominateur dérivé, le tout sur \\(g^2\\).',
+    statementUv: 'La dérivée de \\(\\dfrac{u}{v}\\) est :',
+    optionsUv: ['\\(\\dfrac{u\'v - uv\'}{v^2}\\)', '\\(\\dfrac{u\'v + uv\'}{v^2}\\)', '\\(\\dfrac{u\'}{v\'}\\)'],
+    explainUv: 'Règle du quotient : numérateur dérivé fois \\(v\\), moins \\(u\\) fois dénominateur dérivé, le tout sur \\(v^2\\).',
   },
   {
     id: 'ex12', section: 'derivation',
@@ -93,6 +101,9 @@ const EXERCISES = [
     options: ['\\(g\'(x) \\times f\'[g(x)]\\)', '\\(f\'(x) \\times g\'(x)\\)', '\\(f\'[g(x)]\\)'],
     correctIndex: 0,
     explain: 'On dérive de l’intérieur vers l’extérieur : d’abord \\(g\\), puis \\(f\\) évaluée en \\(g(x)\\).',
+    statementUv: 'La dérivée de \\((u \\circ v)(x)\\) est :',
+    optionsUv: ['\\(v\'(x) \\times u\'[v(x)]\\)', '\\(u\'(x) \\times v\'(x)\\)', '\\(u\'[v(x)]\\)'],
+    explainUv: 'On dérive de l’intérieur vers l’extérieur : d’abord \\(v\\), puis \\(u\\) évaluée en \\(v(x)\\).',
   },
   {
     id: 'ex13', section: 'trigo',

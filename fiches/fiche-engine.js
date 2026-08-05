@@ -20,7 +20,28 @@ function typesetMath(el){
   }
 }
 
+/* Applique la préférence de notation (u/v vs f/g, voir menu → NOTATION)
+   aux exercices qui proposent une variante (statementUv/optionsUv/
+   explainUv — pour l'instant seulement les 3 QCM de dérivation du
+   produit/quotient/composée, dans calculus.js). Ne modifie jamais les
+   objets d'origine (nouvelle copie), et ne touche pas les items sans
+   variante. correctIndex reste valable dans les deux cas : la variante
+   uv garde exactement le même ordre de réponses que la variante fg. */
+function applyNotationPreference(exercises){
+  if(typeof window.getNotationPreference !== 'function') return exercises;
+  if(window.getNotationPreference('derivation') !== 'uv') return exercises;
+  return exercises.map(ex => {
+    if(!ex.statementUv) return ex;
+    return Object.assign({}, ex, {
+      statement: ex.statementUv,
+      options: ex.optionsUv || ex.options,
+      explain: ex.explainUv || ex.explain,
+    });
+  });
+}
+
 function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
+  EXERCISES = applyNotationPreference(EXERCISES);
 
   function loadState(){
     try{ return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; }
