@@ -351,6 +351,19 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   opacity:.5;
   z-index:0;
 }
+.scene-moon{
+  position:absolute;
+  top:10px;
+  right:8%;
+  z-index:0;
+  color:var(--fg-dim);
+  opacity:.8;
+}
+.scene-moon svg{
+  display:block;
+  width:26px;
+  height:auto;
+}
 
 .battle-zone{
   position:relative;

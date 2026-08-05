@@ -22,6 +22,13 @@ function renderKnightGirl(){
   el.innerHTML = KNIGHT_GIRL_SVG;
 }
 
+/* ---------- lune, dans le ciel au-dessus du château ---------- */
+function renderSceneMoon(){
+  const el = document.getElementById('sceneMoon');
+  if(!el || typeof MOON_SVG === 'undefined') return;
+  el.innerHTML = MOON_SVG;
+}
+
 /* ---------- oiseau : clin d'œil aléatoire (3 à 10 s) ---------- */
 function initSceneBird(){
   const el = document.getElementById('sceneBird');
@@ -97,6 +104,7 @@ function initWanderMonster(){
 
 document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();
+  renderSceneMoon();
   initSceneBird();
   initWanderMonster();
 });
