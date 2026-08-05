@@ -49,11 +49,6 @@ function changelogHref(){
   return inFichesFolder() ? '../changelog.html' : 'changelog.html';
 }
 
-function exercicesHref(){
-  // Site séparé (dépôt PierreMillon/exercices-l1-math), pas un dossier local.
-  return 'https://pierremillon.github.io/exercices-l1-math/';
-}
-
 function notationHref(){
   return inFichesFolder() ? '../notation.html' : 'notation.html';
 }
@@ -166,7 +161,6 @@ function buildDrawer(){
     <button class="drawer__close" type="button" aria-label="Fermer">✕</button>
     <a class="drawer__link" href="${homeHref()}">ACCUEIL</a>
     ${itemsHTML}
-    <a class="drawer__link drawer__link--settings" href="${exercicesHref()}">EXERCICES TYPE EXAMEN</a>
     <a class="drawer__link drawer__link--settings" href="${mistakesHref()}">MES ERREURS FRÉQUENTES</a>
     <a class="drawer__link drawer__link--settings" href="${notationHref()}">NOTATION</a>
     <button class="drawer__reset" id="resetSiteBtn" type="button">${SKULL_SVG}RÉINITIALISER LA PROGRESSION DE TOUT LE SITE</button>

@@ -21,13 +21,6 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 - `mistakes.html` / `mistakes.js` — liste des exercices ratés (toutes fiches confondues), alimentée par `fiches/fiche-engine.js` à chaque réponse.
 - `vendor/katex/` — KaTeX auto-hébergé (voir `vendor/katex/LICENSE`, MIT).
 
-Les exercices type examen (méthode + exemple rédigé + entraînement) pour
-l'algèbre linéaire, l'analyse et les probabilités, plus une page « Python
-appliqué » (1-2h/semaine), vivent dans un dépôt séparé :
-[exercices-l1-math](https://github.com/PierreMillon/exercices-l1-math)
-(déployé sur https://pierremillon.github.io/exercices-l1-math/, lien
-depuis la bannière sous l'en-tête et le menu latéral).
-
 ## Utilisation
 
 Ouvrir `index.html` dans un navigateur, ou servir le dossier avec n'importe quel serveur statique (`python3 -m http.server`, par exemple). Aucune installation ni build nécessaire. La progression est sauvegardée localement dans le navigateur (`localStorage`) ; aucune donnée n'est envoyée à un serveur.
