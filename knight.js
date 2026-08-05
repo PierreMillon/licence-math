@@ -1,43 +1,31 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — knight.js
-   Le chevalier du combat hebdomadaire : la silhouette de base est
-   toujours présente (chevalier sans armure). Chaque pièce
-   d'équipement correspond à un chapitre et se révèle
-   progressivement du bas vers le haut PROPRE À LA PIÈCE (pas au
-   cadre entier), au fil des bonnes réponses de la semaine dans ce
-   chapitre (couche HEBDOMADAIRE, weekly.js — pas la progression
-   permanente) : rien à 0%, entièrement visible à 100%. Chargé sur
-   la page d'accueil et sur les fiches (pièce miniature en bas de
-   page). Le viewBox partagé des pièces fait 38x62.
+   Le chevalier du combat hebdomadaire : chaque pièce d'équipement
+   correspond à un chapitre et se révèle progressivement du bas vers
+   le haut, au fil des bonnes réponses de la semaine dans ce chapitre
+   (couche HEBDOMADAIRE, weekly.js — pas la progression permanente) :
+   rien à 0%, entièrement visible à 100%. Chargé sur la page d'accueil
+   (surimpression sur le chevalier en couleur, voir KNIGHT_GIRL_OVERLAY
+   plus bas) et sur les fiches (pièce miniature en bas de page).
    ============================================================ */
 
-const KNIGHT_VIEWBOX_HEIGHT = 62;
-const KNIGHT_VIEWBOX_WIDTH = 38;
-
 const KNIGHT_PIECES = [
-  { chapterId: 'logique',      svg: () => KNIGHT_BOTTES_SVG,     z: 2, yMin: 49, yMax: 54 },
-  { chapterId: 'algebre',      svg: () => KNIGHT_JAMBIERES_SVG,  z: 1, yMin: 34, yMax: 48 },
-  { chapterId: 'calculus',     svg: () => KNIGHT_GANTELETS_SVG,  z: 6, yMin: 25, yMax: 32 },
-  { chapterId: 'analyse',      svg: () => KNIGHT_PLASTRON_SVG,   z: 5, yMin: 16, yMax: 34 },
-  { chapterId: 'probabilites', svg: () => KNIGHT_BOUCLIER_SVG,   z: 3, yMin: 20, yMax: 34 },
-  { chapterId: 'statistiques', svg: () => KNIGHT_CAPE_SVG,       z: 0, yMin: 15, yMax: 35 },
-  { chapterId: 'java',         svg: () => KNIGHT_CASQUE_SVG,     z: 7, yMin: 1,  yMax: 13 },
-  { chapterId: 'python',       svg: () => KNIGHT_EPEE_SVG,       z: 4, yMin: 9,  yMax: 35 },
+  { chapterId: 'logique',      svg: () => KNIGHT_BOTTES_SVG,     z: 2 },
+  { chapterId: 'algebre',      svg: () => KNIGHT_JAMBIERES_SVG,  z: 1 },
+  { chapterId: 'calculus',     svg: () => KNIGHT_GANTELETS_SVG,  z: 6 },
+  { chapterId: 'analyse',      svg: () => KNIGHT_PLASTRON_SVG,   z: 5 },
+  { chapterId: 'probabilites', svg: () => KNIGHT_BOUCLIER_SVG,   z: 3 },
+  { chapterId: 'statistiques', svg: () => KNIGHT_CAPE_SVG,       z: 0 },
+  { chapterId: 'java',         svg: () => KNIGHT_CASQUE_SVG,     z: 7 },
+  { chapterId: 'python',       svg: () => KNIGHT_EPEE_SVG,       z: 4 },
 ];
 window.KNIGHT_PIECES = KNIGHT_PIECES;
 
-function knightPieceClipStyle(fraction, yMin, yMax){
-  const f = Math.max(0, Math.min(1, fraction));
-  const clipTop = yMax - f * (yMax - yMin);
-  const hiddenPct = Math.round((clipTop / KNIGHT_VIEWBOX_HEIGHT) * 1000) / 10;
-  return `clip-path:inset(${hiddenPct}% 0 0 0);-webkit-clip-path:inset(${hiddenPct}% 0 0 0);`;
-}
-window.knightPieceClipStyle = knightPieceClipStyle;
-
-/* Bornes propres à chaque pièce (hors cadre partagé du chevalier), pour les
-   badges miniatures (cartes chapitre, bas de fiche) : on recadre le viewBox
-   sur la pièce elle-même pour qu'elle remplisse le badge au lieu d'être
-   perdue dans le cadre 38x62 entier. */
+/* Bornes propres à chaque pièce (dans le viewBox 38x62 partagé par le
+   dessin des pièces), utilisées pour recadrer chaque pièce sur elle-même
+   au lieu de la laisser perdue dans le cadre 38x62 entier — aussi bien
+   pour les badges miniatures (cartes chapitre, bas de fiche) que pour la
+   surimpression sur le chevalier en couleur (renderKnight ci-dessous). */
 const KNIGHT_PIECE_BOUNDS = {
   logique:      { xMin: 13, xMax: 28, yMin: 49, yMax: 55 },
   algebre:      { xMin: 15, xMax: 25, yMin: 34, yMax: 49 },
