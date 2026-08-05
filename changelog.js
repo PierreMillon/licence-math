@@ -6,7 +6,8 @@
    ============================================================ */
 
 const VERSIONS = [
-  { v: 90, date: "05/08/2026", desc: "Nouveau lien « FICHE » dans le menu, vers l'autre site de révision (fiche-de-math-gael) — les deux sites se renvoient maintenant l'un vers l'autre." },
+  { v: 91, date: "05/08/2026", desc: "Nouveau lien « FICHE » dans le menu, vers l'autre site de révision (fiche-de-math-gael) — les deux sites se renvoient maintenant l'un vers l'autre." },
+  { v: 90, date: "05/08/2026", desc: "Nouveau lien « EXERCICES TYPE » dans le menu, vers le site séparé d'exercices type examen (exercices-l1-math) : algèbre linéaire, analyse, probabilités et un peu de Python appliqué." },
   { v: 89, date: "05/08/2026", desc: "Les fiches se lisent maintenant par pages de 5-6 questions au lieu d'un long défilement (retour de Mgika3). « Mes erreurs fréquentes » se met aussi à jour toute seule (retour arrière, changement d'onglet), au lieu de rester figée tant qu'on ne recharge pas la page." },
   { v: 88, date: "05/08/2026", desc: "Le château garde maintenant la falaise de la référence d'origine sur toute sa hauteur (elle avait été coupée), et la grotte est repositionnée sous le bas de la falaise avec un léger espace, au lieu de toucher directement les tours." },
   { v: 87, date: "05/08/2026", desc: "Le château est de retour au-dessus de la scène de combat, centré, avec une grotte juste en dessous où vit le dragon — le chevalier descend l'affronter chez lui." },
