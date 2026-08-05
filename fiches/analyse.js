@@ -16,7 +16,7 @@ const EXERCISES = [
   },
   {
     id: 'ex2', section: 'limites',
-    statement: '\\(f \\underset{a}{\\sim} g\\) signifie :',
+    statement: '\\(f \\mathop{\\sim}\\limits_{a} g\\) signifie :',
     options: [
       '\\(\\lim_{x \\to a} \\dfrac{f(x)}{g(x)} = 1\\)',
       '\\(f(x) = g(x)\\) partout',
@@ -27,10 +27,10 @@ const EXERCISES = [
   },
   {
     id: 'ex3', section: 'limites',
-    statement: 'L’équivalence de fonctions \\(\\underset{a}{\\sim}\\) est compatible avec :',
+    statement: 'L’équivalence de fonctions \\(\\mathop{\\sim}\\limits_{a}\\) est compatible avec :',
     options: ['Le produit et le quotient', 'L’addition', 'Toute composition à gauche'],
     correctIndex: 0,
-    explain: 'L’équivalence se comporte comme une égalité pour produits/quotients, mais pas pour l’addition : \\(1-x \\underset{0}{\\sim} 1+x\\) et \\(-1 \\underset{0}{\\sim} -1\\), pourtant leur différence \\(x \\underset{0}{\\sim} -x\\) est fausse.',
+    explain: 'L’équivalence se comporte comme une égalité pour produits/quotients, mais pas pour l’addition : \\(1-x \\mathop{\\sim}\\limits_{0} 1+x\\) et \\(-1 \\mathop{\\sim}\\limits_{0} -1\\), pourtant leur différence \\(x \\mathop{\\sim}\\limits_{0} -x\\) est fausse.',
   },
   {
     id: 'ex4', section: 'continuite',
@@ -187,7 +187,7 @@ const EXERCISES = [
 const SECTIONS = [
   {
     id: 'limites', title: '§1 — LIMITES',
-    cours: '\\(\\lim_{x \\to a} f(x) = l\\) : \\(\\forall \\varepsilon>0, \\exists \\alpha>0, |x-a|<\\alpha \\Rightarrow |f(x)-l|<\\varepsilon\\)<br>Limite finie en \\(a\\) \\(\\Rightarrow\\) \\(f\\) localement bornée<br><span class="math">Théorème des gendarmes</span> (encadrement)<br>\\(f \\underset{a}{\\sim} g \\Leftrightarrow \\lim_{x \\to a} f/g = 1\\), et alors mêmes limites',
+    cours: '\\(\\lim_{x \\to a} f(x) = l\\) : \\(\\forall \\varepsilon>0, \\exists \\alpha>0, |x-a|<\\alpha \\Rightarrow |f(x)-l|<\\varepsilon\\)<br>Limite finie en \\(a\\) \\(\\Rightarrow\\) \\(f\\) localement bornée<br><span class="math">Théorème des gendarmes</span> (encadrement)<br>\\(f \\mathop{\\sim}\\limits_{a} g \\Leftrightarrow \\lim_{x \\to a} f/g = 1\\), et alors mêmes limites',
   },
   {
     id: 'continuite', title: '§2 — CONTINUITÉ',

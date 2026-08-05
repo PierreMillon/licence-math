@@ -542,18 +542,12 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   left:70%;
   bottom:0;
   transform:translateX(-50%);
-  width:100px;
-  height:163px;
 }
-.victory-knight .knight-piece-wrap{
-  position:absolute;
-  inset:0;
-}
-.victory-knight .knight-piece{
+.victory-knight svg{
   display:block;
-  width:100%;
-  height:100%;
-  color:var(--fg);
+  height:150px;
+  width:auto;
+  image-rendering:pixelated;
 }
 .victory-sword{
   position:absolute;
@@ -630,19 +624,13 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   left:76%;
   bottom:2px;
   transform:translateX(-50%) rotate(88deg);
-  width:110px;
-  height:179px;
-  opacity:.5;
+  opacity:.6;
 }
-.defeat-knight .knight-piece-wrap{
-  position:absolute;
-  inset:0;
-}
-.defeat-knight .knight-piece{
+.defeat-knight svg{
   display:block;
-  width:100%;
-  height:100%;
-  color:var(--fg-dim);
+  height:130px;
+  width:auto;
+  image-rendering:pixelated;
 }
 .defeat-caption{
   font-family:var(--font-subtitle);
@@ -738,25 +726,20 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .progress-bar__seg.filled{ background:var(--fg); }
 
-/* Barre de progression globale : un petit carré par exercice du site
-   (plus de 200 au total) — même esprit que la barre de progression
-   par exercice des fiches (.exo-progress-bar__sq), en plus petit
-   puisqu'il y en a beaucoup plus. */
+/* Barre de progression globale : reste dans le même grand rectangle
+   qu'à l'origine (bordé, une seule ligne, ne passe jamais à la
+   ligne) — mais avec un segment par exercice du site (plus de 200)
+   au lieu d'un nombre fixe de segments par pourcentage : chaque
+   segment s'écrase proportionnellement pour tenir dans la largeur,
+   et s'allume dès que l'exercice correspondant est réussi. Pas
+   d'espace entre les segments (contrairement aux petites barres par
+   chapitre) : à 229 segments, le moindre gap dominerait la largeur. */
 .global-progress-bar{
-  border:none;
-  background:transparent;
-  padding:0;
-  gap:2px;
-  flex-wrap:wrap;
+  gap:0;
 }
 .global-progress-bar .progress-bar__seg{
-  flex:none;
-  width:7px;
-  height:7px;
-  background:#000;
-  border:1px solid var(--fg-dim);
+  min-width:0;
 }
-.global-progress-bar .progress-bar__seg.filled{ background:var(--fg); border-color:var(--fg); }
 
 .chapter-card.done .chapter-card__score{ color:var(--ok); }
 

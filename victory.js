@@ -11,15 +11,6 @@
 
 const LAST_BATTLE_RESULT_KEY = 'l1maths_last_battle_result';
 
-function knightPiecesHTML(){
-  const acquired = (typeof KNIGHT_PIECES !== 'undefined' && window.isChapterWeeklyComplete)
-    ? KNIGHT_PIECES.filter(p => window.isChapterWeeklyComplete(p.chapterId))
-    : [];
-  const sorted = acquired.slice().sort((a, b) => a.z - b.z);
-  const baseHTML = typeof KNIGHT_BASE_SVG !== 'undefined' ? `<div class="knight-piece-wrap">${KNIGHT_BASE_SVG}</div>` : '';
-  return baseHTML + sorted.map(p => `<div class="knight-piece-wrap">${p.svg()}</div>`).join('');
-}
-
 function renderVictoryScene(){
   const scene = document.getElementById('victoryScene');
   if(!scene) return;
@@ -32,11 +23,7 @@ function renderVictoryScene(){
   const swordZone = document.getElementById('victorySword');
 
   if(dragonZone) dragonZone.innerHTML = DRAGON_FALLEN_SVG;
-  if(knightZone && typeof KNIGHT_PIECES !== 'undefined'){
-    const sorted = KNIGHT_PIECES.slice().sort((a, b) => a.z - b.z);
-    const baseHTML = typeof KNIGHT_BASE_SVG !== 'undefined' ? `<div class="knight-piece-wrap">${KNIGHT_BASE_SVG}</div>` : '';
-    knightZone.innerHTML = baseHTML + sorted.map(p => `<div class="knight-piece-wrap">${p.svg()}</div>`).join('');
-  }
+  if(knightZone && typeof KNIGHT_GIRL_SVG !== 'undefined') knightZone.innerHTML = KNIGHT_GIRL_SVG;
   if(swordZone) swordZone.innerHTML = SWORD_SVG;
 }
 
@@ -55,7 +42,7 @@ function renderDefeatScene(){
      dragon endormi de la scène en cours et du dragon vaincu de la
      victoire. */
   if(dragonZone) dragonZone.innerHTML = MONSTER_WALK_SVG;
-  if(knightZone) knightZone.innerHTML = knightPiecesHTML();
+  if(knightZone && typeof KNIGHT_GIRL_SVG !== 'undefined') knightZone.innerHTML = KNIGHT_GIRL_SVG;
 }
 
 function syncBattleOutcome(){
