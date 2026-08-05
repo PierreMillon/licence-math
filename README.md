@@ -33,6 +33,34 @@ Le site utilise un paramètre `?v=N` sur tous les `<link>`/`<script>` locaux pou
 - la syntaxe de tous les fichiers JavaScript (`node -c`) ;
 - la synchronisation des `?v=N` avec `SITE_VERSION`.
 
+## Pistes futures (non implémentées)
+
+Notes pour ne pas perdre des idées discutées mais pas encore construites :
+
+- **Lore du décor château/donjon/dragon** : le château doit être centré
+  au-dessus des deux personnages (pas à gauche), avec en dessous une
+  grotte/donjon qui abrite le dragon — le chevalier descend du château
+  pour l'affronter. Métaphore : on ne se bat pas contre quelqu'un
+  d'autre, on va chercher en soi-même (le donjon, sous ses propres
+  fondations) un trésor qu'il faut mériter par la rigueur — d'où le
+  passage du chevalier en couleur (vivant, aujourd'hui) à un
+  équipement noir & blanc (tradition, quelque chose de plus ancien
+  que soi) au fil de la progression. Le dragon reste à gauche, le
+  chevalier à droite, comme actuellement.
+- **Cycle de marche du petit monstre qui traverse l'écran** : si
+  plusieurs sprites sont fournis (2 à 4 images d'un cycle de pas),
+  remplacer l'unique image qui glisse par une vraie animation en
+  alternant les sprites à intervalle régulier pendant la traversée.
+- **Bruitages enregistrés par l'utilisateur** : remplacer les sons
+  synthétisés (Web Audio, générés en direct) par un vrai fichier audio
+  (MP3/WAV, quelques secondes) déposé sur le Drive comme les images —
+  contrairement aux images, un son de quelques secondes est
+  généralement hors de la plage de taille à risque pour le transfert.
+- **Préférence de notation (u/v vs f/g)** : page dédiée dans le menu
+  pour choisir la notation utilisée dans les règles de dérivation
+  (produit/quotient/composée), au cas où u/v soit plus parlant que f/g
+  selon la manière dont chacun l'a appris.
+
 ## Licence
 
 MIT — voir [LICENSE](LICENSE).
