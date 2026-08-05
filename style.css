@@ -909,6 +909,42 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   text-align:center;
 }
 
+/* Pagination interne d'une fiche (5-6 exercices par page, même URL) :
+   distincte de .chapter-nav (qui change de CHAPITRE, pas de page à
+   l'intérieur d'un chapitre). */
+.fiche-pager{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:20px 0;
+}
+.fiche-pager__btn{
+  border:1px solid var(--fg-dim);
+  background:transparent;
+  color:var(--fg);
+  padding:8px 10px;
+  font-family:var(--font-title);
+  font-size:.8rem;
+  letter-spacing:.02rem;
+  cursor:pointer;
+}
+.fiche-pager__btn:hover:not(:disabled){ border-color:var(--fg); background:rgba(255,255,255,.06); }
+.fiche-pager__btn:disabled{ opacity:.3; cursor:default; }
+.fiche-pager__label{
+  font-family:var(--font-subtitle);
+  font-size:.75rem;
+  color:var(--fg-dim);
+  white-space:nowrap;
+}
+.section__continued{
+  font-family:var(--font-subtitle);
+  font-size:.7rem;
+  color:var(--fg-dim);
+  font-weight:normal;
+  letter-spacing:.02rem;
+}
+
 .chapter-nav{
   display:flex;
   justify-content:space-between;

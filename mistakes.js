@@ -50,3 +50,23 @@ function renderMistakesList(){
 }
 
 document.addEventListener('DOMContentLoaded', renderMistakesList);
+
+/* Rafraîchit sans avoir besoin de recharger la page à la main :
+   - pageshow : couvre le retour arrière du navigateur, qui restaure
+     souvent la page depuis un cache (bfcache) SANS ré-exécuter
+     DOMContentLoaded — sans ça, revenir en arrière après avoir
+     répondu à des exercices affiche une liste figée sur son état
+     d'avant ;
+   - visibilitychange : couvre le cas où l'onglet reste ouvert en
+     arrière-plan pendant qu'on répond ailleurs (autre onglet), puis
+     revient au premier plan ;
+   - storage : couvre deux onglets ouverts en même temps sur des
+     pages différentes du site (répond dans l'un, la liste se
+     met à jour dans l'autre sans même avoir besoin de le rafraîchir). */
+window.addEventListener('pageshow', renderMistakesList);
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden) renderMistakesList();
+});
+window.addEventListener('storage', e => {
+  if(e.key === 'l1maths_mistakes') renderMistakesList();
+});
