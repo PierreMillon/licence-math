@@ -365,6 +365,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 
 .knight-zone{
+  position:relative;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -379,6 +380,27 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   height:180px;
   width:auto;
   image-rendering:pixelated;
+  display:block;
+}
+/* Cadre d'équipement en surimpression sur le chevalier en couleur :
+   même hauteur/ratio que le SVG du chevalier (posé en haut de la
+   colonne), positionné en absolu pour ne pas être détruit par le
+   innerHTML du chevalier (scene.js) ni pousser les pièces d'or. */
+.knight-figure{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  height:180px;
+  aspect-ratio:33/94;
+  pointer-events:none;
+}
+.knight-piece-wrap{
+  image-rendering:pixelated;
+}
+.knight-piece-wrap svg{
+  width:100%;
+  height:100%;
   display:block;
 }
 .knight-coins{
@@ -468,11 +490,15 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 .scene-bird{
   flex:none;
   align-self:flex-end;
-  margin-bottom:22px;
+  /* margin-bottom posé dynamiquement par scene.js (alignSceneBird) pour
+     que le bas de l'oiseau tombe exactement au niveau des pieds du
+     chevalier, pas du bas de la colonne (qui inclut les pièces d'or
+     sous elle) — un chiffre fixe ne suit pas cette hauteur variable. */
+  margin-bottom:0;
   line-height:0;
 }
 .scene-bird svg{
-  height:38px;
+  height:19px;
   width:auto;
   display:block;
 }
@@ -739,6 +765,10 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .global-progress-bar .progress-bar__seg{
   min-width:0;
+  border-right:1px solid #000;
+}
+.global-progress-bar .progress-bar__seg:last-child{
+  border-right:none;
 }
 
 .chapter-card.done .chapter-card__score{ color:var(--ok); }

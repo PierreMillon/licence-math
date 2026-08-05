@@ -64,6 +64,30 @@ function initSceneBird(){
   scheduleNext();
 }
 
+/* ---------- aligne le bas de l'oiseau sur le bas du chevalier ---------- */
+/* La colonne du chevalier contient aussi les pièces d'or gagnées sous
+   elle : son bord bas (utilisé par align-items:flex-end de la rangée)
+   n'est donc pas au niveau des pieds du chevalier, mais plus bas.
+   Un margin-bottom fixe en CSS ne peut pas suivre une hauteur de
+   colonne variable (le nombre de pièces peut faire changer de ligne)
+   → mesure réelle des deux SVG et ajustement au pixel près. */
+function alignSceneBird(){
+  const bird = document.getElementById('sceneBird');
+  const knightGirl = document.getElementById('knightGirl');
+  if(!bird || bird.hidden || !knightGirl) return;
+  const birdSvg = bird.querySelector('svg');
+  const knightSvg = knightGirl.querySelector('svg');
+  if(!birdSvg || !knightSvg) return;
+
+  const birdRect = birdSvg.getBoundingClientRect();
+  const knightRect = knightSvg.getBoundingClientRect();
+  if(birdRect.height === 0 || knightRect.height === 0) return; // pas encore rendu
+
+  const delta = knightRect.bottom - birdRect.bottom;
+  const currentMargin = parseFloat(getComputedStyle(bird).marginBottom) || 0;
+  bird.style.marginBottom = (currentMargin + delta) + 'px';
+}
+
 /* ---------- petit monstre : traverse l'écran après 3 min d'inactivité ---------- */
 const WANDER_IDLE_MS = 3 * 60 * 1000;
 const WANDER_ACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'wheel'];
@@ -116,4 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSceneMoon();
   initSceneBird();
   initWanderMonster();
+  alignSceneBird();
+  // Les polices/webfonts peuvent charger après coup et décaler la mise
+  // en page : on réajuste une fois de plus au chargement complet.
+  window.addEventListener('load', alignSceneBird);
 });
