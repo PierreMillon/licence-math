@@ -91,6 +91,14 @@ function bubbleText(lateness){
   return count <= 8 ? '?'.repeat(count) : ('×' + count);
 }
 
+/* Exposée pour scene.js : évite d'afficher un deuxième oiseau décoratif
+   à côté de celui de la mascotte tant que le dragon n'est pas encore
+   sorti (L<=1, mascotte encore sous forme d'oiseau). */
+function getCreatureLateness(){
+  return tickDailyGrowth().lateness;
+}
+window.getCreatureLateness = getCreatureLateness;
+
 function renderCreature(){
   const zone = document.getElementById('creatureZone');
   if(!zone) return;

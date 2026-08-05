@@ -34,6 +34,15 @@ function initSceneBird(){
   const el = document.getElementById('sceneBird');
   if(!el || typeof BIRD_SVG === 'undefined') return;
 
+  /* Tant que la mascotte de progression est encore un oiseau (peu de
+     retard), pas la peine d'en afficher un deuxième juste à côté :
+     l'oiseau décoratif n'apparaît qu'une fois le dragon sorti. */
+  const lateness = typeof window.getCreatureLateness === 'function' ? window.getCreatureLateness() : 2;
+  if(lateness <= 1){
+    el.hidden = true;
+    return;
+  }
+
   let blinking = false;
   function render(){
     el.innerHTML = blinking ? BIRD_SVG_BLINK : BIRD_SVG;

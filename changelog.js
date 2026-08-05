@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 76, date: "05/08/2026", desc: "Retrait du doublon d'oiseau dans la scène de combat : tant que le dragon n'est pas encore sorti (peu de retard), seul l'oiseau de la mascotte de progression s'affiche — l'oiseau décoratif entre le dragon et le chevalier n'apparaît qu'une fois le dragon présent." },
   { v: 75, date: "05/08/2026", desc: "Une lune (tracée depuis la référence château) posée dans le ciel de la scène de combat, au-dessus du château." },
   { v: 74, date: "05/08/2026", desc: "Nouvelle scène de combat sur la page d'accueil, redessinée au pixel près depuis les références envoyées : le dragon endormi, l'oiseau (littéralement noir, avec un contour clair pour rester visible) qui cligne des yeux à un intervalle aléatoire entre 3 et 10 secondes, et le chevalier — un personnage en couleur cette fois, exception assumée au noir & blanc du reste du site. Le système de pièces d'équipement gagnées chaque semaine reste inchangé à côté. Nouveau aussi : un petit monstre traverse discrètement le bas de l'écran après 3 minutes sans la moindre activité, avec un bruitage synthétisé. La scène de victoire montre maintenant le dragon vaincu sur le dos ; la scène de défaite garde le dragon endormi, intact." },
   { v: 73, date: "05/08/2026", desc: "La barre de progression globale (en haut de la page d'accueil) reprend le même style de petits carrés que la barre de progression par exercice des fiches, au lieu de segments fins accolés." },
