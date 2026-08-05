@@ -31,7 +31,7 @@ function renderVictoryScene(){
   const knightZone = document.getElementById('victoryKnight');
   const swordZone = document.getElementById('victorySword');
 
-  if(dragonZone) dragonZone.innerHTML = DRAGON_SVG;
+  if(dragonZone) dragonZone.innerHTML = DRAGON_FALLEN_SVG;
   if(knightZone && typeof KNIGHT_PIECES !== 'undefined'){
     const sorted = KNIGHT_PIECES.slice().sort((a, b) => a.z - b.z);
     const baseHTML = typeof KNIGHT_BASE_SVG !== 'undefined' ? `<div class="knight-piece-wrap">${KNIGHT_BASE_SVG}</div>` : '';
@@ -50,6 +50,9 @@ function renderDefeatScene(){
   const dragonZone = document.getElementById('defeatDragon');
   const knightZone = document.getElementById('defeatKnight');
 
+  /* Contrairement à la victoire (dragon vaincu, sur le dos), en cas
+     de défaite le dragon reste entier — endormi, tranquille, pas
+     dérangé par la tentative du chevalier. */
   if(dragonZone) dragonZone.innerHTML = DRAGON_SVG;
   if(knightZone) knightZone.innerHTML = knightPiecesHTML();
 }

@@ -16,7 +16,11 @@ const CREATURE_STATE_KEY = 'l1maths_creature_state';
 const SKULL_PILE_KEY = 'l1maths_skull_pile';
 const MAX_LATENESS = 40;
 const BIRD_HEIGHT_PX = 70;
-const DRAGON_MAX_HEIGHT_PX = 260;
+/* Le nouveau dragon endormi (viewBox 60x39, plus large que haut) prend
+   beaucoup plus de largeur à hauteur égale que l'ancien monstre rond
+   (60x58) : hauteur max réduite en conséquence pour garder un
+   encombrement similaire (~270px de large au maximum). */
+const DRAGON_MAX_HEIGHT_PX = 175;
 
 function todayStr(){
   const d = new Date();

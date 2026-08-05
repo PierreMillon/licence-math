@@ -367,13 +367,23 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:6px;
+  gap:4px;
   margin:0;
+}
+.knight-girl{
+  flex:none;
+  line-height:0;
+}
+.knight-girl svg{
+  height:180px;
+  width:auto;
+  image-rendering:pixelated;
+  display:block;
 }
 .knight-figure{
   position:relative;
-  width:120px;
-  height:196px;
+  width:56px;
+  height:92px;
   flex:none;
 }
 .knight-zone.has-pieces .knight-figure{
@@ -472,6 +482,43 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   color:var(--fg);
 }
 
+/* ---------- oiseau posé entre le dragon et le chevalier ---------- */
+.scene-bird{
+  flex:none;
+  align-self:flex-end;
+  margin-bottom:22px;
+  line-height:0;
+}
+.scene-bird svg{
+  height:38px;
+  width:auto;
+  display:block;
+}
+
+/* ---------- petit monstre qui traverse le bas de l'écran ---------- */
+.wander-monster{
+  position:fixed;
+  left:-90px;
+  bottom:14px;
+  width:70px;
+  height:auto;
+  z-index:40;
+  color:var(--fg);
+  pointer-events:none;
+}
+.wander-monster svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.wander-monster.walking{
+  animation:wanderAcross 11s linear;
+}
+@keyframes wanderAcross{
+  0%{ left:-90px; }
+  100%{ left:calc(100vw + 90px); }
+}
+
 .victory-scene{
   display:flex;
   flex-direction:column;
@@ -498,13 +545,13 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 .victory-dragon{
   position:absolute;
   left:34%;
-  bottom:4px;
-  transform:translateX(-50%) rotate(20deg);
-  opacity:.5;
+  bottom:14px;
+  transform:translateX(-50%) rotate(6deg);
+  opacity:.6;
 }
 .victory-dragon svg{
   display:block;
-  width:125px;
+  width:150px;
   height:auto;
   color:var(--fg-dim);
 }
@@ -586,19 +633,19 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .defeat-dragon{
   position:absolute;
-  left:34%;
-  bottom:60px;
+  left:26%;
+  bottom:36px;
   transform:translateX(-50%);
 }
 .defeat-dragon svg{
   display:block;
-  width:145px;
+  width:130px;
   height:auto;
   color:var(--fg);
 }
 .defeat-knight{
   position:absolute;
-  left:66%;
+  left:76%;
   bottom:2px;
   transform:translateX(-50%) rotate(88deg);
   width:110px;
