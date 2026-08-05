@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 88, date: "05/08/2026", desc: "Le château garde maintenant la falaise de la référence d'origine sur toute sa hauteur (elle avait été coupée), et la grotte est repositionnée sous le bas de la falaise avec un léger espace, au lieu de toucher directement les tours." },
   { v: 87, date: "05/08/2026", desc: "Le château est de retour au-dessus de la scène de combat, centré, avec une grotte juste en dessous où vit le dragon — le chevalier descend l'affronter chez lui." },
   { v: 86, date: "05/08/2026", desc: "« Mes erreurs fréquentes » fonctionne maintenant par score (-1 par échec, +1 par réussite) au lieu de disparaître dès la première bonne réponse. Corrections de contenu : composition de fonctions en LaTeX au lieu du caractère plein texte (fiche Logique), « théorème » de changement de variable renommé en « méthode » (fiche Analyse, ce n'en est pas un). (Merci Michael pour la relecture !)" },
   { v: 85, date: "05/08/2026", desc: "Boutons chapitre précédent/suivant en bas de fiche, nouvelle page « MES ERREURS FRÉQUENTES » (menu) pour cibler les révisions, et objectif du combat hebdomadaire abaissé à 60%." },
