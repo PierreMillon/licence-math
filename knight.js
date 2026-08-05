@@ -70,49 +70,40 @@ window.miniPieceClipStyle = miniPieceClipStyle;
 
 /* Le chevalier de base n'est plus une silhouette fantôme séparée : c'est
    directement le chevalier en couleur (KNIGHT_GIRL_SVG, scene.js). Chaque
-   pièce d'équipement est donc recadrée sur ses propres bornes
-   (KNIGHT_PIECE_BOUNDS, comme pour les badges miniatures) puis posée en
-   surimpression au pourcentage de position correspondant dans le cadre
-   partagé d'origine (38x62) — reporté en % sur la silhouette couleur, qui
-   n'a pas le même gabarit. Le repère haut/bas et gauche/droite est donc
-   conservé, mais l'alignement fin restera approximatif tant que les
-   pièces ne sont pas redessinées pour la nouvelle silhouette. */
+   pièce d'équipement est recadrée sur ses propres bornes (KNIGHT_PIECE_
+   BOUNDS, comme pour les badges miniatures) puis posée en surimpression
+   à un emplacement choisi À LA MAIN pour cette silhouette précise (pas
+   un simple report en % de l'ancien cadre 38x62, trop différent en
+   proportions) — repéré à partir des zones de couleur du dessin du
+   chevalier lui-même (tête/cheveux, chemise, jean, pieds). On ne touche
+   jamais au dessin des pièces : seuls leur taille et leur emplacement
+   sont ajustés ici. */
+const KNIGHT_GIRL_OVERLAY = {
+  //               left    top     width   height   (% du cadre du chevalier)
+  java:         { left: 14, top: 0,   width: 66, height: 23 }, // casque   → tête
+  statistiques: { left: 4,  top: 18,  width: 90, height: 34 }, // cape     → derrière le buste
+  analyse:      { left: 14, top: 25,  width: 68, height: 25 }, // plastron → chemise
+  probabilites: { left: 0,  top: 33,  width: 34, height: 24 }, // bouclier → bras gauche
+  python:       { left: 68, top: 8,   width: 30, height: 55 }, // épée     → le long du bras droit
+  calculus:     { left: 2,  top: 54,  width: 96, height: 12 }, // gantelets→ mains
+  algebre:      { left: 16, top: 51,  width: 66, height: 30 }, // jambières→ haut du jean
+  logique:      { left: 20, top: 84,  width: 58, height: 13 }, // bottes   → pieds
+};
+
 function renderKnight(){
   const zone = document.getElementById('knightZone');
   const figure = document.getElementById('knightFigure');
   if(!zone || !figure) return;
   if(window.ensureWeekCurrent) window.ensureWeekCurrent();
 
-  const pad = 1;
-  /* L'ancien cadre partagé (38x62) est bien plus trapu que la nouvelle
-     silhouette (33x94, beaucoup plus élancée) : une pièce qui occupait
-     par exemple 58% de la largeur de l'ancien cadre déborderait très
-     largement du corps fin du nouveau chevalier si on reportait cette
-     même fraction telle quelle. En attendant des pièces redessinées
-     sur mesure, on resserre chaque pièce autour de son propre centre
-     pour limiter les chevauchements, sans changer sa position centrale. */
-  const SHRINK = 0.55;
   const sorted = KNIGHT_PIECES.slice().sort((a, b) => a.z - b.z);
   const piecesHTML = sorted.map(p => {
-    const bounds = KNIGHT_PIECE_BOUNDS[p.chapterId];
-    if(!bounds) return '';
+    const spot = KNIGHT_GIRL_OVERLAY[p.chapterId];
+    if(!spot) return '';
     const fraction = window.weeklyChapterFraction ? window.weeklyChapterFraction(p.chapterId) : 0;
     const miniSvg = knightPieceMiniSVG(p.chapterId, p.svg());
     const clip = miniPieceClipStyle(fraction);
-
-    const x = Math.max(0, bounds.xMin - pad);
-    const y = Math.max(0, bounds.yMin - pad);
-    const w = (bounds.xMax - bounds.xMin) + pad * 2;
-    const h = (bounds.yMax - bounds.yMin) + pad * 2;
-    let leftPct = (x / KNIGHT_VIEWBOX_WIDTH) * 100;
-    let topPct = (y / KNIGHT_VIEWBOX_HEIGHT) * 100;
-    let widthPct = (w / KNIGHT_VIEWBOX_WIDTH) * 100;
-    let heightPct = (h / KNIGHT_VIEWBOX_HEIGHT) * 100;
-    leftPct += widthPct * (1 - SHRINK) / 2;
-    topPct += heightPct * (1 - SHRINK) / 2;
-    widthPct *= SHRINK;
-    heightPct *= SHRINK;
-    const pos = `position:absolute;left:${leftPct}%;top:${topPct}%;width:${widthPct}%;height:${heightPct}%;z-index:${p.z};`;
+    const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};`;
     return `<div class="knight-piece-wrap" style="${pos}${clip}">${miniSvg}</div>`;
   }).join('');
   figure.innerHTML = piecesHTML;

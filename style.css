@@ -765,10 +765,19 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .global-progress-bar .progress-bar__seg{
   min-width:0;
-  border-right:1px solid #000;
 }
-.global-progress-bar .progress-bar__seg:last-child{
-  border-right:none;
+/* Sur un écran assez large pour qu'un segment fasse au moins quelques
+   pixels, un fin trait sépare chaque case (comme les barres par
+   chapitre) — app.js ajoute cette classe seulement si la largeur
+   mesurée le permet. En dessous de ce seuil (mobile, 229 segments
+   dans une largeur étroite), le trait mangerait presque tout le
+   segment et ferait disparaître les cases remplies : pas de séparateur
+   dans ce cas, uniquement le remplissage. */
+.global-progress-bar.seg-spaced .progress-bar__seg{
+  box-shadow: inset -1px 0 0 #000;
+}
+.global-progress-bar.seg-spaced .progress-bar__seg:last-child{
+  box-shadow:none;
 }
 
 .chapter-card.done .chapter-card__score{ color:var(--ok); }

@@ -126,6 +126,22 @@ function renderGlobalProgress(){
     const grade = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 20 * 10) / 10 : 0;
     tooltipEl.innerHTML = `<span class="grade-tooltip__num">${grade}/20</span>note théorique si l'examen ne testait que ce que tu maîtrises déjà`;
   }
+
+  updateGlobalProgressSpacing(bar, totalExercises);
+}
+
+/* N'affiche le fin trait noir entre chaque segment que si la largeur
+   mesurée le permet (voir commentaire CSS .global-progress-bar.seg-
+   spaced) : sous ~3px par segment, le trait mangerait tout le
+   segment et ferait disparaître les cases remplies (bug constaté sur
+   mobile avec 229 segments dans une largeur étroite). Recalculé au
+   redimensionnement (rotation d'écran, fenêtre redimensionnée). */
+function updateGlobalProgressSpacing(bar, totalExercises){
+  if(totalExercises <= 0) return;
+  const width = bar.getBoundingClientRect().width;
+  if(width === 0) return; // pas encore mis en page
+  const segWidth = (width - 4) / totalExercises; // -4 = 2px de padding de chaque côté
+  bar.classList.toggle('seg-spaced', segWidth >= 3);
 }
 
 function initGradeTooltip(){
@@ -187,7 +203,7 @@ const FOOTER_MESSAGES = [
   "L'éternité c'est long, surtout vers la fin du chapitre sur les intégrales.",
   "Je ne crois pas à la vie après le cc, mais j'apporte quand même mes fiches au cas où.",
   "0,999... = 1, à condition d'y croire très fort et de ne jamais y repenser.",
-  "Ce diamant en haut à droite ne mène nulle part d'important. Comme presque tout le reste.",
+  "Ce cœur en haut à droite ne mène nulle part d'important. Comme presque tout le reste.",
   "La différence entre un optimiste et un pessimiste en maths, c'est que le pessimiste a déjà vérifié.",
   "Certains cherchent le sens de la vie. Moi je cherche juste où j'ai perdu mon epsilon.",
   "Un théorème n'est jamais vraiment terminé, il est juste abandonné par son démonstrateur.",
@@ -321,4 +337,15 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGlobalProgress();
   renderFooterCycle();
   initGradeTooltip();
+});
+
+let globalProgressResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(globalProgressResizeTimer);
+  globalProgressResizeTimer = setTimeout(() => {
+    const bar = document.getElementById('globalProgressBar');
+    if(!bar) return;
+    const total = bar.querySelectorAll('.progress-bar__seg').length;
+    updateGlobalProgressSpacing(bar, total);
+  }, 150);
 });

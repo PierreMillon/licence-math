@@ -88,6 +88,42 @@ function alignSceneBird(){
   bird.style.marginBottom = (currentMargin + delta) + 'px';
 }
 
+/* ---------- aligne le bas de la mascotte (oiseau/dragon) sur le bas du
+   chevalier, crânes rejetés sous la ligne commune ---------- */
+/* Même problème que pour l'oiseau décoratif, mais pour la mascotte de
+   progression (#creatureFigure) : sa colonne (#creatureZone) contient
+   aussi la pile de crânes et les défaites de la semaine SOUS elle, donc
+   son bord bas (utilisé par align-items:flex-end) n'est pas non plus au
+   niveau des pieds de la mascotte. Contrairement à l'oiseau décoratif
+   (un seul élément, on ajuste juste sa marge), ici on veut que les
+   crânes restent sous la ligne commune une fois la mascotte réalignée :
+   on déplace donc toute la colonne #creatureZone d'un bloc avec un
+   translateY (pas de marge sur un enfant, qui grandirait la colonne et
+   ferait bouger le chevalier via align-items:flex-end) — les crânes,
+   déjà sous la mascotte dans le flux normal, suivent avec elle. */
+function alignCreatureFoot(){
+  const zone = document.getElementById('creatureZone');
+  const figure = document.getElementById('creatureFigure');
+  const knightGirl = document.getElementById('knightGirl');
+  if(!zone || !figure || !knightGirl) return;
+  const icon = figure.querySelector('.creature-icon');
+  const knightSvg = knightGirl.querySelector('svg');
+  if(!icon || !knightSvg) return;
+
+  /* Repart toujours d'une mesure "naturelle" (sans l'ajustement précédent) :
+     sinon un deuxième appel (au load, après un premier appel déjà
+     correct au DOMContentLoaded) mesure une position DÉJÀ corrigée,
+     retrouve un delta de 0, et écrase le transform correct par une
+     chaîne vide au lieu de le laisser tel quel. */
+  zone.style.transform = '';
+  const iconRect = icon.getBoundingClientRect();
+  const knightRect = knightSvg.getBoundingClientRect();
+  if(iconRect.height === 0 || knightRect.height === 0) return; // pas encore rendu
+
+  const delta = knightRect.bottom - iconRect.bottom;
+  if(delta) zone.style.transform = `translateY(${delta}px)`;
+}
+
 /* ---------- petit monstre : traverse l'écran après 3 min d'inactivité ---------- */
 const WANDER_IDLE_MS = 3 * 60 * 1000;
 const WANDER_ACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'wheel'];
@@ -141,7 +177,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initSceneBird();
   initWanderMonster();
   alignSceneBird();
+  alignCreatureFoot();
   // Les polices/webfonts peuvent charger après coup et décaler la mise
   // en page : on réajuste une fois de plus au chargement complet.
-  window.addEventListener('load', alignSceneBird);
+  window.addEventListener('load', () => {
+    alignSceneBird();
+    alignCreatureFoot();
+  });
 });
