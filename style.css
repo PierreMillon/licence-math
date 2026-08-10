@@ -409,12 +409,13 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-cave svg{
   display:block;
-  /* Densité réelle 0,8 (32 unités de grille -> 40px), pas encore
-     calée sur la densité du château (1,52, même plan 3 en théorie) —
-     un essai de correction directe (21px) a été tenté le 10/08/2026
-     mais rendait la grotte trop petite/déconnectée visuellement du
-     château à l'écran ; laissé tel quel en attendant un avis explicite
-     plutôt que de trancher seul sur un rendu qui n'a pas été demandé. */
+  /* Densité corrigée le 10/08/2026 par doublage de la grille source
+     (CAVE_SVG, viewBox 32×14 -> 64×28, même silhouette — voir
+     creature-svgs.js), PAS par réduction de la taille affichée :
+     64/40 = 1,6, proche de la densité réelle du château (1,52, même
+     plan 3). Un premier essai avait réduit la taille affichée à 21px
+     à la place — rendu dégradé (grotte trop petite), annulé. Cette
+     approche est la même que celle qui a marché pour la lune. */
   width:40px;
   height:auto;
 }
