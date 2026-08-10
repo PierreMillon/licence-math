@@ -42,6 +42,23 @@ function currentWeekStartStr(){
   return dateStr(mondayOf(new Date()));
 }
 
+/* Texte "il reste Xj Yh" avant la remise à zéro du lundi 00h00 (retour
+   utilisateur : le % affiché seul ne disait pas où on en était dans la
+   semaine). Basé sur mondayOf() + 7 jours, donc toujours cohérent avec le
+   lundi effectif qui déclenchera resolveAndResetWeek() dans ensureWeekCurrent. */
+function weeklyTimeRemainingText(){
+  const nextMonday = mondayOf(new Date());
+  nextMonday.setDate(nextMonday.getDate() + 7);
+  const msLeft = nextMonday.getTime() - Date.now();
+  if(msLeft <= 0) return 'il reste moins d\'1h';
+  const hoursTotal = Math.floor(msLeft / (60 * 60 * 1000));
+  const days = Math.floor(hoursTotal / 24);
+  const hours = hoursTotal % 24;
+  if(hoursTotal < 1) return 'il reste moins d\'1h';
+  if(days <= 0) return `il reste ${hours}h`;
+  return `il reste ${days}j ${hours}h`;
+}
+
 function loadWeeklyMeta(){
   let m;
   try{ m = JSON.parse(localStorage.getItem(WEEKLY_META_KEY)); }
@@ -156,7 +173,7 @@ function renderWeeklyScore(){
   const ICON_CAP = 5;
 
   const objectifPct = Math.round(WEEKLY_THRESHOLD * 100);
-  if(el) el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif ${objectifPct}%)</div>`;
+  if(el) el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif ${objectifPct}%) — ${weeklyTimeRemainingText()}</div>`;
   if(coinsEl) coinsEl.innerHTML = iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP);
   if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }

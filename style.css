@@ -324,9 +324,9 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   color:var(--fg);
   text-align:center;
   letter-spacing:.01rem;
-  white-space:nowrap;
   background:transparent;
   padding:3px 8px;
+  max-width:100%;
 }
 .weekly-score-more{
   font-family:var(--font-subtitle);
@@ -1160,9 +1160,17 @@ code{
 /* Formules trop larges pour l'écran (retour de Charles Boyer) : au lieu
    de déborder ou de forcer un retour à la ligne, elles vivent dans une
    zone visuellement distincte qu'on peut faire glisser latéralement
-   (doigt ou trackpad) pour voir la suite. */
+   (doigt ou trackpad) pour voir la suite.
+   .katex en white-space:nowrap : empêche KaTeX de couper une formule
+   n'importe où au milieu (après un +, un =...), ce qui la rendrait
+   illisible en deux morceaux — testé et validé sur page de démo avant
+   déploiement. Le glissement (ci-dessous) prend le relai quand, de ce
+   fait, la formule ne tient plus sur une ligne. */
+.katex{ white-space:nowrap; }
 .katex-display{
   overflow-x:auto;
+  overflow-y:hidden;
+  touch-action:pan-x;
   -webkit-overflow-scrolling:touch;
   background:var(--bg-panel);
   border:1px dashed var(--fg-dim);
@@ -1180,6 +1188,8 @@ code{
   display:inline-block;
   max-width:100%;
   overflow-x:auto;
+  overflow-y:hidden;
+  touch-action:pan-x;
   -webkit-overflow-scrolling:touch;
   background:#050505;
   border:1px dashed var(--fg-dim);
