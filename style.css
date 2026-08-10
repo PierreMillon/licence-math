@@ -368,10 +368,11 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-moon svg{
   display:block;
-  /* Grille source doublée le 10/08/2026 (MOON_SVG, viewBox 26×30 ->
-     52×60, même silhouette — voir creature-svgs.js) pour caler la
-     lune sur la densité cible du plan 4 (2,0) sans changer sa taille
-     affichée : 52/26 = 2,0 pile. */
+  /* Redessinée en disque plein le 10/08/2026 (MOON_SVG, viewBox
+     52×52, cercle plein généré au pixel près — était un croissant
+     fixe, qui ne pouvait pas représenter une vraie pleine lune, voir
+     applyMoonPhase() dans scene.js). Densité 52/26 = 2,0 pile (plan
+     4), taille affichée inchangée (26px). */
   width:26px;
   height:auto;
 }

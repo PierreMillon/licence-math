@@ -36,18 +36,13 @@ function renderSceneMoon(){
    cycle lunaire écoulée depuis une nouvelle lune de référence connue,
    puis fraction éclairée déduite par la formule standard
    (1-cos(2π·phase))/2 (0 à la nouvelle lune, 1 à la pleine lune).
-   Représentée en couvrant la partie NON éclairée du dessin actuel
-   (clip-path, pas de nouveau dessin) : un croissant qui grandit/
-   rétrécit avec la vraie date du jour. LIMITE CONNUE : le dessin
-   actuel (MOON_SVG) est déjà un croissant, pas un disque plein — donc
-   à la pleine lune (illuminated proche de 1), le clip ne cache
-   presque rien et on retombe juste sur l'apparence habituelle de la
-   lune, pas un vrai disque rond. Fonctionne bien le reste du cycle
-   (nouvelle lune -> invisible, quartiers -> silhouette convaincante).
-   À corriger proprement le jour où la lune est redessinée en disque
-   plein (plan « lune + nuages », système de profondeur du
-   10/08/2026) : ce code n'aura rien à changer, juste le dessin
-   source. */
+   Représentée en couvrant la partie NON éclairée du dessin (clip-path,
+   pas un nouveau dessin par phase) : un croissant qui grandit/
+   rétrécit avec la vraie date du jour, jusqu'au disque plein complet
+   à la pleine lune. Fonctionne sur tout le cycle depuis que MOON_SVG
+   est un disque plein (redessiné le 10/08/2026 — un croissant fixe
+   ne pouvait pas représenter une vraie pleine lune, seule la partie
+   déjà visible du croissant restait affichée quel que soit le clip). */
 function moonPhaseFraction(date){
   const LUNAR_CYCLE_S = 2551443; // 29,53059 jours
   const KNOWN_NEW_MOON_S = Date.UTC(1970, 0, 7, 20, 35, 0) / 1000;
