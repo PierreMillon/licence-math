@@ -33,9 +33,14 @@ html,body{
      horizontalement sur la page elle-même (hors zones de glissement
      volontaires comme .math-scroll) ne doit rien faire — ni décaler la
      page avec un effet élastique, ni faire "remonter" le geste vers un
-     historique de navigation. */
+     historique de navigation. IMPORTANT (bug corrigé le 10/08/2026) :
+     "pan-y" seul désactive aussi le pincement de zoom dans la plupart
+     des navigateurs (Safari iOS notamment), qui ne l'autorise que s'il
+     est listé explicitement — "pinch-zoom" doit rester possible, seul
+     le zoom EN DESSOUS de 100% est bloqué (minimum-scale=1.0 sur le
+     viewport, voir chaque <head>), pas le zoom en général. */
   overscroll-behavior-x:none;
-  touch-action:pan-y;
+  touch-action:pan-y pinch-zoom;
 }
 
 body{
@@ -1207,7 +1212,7 @@ code{
 .katex-display{
   overflow-x:auto;
   overflow-y:hidden;
-  touch-action:pan-x;
+  touch-action:pan-x pinch-zoom;
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   background:var(--bg-panel);
@@ -1227,7 +1232,7 @@ code{
   max-width:100%;
   overflow-x:auto;
   overflow-y:hidden;
-  touch-action:pan-x;
+  touch-action:pan-x pinch-zoom;
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   background:#050505;
