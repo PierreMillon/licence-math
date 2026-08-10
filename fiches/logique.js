@@ -332,4 +332,4 @@ const SECTIONS = [
   },
 ];
 
-initFiche({ STATE_KEY: 'l1maths_logique_state_v2', CHAPTER_ID: 'logique', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.logique, CHAPTER_ID: 'logique', EXERCISES, SECTIONS });

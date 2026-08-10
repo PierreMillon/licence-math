@@ -15,7 +15,12 @@
 const CREATURE_STATE_KEY = 'l1maths_creature_state';
 const SKULL_PILE_KEY = 'l1maths_skull_pile';
 const MAX_LATENESS = 40;
-const BIRD_HEIGHT_PX = 70;
+/* Réduit de moitié le 10/08/2026 (était 70px) sur demande explicite :
+   la mascotte sous forme d'oiseau (L<=1) paraissait trop grande.
+   N'affecte que le point de départ de l'interpolation vers le dragon
+   (L>=2, voir renderCreature) — DRAGON_MAX_HEIGHT_PX, lui, ne bouge
+   pas. */
+const BIRD_HEIGHT_PX = 35;
 /* Le nouveau dragon endormi (viewBox 60x39, plus large que haut) prend
    beaucoup plus de largeur à hauteur égale que l'ancien monstre rond
    (60x58) : hauteur max réduite en conséquence pour garder un

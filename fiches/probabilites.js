@@ -233,4 +233,4 @@ Piège : l'indépendance deux à deux de 3 événements n'entraîne PAS leur ind
 }
 ];
 
-initFiche({ STATE_KEY: 'l1maths_probabilites_state', CHAPTER_ID: 'probabilites', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.probabilites, CHAPTER_ID: 'probabilites', EXERCISES, SECTIONS });

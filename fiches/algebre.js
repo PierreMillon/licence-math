@@ -128,4 +128,4 @@ const SECTIONS = [
   },
 ];
 
-initFiche({ STATE_KEY: 'l1maths_algebre_state', CHAPTER_ID: 'algebre', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.algebre, CHAPTER_ID: 'algebre', EXERCISES, SECTIONS });

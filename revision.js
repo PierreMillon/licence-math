@@ -14,22 +14,7 @@ const REVISION_QUEUE_SIZE = 10;
 let revisionQueue = [];
 let revisionIndex = 0;
 
-function typesetRevision(el){
-  if(window.renderMathInElement && el){
-    window.renderMathInElement(el, {
-      delimiters: [
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true },
-      ],
-      throwOnError: false,
-    });
-  }
-  if(window.wrapOverflowingMath) window.wrapOverflowingMath(el);
-}
-
-function confirmModeEnabled(){
-  return window.getNotationPreference && window.getNotationPreference('confirmAnswer', 'on') === 'on';
-}
+/* typesetMath / confirmModeEnabled : voir menu.js (partagé). */
 
 function buildRevisionQueue(){
   const mistakes = Object.values(window.loadMistakes());
@@ -90,7 +75,7 @@ function renderRevisionCard(){
         <button type="button" class="fiche-pager__btn" id="revisionSkipBtn">EXERCICE SUIVANT →</button>
       </div>
     `;
-    typesetRevision(container);
+    typesetMath(container);
     document.getElementById('revisionSkipBtn').addEventListener('click', () => {
       revisionIndex++;
       renderRevisionCard();
@@ -116,7 +101,7 @@ function renderRevisionCard(){
       <div class="exo__feedback" id="revisionFeedback"></div>
     </div>
   `;
-  typesetRevision(container);
+  typesetMath(container);
   renderProgressHeader();
   bindRevisionCard(m);
 }
@@ -134,7 +119,7 @@ function applyRevisionAnswer(m, selectedIndex){
   }else{
     const explainLine = m.explain ? `<br>→ ${m.explain}` : '';
     feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${m.options[m.correctIndex]}${explainLine}`;
-    typesetRevision(feedbackEl);
+    typesetMath(feedbackEl);
     if(window.recordMistake) window.recordMistake(m.chapterId, m);
   }
   if(window.writeExerciseResult) window.writeExerciseResult(m.chapterId, m.exerciseId, isCorrect, selectedIndex);

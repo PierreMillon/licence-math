@@ -271,4 +271,4 @@ const SECTIONS = [
   },
 ];
 
-initFiche({ STATE_KEY: 'l1maths_calculus_state', CHAPTER_ID: 'calculus', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.calculus, CHAPTER_ID: 'calculus', EXERCISES, SECTIONS });

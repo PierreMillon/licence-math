@@ -7,18 +7,7 @@
    chaque réponse.
    ============================================================ */
 
-function typesetMistakes(el){
-  if(window.renderMathInElement && el){
-    window.renderMathInElement(el, {
-      delimiters: [
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true },
-      ],
-      throwOnError: false,
-    });
-  }
-  if(window.wrapOverflowingMath) window.wrapOverflowingMath(el);
-}
+/* typesetMath : voir menu.js (partagé). */
 
 function renderMistakesList(){
   const container = document.getElementById('mistakesList');
@@ -47,7 +36,7 @@ function renderMistakesList(){
     `;
   }).join('');
 
-  typesetMistakes(container);
+  typesetMath(container);
 }
 
 document.addEventListener('DOMContentLoaded', renderMistakesList);

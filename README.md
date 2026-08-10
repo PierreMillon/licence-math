@@ -10,15 +10,18 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 
 - `index.html` / `app.js` — page d'accueil : grille des 8 chapitres, progression globale, scène de combat hebdomadaire chevalier / dragon.
 - `style.css` — thème terminal pixelisé (noir & blanc).
+- `menu.js` — chargé sur **toutes** les pages : menu tiroir (chapitres triés dynamiquement du moins avancé au plus avancé, avec leur % de complétion), rendu KaTeX partagé (`typesetMath`), préférences de notation, réglage de validation des réponses (`confirmModeEnabled`), clés de state par chapitre (`CHAPTER_STATE_KEYS`), suivi des erreurs fréquentes (`recordMistake`/`loadMistakes`), réinitialisation globale du site.
 - `fiches/*.html` + `fiches/*.js` — une fiche de cours par chapitre (Logique, Algèbre, Analyse, Calculus, Probabilités, Statistiques, Java, Python), chacune avec ses exercices interactifs (QCM).
-- `fiches/fiche-engine.js` — moteur commun à toutes les fiches (rendu, progression, réinitialisation).
-- `weekly.js` — combat hebdomadaire chevalier / dragon : couche de progression séparée de la progression permanente, remise à zéro chaque lundi.
+- `fiches/fiche-engine.js` — moteur commun à toutes les fiches (rendu, progression, pagination, réinitialisation).
+- `weekly.js` — combat hebdomadaire chevalier / dragon : couche de progression séparée de la progression permanente, remise à zéro chaque lundi (avec compte à rebours avant la remise à zéro).
 - `knight.js`, `knight-svgs.js` — système de pièces d'équipement du chevalier, gagnées progressivement par chapitre.
 - `creature.js`, `creature-svgs.js`, `scene.js` — mascotte de progression (oiseau qui grossit en dragon si le site n'est pas visité), scène de combat (château, grotte, dragon, oiseau, chevalier), petit monstre qui traverse l'écran après une pause.
 - `victory.js` — scènes de résolution du combat hebdomadaire (victoire / défaite).
 - `changelog.html` / `changelog.js` — historique des versions du site.
-- `notation.html` / `notation.js` — préférences de notation (ex. u/v vs f/g pour la dérivation), lues par `fiches/fiche-engine.js`.
-- `mistakes.html` / `mistakes.js` — liste des exercices ratés (toutes fiches confondues), alimentée par `fiches/fiche-engine.js` à chaque réponse.
+- `notation.html` / `notation.js` — page RÉGLAGES : 3 préférences par curseur — notation de dérivation (u/v vs f/g), validation des réponses (immédiate ou bouton VALIDER), affichage des fiches (pages découpées ou défilement continu) — lues par `fiches/fiche-engine.js` et `revision.js`.
+- `mistakes.html` / `mistakes.js` — liste des exercices ratés (toutes fiches confondues, triés du plus raté au moins raté), alimentée par `fiches/fiche-engine.js`/`revision.js` à chaque réponse ; point d'entrée vers la révision ciblée.
+- `progression.html` / `progression.js` / `progression-page.js` — page MA PROGRESSION : radar de maîtrise par chapitre, détail par chapitre, transfert de progression entre appareils sans compte (phrase à copier-coller, encodage local, rien envoyé à un serveur) — porté du site de Gaël, sans son système de pyramide à paliers.
+- `revision.html` / `revision.js` — page RÉVISION CIBLÉE : rejoue les 10 pires exercices de `mistakes.html` tous chapitres confondus, dans un ordre mélangé ; répondre là-bas met à jour la fiche d'origine comme si on y répondait sur place (`writeExerciseResult`, dans `progression.js`).
 - `vendor/katex/` — KaTeX auto-hébergé (voir `vendor/katex/LICENSE`, MIT).
 
 ## Utilisation

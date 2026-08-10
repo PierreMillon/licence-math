@@ -172,4 +172,4 @@ Ajustement non linéaire : changement de variable (ex. \\(z=\\ln y\\)), on ajust
 }
 ];
 
-initFiche({ STATE_KEY: 'l1maths_statistiques_state', CHAPTER_ID: 'statistiques', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.statistiques, CHAPTER_ID: 'statistiques', EXERCISES, SECTIONS });

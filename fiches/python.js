@@ -352,4 +352,4 @@ const SECTIONS = [
   },
 ];
 
-initFiche({ STATE_KEY: 'l1maths_python_state', CHAPTER_ID: 'python', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.python, CHAPTER_ID: 'python', EXERCISES, SECTIONS });

@@ -351,7 +351,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 .scene-moon{
   position:absolute;
   top:10px;
-  right:8%;
+  right:0;
   z-index:0;
   color:var(--fg-dim);
   opacity:.8;
@@ -361,17 +361,17 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   width:26px;
   height:auto;
 }
-/* Château centré au-dessus des deux personnages, avec sa grotte juste
-   en dessous (le dragon y « habite ») : le chevalier descend du
-   château pour l'affronter — c'est lui-même qu'il affronte, pas un
-   autre, d'où la grotte sous ses propres fondations. Décor en
-   arrière-plan (z-index:0, comme la lune), atténué pour ne pas
-   concurrencer les personnages au premier plan. */
+/* Château plaqué tout à gauche (aligné sur la bordure gauche des
+   cadres, ex. la barre de vie — demande du 10/08/2026, au lieu d'être
+   centré), avec sa grotte juste en dessous (le dragon y « habite ») :
+   le chevalier descend du château pour l'affronter — c'est lui-même
+   qu'il affronte, pas un autre, d'où la grotte sous ses propres
+   fondations. Décor en arrière-plan (z-index:0, comme la lune),
+   atténué pour ne pas concurrencer les personnages au premier plan. */
 .scene-castle{
   position:absolute;
   top:0;
-  left:50%;
-  transform:translateX(-50%);
+  left:0;
   z-index:0;
   color:var(--fg-dim);
   opacity:.85;
@@ -388,8 +388,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 .scene-cave{
   position:absolute;
   top:127px;
-  left:50%;
-  transform:translateX(-50%);
+  left:0;
   z-index:0;
   color:var(--fg-dim);
   opacity:.85;

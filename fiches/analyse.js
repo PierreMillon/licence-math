@@ -215,4 +215,4 @@ const SECTIONS = [
   },
 ];
 
-initFiche({ STATE_KEY: 'l1maths_analyse_state', CHAPTER_ID: 'analyse', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.analyse, CHAPTER_ID: 'analyse', EXERCISES, SECTIONS });

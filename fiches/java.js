@@ -430,4 +430,4 @@ const SECTIONS = [
   },
 ];
 
-initFiche({ STATE_KEY: 'l1maths_java_state', CHAPTER_ID: 'java', EXERCISES, SECTIONS });
+initFiche({ STATE_KEY: CHAPTER_STATE_KEYS.java, CHAPTER_ID: 'java', EXERCISES, SECTIONS });

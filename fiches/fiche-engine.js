@@ -8,18 +8,8 @@
 
 const PROGRESS_KEY = 'l1maths_progress';
 
-function typesetMath(el){
-  if(window.renderMathInElement && el){
-    window.renderMathInElement(el, {
-      delimiters: [
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true },
-      ],
-      throwOnError: false,
-    });
-  }
-  if(window.wrapOverflowingMath) window.wrapOverflowingMath(el);
-}
+/* typesetMath : voir menu.js (partagé, chargé avant ce fichier sur
+   toute fiche). */
 
 /* Applique la préférence de notation (u/v vs f/g, voir menu → NOTATION)
    aux exercices qui proposent une variante (statementUv/optionsUv/
@@ -139,18 +129,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     return order;
   }
 
-  /* Réglage optionnel « VALIDATION DES RÉPONSES » (notation.html) :
-     off (défaut) = cocher une réponse la valide tout de suite, comme
-     avant. on = un bouton VALIDER apparaît, désactivé tant qu'aucune
-     réponse n'est cochée (retour de Charles Boyer, qui cliquait parfois
-     trop vite par réflexe). */
-  function confirmModeEnabled(){
-    // Défaut = bouton VALIDER pour toute nouvelle session (demande
-    // explicite du 10/08/2026) — les préférences déjà enregistrées sur
-    // un appareil (y compris "immédiate") restent inchangées, seule la
-    // valeur par défaut pour un visiteur sans préférence stockée bouge.
-    return window.getNotationPreference && window.getNotationPreference('confirmAnswer', 'on') === 'on';
-  }
+  /* confirmModeEnabled : voir menu.js (partagé). */
 
   function exoControlsHTML(ex){
     const order = shuffledIndices(ex.options.length);

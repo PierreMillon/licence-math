@@ -11,20 +11,8 @@
    top-niveau).
    ============================================================ */
 
-/* ---------- clé de state par chapitre ---------- */
-/* Doit rester synchronisé avec le STATE_KEY de chaque fiches/*.js —
-   logique seul a un suffixe _v2 (migration passée). */
-const CHAPTER_STATE_KEYS = {
-  logique:      'l1maths_logique_state_v2',
-  calculus:     'l1maths_calculus_state',
-  algebre:      'l1maths_algebre_state',
-  analyse:      'l1maths_analyse_state',
-  probabilites: 'l1maths_probabilites_state',
-  statistiques: 'l1maths_statistiques_state',
-  java:         'l1maths_java_state',
-  python:       'l1maths_python_state',
-};
-window.CHAPTER_STATE_KEYS = CHAPTER_STATE_KEYS;
+/* CHAPTER_STATE_KEYS : voir menu.js (partagé, chargé avant ce
+   fichier sur toute page qui utilise progression.js). */
 
 /* ---------- maîtrise par chapitre (radar) ---------- */
 function chapterMasteryPercent(chapterId){
