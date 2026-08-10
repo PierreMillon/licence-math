@@ -292,6 +292,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     updateExoProgressSquare(state, ex);
     if(isFirstAnswer && window.decrementLateness) window.decrementLateness();
     if(window.recordWeeklyAnswer) window.recordWeeklyAnswer(CHAPTER_ID, ex.id, isCorrect);
+    if(window.notifyMusicAnswer) window.notifyMusicAnswer(isCorrect);
     if(isCorrect){
       if(window.improveMistake) window.improveMistake(CHAPTER_ID, ex.id);
     }else{

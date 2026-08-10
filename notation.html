@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=106">
+<link rel="stylesheet" href="style.css?v=107">
 <style>
   .notation-page{ max-width:480px; margin:38px auto 0; }
   .notation-page__title{
@@ -126,6 +126,16 @@
       <div class="notation-pref__hint">PAGES : la fiche se lit par petits lots de questions. CONTINU : toute la fiche défile d'une seule traite, comme avant.</div>
     </div>
 
+    <div class="notation-pref" id="notationMusic" data-topic="music" data-default="off">
+      <div class="notation-pref__label">MUSIQUE DE FOND</div>
+      <button type="button" class="notation-slider" aria-label="Activer ou désactiver la musique de fond adaptative">
+        <span class="notation-slider__option" data-value="off">SILENCE</span>
+        <span class="notation-slider__option" data-value="on">MUSIQUE</span>
+        <span class="notation-slider__thumb" aria-hidden="true"></span>
+      </button>
+      <div class="notation-pref__hint">Désactivée par défaut. Une fois activée : musique 8-bit qui s'enrichit d'instruments au fil du combat de la semaine et des séries de bonnes réponses.</div>
+    </div>
+
     <p class="notation-page__note">D'autres préférences pourront s'ajouter ici plus tard.</p>
   </main>
 
@@ -135,7 +145,7 @@
   </footer>
 
 </div>
-<script src="menu.js?v=106"></script>
-<script src="notation.js?v=106"></script>
+<script src="menu.js?v=107"></script>
+<script src="notation.js?v=107"></script>
 </body>
 </html>

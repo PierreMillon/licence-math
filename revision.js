@@ -123,6 +123,7 @@ function applyRevisionAnswer(m, selectedIndex){
     if(window.recordMistake) window.recordMistake(m.chapterId, m);
   }
   if(window.writeExerciseResult) window.writeExerciseResult(m.chapterId, m.exerciseId, isCorrect, selectedIndex);
+  if(window.notifyMusicAnswer) window.notifyMusicAnswer(isCorrect);
 
   const nextBtn = document.createElement('button');
   nextBtn.type = 'button';
