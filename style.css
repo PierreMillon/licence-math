@@ -497,6 +497,15 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .knight-piece-wrap{
   image-rendering:pixelated;
+  /* Gris/argent métallique (10/08/2026, demande explicite) : sans
+     couleur propre, les pièces (fill="currentColor") héritaient du
+     blanc ambiant, invisibles sur le chemisier déjà blanc — vérifié
+     à l'écran, plastron/cape/gantelets/jambières disparaissaient
+     complètement, seuls casque et bottes ressortaient encore (posés
+     sur cheveux/peau, pas sur le chemisier). L'épée garde son gemme
+     rouge propre (fill="#ff3b3b" en dur dans KNIGHT_EPEE_SVG, non
+     affecté par currentColor). */
+  color:#b8bec8;
 }
 .knight-piece-wrap svg{
   width:100%;
