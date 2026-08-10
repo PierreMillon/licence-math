@@ -29,6 +29,13 @@ html,body{
   background:var(--bg);
   color:var(--fg);
   font-family:var(--font-term);
+  /* Le site est déjà aligné pile sur la largeur de l'écran : glisser
+     horizontalement sur la page elle-même (hors zones de glissement
+     volontaires comme .math-scroll) ne doit rien faire — ni décaler la
+     page avec un effet élastique, ni faire "remonter" le geste vers un
+     historique de navigation. */
+  overscroll-behavior-x:none;
+  touch-action:pan-y;
 }
 
 body{
@@ -889,6 +896,12 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   border:1px solid var(--fg);
   cursor:pointer;
 }
+.exo-progress-bar__hint{
+  text-align:center;
+  color:var(--fg-dim);
+  font-size:.72rem;
+  margin:-8px 0 14px;
+}
 .exo-progress-bar__sq:hover{ border-color:var(--amber); }
 .exo-progress-bar__sq.correct{ background:var(--ok); border-color:var(--ok); }
 .exo-progress-bar__sq.incorrect{ background:var(--red); border-color:var(--red); }
@@ -1171,6 +1184,7 @@ code{
   overflow-x:auto;
   overflow-y:hidden;
   touch-action:pan-x;
+  overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   background:var(--bg-panel);
   border:1px dashed var(--fg-dim);
@@ -1190,6 +1204,7 @@ code{
   overflow-x:auto;
   overflow-y:hidden;
   touch-action:pan-x;
+  overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   background:#050505;
   border:1px dashed var(--fg-dim);

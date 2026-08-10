@@ -145,7 +145,11 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
      réponse n'est cochée (retour de Charles Boyer, qui cliquait parfois
      trop vite par réflexe). */
   function confirmModeEnabled(){
-    return window.getNotationPreference && window.getNotationPreference('confirmAnswer', 'off') === 'on';
+    // Défaut = bouton VALIDER pour toute nouvelle session (demande
+    // explicite du 10/08/2026) — les préférences déjà enregistrées sur
+    // un appareil (y compris "immédiate") restent inchangées, seule la
+    // valeur par défaut pour un visiteur sans préférence stockée bouge.
+    return window.getNotationPreference && window.getNotationPreference('confirmAnswer', 'on') === 'on';
   }
 
   function exoControlsHTML(ex){
