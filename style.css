@@ -78,7 +78,7 @@ a:hover{ color:var(--fg-dim); }
 .menu-btn{
   position:fixed;
   top:14px;
-  right:16px;
+  left:16px;
   width:42px;
   height:42px;
   display:flex;
@@ -178,8 +178,8 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 
 .version-badge{
-  position:absolute;
-  top:14px;
+  position:fixed;
+  bottom:14px;
   left:16px;
   width:42px;
   height:42px;
@@ -1138,6 +1138,58 @@ code{
 }
 .exo__feedback.ok{ color:var(--ok); }
 .exo__feedback.ko{ color:var(--red); }
+
+/* Bouton de validation (réglage optionnel « VALIDATION DES RÉPONSES »,
+   voir notation.html) : par défaut une réponse cochée valide tout de
+   suite ; si activé, il faut cliquer ce bouton (désactivé tant qu'aucune
+   réponse n'est cochée). Retour de Charles Boyer. */
+.exo-confirm-btn{
+  margin-top:8px;
+  border:1px solid var(--fg);
+  background:transparent;
+  color:var(--fg);
+  padding:8px 14px;
+  font-family:var(--font-title);
+  font-size:.85rem;
+  letter-spacing:.03rem;
+  cursor:pointer;
+}
+.exo-confirm-btn:hover:not(:disabled){ background:rgba(255,255,255,.08); }
+.exo-confirm-btn:disabled{ opacity:.3; cursor:default; }
+
+/* Formules trop larges pour l'écran (retour de Charles Boyer) : au lieu
+   de déborder ou de forcer un retour à la ligne, elles vivent dans une
+   zone visuellement distincte qu'on peut faire glisser latéralement
+   (doigt ou trackpad) pour voir la suite. */
+.katex-display{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  background:var(--bg-panel);
+  border:1px dashed var(--fg-dim);
+  padding:12px 10px;
+  margin:10px 0;
+}
+.math-scroll-wrap{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  max-width:100%;
+  vertical-align:middle;
+}
+.math-scroll{
+  display:inline-block;
+  max-width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  background:#050505;
+  border:1px dashed var(--fg-dim);
+  padding:3px 6px;
+}
+.math-scroll-hint{
+  flex:none;
+  color:var(--fg-dim);
+  font-size:.85em;
+}
 
 .exo.answered.ok{ border-color:var(--ok); }
 .exo.answered.ko{ border-color:var(--red); }

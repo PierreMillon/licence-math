@@ -17,6 +17,7 @@ function typesetMistakes(el){
       throwOnError: false,
     });
   }
+  if(window.wrapOverflowingMath) window.wrapOverflowingMath(el);
 }
 
 function renderMistakesList(){

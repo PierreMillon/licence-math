@@ -18,6 +18,7 @@ function typesetMath(el){
       throwOnError: false,
     });
   }
+  if(window.wrapOverflowingMath) window.wrapOverflowingMath(el);
 }
 
 /* Applique la préférence de notation (u/v vs f/g, voir menu → NOTATION)
@@ -138,12 +139,24 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     return order;
   }
 
+  /* Réglage optionnel « VALIDATION DES RÉPONSES » (notation.html) :
+     off (défaut) = cocher une réponse la valide tout de suite, comme
+     avant. on = un bouton VALIDER apparaît, désactivé tant qu'aucune
+     réponse n'est cochée (retour de Charles Boyer, qui cliquait parfois
+     trop vite par réflexe). */
+  function confirmModeEnabled(){
+    return window.getNotationPreference && window.getNotationPreference('confirmAnswer', 'off') === 'on';
+  }
+
   function exoControlsHTML(ex){
     const order = shuffledIndices(ex.options.length);
     const opts = order.map(i => `
       <label><input type="radio" name="${ex.id}" value="${i}"> <span>${ex.options[i]}</span></label>
     `).join('');
-    return `<div class="qcm-options">${opts}</div>`;
+    const confirmBtn = confirmModeEnabled()
+      ? `<button type="button" class="exo-confirm-btn" data-exid="${ex.id}" disabled>VALIDER</button>`
+      : '';
+    return `<div class="qcm-options">${opts}</div>${confirmBtn}`;
   }
 
   /* ---------- pagination (5-6 exercices par page) ---------- */
@@ -159,7 +172,24 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
   let PAGES = [];
   let currentPageIndex = 0;
 
+  /* Réglage optionnel « AFFICHAGE DES FICHES » (notation.html) : paged
+     (défaut) = pagination par lots de PAGE_SIZE ci-dessus. continuous =
+     retour à l'ancien défilement continu (une seule page, une section
+     par bloc, jamais coupée) — retour de Charles Boyer, qui préfère
+     dérouler d'une traite sur ordinateur. */
+  function pagedModeEnabled(){
+    return !window.getNotationPreference || window.getNotationPreference('pageMode', 'paged') !== 'continuous';
+  }
+
   function buildPages(){
+    if(!pagedModeEnabled()){
+      return [ SECTIONS.map(sec => ({
+        section: sec,
+        exercises: EXERCISES.filter(e => e.section === sec.id),
+        continuation: false,
+      })) ];
+    }
+
     const pages = [];
     let page = [];
     let pageCount = 0;
@@ -291,12 +321,25 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     const exoEl = document.getElementById(`exo-${ex.id}`);
     if(!exoEl) return; // pas sur la page actuellement affichée
     const radios = exoEl.querySelectorAll(`input[name="${ex.id}"]`);
+    const confirmBtn = exoEl.querySelector('.exo-confirm-btn');
 
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        applyFeedback(ex, Number(radio.value), state);
+    if(confirmBtn){
+      radios.forEach(radio => {
+        radio.addEventListener('change', () => { confirmBtn.disabled = false; });
       });
-    });
+      confirmBtn.addEventListener('click', () => {
+        const checked = exoEl.querySelector(`input[name="${ex.id}"]:checked`);
+        if(!checked) return;
+        applyFeedback(ex, Number(checked.value), state);
+        confirmBtn.disabled = true;
+      });
+    }else{
+      radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          applyFeedback(ex, Number(radio.value), state);
+        });
+      });
+    }
   }
 
   /* page : le tableau de blocs de la page en cours (renderPage) — ne

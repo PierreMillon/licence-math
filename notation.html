@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOTATION // SYNTHÈSE L1 MATHS</title>
+<title>RÉGLAGES // SYNTHÈSE L1 MATHS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=93">
+<link rel="stylesheet" href="style.css?v=94">
 <style>
   .notation-page{ max-width:480px; margin:38px auto 0; }
   .notation-page__title{
@@ -35,10 +35,16 @@
     color:var(--fg);
     margin-bottom:10px;
   }
+  .notation-pref__hint{
+    font-size:.8rem;
+    color:var(--fg-dim);
+    line-height:1.4;
+    margin-top:10px;
+  }
   .notation-slider{
     position:relative;
     display:flex;
-    width:220px;
+    width:260px;
     max-width:100%;
     height:40px;
     border:1px solid var(--fg);
@@ -54,12 +60,15 @@
     align-items:center;
     justify-content:center;
     font-family:var(--font-title);
-    font-size:1.05rem;
+    font-size:.85rem;
+    letter-spacing:.02rem;
     color:var(--fg);
     position:relative;
     z-index:1;
     transition:color .15s ease;
     pointer-events:none;
+    white-space:nowrap;
+    padding:0 4px;
   }
   .notation-slider__option.is-active{ color:#000; }
   .notation-slider__thumb{
@@ -72,7 +81,6 @@
     transition:transform .18s ease;
     z-index:0;
   }
-  .notation-slider[data-active="fg"] .notation-slider__thumb{ transform:translateX(100%); }
   .notation-page__note{
     font-family:var(--font-subtitle);
     font-size:.75rem;
@@ -86,16 +94,36 @@
 <div class="crt">
 
   <main class="notation-page">
-    <h1 class="notation-page__title">NOTATION</h1>
-    <p class="notation-page__intro">Certains ont appris avec des lettres différentes. Choisis celle qui te parle — ça ne change que l'affichage, jamais la règle elle-même.</p>
+    <h1 class="notation-page__title">RÉGLAGES</h1>
+    <p class="notation-page__intro">Quelques préférences pour adapter les fiches à ta façon de réviser — ça ne change jamais les questions ni les règles, seulement l'affichage.</p>
 
-    <div class="notation-pref" id="notationDerivation" data-topic="derivation">
+    <div class="notation-pref" id="notationDerivation" data-topic="derivation" data-default="fg">
       <div class="notation-pref__label">DÉRIVATION (produit, quotient, composée)</div>
       <button type="button" class="notation-slider" aria-label="Choisir la notation pour la dérivation">
         <span class="notation-slider__option" data-value="uv">u / v</span>
         <span class="notation-slider__option" data-value="fg">f / g</span>
         <span class="notation-slider__thumb" aria-hidden="true"></span>
       </button>
+    </div>
+
+    <div class="notation-pref" id="notationConfirm" data-topic="confirmAnswer" data-default="off">
+      <div class="notation-pref__label">VALIDATION DES RÉPONSES</div>
+      <button type="button" class="notation-slider" aria-label="Choisir si les réponses se valident tout de suite ou après confirmation">
+        <span class="notation-slider__option" data-value="off">IMMÉDIATE</span>
+        <span class="notation-slider__option" data-value="on">BOUTON</span>
+        <span class="notation-slider__thumb" aria-hidden="true"></span>
+      </button>
+      <div class="notation-pref__hint">IMMÉDIATE : cocher une réponse la valide tout de suite. BOUTON : un bouton VALIDER apparaît, pour confirmer avant que ça compte.</div>
+    </div>
+
+    <div class="notation-pref" id="notationPageMode" data-topic="pageMode" data-default="paged">
+      <div class="notation-pref__label">AFFICHAGE DES FICHES</div>
+      <button type="button" class="notation-slider" aria-label="Choisir entre pagination et défilement continu pour les fiches">
+        <span class="notation-slider__option" data-value="paged">PAGES</span>
+        <span class="notation-slider__option" data-value="continuous">CONTINU</span>
+        <span class="notation-slider__thumb" aria-hidden="true"></span>
+      </button>
+      <div class="notation-pref__hint">PAGES : la fiche se lit par petits lots de questions. CONTINU : toute la fiche défile d'une seule traite, comme avant.</div>
     </div>
 
     <p class="notation-page__note">D'autres préférences pourront s'ajouter ici plus tard.</p>
@@ -107,7 +135,7 @@
   </footer>
 
 </div>
-<script src="menu.js?v=93"></script>
-<script src="notation.js?v=93"></script>
+<script src="menu.js?v=94"></script>
+<script src="notation.js?v=94"></script>
 </body>
 </html>
