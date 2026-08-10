@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 102, date: "10/08/2026", desc: "Château et lune, dans la scène de combat, redescendus vers les personnages (au lieu de flotter tout en haut de la scène) et alignés entre eux sur un même niveau — les personnages restent devant." },
   { v: 101, date: "10/08/2026", desc: "Correction de contenu (fiche Logique) : « polynôme du second degré » au lieu de « trinôme du second degré », pour rester cohérent avec « polynomiale » utilisé juste avant dans la même liste. (Merci Mgika3 pour la relecture !)" },
   { v: 100, date: "10/08/2026", desc: "<ul><li>Refactoring interne (check-up complet du site) : les 3 fonctions dupliquées à l'identique dans plusieurs fichiers (rendu KaTeX, réglage de validation, clés de sauvegarde par chapitre) sont maintenant centralisées à un seul endroit — aucun changement visible, juste moins de risque de divergence future</li><li>Château collé tout à gauche et lune tout à droite dans la scène de combat (alignés sur les bords du cadre), au lieu d'être centrés</li><li>Mascotte de progression réduite de moitié sous sa forme oiseau</li></ul>" },
   { v: 99, date: "10/08/2026", desc: "Les chapitres du menu sont maintenant triés dynamiquement du moins avancé au plus avancé (les 100% tout en bas), pour pointer directement vers ce qu'il reste à faire — les boutons chapitre précédent/suivant en bas de fiche gardent eux l'ordre fixe habituel." },

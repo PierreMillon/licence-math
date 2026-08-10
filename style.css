@@ -350,7 +350,10 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-moon{
   position:absolute;
-  top:10px;
+  /* Descendue le 10/08/2026 (était top:10px) pour que son bas tombe au
+     même niveau que celui du château (falaise), puis tout le groupe
+     château+lune redescendu vers les personnages — voir .scene-castle. */
+  top:181px;
   right:0;
   z-index:0;
   color:var(--fg-dim);
@@ -367,10 +370,15 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
    le chevalier descend du château pour l'affronter — c'est lui-même
    qu'il affronte, pas un autre, d'où la grotte sous ses propres
    fondations. Décor en arrière-plan (z-index:0, comme la lune),
-   atténué pour ne pas concurrencer les personnages au premier plan. */
+   atténué pour ne pas concurrencer les personnages au premier plan.
+   Descendu le 10/08/2026 (était top:0) pour que le groupe château+
+   lune se rapproche des personnages au lieu de flotter tout en haut
+   de la scène — les personnages restent devant (z-index:1 sur
+   .battle-zone), même si le bas du château/de la grotte finit par
+   chevaucher légèrement le haut des personnages. */
 .scene-castle{
   position:absolute;
-  top:0;
+  top:90px;
   left:0;
   z-index:0;
   color:var(--fg-dim);
@@ -387,7 +395,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
    d'écart (gap) pour que la grotte ne touche pas directement. */
 .scene-cave{
   position:absolute;
-  top:127px;
+  top:217px;
   left:0;
   z-index:0;
   color:var(--fg-dim);
