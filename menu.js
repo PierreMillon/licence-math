@@ -10,7 +10,7 @@
    cache — voir bug du 2026-08-03).
    ============================================================ */
 
-const SITE_VERSION = 96;
+const SITE_VERSION = 97;
 
 const SKULL_SVG = '<svg class="skull-icon" viewBox="0 0 23 30" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="8" y="0" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="11" y="0" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="13" y="0" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="15" y="1" width="1" height="1"/><rect x="16" y="1" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="17" y="2" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="19" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="21" y="5" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="21" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="1" y="7" width="1" height="1"/><rect x="21" y="7" width="1" height="1"/><rect x="22" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="22" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="22" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="22" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="14" y="11" width="1" height="1"/><rect x="15" y="11" width="1" height="1"/><rect x="16" y="11" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="21" y="11" width="1" height="1"/><rect x="22" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="12" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="12" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="9" y="12" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="15" y="12" width="1" height="1"/><rect x="16" y="12" width="1" height="1"/><rect x="17" y="12" width="1" height="1"/><rect x="18" y="12" width="1" height="1"/><rect x="21" y="12" width="1" height="1"/><rect x="22" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="1" y="13" width="1" height="1"/><rect x="3" y="13" width="1" height="1"/><rect x="4" y="13" width="1" height="1"/><rect x="5" y="13" width="1" height="1"/><rect x="6" y="13" width="1" height="1"/><rect x="7" y="13" width="1" height="1"/><rect x="8" y="13" width="1" height="1"/><rect x="9" y="13" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="17" y="13" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="19" y="13" width="1" height="1"/><rect x="21" y="13" width="1" height="1"/><rect x="22" y="13" width="1" height="1"/><rect x="1" y="14" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="7" y="14" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="15" y="14" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="17" y="14" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="19" y="14" width="1" height="1"/><rect x="21" y="14" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="3" y="15" width="1" height="1"/><rect x="4" y="15" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="7" y="15" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="14" y="15" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="17" y="15" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="19" y="15" width="1" height="1"/><rect x="21" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="5" y="16" width="1" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="7" y="16" width="1" height="1"/><rect x="10" y="16" width="1" height="1"/><rect x="11" y="16" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="18" y="16" width="1" height="1"/><rect x="22" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="13" y="17" width="1" height="1"/><rect x="22" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="1" y="18" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="12" y="18" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="21" y="18" width="1" height="1"/><rect x="22" y="18" width="1" height="1"/><rect x="1" y="19" width="1" height="1"/><rect x="2" y="19" width="1" height="1"/><rect x="3" y="19" width="1" height="1"/><rect x="4" y="19" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="19" width="1" height="1"/><rect x="13" y="19" width="1" height="1"/><rect x="18" y="19" width="1" height="1"/><rect x="19" y="19" width="1" height="1"/><rect x="20" y="19" width="1" height="1"/><rect x="21" y="19" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="5" y="20" width="1" height="1"/><rect x="17" y="20" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/><rect x="2" y="21" width="1" height="1"/><rect x="5" y="21" width="1" height="1"/><rect x="17" y="21" width="1" height="1"/><rect x="20" y="21" width="1" height="1"/><rect x="2" y="22" width="1" height="1"/><rect x="5" y="22" width="1" height="1"/><rect x="7" y="22" width="1" height="1"/><rect x="9" y="22" width="1" height="1"/><rect x="11" y="22" width="1" height="1"/><rect x="13" y="22" width="1" height="1"/><rect x="15" y="22" width="1" height="1"/><rect x="17" y="22" width="1" height="1"/><rect x="20" y="22" width="1" height="1"/><rect x="3" y="23" width="1" height="1"/><rect x="5" y="23" width="1" height="1"/><rect x="6" y="23" width="1" height="1"/><rect x="7" y="23" width="1" height="1"/><rect x="8" y="23" width="1" height="1"/><rect x="9" y="23" width="1" height="1"/><rect x="10" y="23" width="1" height="1"/><rect x="11" y="23" width="1" height="1"/><rect x="12" y="23" width="1" height="1"/><rect x="13" y="23" width="1" height="1"/><rect x="14" y="23" width="1" height="1"/><rect x="15" y="23" width="1" height="1"/><rect x="16" y="23" width="1" height="1"/><rect x="17" y="23" width="1" height="1"/><rect x="19" y="23" width="1" height="1"/><rect x="3" y="24" width="1" height="1"/><rect x="6" y="24" width="1" height="1"/><rect x="7" y="24" width="1" height="1"/><rect x="9" y="24" width="1" height="1"/><rect x="11" y="24" width="1" height="1"/><rect x="13" y="24" width="1" height="1"/><rect x="15" y="24" width="1" height="1"/><rect x="16" y="24" width="1" height="1"/><rect x="19" y="24" width="1" height="1"/><rect x="3" y="25" width="1" height="1"/><rect x="7" y="25" width="1" height="1"/><rect x="9" y="25" width="1" height="1"/><rect x="11" y="25" width="1" height="1"/><rect x="13" y="25" width="1" height="1"/><rect x="15" y="25" width="1" height="1"/><rect x="19" y="25" width="1" height="1"/><rect x="4" y="26" width="1" height="1"/><rect x="18" y="26" width="1" height="1"/><rect x="5" y="27" width="1" height="1"/><rect x="17" y="27" width="1" height="1"/><rect x="6" y="28" width="1" height="1"/><rect x="16" y="28" width="1" height="1"/><rect x="7" y="29" width="1" height="1"/><rect x="8" y="29" width="1" height="1"/><rect x="9" y="29" width="1" height="1"/><rect x="10" y="29" width="1" height="1"/><rect x="11" y="29" width="1" height="1"/><rect x="12" y="29" width="1" height="1"/><rect x="13" y="29" width="1" height="1"/><rect x="14" y="29" width="1" height="1"/><rect x="15" y="29" width="1" height="1"/></svg>';
 
@@ -191,6 +191,22 @@ function mistakesHref(){
   return inFichesFolder() ? '../mistakes.html' : 'mistakes.html';
 }
 
+/* Pourcentage de questions RÉPONDUES (pas forcément correctes — même
+   sens que "COMPLÉTÉS" sur la fiche elle-même) pour un chapitre, à
+   côté de son nom dans le menu — pour voir en un coup d'œil où on en
+   est sans ouvrir chaque fiche. null si CHAPTER_TOTALS n'est pas
+   chargé sur cette page (weekly.js absent de mistakes.html/notation.
+   html/changelog.html) plutôt que de planter tout le menu. */
+function chapterCompletedPercent(chapterId){
+  const total = (typeof CHAPTER_TOTALS !== 'undefined' && CHAPTER_TOTALS[chapterId]) || 0;
+  if(total <= 0) return null;
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem('l1maths_progress')) || {}; }
+  catch(e){ progress = {}; }
+  const completed = (progress[chapterId] && progress[chapterId].completed) || 0;
+  return Math.round((completed / total) * 100);
+}
+
 function buildDrawer(){
   const overlay = document.createElement('div');
   overlay.className = 'drawer-overlay';
@@ -199,9 +215,12 @@ function buildDrawer(){
   drawer.className = 'drawer';
   drawer.setAttribute('aria-label', 'Menu des chapitres');
 
-  const itemsHTML = MENU_CHAPTERS.map(ch =>
-    `<a class="drawer__link" href="${chapterHref(ch.file)}">${ch.name}</a>`
-  ).join('');
+  const itemsHTML = MENU_CHAPTERS.map(ch => {
+    const chapterId = ch.file.replace('.html', '');
+    const pct = chapterCompletedPercent(chapterId);
+    const pctHTML = pct === null ? '' : `<span class="drawer__link-pct">${pct}%</span>`;
+    return `<a class="drawer__link drawer__link--chapter" href="${chapterHref(ch.file)}">${ch.name}${pctHTML}</a>`;
+  }).join('');
 
   drawer.innerHTML = `
     <button class="drawer__close" type="button" aria-label="Fermer">✕</button>
@@ -520,6 +539,67 @@ const END_PHRASES = [
   "ET SI LA SUITE ÉTAIT PLUS FACILE QUE TU NE LE CROIS ?",
   "JUSQU'OÙ IRA CE QUE TU VIENS D'APPRENDRE ?",
   "ET SI C'ÉTAIT ÇA, LE DÉCLIC ?",
+  // Ajoutées le 10/08/2026, inspirées d'un texte personnel sur la
+  // patience et l'effort ("Déclic mathématiques") — 6 phrases tirées
+  // directement du texte (reformulées en question ouverte, ton laïque)
+  // + 50 générées dans le même esprit, mêmes thèmes (effort > vitesse,
+  // patience, petits pas, doute, persévérance).
+  "ET SI L'EFFORT COMPTAIT PLUS QUE LE RÉSULTAT ?",
+  "ET SI RALENTIR ÉTAIT LA VRAIE FAÇON D'ALLER VITE ?",
+  "COMBIEN DE TEMPS FAUT-IL À L'EAU POUR FAIRE UNE STALACTITE ?",
+  "TA VALEUR EST-ELLE DANS LA RÉPONSE, OU DANS LE FAIT DE T'Y ÊTRE ATTAQUÉ ?",
+  "ET SI LA TÂCHE N'AVAIT PAS À ÊTRE ACHEVÉE, JUSTE TENTÉE ?",
+  "AS-TU APPRIS À MARCHER EN COMPRENANT LA MÉCANIQUE DE LA MARCHE ?",
+  "ET SI CHAQUE ERREUR T'APPRENAIT PLUS QU'UNE BONNE RÉPONSE ?",
+  "QU'EST-CE QUE TU COMPRENDS AUJOURD'HUI QUE TU NE COMPRENAIS PAS HIER ?",
+  "ET SI LA LENTEUR D'AUJOURD'HUI ÉTAIT LA VITESSE DE DEMAIN ?",
+  "COMBIEN DE FOIS FAUT-IL ÉCHOUER AVANT QUE ÇA DEVIENNE FACILE ?",
+  "ET SI TU N'AVAIS PAS BESOIN DE TOUT COMPRENDRE D'UN COUP ?",
+  "QUI ÉTAIS-TU AVANT LE PREMIER EXERCICE DE CETTE FICHE ?",
+  "ET SI LA CONFIANCE VENAIT APRÈS L'EFFORT, PAS AVANT ?",
+  "JUSQU'OÙ PEUX-TU ALLER SI TU NE T'ARRÊTES PAS LÀ ?",
+  "ET SI CE QUI TE RÉSISTE MAINTENANT ÉTAIT ÉVIDENT DANS UNE SEMAINE ?",
+  "QU'EST-CE QUI DEVIENT AUTOMATIQUE QUAND TU LE RÉPÈTES ASSEZ ?",
+  "ET SI TU N'ÉTAIS PAS EN RETARD, JUSTE EN CHEMIN ?",
+  "AS-TU REMARQUÉ TOUT CE QUE TU SAIS DÉJÀ FAIRE SANS Y PENSER ?",
+  "ET SI CHAQUE PETIT PROBLÈME RÉSOLU EN PRÉPARAIT UN PLUS GRAND ?",
+  "QUI COMPTE LES HEURES QUE TU PASSES À COMPRENDRE, VRAIMENT ?",
+  "ET SI PERSISTER ÉTAIT DÉJÀ UNE FORME D'INTELLIGENCE ?",
+  "QU'EST-CE QUI RESTE QUAND TU ENLÈVES LA PEUR DE TE TROMPER ?",
+  "ET SI TU ÉTAIS PLUS CAPABLE QUE CE QUE TU RESSENS LÀ, MAINTENANT ?",
+  "COMBIEN DE CONCEPTS TE SEMBLAIENT IMPOSSIBLES IL Y A UN MOIS ?",
+  "ET SI LE DOUTE ÉTAIT LE SIGNE QUE TU PRENDS ÇA AU SÉRIEUX ?",
+  "QU'AS-TU APPRIS EN TE TROMPANT QUE TU N'AURAIS PAS APPRIS AUTREMENT ?",
+  "ET SI COMPRENDRE LENTEMENT VALAIT MIEUX QUE MÉMORISER VITE ?",
+  "JUSQU'OÙ IRAIT CETTE FICHE SI TU LA REFAISAIS DANS UN MOIS ?",
+  "ET SI TU N'AVAIS QU'À TENIR UN PEU PLUS LONGTEMPS ?",
+  "QUI DÉCIDE QUE C'EST TROP DIFFICILE, TOI OU LE PROBLÈME ?",
+  "ET SI LA DIFFICULTÉ ÉTAIT LA PREUVE QUE TU PROGRESSES ?",
+  "ET SI TU AVAIS DÉJÀ TOUT CE QU'IL FAUT POUR CONTINUER ?",
+  "COMBIEN DE FOIS AS-TU CRU ÊTRE BLOQUÉ AVANT DE TROUVER ?",
+  "ET SI CHAQUE RÉPÉTITION TE RAPPROCHAIT DE L'AUTOMATISME ?",
+  "QUI SERAIS-TU SI TU N'ABANDONNAIS JAMAIS AU MILIEU D'UN EXERCICE ?",
+  "QU'EST-CE QUI TE SEMBLERA SIMPLE DANS SIX MOIS ?",
+  "ET SI RECOMMENCER N'ÉTAIT PAS UN ÉCHEC, MAIS UNE RÉVISION ?",
+  "JUSQU'OÙ VA TE MENER LA VERSION DE TOI QUI NE LÂCHE RIEN ?",
+  "ET SI TU ÉTAIS DÉJÀ EN TRAIN DE DEVENIR CELUI QUE TU VEUX ÊTRE ?",
+  "QUI T'A DIT QUE TU DEVAIS TOUT COMPRENDRE DU PREMIER COUP ?",
+  "ET SI TA PATIENCE D'AUJOURD'HUI ÉTAIT TA RAPIDITÉ DE DEMAIN ?",
+  "ET SI CE QUE TU CROIS IMPOSSIBLE N'ÉTAIT QUE PAS ENCORE ESSAYÉ ?",
+  "QU'EST-CE QUE ÇA CHANGERAIT DE TE FAIRE CONFIANCE DÈS MAINTENANT ?",
+  "ET SI TU N'AVAIS PAS À ÊTRE RAPIDE, JUSTE RÉGULIER ?",
+  "JUSQU'OÙ PEUX-TU TENIR SI TU ARRÊTES DE TE COMPARER AUX AUTRES ?",
+  "ET SI CHAQUE EXERCICE FINI ÉTAIT UNE PREUVE, PAS UN HASARD ?",
+  "QUI ES-TU QUAND PERSONNE NE REGARDE SI TU AS COMPRIS ?",
+  "ET SI LE TEMPS QUE ÇA TE PREND N'AVAIT AUCUNE IMPORTANCE ?",
+  "ET SI TU ÉTAIS LA SEULE PERSONNE QUI DOUTE ENCORE DE TOI ?",
+  "COMBIEN DE FOIS FAUT-IL RECOMMENCER AVANT QUE ÇA DEVIENNE UNE FORCE ?",
+  "ET SI APPRENDRE LENTEMENT ÉTAIT LA SEULE FAÇON D'APPRENDRE VRAIMENT ?",
+  "ET SI, EN CE MOMENT MÊME, TU ÉTAIS EN TRAIN DE CHANGER ?",
+  "QU'EST-CE QUE TU FERAIS DE CE CHAPITRE SANS PEUR DE MAL FAIRE ?",
+  "ET SI LE PROBLÈME LE PLUS DUR N'ÉTAIT QU'UNE SUITE DE PETITS PROBLÈMES ?",
+  "QUI SAIT CE QUE TU COMPRENDRAS DANS DIX MINUTES QUE TU IGNORES LÀ ?",
+  "ET SI TU ÉTAIS PLUS PROCHE DE LA MAÎTRISE QUE DE ZÉRO ?",
 ];
 
 const END_PHRASE_BAG_KEY = 'l1maths_endphrase_bag';

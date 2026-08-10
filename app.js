@@ -299,6 +299,30 @@ const FOOTER_MESSAGES = [
   "J'ai vérifié : l'univers ne me doit rien. Ce chapitre non plus, apparemment.",
   "Le doute méthodique de Descartes ne portait pas sur les intégrales. Le mien, si, malheureusement.",
   "Je crois profondément en moi-même, sauf les soirs de révision, où je m'en méfie beaucoup.",
+  // Ajoutées le 10/08/2026, inspirées d'un texte personnel sur la
+  // patience et l'effort, réécrites dans le ton noir/absurde établi
+  // ci-dessus (Woody Allen, Poe, Lovecraft, Asimov) plus une touche
+  // Monty Python, à la demande explicite de l'utilisateur.
+  "On m'a dit qu'il ne m'incombait pas d'achever la tâche. Personne ne m'a dit qui, alors, allait la finir à ma place.",
+  "Paraît-il que l'eau finit par percer la roche. Moi je n'ai même pas percé l'énoncé.",
+  "Ma patience est la preuve que je crois en une solution. Mon sommeil est la preuve du contraire.",
+  "J'ai appris à marcher avant de comprendre la mécanique de la marche. Je révise les intégrales avant de comprendre pourquoi.",
+  "Ralentir pour aller plus vite, disent-ils. Moi j'ai juste ralenti.",
+  "Chaque petit problème résolu en prépare un plus grand, à ce qu'on raconte. Le mien prépare surtout le suivant, identique.",
+  "Ce n'est pas la résolution qui compte, c'est l'effort, paraît-il. Mon effort aimerait bien que ça compte un peu quand même.",
+  "Ils disent que la difficulté est la preuve qu'on progresse. Par ce calcul, je suis un génie.",
+  "Personne ne s'attend à l'inquisition des développements limités.",
+  "Et maintenant, quelque chose de complètement différent : un exercice que je comprends du premier coup. Ah non, en fait non.",
+  "J'ai demandé un signe à l'univers. Il m'a envoyé un lapin tueur déguisé en exercice de dénombrement.",
+  "Ce n'est qu'une intégrale de surface. J'en ai vu de pires. (Je mens.)",
+  "On m'a dit que le temps que ça prend n'avait aucune importance. Le temps, consulté, n'a rien confirmé.",
+  "Un chevalier m'a dit qu'il ne cédait le passage à personne. Puis un exercice sur les suites l'a arrêté net.",
+  "J'ai décidé de m'attaquer au problème plutôt que de le résoudre. C'est là que j'ai compris que c'était la même quantité de travail.",
+  "La sagesse dit qu'on n'est pas obligé de finir. Le partiel, lui, n'a pas lu la sagesse.",
+  "Je fais des gammes lentement pour automatiser sans forcer. Le forcing, lui, m'attend au tournant du chapitre suivant.",
+  "Ce n'est qu'une éraflure, disait le chevalier noir, à propos de ce chapitre qui lui a arraché un bras.",
+  "Le sphinx pose une énigme. Moi je pose mon crayon et je regarde le plafond.",
+  "J'ai cherché le sens de l'effort. Je n'ai trouvé qu'un epsilon égaré et une existence remise en question.",
 ];
 
 const FOOTER_BAG_KEY = 'l1maths_footer_bag';

@@ -1283,6 +1283,18 @@ code{
 .drawer__link:hover{ background:rgba(255,255,255,.08); }
 .drawer__link:last-of-type{ border-bottom:none; }
 .drawer__link:first-of-type{ margin-top:34px; }
+.drawer__link--chapter{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:10px;
+}
+.drawer__link-pct{
+  font-family:var(--font-subtitle);
+  font-size:.75rem;
+  color:var(--fg-dim);
+  flex:none;
+}
 .drawer__link--settings{
   margin-top:10px;
   color:var(--fg-dim);
