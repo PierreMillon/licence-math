@@ -769,6 +769,18 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   height:auto;
   color:var(--fg-dim);
   pointer-events:none;
+  overflow:hidden;
+}
+/* Sans largeur/hauteur propres sur le svg lui-même, une pièce au format
+   haut/étroit (ex. l'épée de Python) rend à sa hauteur "naturelle"
+   (parfois >80px) au lieu de respecter le max-height:40px du badge —
+   overflow:hidden ci-dessus la coupait déjà visuellement, mais mieux
+   vaut que le svg respecte directement le même plafond. */
+.chapter-card__piece svg{
+  width:100%;
+  height:auto;
+  max-height:40px;
+  display:block;
 }
 
 .chapter-card__score{
@@ -895,6 +907,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   align-items:center;
   justify-content:center;
   color:var(--fg);
+  overflow:hidden; /* filet de sécurité si une pièce déborde malgré tout */
 }
 .fiche-piece-badge svg{
   width:100%;

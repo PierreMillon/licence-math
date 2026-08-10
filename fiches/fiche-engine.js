@@ -82,7 +82,13 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     const fraction = window.weeklyChapterFraction(CHAPTER_ID);
     const clip = window.miniPieceClipStyle(fraction);
     const miniSvg = window.knightPieceMiniSVG(CHAPTER_ID, piece.svg());
-    badge.innerHTML = `<div style="${clip}">${miniSvg}</div>`;
+    /* width/height:100% explicites sur ce wrapper : sans ça, comme il n'a
+       pas de hauteur propre (juste le style de clip-path), le svg.100%.
+       à l'intérieur retombe sur une hauteur "auto" basée sur son propre
+       viewBox au lieu de remplir le badge carré de 46px — débordement
+       visible sur les pièces au format haut/étroit (ex. le plastron
+       d'Analyse), qui touche le texte de la légende en dessous. */
+    badge.innerHTML = `<div style="width:100%;height:100%;${clip}">${miniSvg}</div>`;
   }
 
   /* ---------- barre de progression par carrés (un carré = un exercice) ---------- */
