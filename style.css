@@ -409,6 +409,12 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-cave svg{
   display:block;
+  /* Densité réelle 0,8 (32 unités de grille -> 40px), pas encore
+     calée sur la densité du château (1,52, même plan 3 en théorie) —
+     un essai de correction directe (21px) a été tenté le 10/08/2026
+     mais rendait la grotte trop petite/déconnectée visuellement du
+     château à l'écran ; laissé tel quel en attendant un avis explicite
+     plutôt que de trancher seul sur un rendu qui n'a pas été demandé. */
   width:40px;
   height:auto;
 }
