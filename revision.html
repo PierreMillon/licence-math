@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>MES ERREURS // SYNTHÈSE L1 MATHS</title>
+<title>RÉVISION CIBLÉE // SYNTHÈSE L1 MATHS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
@@ -12,90 +12,73 @@
 <script defer src="vendor/katex/katex.min.js"></script>
 <script defer src="vendor/katex/auto-render.min.js"></script>
 <style>
-  .mistakes-page{ max-width:560px; margin:38px auto 0; }
-  .mistakes-page__title{
+  .revision-page{ max-width:560px; margin:38px auto 0; }
+  .revision-page__title{
     font-family:var(--font-title);
     font-size:1.6rem;
     letter-spacing:.05rem;
     margin-bottom:10px;
   }
-  .mistakes-page__intro{
+  .revision-page__intro{
     font-size:.95rem;
     color:var(--fg-dim);
     line-height:1.5;
     margin-bottom:16px;
   }
-  .mistakes-revise-btn{
-    display:block;
-    text-align:center;
-    border:1px solid var(--fg);
-    background:transparent;
-    color:var(--fg);
-    padding:10px;
-    font-family:var(--font-title);
-    font-size:.9rem;
-    letter-spacing:.02rem;
-    margin-bottom:26px;
-  }
-  .mistakes-revise-btn:hover{ background:rgba(255,255,255,.08); }
-  .mistake-card{
-    display:block;
-    border:1px solid var(--fg-dim);
-    background:var(--bg-panel);
-    padding:12px 14px;
-    margin-bottom:10px;
-    color:var(--fg);
-  }
-  .mistake-card:hover{ border-color:var(--fg); }
-  .mistake-card__head{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    gap:10px;
-    margin-bottom:6px;
-  }
-  .mistake-card__chapter{
+  #revisionProgress{
     font-family:var(--font-subtitle);
-    font-size:.72rem;
-    letter-spacing:.04rem;
+    font-size:.8rem;
     color:var(--fg-dim);
-    border:1px solid var(--fg-dim);
-    padding:1px 6px;
+    margin-bottom:14px;
   }
-  .mistake-card__count{
-    font-family:var(--font-title);
-    font-size:.85rem;
-    color:var(--red);
-    white-space:nowrap;
-  }
-  .mistake-card__statement{ font-size:1rem; line-height:1.4; }
-  .mistakes-empty{
+  .revision-note{ font-size:.9rem; color:var(--fg-dim); margin-top:10px; }
+  .revision-next-btn{ margin-top:14px; }
+  .revision-empty, .revision-done{
     text-align:center;
     color:var(--fg-dim);
     font-size:.95rem;
     padding:40px 10px;
     border:1px dashed var(--fg-dim);
   }
+  .revision-done a, .revision-empty a{
+    display:inline-block;
+    margin-top:14px;
+    border:1px solid var(--fg);
+    padding:8px 16px;
+    font-family:var(--font-title);
+    font-size:.85rem;
+    color:var(--fg);
+  }
 </style>
 </head>
-<body class="page-mistakes">
+<body class="page-revision">
 <a href="index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
 <div class="crt">
 
-  <main class="mistakes-page">
-    <h1 class="mistakes-page__title">MES ERREURS FRÉQUENTES</h1>
-    <p class="mistakes-page__intro">Les exercices ratés au moins une fois, tous chapitres confondus, du pire score au meilleur. Chaque échec descend d'un cran (0, -1, -2…), chaque réussite en remonte un — il faut autant de bonnes réponses que de mauvaises pour faire disparaître un exercice de la liste.</p>
-    <a href="revision.html" class="mistakes-revise-btn">RÉVISER MES POINTS FAIBLES →</a>
-    <div id="mistakesList"><!-- injecté par mistakes.js --></div>
+  <main class="revision-page">
+    <h1 class="revision-page__title">RÉVISION CIBLÉE</h1>
+    <p class="revision-page__intro">Les 10 exercices au pire score, tous chapitres confondus, dans un ordre mélangé. Répondre ici met à jour la fiche d'origine et « mes erreurs fréquentes » exactement comme si tu répondais sur place.</p>
+    <div id="revisionProgress"></div>
+    <div id="revisionCard"></div>
+    <div class="revision-empty" id="revisionEmpty" style="display:none;">
+      Rien à réviser pour l'instant — aucun exercice en échec dans ta liste. Bon signe.
+      <br><a href="mistakes.html">← Mes erreurs fréquentes</a>
+    </div>
+    <div class="revision-done" id="revisionDone" style="display:none;">
+      Session terminée.
+      <br><a href="mistakes.html">← Mes erreurs fréquentes</a>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="pixel-rule">════════════════════════════════════════════════</div>
-    <div>À RÉVISER <span class="cursor">_</span></div>
+    <div>RÉVISION <span class="cursor">_</span></div>
   </footer>
 
 </div>
 <script src="menu.js?v=98"></script>
-<script src="mistakes.js?v=98"></script>
+<script src="weekly.js?v=98"></script>
+<script src="progression.js?v=98"></script>
+<script src="revision.js?v=98"></script>
 </body>
 </html>
