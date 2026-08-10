@@ -426,6 +426,29 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   height:auto;
 }
 
+/* Plan 2 (bâtiments/campagne) du système de profondeur à 4 plans —
+   bande large (cottage, clôture, arbres) plutôt qu'une icône isolée,
+   posée entre le château (plan 3, plus loin, en haut de la scène) et
+   les personnages (plan 1, au premier plan) — voir PLAN2_SVG,
+   creature-svgs.js. Densité 1,0 pile : viewBox 280×24, largeur
+   affichée 280px (280/280 = 1) — tient sur un écran de 320px de
+   large (contenu utile ~288px, voir .crt) ; une première version à
+   340px débordait de 36px, testé et corrigé. Position en dur (comme
+   le reste du décor de cette scène), pas responsive au-delà. */
+.scene-plan2{
+  position:absolute;
+  top:274px;
+  left:0;
+  z-index:0;
+  color:var(--fg-dim);
+  opacity:.85;
+}
+.scene-plan2 svg{
+  display:block;
+  width:280px;
+  height:auto;
+}
+
 .battle-zone{
   position:relative;
   z-index:1;

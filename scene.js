@@ -70,6 +70,13 @@ function renderSceneCastle(){
   if(caveEl && typeof CAVE_SVG !== 'undefined') caveEl.innerHTML = CAVE_SVG;
 }
 
+/* ---------- plan 2 (bâtiments/campagne), entre le château et les personnages ---------- */
+function renderScenePlan2(){
+  const el = document.getElementById('scenePlan2');
+  if(!el || typeof PLAN2_SVG === 'undefined') return;
+  el.innerHTML = PLAN2_SVG;
+}
+
 /* ---------- oiseau : clin d'œil aléatoire (3 à 10 s) ---------- */
 function initSceneBird(){
   const el = document.getElementById('sceneBird');
@@ -216,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();
   renderSceneMoon();
   renderSceneCastle();
+  renderScenePlan2();
   initSceneBird();
   initWanderMonster();
   alignSceneBird();

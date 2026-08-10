@@ -15,7 +15,7 @@ HTML, CSS et JavaScript vanilla — aucun framework, aucune étape de build, auc
 - `fiches/fiche-engine.js` — moteur commun à toutes les fiches (rendu, progression, pagination, réinitialisation).
 - `weekly.js` — combat hebdomadaire chevalier / dragon : couche de progression séparée de la progression permanente, remise à zéro chaque lundi (avec compte à rebours avant la remise à zéro).
 - `knight.js`, `knight-svgs.js` — système de pièces d'équipement du chevalier, gagnées progressivement par chapitre.
-- `creature.js`, `creature-svgs.js`, `scene.js` — mascotte de progression (oiseau qui grossit en dragon si le site n'est pas visité), scène de combat (château, grotte, dragon, oiseau, chevalier), petit monstre qui traverse l'écran après une pause.
+- `creature.js`, `creature-svgs.js`, `scene.js` — mascotte de progression (oiseau qui grossit en dragon si le site n'est pas visité), scène de combat à 4 plans de profondeur par densité de pixels croissante (chevalier/oiseau, campagne/cottage, château/grotte, lune à phase réelle), petit monstre qui traverse l'écran après une pause.
 - `victory.js` — scènes de résolution du combat hebdomadaire (victoire / défaite).
 - `music.js` — musique de fond adaptative (8-bit héroïque), réglage opt-in (RÉGLAGES, désactivée par défaut) : couches d'instruments débloquées par le combat hebdomadaire ou les séries de bonnes réponses, ordonnancées sur l'horloge Web Audio (jamais au milieu d'une mesure).
 - `changelog.html` / `changelog.js` — historique des versions du site.

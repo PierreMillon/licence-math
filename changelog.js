@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 109, date: "10/08/2026", desc: "Nouveau plan 2 (bâtiments/campagne) dans la scène de combat : une bande de campagne (cottage, clôture, arbres), inspirée de références, dans le même style monochrome que le reste du site — posée entre le château et les personnages, densité 1,0." },
   { v: 108, date: "10/08/2026", desc: "La lune est maintenant un vrai disque plein (cercle plein, généré au pixel près) au lieu d'un croissant fixe — les phases lunaires réelles (v104) s'affichent enfin correctement sur tout le cycle, pleine lune comprise." },
   { v: 107, date: "10/08/2026", desc: "<ul><li>Nouvelle musique de fond adaptative (8-bit héroïque), désactivable/activable dans RÉGLAGES (désactivée par défaut) — une basse joue en boucle, puis mélodie/harmonie/percussion s'ajoutent progressivement selon le combat de la semaine ou les séries de bonnes réponses, toujours au début d'une mesure, jamais au milieu</li><li>Réponses sur la page RÉVISION CIBLÉE comptées elles aussi dans les séries de bonnes réponses de la musique</li></ul>" },
   { v: 106, date: "10/08/2026", desc: "Corrige un bug important : le blocage du glissement horizontal (v96) désactivait par erreur le pincement de zoom partout sur le site (sur la plupart des navigateurs mobiles). Le zoom pour agrandir un détail reste maintenant possible n'importe où ; seul le dézoom en dessous de l'affichage normal reste bloqué. Corrigé aussi sur alice-et-sophie, fiche-de-math-gael et exercices-l1-math." },
