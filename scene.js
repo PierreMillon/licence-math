@@ -27,6 +27,39 @@ function renderSceneMoon(){
   const el = document.getElementById('sceneMoon');
   if(!el || typeof MOON_SVG === 'undefined') return;
   el.innerHTML = MOON_SVG;
+  applyMoonPhase(el);
+}
+
+/* Phase réelle de la lune, calculée localement (aucune API/réseau —
+   cohérent avec le reste du site, ex. transfert de progression par
+   phrase). Approximation classique (précision ~1 jour) : fraction de
+   cycle lunaire écoulée depuis une nouvelle lune de référence connue,
+   puis fraction éclairée déduite par la formule standard
+   (1-cos(2π·phase))/2 (0 à la nouvelle lune, 1 à la pleine lune).
+   Représentée en couvrant la partie NON éclairée du dessin actuel
+   (clip-path, pas de nouveau dessin) : un croissant qui grandit/
+   rétrécit avec la vraie date du jour. LIMITE CONNUE : le dessin
+   actuel (MOON_SVG) est déjà un croissant, pas un disque plein — donc
+   à la pleine lune (illuminated proche de 1), le clip ne cache
+   presque rien et on retombe juste sur l'apparence habituelle de la
+   lune, pas un vrai disque rond. Fonctionne bien le reste du cycle
+   (nouvelle lune -> invisible, quartiers -> silhouette convaincante).
+   À corriger proprement le jour où la lune est redessinée en disque
+   plein (plan « lune + nuages », système de profondeur du
+   10/08/2026) : ce code n'aura rien à changer, juste le dessin
+   source. */
+function moonPhaseFraction(date){
+  const LUNAR_CYCLE_S = 2551443; // 29,53059 jours
+  const KNOWN_NEW_MOON_S = Date.UTC(1970, 0, 7, 20, 35, 0) / 1000;
+  const elapsed = (date.getTime() / 1000) - KNOWN_NEW_MOON_S;
+  return (((elapsed % LUNAR_CYCLE_S) + LUNAR_CYCLE_S) % LUNAR_CYCLE_S) / LUNAR_CYCLE_S;
+}
+
+function applyMoonPhase(el){
+  const phase = moonPhaseFraction(new Date());
+  const illuminated = (1 - Math.cos(2 * Math.PI * phase)) / 2; // 0..1
+  const hiddenPct = Math.round((1 - illuminated) * 100);
+  el.style.clipPath = `inset(0 0 0 ${hiddenPct}%)`;
 }
 
 /* ---------- château + grotte, en arrière-plan au-dessus des personnages ---------- */

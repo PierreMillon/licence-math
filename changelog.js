@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 104, date: "10/08/2026", desc: "La lune de la scène de combat reflète maintenant la vraie phase lunaire du jour (calcul local, sans API externe) — visible surtout en dehors de la pleine lune, où le dessin actuel (un croissant, pas un disque) ne peut pas encore la représenter parfaitement ; à affiner quand la lune sera redessinée en disque plein." },
   { v: 103, date: "10/08/2026", desc: "<ul><li>Début d'un système de profondeur à 4 plans pour la scène de combat (densité de pixels croissante avec l'éloignement) : chevalier calé pile sur la densité de référence de son plan, oiseau et lune recalés chacun sur la densité du leur</li><li>La lune reste en haut à droite (une tentative précédente l'avait fait descendre par erreur au niveau du château, corrigé)</li></ul>" },
   { v: 102, date: "10/08/2026", desc: "Château et lune, dans la scène de combat, redescendus vers les personnages (au lieu de flotter tout en haut de la scène) et alignés entre eux sur un même niveau — les personnages restent devant." },
   { v: 101, date: "10/08/2026", desc: "Correction de contenu (fiche Logique) : « polynôme du second degré » au lieu de « trinôme du second degré », pour rester cohérent avec « polynomiale » utilisé juste avant dans la même liste. (Merci Mgika3 pour la relecture !)" },
