@@ -292,7 +292,7 @@ const SECTIONS = [
   },
   {
     id: "fonctions-remarquables", title: "§III.2 — FONCTIONS REMARQUABLES",
-    cours: "<span class=\"math\">Identité</span> \\(\\mathrm{Id}_E:E\\to E, x\\mapsto x\\) ; application constante : \\(\\exists C, \\forall x, f(x)=C\\) ; application nulle si \\(\\forall x, f(x)=0\\).<br>Fonctions usuelles : affine \\(f(x)=ax+b\\), polynomiale \\(f(x)=a_0+a_1x+\\cdots+a_nx^n\\), homographique \\(f(x)=\\frac{ax+b}{cx+d}\\), trinôme du second degré \\(ax^2+bx+c\\) (\\(a\\neq0\\)).<br><span class=\"math\">Paire</span> : \\(\\forall x, f(-x)=f(x)\\) (graphe symétrique par rapport à l'axe des ordonnées) ; <span class=\"math\">impaire</span> : \\(f(-x)=-f(x)\\) (graphe symétrique par rapport à l'origine).<br>Croissante : \\(a&lt;b\\Rightarrow f(a)\\leq f(b)\\) ; strictement croissante : \\(a&lt;b\\Rightarrow f(a)&lt;f(b)\\) ; monotone = croissante ou décroissante.",
+    cours: "<span class=\"math\">Identité</span> \\(\\mathrm{Id}_E:E\\to E, x\\mapsto x\\) ; application constante : \\(\\exists C, \\forall x, f(x)=C\\) ; application nulle si \\(\\forall x, f(x)=0\\).<br>Fonctions usuelles : affine \\(f(x)=ax+b\\), polynomiale \\(f(x)=a_0+a_1x+\\cdots+a_nx^n\\), homographique \\(f(x)=\\frac{ax+b}{cx+d}\\), polynôme du second degré \\(ax^2+bx+c\\) (\\(a\\neq0\\)).<br><span class=\"math\">Paire</span> : \\(\\forall x, f(-x)=f(x)\\) (graphe symétrique par rapport à l'axe des ordonnées) ; <span class=\"math\">impaire</span> : \\(f(-x)=-f(x)\\) (graphe symétrique par rapport à l'origine).<br>Croissante : \\(a&lt;b\\Rightarrow f(a)\\leq f(b)\\) ; strictement croissante : \\(a&lt;b\\Rightarrow f(a)&lt;f(b)\\) ; monotone = croissante ou décroissante.",
   },
   {
     id: "composition", title: "§III.3 — COMPOSITION DES FONCTIONS",
