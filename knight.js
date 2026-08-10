@@ -68,14 +68,21 @@ window.miniPieceClipStyle = miniPieceClipStyle;
    sont ajustés ici. */
 const KNIGHT_GIRL_OVERLAY = {
   //               left    top     width   height   (% du cadre du chevalier)
-  java:         { left: 14, top: 0,   width: 66, height: 23 }, // casque   → tête
-  statistiques: { left: 4,  top: 18,  width: 90, height: 34 }, // cape     → derrière le buste
-  analyse:      { left: 14, top: 25,  width: 68, height: 25 }, // plastron → chemise
-  probabilites: { left: 0,  top: 33,  width: 34, height: 24 }, // bouclier → bras gauche
-  python:       { left: 68, top: 8,   width: 30, height: 55 }, // épée     → le long du bras droit
-  calculus:     { left: 2,  top: 54,  width: 96, height: 12 }, // gantelets→ mains
-  algebre:      { left: 16, top: 51,  width: 66, height: 30 }, // jambières→ haut du jean
-  logique:      { left: 20, top: 84,  width: 58, height: 13 }, // bottes   → pieds
+  // Repéré au pixel près sur un rendu réel de KNIGHT_GIRL_SVG (capture
+  // #knightZone, figure = 64x181px) : tête x22-44/y18-48, main gauche
+  // x9-19/y74-113, main droite x49-61/y72-117, chemise x14-61/y47-92,
+  // jean x16-59/y93-161, pied gauche x3-31 et pied droit x41-59 en
+  // y162-178. Les pièces sont étirées avec preserveAspectRatio="none"
+  // (voir renderKnight) donc ces zones sont remplies exactement, sans
+  // recadrage centré qui les décalerait.
+  java:         { left: 28, top: 1,  width: 44, height: 25 }, // casque   → tête
+  statistiques: { left: 8,  top: 23, width: 92, height: 34 }, // cape     → derrière le buste/épaules
+  analyse:      { left: 22, top: 26, width: 73, height: 25 }, // plastron → chemise
+  probabilites: { left: 6,  top: 26, width: 26, height: 38 }, // bouclier → bras gauche
+  python:       { left: 76, top: 6,  width: 20, height: 59 }, // épée     → tenue dans la main droite
+  calculus:     { left: 14, top: 39, width: 82, height: 26 }, // gantelets→ les deux mains
+  algebre:      { left: 25, top: 51, width: 67, height: 38 }, // jambières→ le jean
+  logique:      { left: 5,  top: 89, width: 87, height: 10 }, // bottes   → les deux pieds
 };
 
 function renderKnight(){
@@ -89,7 +96,13 @@ function renderKnight(){
     const spot = KNIGHT_GIRL_OVERLAY[p.chapterId];
     if(!spot) return '';
     const fraction = window.weeklyChapterFraction ? window.weeklyChapterFraction(p.chapterId) : 0;
-    const miniSvg = knightPieceMiniSVG(p.chapterId, p.svg());
+    // preserveAspectRatio="none" : sur le badge (aspect carré) on veut
+    // garder les proportions d'origine de la pièce, mais ici la pièce
+    // doit remplir EXACTEMENT la zone du corps choisie (KNIGHT_GIRL_
+    // OVERLAY), sinon le comportement par défaut ("meet") la recadre au
+    // centre et elle ne touche plus la main/le pied visé.
+    const miniSvg = knightPieceMiniSVG(p.chapterId, p.svg())
+      .replace('<svg ', '<svg preserveAspectRatio="none" ');
     const clip = miniPieceClipStyle(fraction);
     const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};`;
     return `<div class="knight-piece-wrap" style="${pos}${clip}">${miniSvg}</div>`;

@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 93, date: "10/08/2026", desc: "Les pièces d'équipement sur le chevalier en couleur sont enfin posées à leur position exacte (casque sur la tête, épée dans la main, bottes sur les pieds, etc.) — repéré au pixel près sur un rendu réel du chevalier, corrige aussi un bug d'affichage qui recadrait les pièces au centre de leur zone au lieu de la remplir entièrement (la botte n'atteignait jamais le pied droit, le bouclier flottait loin du bras)." },
   { v: 92, date: "05/08/2026", desc: "Corrige un débordement du badge d'équipement sur les pièces au format haut/étroit (touchait le texte en dessous sur la fiche Analyse, entre autres) — sur la fiche et sur les cartes de chapitre de l'accueil." },
   { v: 91, date: "05/08/2026", desc: "Nouveau lien « FICHE » dans le menu, vers l'autre site de révision (fiche-de-math-gael) — les deux sites se renvoient maintenant l'un vers l'autre." },
   { v: 90, date: "05/08/2026", desc: "Nouveau lien « EXERCICES TYPE » dans le menu, vers le site séparé d'exercices type examen (exercices-l1-math) : algèbre linéaire, analyse, probabilités et un peu de Python appliqué." },
