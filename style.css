@@ -350,10 +350,12 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-moon{
   position:absolute;
-  /* Descendue le 10/08/2026 (était top:10px) pour que son bas tombe au
-     même niveau que celui du château (falaise), puis tout le groupe
-     château+lune redescendu vers les personnages — voir .scene-castle. */
-  top:181px;
+  /* Revenue à top:10px le 10/08/2026 — une tentative précédente
+     l'avait fait descendre au niveau du château, mais une lune plus
+     basse que le château n'a pas de sens (elle doit rester haut dans
+     le ciel, en haut à droite). Seul l'alignement sur le bord droit
+     (right:0) était la bonne idée à garder de cette tentative. */
+  top:10px;
   right:0;
   z-index:0;
   color:var(--fg-dim);
@@ -361,6 +363,10 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-moon svg{
   display:block;
+  /* Grille source doublée le 10/08/2026 (MOON_SVG, viewBox 26×30 ->
+     52×60, même silhouette — voir creature-svgs.js) pour caler la
+     lune sur la densité cible du plan 4 (2,0) sans changer sa taille
+     affichée : 52/26 = 2,0 pile. */
   width:26px;
   height:auto;
 }
@@ -431,7 +437,11 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   line-height:0;
 }
 .knight-girl svg{
-  height:180px;
+  /* 188px = 94 (hauteur de grille KNIGHT_GIRL_SVG, viewBox 33×94) /
+     0,5 (densité cible du plan 1, système de profondeur du
+     10/08/2026) — était 180px, une valeur qui n'était pas encore
+     calée sur cette densité exacte. */
+  height:188px;
   width:auto;
   image-rendering:pixelated;
   display:block;
@@ -445,7 +455,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   top:0;
   left:50%;
   transform:translateX(-50%);
-  height:180px;
+  height:188px;
   aspect-ratio:33/94;
   pointer-events:none;
 }

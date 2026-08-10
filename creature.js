@@ -15,12 +15,18 @@
 const CREATURE_STATE_KEY = 'l1maths_creature_state';
 const SKULL_PILE_KEY = 'l1maths_skull_pile';
 const MAX_LATENESS = 40;
-/* Réduit de moitié le 10/08/2026 (était 70px) sur demande explicite :
-   la mascotte sous forme d'oiseau (L<=1) paraissait trop grande.
-   N'affecte que le point de départ de l'interpolation vers le dragon
-   (L>=2, voir renderCreature) — DRAGON_MAX_HEIGHT_PX, lui, ne bouge
-   pas. */
-const BIRD_HEIGHT_PX = 35;
+/* Recalé le 10/08/2026 sur la grille de densité du système de
+   profondeur à 4 plans (plan 1 = personnages+sol, densité cible 0,5
+   unité de grille par px écran, calée sur le chevalier — grille
+   33×94 affichée à 180px de haut, densité réelle 0,52). L'oiseau
+   (grille BIRD_SVG 31×23, voir creature-svgs.js) doit avoir la même
+   densité que le chevalier puisqu'ils sont sur le même plan : hauteur
+   affichée = hauteur de grille / densité cible = 23 / 0,5 = 46px
+   (était 35px, valeur arbitraire d'une réduction de moitié antérieure
+   qui ne visait pas encore cette densité). N'affecte que le point de
+   départ de l'interpolation vers le dragon (L>=2, voir renderCreature)
+   — DRAGON_MAX_HEIGHT_PX, lui, reste hors de ce système de plans. */
+const BIRD_HEIGHT_PX = 46;
 /* Le nouveau dragon endormi (viewBox 60x39, plus large que haut) prend
    beaucoup plus de largeur à hauteur égale que l'ancien monstre rond
    (60x58) : hauteur max réduite en conséquence pour garder un
