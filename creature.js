@@ -100,26 +100,22 @@ function bubbleText(lateness){
 /* Phrases taquines de l'oiseau, une fois le seuil de la bulle atteint
    (L>=3, même seuil que bubbleText). Demande explicite de Pierre du
    11/08/2026 (voir CLAUDE.md) : PAS dix pastiches séparés, un par
-   auteur, ni des phrases longues qui reprennent une tournure connue de
-   chacun (1re version, jugée trop littérale) — une seule voix fictive,
-   "Le Scribe aux Six Voix", qui a fondu en elle l'esprit d'Asimov,
-   Shakespeare, Edgar Allan Poe, Lovecraft, Woody Allen et Monty Python
-   sans jamais citer ou parodier une phrase précise de l'un d'eux :
-   juste leur ambiance commune — courtes, punchlines, un peu sombre, un
-   peu drôle, irrévérencieuse, mystique, réflexive, absurde, intelligente.
+   auteur, ni des phrases qui reprennent une tournure reconnaissable
+   d'un auteur précis (deux versions précédentes rejetées pour ça) —
+   une seule voix fictive, "Le Scribe aux Six Voix", qui a fondu en
+   elle l'esprit d'Asimov, Shakespeare, Edgar Allan Poe, Lovecraft,
+   Woody Allen et Monty Python sans jamais les citer : juste leur
+   ambiance commune, en pince-sans-rire avec une dimension
+   philosophique. 6 phrases retenues par Pierre parmi 20 proposées.
    Tirage sans répétition immédiate, même mécanique que END_PHRASES
    (menu.js). */
 const BIRD_TEASE_PHRASES = [
-  "Le dragon ne dort jamais complètement. Toi non plus, apparemment.",
-  "Réviser ou pas, l'univers s'en moque. Toi, un peu moins.",
-  "Quelque chose respire dans le noir. Sûrement rien. Sûrement.",
-  "Techniquement tout va bien. Émotionnellement, il y a un dragon.",
-  "Le temps est une illusion — sauf le lundi du reset.",
-  "Ce n'est qu'une égratignure, disait-il, juste avant de perdre.",
-  "Le silence a une texture, ces derniers jours. Pas la bonne.",
-  "Continuer est absurde. Abandonner l'est davantage. On continue.",
-  "Quelque part un dragon grandit. Ici, une fiche t'attend, tranquille.",
-  "Tout ceci a un sens caché. Ou pas. Ouvre la fiche, tu verras bien.",
+  "On ne sait jamais vraiment si on a compris. Seulement si on a essayé.",
+  "Le dragon ne juge pas. Il compte.",
+  "Ce qui est facile aujourd'hui a été difficile hier, pour quelqu'un.",
+  "On progresse rarement en avançant vite. On progresse en avançant.",
+  "Ce n'est pas la difficulté qui arrête. C'est l'absence de premier pas.",
+  "Ce que tu remets à demain, demain le remet à quelqu'un d'autre — toi, un peu plus tard.",
 ];
 const BIRD_TEASE_SIGNATURE = "Le Scribe aux Six Voix";
 

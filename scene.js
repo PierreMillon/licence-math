@@ -53,7 +53,14 @@ function moonPhaseFraction(date){
 function applyMoonPhase(el){
   const phase = moonPhaseFraction(new Date());
   const illuminated = (1 - Math.cos(2 * Math.PI * phase)) / 2; // 0..1
-  const hiddenPct = Math.round((1 - illuminated) * 100);
+  let hiddenPct = Math.round((1 - illuminated) * 100);
+  // Sécurité (11/08/2026, retour "la lune est invisible") : une valeur
+  // invalide ou hors 0-100 dans inset() peut faire disparaître tout le
+  // disque plutôt que d'être ignorée selon le moteur de rendu — on
+  // s'assure qu'on reste toujours dans un intervalle valide, quoi qu'il
+  // arrive en amont.
+  if(!Number.isFinite(hiddenPct)) hiddenPct = 0;
+  hiddenPct = Math.max(0, Math.min(100, hiddenPct));
   el.style.clipPath = `inset(0 0 0 ${hiddenPct}%)`;
 }
 

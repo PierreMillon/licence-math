@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 116, date: "11/08/2026", desc: "<ul><li>Nouvelles phrases pour l'oiseau — plus courtes, plus sobres, sans référence reconnaissable aux auteurs qui les inspirent</li><li>Sécurité ajoutée sur le calcul de la phase de la lune, pour éviter qu'une valeur inattendue ne la rende invisible</li></ul>" },
   { v: 115, date: "11/08/2026", desc: "Un fin contour a été ajouté à chaque pièce d'équipement du chevalier — sans lui, des pièces voisines de la même couleur se fondaient entre elles et devenaient difficiles à distinguer." },
   { v: 114, date: "11/08/2026", desc: "<ul><li>L'oiseau devient la mascotte permanente de la page d'accueil (il ne se transforme plus en dragon en cas d'absence) — il garde la bulle d'alerte, et gagne une phrase taquine signée « Le Scribe aux Six Voix » (une voix fictive inspirée d'Isaac Asimov, Shakespeare, Edgar Allan Poe, Lovecraft, Woody Allen et Monty Python)</li><li>Le dragon vit désormais la semaine : il sort de la grotte et s'en approche un peu plus chaque jour, du lundi au samedi, jusqu'au combat qui se déclenche samedi minuit</li><li>Le dimanche affiche le résultat de la semaine en pause, avant la remise à zéro du lundi</li><li>Deux phrases ajoutées à la liste de fin de fiche</li></ul>" },
   { v: 113, date: "11/08/2026", desc: "Deux nouvelles phrases dans la liste de fin de fiche." },
