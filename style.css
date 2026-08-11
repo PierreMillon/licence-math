@@ -533,6 +533,28 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   width:100%;
   height:100%;
   display:block;
+  /* Contour gris foncé sur chaque pièce (11/08/2026, demande explicite
+     après retour "ça fait un blob, c'est pas clair") : sans lui, des
+     pièces adjacentes de la même couleur gris/argent se fondaient les
+     unes dans les autres, illisibles. 4 drop-shadow cardinales + 4
+     diagonales (8 directions) pour couvrir aussi les coins du
+     contour — 4 directions seules laissaient des trous aux angles.
+     drop-shadow (pas de vrai stroke SVG) : s'applique au silhouette
+     entière de la pièce déjà composée, pas à chaque <rect> pris
+     séparément — sinon on aurait une grille de traits internes entre
+     rects adjacents de même couleur, pas juste le contour extérieur.
+     3 variantes testées à l'écran (fichier de test dédié) avant de
+     choisir celle-ci : plus fine que l'épaisse (jugée trop "autocollant"),
+     gris foncé plutôt que noir pur pour rester discrète. */
+  filter:
+    drop-shadow(1px 0 0 #1a1a1a)
+    drop-shadow(-1px 0 0 #1a1a1a)
+    drop-shadow(0 1px 0 #1a1a1a)
+    drop-shadow(0 -1px 0 #1a1a1a)
+    drop-shadow(1px 1px 0 #1a1a1a)
+    drop-shadow(-1px 1px 0 #1a1a1a)
+    drop-shadow(1px -1px 0 #1a1a1a)
+    drop-shadow(-1px -1px 0 #1a1a1a);
 }
 .knight-coins{
   display:flex;
