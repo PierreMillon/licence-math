@@ -53,6 +53,26 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   site (les deux comptent pareil, choix explicite) baissent l'objectif
   de la semaine suivante ; une victoire le fait monter. Bornée 30%-90%
   (WEEKLY_THRESHOLD_MIN/MAX).
+- Lune en "éclipse à deux cercles" (11/08/2026, demande explicite,
+  livrée) : remplace le clip-path (inset) par deux disques identiques
+  superposés — `.moon-disc` (blanc, fixe) et `.moon-occluder` (couleur
+  du fond, glisse via `translateX`). Décalé à 100% de sa largeur =
+  disque entièrement visible (pleine lune) ; décalé à 0% = parfaitement
+  superposé = disque entièrement recouvert (nouvelle lune). Donne un
+  vrai croissant (intersection de deux cercles), pas un rectangle
+  coupé droit. `applyMoonPhase()` (scene.js) pose juste le %.
+- Bulle de l'oiseau redessinée façon BD (11/08/2026, demande
+  explicite, livrée) : fond noir opaque + bord blanc + texte blanc
+  (avant : texte rouge sur fond transparent). Fusionne ce qui étaient
+  DEUX blocs séparés (le marqueur d'absence `bubbleText` — "?"/"!"/
+  "×N" — et la phrase taquine `BIRD_TEASE_PHRASES`) en une seule bulle
+  `#creatureBubble`, qui alterne au hasard (50/50, une fois par
+  rendu) entre les deux. `#creatureTease` retiré (n'existe plus).
+  Piège CSS rencontré : `width:max-content` + `max-width` sur la bulle
+  ne suffit pas à faire wrapper le contenu correctement (le texte
+  débordait de son propre cadre) — retiré `width:max-content`, gardé
+  seulement `max-width` (avec un plafond `calc(100vw - 24px)` en plus,
+  leçon de la fragilité des positions absolues ci-dessus).
 - Pièces d'armure "forgées" (11/08/2026, livrée) : une pièce n'apparaît
   plus jamais partiellement sur le grand chevalier — rien avant 100%
   de progression hebdo dans le chapitre, entière d'un coup une fois
@@ -88,6 +108,28 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   qu'un `top` fixe. Largeur aussi passée de fixe (280px) à 100% du
   conteneur (`.battle-scene`, déjà dans la marge standard du site via
   le padding de `.crt` — pas besoin d'un décalage propre à plan2).
+  Signalé une nouvelle fois "trop bas" par Pierre après coup (pas
+  reproduit malgré vérification mathématique exacte via
+  getBoundingClientRect) — implémentation laissée telle quelle
+  (vérifiée correcte), à reconfirmer sur son appareil réel.
+- **Nouvelle classe de bug trouvée le 11/08/2026 : `min-width:auto`
+  par défaut sur les enfants directs d'un flex container.** `.crt`
+  est `display:flex; flex-direction:column` — n'importe quel
+  descendant contenant un texte non cassable (ex. une longue chaîne
+  jointe par des `/` sans espaces, comme "Asimov/Shakespeare/...")
+  peut floorer la largeur de TOUTE la page, même à travers plusieurs
+  niveaux d'ancêtres, même avec `overflow:hidden` posé sur l'élément
+  fautif lui-même (ça ne suffit pas : il faut `min-width:0` sur
+  l'ITEM FLEX réel, qui peut être plusieurs niveaux au-dessus).
+  Corrigé par une règle générale `.crt > *{ min-width:0; }` plutôt
+  que du cas par cas. Un `max-width + margin:auto` sans `width:100%`
+  explicite a le même symptôme (shrink-to-fit au lieu de stretch) —
+  corrigé sur `.changelog`, `.demo-wrap`, `.mistakes-page`,
+  `.notation-page`, `.progression-page`, `.revision-page`. Et pour le
+  contenu : toujours mettre un espace autour des `/` dans une liste
+  jointe (ex. "Asimov / Shakespeare"), sinon c'est un seul "mot"
+  incassable pour le navigateur — `overflow-wrap:anywhere` posé sur
+  `.changelog__desc` en filet de sécurité pour la suite.
 
 ## PWA (icône écran d'accueil + pull-to-refresh)
 

@@ -73,6 +73,21 @@ a:hover{ color:var(--fg-dim); }
   margin:0 auto;
   width:100%;
 }
+/* Correctif général (11/08/2026) : un item flex a par défaut
+   min-width:auto, qui le floor à la largeur intrinsèque de son
+   contenu (le run de texte non cassable le plus long parmi tous ses
+   descendants) — MÊME avec overflow:hidden dessus. .crt étant
+   flex-direction:column, chacun de ses enfants directs (site-header,
+   main, site-footer...) y est exposé, et le débordement peut se
+   nicher plusieurs niveaux plus bas (ex. changelog.html : la longue
+   chaîne de ═ dans .pixel-rule, elle-même dans .site-footer, faisait
+   déborder toute la page — corrigé une première fois sur .pixel-rule
+   seul, insuffisant, puis sur .site-footer, encore insuffisant tant
+   que .changelog n'était pas couvert aussi). Plutôt que de corriger
+   au cas par cas à chaque nouvelle occurrence, ce correctif générique
+   neutralise la classe de bug entière d'un coup pour tous les enfants
+   directs de .crt, présents et à venir. */
+.crt > *{ min-width:0; }
 
 /* subtle scanline overlay */
 .crt::before{
@@ -130,23 +145,26 @@ a:hover{ color:var(--fg-dim); }
   pointer-events:none;
 }
 #pullRefreshIndicator.visible{ opacity:1; }
-.pull-refresh-spinner{
+/* Pièce d'or (11/08/2026, demande explicite) plutôt qu'un simple
+   anneau : tourne sur elle-même (rotateY, effet pièce qui pivote) de
+   plus en plus vite à mesure qu'on tire — degré posé en JS pendant le
+   tirage (pwa.js), relayé par une animation CSS en boucle une fois le
+   rafraîchissement déclenché (le JS s'arrête là, la page recharge). */
+.pull-refresh-coin{
+  display:block;
   width:20px;
   height:20px;
-  border:2px solid var(--fg-dim);
-  border-top-color:var(--fg);
-  border-radius:50%;
+  color:var(--fg-dim);
+  perspective:60px;
 }
-#pullRefreshIndicator.ready .pull-refresh-spinner{
-  border-top-color:var(--fg);
-  border-color:var(--fg);
+.pull-refresh-coin svg{ display:block; width:100%; height:100%; }
+#pullRefreshIndicator.ready .pull-refresh-coin{ color:var(--fg); }
+.pull-refresh-coin.spinning{
+  animation:pullRefreshCoinSpin .5s linear infinite;
 }
-#pullRefreshIndicator.spinning .pull-refresh-spinner{
-  animation:pullRefreshSpin .6s linear infinite;
-}
-@keyframes pullRefreshSpin{
-  from{ transform:rotate(0deg); }
-  to{ transform:rotate(360deg); }
+@keyframes pullRefreshCoinSpin{
+  from{ transform:rotateY(0deg); }
+  to{ transform:rotateY(360deg); }
 }
 
 /* ---------- scroll-to-top button (bas droite) ---------- */
@@ -299,6 +317,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   font-size:1rem;
   margin:14px 0;
   opacity:.8;
+  min-width:0; /* voir le correctif général sur .crt > * plus haut */
 }
 
 .progress-row{
@@ -364,6 +383,27 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   margin-bottom:4px;
 }
 
+/* ---------- infobulles génériques (tooltips.js) ---------- */
+[data-tooltip]{ cursor:help; }
+#infoTooltip{
+  position:fixed;
+  width:max-content;
+  max-width:220px;
+  border:1px solid var(--fg);
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-subtitle);
+  font-size:.78rem;
+  line-height:1.5;
+  text-align:center;
+  padding:8px 12px;
+  opacity:0;
+  pointer-events:none;
+  z-index:70;
+  transition:opacity .15s ease;
+}
+#infoTooltip.visible{ opacity:1; }
+
 .weekly-score{
   display:flex;
   justify-content:center;
@@ -406,18 +446,43 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   top:10px;
   right:0;
   z-index:0;
-  color:var(--fg-dim);
+  width:26px;
+  height:26px;
   opacity:.8;
 }
-.scene-moon svg{
+/* Phase lunaire redessinée en "éclipse à deux cercles" (11/08/2026,
+   demande explicite) : un disque plein blanc (.moon-disc, toujours
+   entier, jamais retouché) et un second disque STRICTEMENT identique
+   par-dessus (.moon-occluder), couleur du fond de la scène plutôt que
+   découpé — il glisse horizontalement (translateX) pour recouvrir
+   plus ou moins le premier. Décalé complètement à côté (100% de sa
+   propre largeur) = disque blanc entièrement visible (pleine lune) ;
+   décalé à 0% = parfaitement superposé = disque blanc entièrement
+   recouvert (nouvelle lune). Remplace l'ancien clip-path (inset), qui
+   ne pouvait découper qu'un rectangle droit — ici la zone visible
+   restante est un vrai croissant, la superposition de deux cercles.
+   Le pourcentage de décalage est posé en JS (applyMoonPhase, scene.js)
+   selon la fraction illuminée du jour. */
+.scene-moon .moon-disc,
+.scene-moon .moon-occluder{
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+}
+.scene-moon .moon-disc svg,
+.scene-moon .moon-occluder svg{
   display:block;
   /* Redessinée en disque plein le 10/08/2026 (MOON_SVG, viewBox
-     52×52, cercle plein généré au pixel près — était un croissant
-     fixe, qui ne pouvait pas représenter une vraie pleine lune, voir
-     applyMoonPhase() dans scene.js). Densité 52/26 = 2,0 pile (plan
-     4), taille affichée inchangée (26px). */
+     52×52, cercle plein généré au pixel près). Densité 52/26 = 2,0
+     pile (plan 4), taille affichée inchangée (26px). */
   width:26px;
   height:auto;
+}
+.scene-moon .moon-disc{ color:var(--fg-dim); } /* dimmé, cohérent avec le reste du décor (château, grotte) */
+.scene-moon .moon-occluder{
+  color:var(--bg); /* même couleur que le fond de la scène : "efface" plutôt que découpe */
+  will-change:transform;
 }
 /* Château plaqué tout à gauche (aligné sur la bordure gauche des
    cadres, ex. la barre de vie — demande du 10/08/2026, au lieu d'être
@@ -632,44 +697,70 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   gap:6px;
   margin:0;
   min-height:90px;
+  position:relative; /* ancre la bulle BD (.creature-bubble), voir plus bas */
 }
+/* Bulle BD au-dessus de l'oiseau (redesign du 11/08/2026, demande
+   explicite) : fond noir opaque + bord blanc + texte blanc, façon
+   bande dessinée pixel, au lieu du texte rouge sur fond transparent
+   d'avant — assez opaque pour "écraser" (occulter) le décor derrière
+   elle. Fusionne ici DEUX choses qui étaient deux blocs séparés :
+   le marqueur d'absence (bubbleText, "?"/"!"/"×N" — plus on tarde,
+   plus il y a de "?") et la phrase taquine (BIRD_TEASE_PHRASES) —
+   une seule bulle, qui alterne au hasard entre les deux à chaque
+   chargement de page (voir renderCreature, creature.js). position:
+   absolute (ancrée sur .creature-zone ci-dessus) plutôt qu'un bloc
+   dans le flux flex : peut grandir librement sans pousser la colonne
+   ni décaler le chevalier, quitte à chevaucher un peu le décor du
+   dessus — assumé maintenant qu'elle est opaque (l'ancien problème,
+   avant qu'elle soit opaque, c'était justement qu'un texte transparent
+   grandissant chevauchait le décor de façon disgracieuse). */
 .creature-bubble{
+  position:absolute;
+  left:50%;
+  bottom:100%;
+  transform:translateX(-50%);
+  margin-bottom:12px;
+  z-index:5;
+  max-width:min(230px, calc(100vw - 24px));
+  background:var(--bg);
+  color:var(--fg);
+  border:2px solid var(--fg);
+  padding:6px 10px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.creature-bubble.visible{ opacity:1; }
+/* Petite pointe pixel sous la bulle, vers l'oiseau — deux carrés qui
+   se rétrécissent, plus cohérent avec l'esthétique en carrés nets du
+   site qu'un triangle CSS classique. */
+.creature-bubble::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-8px;
+  transform:translateX(-50%);
+  width:10px;
+  height:6px;
+  background:var(--bg);
+  border-left:2px solid var(--fg);
+  border-right:2px solid var(--fg);
+  border-bottom:2px solid var(--fg);
+  clip-path:polygon(0 0, 100% 0, 50% 100%);
+}
+.creature-bubble.glyph{
   font-family:var(--font-title);
   font-size:1.3rem;
   letter-spacing:.1rem;
-  color:var(--red);
-  border:1px solid var(--red);
-  padding:2px 10px;
-  min-height:1.6em;
-  opacity:0;
-  transform:translateY(4px);
-  transition:opacity .2s ease, transform .2s ease;
+  text-align:center;
 }
-.creature-bubble.visible{ opacity:1; transform:translateY(0); }
-/* Phrase taquine de l'oiseau (BIRD_TEASE_PHRASES, creature.js), même
-   seuil d'apparition que la bulle (L>=3). Bloc de page normal, HORS de
-   .creature-zone/.battle-zone (voir index.html) : imbriquée dans la
-   colonne flex de l'oiseau, une phrase plus longue que la bulle
-   faisait grandir la colonne vers le haut (align-items:flex-end) et
-   chevauchait le décor en position absolue au-dessus — bug vu à
-   l'écran le 11/08/2026. En bloc normal, elle pousse simplement le
-   reste de la page vers le bas au besoin, jamais de chevauchement. */
-.creature-tease{
-  align-self:center;
-  max-width:280px;
-  margin:10px auto 0;
+.creature-bubble.phrase{
   font-size:.72rem;
   line-height:1.35;
   font-style:italic;
-  color:var(--fg-dim);
   text-align:center;
-  opacity:0;
-  max-height:0;
-  overflow:hidden;
-  transition:opacity .2s ease;
 }
-.creature-tease.visible{ opacity:1; max-height:200px; }
-.creature-tease__sig{
+.creature-bubble__sig{
   display:block;
   font-style:normal;
   font-family:var(--font-subtitle);
@@ -677,7 +768,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   letter-spacing:.02rem;
   margin-top:3px;
   color:var(--fg-dim);
-  opacity:.8;
 }
 .creature-figure{
   display:flex;
@@ -1091,6 +1181,13 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   gap:6px;
   margin:0 auto 20px;
 }
+.fiche-piece-name{
+  font-family:var(--font-title);
+  font-size:.85rem;
+  letter-spacing:.03rem;
+  color:var(--amber);
+  text-align:center;
+}
 .fiche-piece-badge{
   width:46px;
   height:46px;
@@ -1246,6 +1343,18 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   line-height:1.5;
 }
 .cours br{ content:""; display:block; margin-top:.55em; }
+/* Renvois math ↔ code (11/08/2026, "Point 4" approuvé) : 2-3 paires
+   de concepts vraiment liés entre un chapitre math et un chapitre
+   code (ex. connecteurs logiques ↔ and/or/not en Python), en fin de
+   cours concerné, réutilisant le champ cours existant plutôt qu'un
+   nouveau système. Discret (plus petit, atténué, préfixe ↔) pour ne
+   pas concurrencer le cours lui-même. */
+.cours-crosslink{
+  display:block;
+  font-size:.85em;
+  color:var(--fg-dim);
+}
+.cours-crosslink a{ color:var(--fg-dim); text-decoration:underline; }
 code, .math{
   color:#fff;
   background:rgba(255,255,255,.1);

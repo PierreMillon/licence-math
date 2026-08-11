@@ -67,6 +67,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
 
   function renderFichePieceBadge(){
     const badge = document.getElementById('fichePieceBadge');
+    const nameEl = document.getElementById('fichePieceName');
     if(!badge || typeof KNIGHT_PIECES === 'undefined') return;
     const piece = KNIGHT_PIECES.find(p => p.chapterId === CHAPTER_ID);
     if(!piece || !window.weeklyChapterFraction || !window.miniPieceClipStyle || !window.knightPieceMiniSVG) return;
@@ -80,6 +81,10 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
        visible sur les pièces au format haut/étroit (ex. le plastron
        d'Analyse), qui touche le texte de la légende en dessous. */
     badge.innerHTML = `<div style="width:100%;height:100%;${clip}">${miniSvg}</div>`;
+    // Nom façon jeu vidéo (11/08/2026, demande explicite), toujours
+    // affiché (même à 0% de révélation) — c'est l'objet à obtenir
+    // cette semaine, pas seulement celui déjà obtenu.
+    if(nameEl && piece.name) nameEl.textContent = piece.name;
   }
 
   /* ---------- barre de progression par carrés (un carré = un exercice) ---------- */

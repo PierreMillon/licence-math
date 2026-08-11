@@ -15,15 +15,20 @@
    quasi pleines depuis leurs propres retouches) les recouvrent
    entièrement et les rendent invisibles. Casque toujours au sommet
    (la tête dépasse de tout le reste). */
+/* Noms d'objet façon jeu vidéo (11/08/2026, demande explicite : "un
+   nom un peu qui fasse jeu vidéo" au-dessus de chaque pièce sur la
+   fiche) — un par pièce, ton légendaire/loot un peu too much exprès,
+   vaguement lié au chapitre correspondant. Affiché par
+   renderFichePieceBadge (fiche-engine.js). */
 const KNIGHT_PIECES = [
-  { chapterId: 'logique',      svg: () => KNIGHT_BOTTES_SVG,     z: 2 },
-  { chapterId: 'algebre',      svg: () => KNIGHT_JAMBIERES_SVG,  z: 1 },
-  { chapterId: 'calculus',     svg: () => KNIGHT_GANTELETS_SVG,  z: 4 },
-  { chapterId: 'analyse',      svg: () => KNIGHT_PLASTRON_SVG,   z: 3 },
-  { chapterId: 'probabilites', svg: () => KNIGHT_BOUCLIER_SVG,   z: 5 },
-  { chapterId: 'statistiques', svg: () => KNIGHT_CAPE_SVG,       z: 0 },
-  { chapterId: 'java',         svg: () => KNIGHT_CASQUE_SVG,     z: 7 },
-  { chapterId: 'python',       svg: () => KNIGHT_EPEE_SVG,       z: 6 },
+  { chapterId: 'logique',      svg: () => KNIGHT_BOTTES_SVG,     z: 2, name: 'Bottes de la déduction absolue' },
+  { chapterId: 'algebre',      svg: () => KNIGHT_JAMBIERES_SVG,  z: 1, name: 'Jambières du polynôme maudit' },
+  { chapterId: 'calculus',     svg: () => KNIGHT_GANTELETS_SVG,  z: 4, name: 'Gantelets de la dérivée infinie' },
+  { chapterId: 'analyse',      svg: () => KNIGHT_PLASTRON_SVG,   z: 3, name: 'Plastron de la limite éternelle' },
+  { chapterId: 'probabilites', svg: () => KNIGHT_BOUCLIER_SVG,   z: 5, name: 'Bouclier du hasard absolu' },
+  { chapterId: 'statistiques', svg: () => KNIGHT_CAPE_SVG,       z: 0, name: 'Cape de la moyenne fatale' },
+  { chapterId: 'java',         svg: () => KNIGHT_CASQUE_SVG,     z: 7, name: 'Casque du compilateur ancien' },
+  { chapterId: 'python',       svg: () => KNIGHT_EPEE_SVG,       z: 6, name: 'Épée du serpent interprète' },
 ];
 window.KNIGHT_PIECES = KNIGHT_PIECES;
 

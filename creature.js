@@ -180,7 +180,6 @@ function renderCreature(){
 
   const figure = document.getElementById('creatureFigure');
   const bubble = document.getElementById('creatureBubble');
-  const tease = document.getElementById('creatureTease');
   const pile = document.getElementById('skullPile');
 
   figure.innerHTML = BIRD_SVG;
@@ -190,28 +189,31 @@ function renderCreature(){
   clearTimeout(birdBlinkTimer);
   scheduleBirdBlink(figure, BIRD_HEIGHT_PX);
 
+  /* Bulle BD au-dessus de l'oiseau (redesign du 11/08/2026, demande
+     explicite — voir CLAUDE.md) : fusionne ce qui était deux blocs
+     séparés (le marqueur d'absence "?"/"!"/"×N" — bubbleText — et la
+     phrase taquine — BIRD_TEASE_PHRASES) dans UNE seule bulle, qui
+     alterne au hasard entre les deux à chaque chargement de page
+     (pas de préférence pour l'un ou l'autre — 50/50, décidé une fois
+     par rendu, pas en boucle). Toujours le même seuil d'apparition
+     (L>=3, bubbleText). */
   const txt = bubbleText(L);
   if(bubble){
     if(txt){
-      bubble.textContent = txt;
-      bubble.classList.add('visible');
+      const showPhrase = Math.random() < 0.5;
+      if(showPhrase){
+        const idx = nextTeasePhraseIndex();
+        bubble.innerHTML = `“${BIRD_TEASE_PHRASES[idx]}”<span class="creature-bubble__sig">— ${BIRD_TEASE_SIGNATURE}</span>`;
+        bubble.classList.remove('glyph');
+        bubble.classList.add('phrase', 'visible');
+      }else{
+        bubble.textContent = txt;
+        bubble.classList.remove('phrase');
+        bubble.classList.add('glyph', 'visible');
+      }
     }else{
-      bubble.textContent = '';
-      bubble.classList.remove('visible');
-    }
-  }
-
-  /* Phrase taquine : même seuil que la bulle (L>=3), une seule par
-     rendu (pas une par bulle affichée en boucle, ça bougerait sans
-     arrêt) — voir BIRD_TEASE_PHRASES plus haut. */
-  if(tease){
-    if(txt){
-      const idx = nextTeasePhraseIndex();
-      tease.innerHTML = `“${BIRD_TEASE_PHRASES[idx]}”<span class="creature-tease__sig">— ${BIRD_TEASE_SIGNATURE}</span>`;
-      tease.classList.add('visible');
-    }else{
-      tease.innerHTML = '';
-      tease.classList.remove('visible');
+      bubble.innerHTML = '';
+      bubble.classList.remove('visible', 'glyph', 'phrase');
     }
   }
 

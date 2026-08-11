@@ -6,10 +6,10 @@
 <title>DÉMO // PETIT MONSTRE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=120">
+<link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=121">
 <style>
-  .demo-wrap{ max-width:640px; margin:60px auto; text-align:center; }
+  .demo-wrap{ max-width:640px; width:100%; margin:60px auto; text-align:center; }
   .demo-title{ font-family:var(--font-title); font-size:1.5rem; letter-spacing:.1rem; margin-bottom:16px; }
   .demo-text{ font-family:var(--font-subtitle); font-size:.85rem; color:var(--fg-dim); line-height:1.6; margin-bottom:24px; }
   .demo-btn{
@@ -42,9 +42,10 @@
   </div>
   <div class="wander-monster" id="wanderMonster" aria-hidden="true" hidden></div>
 </div>
-<script src="menu.js?v=120"></script>
-<script src="pwa.js?v=120"></script>
-<script src="creature-svgs.js?v=120"></script>
+<script src="menu.js?v=121"></script>
+<script src="pwa.js?v=121"></script>
+<script src="tooltips.js?v=121"></script>
+<script src="creature-svgs.js?v=121"></script>
 <script>
   const el = document.getElementById('wanderMonster');
   el.innerHTML = MONSTER_WALK_SVG;

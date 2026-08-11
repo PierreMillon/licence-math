@@ -23,10 +23,13 @@ function renderKnightGirl(){
 }
 
 /* ---------- lune, dans le ciel au-dessus du château ---------- */
+/* Deux disques identiques superposés (voir applyMoonPhase plus bas et
+   le commentaire CSS .scene-moon) : .moon-disc (blanc, fixe) et
+   .moon-occluder (couleur du fond, glisse par-dessus). */
 function renderSceneMoon(){
   const el = document.getElementById('sceneMoon');
   if(!el || typeof MOON_SVG === 'undefined') return;
-  el.innerHTML = MOON_SVG;
+  el.innerHTML = `<div class="moon-disc">${MOON_SVG}</div><div class="moon-occluder">${MOON_SVG}</div>`;
   applyMoonPhase(el);
 }
 
@@ -86,17 +89,27 @@ function moonPhaseFraction(date){
    nouvelle lune exacte, pour ne plus jamais avoir l'air d'un bug. */
 const MOON_MIN_ILLUMINATED = 0.18;
 
+/* Rendu en "éclipse à deux cercles" (11/08/2026, demande explicite —
+   voir le commentaire CSS .scene-moon) plutôt qu'un clip-path : un
+   disque occulteur (.moon-occluder), couleur du fond, glisse par-
+   dessus le disque plein (.moon-disc) — décalé de 100% de sa largeur
+   (complètement à côté, aucun recouvrement) à illuminated=1 (pleine
+   lune, disque blanc entièrement visible), et de 0% (parfaitement
+   superposé, recouvrement total) à illuminated=0 (nouvelle lune).
+   La zone visible restante entre les deux est un vrai croissant
+   (intersection de deux cercles), pas un rectangle coupé au clip-path. */
 function applyMoonPhase(el){
   const phase = moonPhaseFraction(new Date());
   const illuminated = Math.max(MOON_MIN_ILLUMINATED, (1 - Math.cos(2 * Math.PI * phase)) / 2); // 0..1
-  let hiddenPct = Math.round((1 - illuminated) * 100);
-  // Sécurité (11/08/2026, avant de trouver la vraie cause ci-dessus) :
-  // une valeur invalide ou hors 0-100 dans inset() peut faire
-  // disparaître tout le disque plutôt que d'être ignorée selon le
-  // moteur de rendu — gardée par prudence, ne coûte rien.
-  if(!Number.isFinite(hiddenPct)) hiddenPct = 0;
-  hiddenPct = Math.max(0, Math.min(100, hiddenPct));
-  el.style.clipPath = `inset(0 0 0 ${hiddenPct}%)`;
+  const occluder = el.querySelector('.moon-occluder');
+  if(!occluder) return;
+  let offsetPct = Math.round(illuminated * 100);
+  // Sécurité (héritée de l'ancienne version clip-path, gardée par
+  // prudence) : une valeur invalide ou hors 0-100 dans translateX
+  // pourrait faire disparaître ou déborder le disque selon le moteur.
+  if(!Number.isFinite(offsetPct)) offsetPct = 0;
+  offsetPct = Math.max(0, Math.min(100, offsetPct));
+  occluder.style.transform = `translateX(${offsetPct}%)`;
 }
 
 /* ---------- château + grotte, en arrière-plan au-dessus des personnages ---------- */
@@ -173,9 +186,22 @@ const WEEK_DRAGON_TIERS = [
   // que large que le dessin endormi 60×39) donc tailles/hauteurs
   // recalées en conséquence, pieds posés progressivement plus bas (du
   // niveau de la grotte vers celui des pieds du chevalier).
-  { svg: 'sleeping',   top: 226, left: 15,  width: 10 },  // lundi    : endormi, dans le noir de la porte
-  { svg: 'victorious', top: 214, left: 10,  width: 22 },  // mardi    : réveillé, sort au seuil
-  { svg: 'victorious', top: 195, left: 25,  width: 45 },  // mercredi
+  //
+  // Largeurs des paliers 0-2 relevées le 11/08/2026 (demande explicite
+  // : densité de pixels adaptée à chaque plan, comme le reste du décor
+  // — château/grotte ~1,52 (plan 3), lune 2,0 (plan 4), chevalier/
+  // oiseau 0,5 (plan 1), voir système de profondeur du 10/08/2026).
+  // Densité = largeur-source-viewBox / largeur-affichée : les tailles
+  // d'origine (10/22/45px, avec des grilles source 60 et 100) donnaient
+  // des densités de 6,0/4,55/2,22 — bien plus grossier que 2,0, la
+  // référence la plus grossière du site (la lune, plan 4). Résultat :
+  // le dragon lointain (lundi-mercredi) apparaissait flou/écrasé au
+  // lieu d'un petit dessin net. Largeurs relevées pour rester dans
+  // l'intervalle 0,5-2,0 (jamais plus grossier que la lune) ; paliers
+  // 3-5 déjà dans cet intervalle, INCHANGÉS (déjà réglés à l'œil).
+  { svg: 'sleeping',   top: 226, left: 15,  width: 30 },  // lundi    : endormi, dans le noir de la porte — densité 2,0 (plan 4)
+  { svg: 'victorious', top: 188, left: 10,  width: 50 },  // mardi    : réveillé, sort au seuil — densité 2,0 (plan 4)
+  { svg: 'victorious', top: 175, left: 25,  width: 66 },  // mercredi — densité 1,52 (plan 3)
   { svg: 'victorious', top: 174, left: 55,  width: 80 },  // jeudi
   { svg: 'victorious', top: 161, left: 90,  width: 125 }, // vendredi
   { svg: 'victorious', top: 154, left: 110, width: 175 }, // samedi   : arrivé, dressé derrière les personnages
