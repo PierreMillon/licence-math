@@ -393,3 +393,59 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   plus haut) : un `z-index` explicite et distinct par plan évite ce
   genre de piège lié à l'ordre de déclaration dans le HTML, qui peut
   changer sans rapport avec l'intention visuelle.
+
+## Taille du dragon du samedi + oiseau caché derrière le chevalier (11/08/2026)
+
+- Signalé : le dragon du samedi (palier final, `WEEK_DRAGON_TIERS[5]`)
+  paraissait "tout petit" — demande explicite : sa poitrine doit
+  arriver à la hauteur de la tête du chevalier. Repère anatomique
+  trouvé en affichant DRAGON_VICTORIOUS_SVG seul avec une grille de
+  repère (viewBox 100×95) : le bas du cou / haut de la poitrine tombe
+  vers y≈34, soit ~36% de la hauteur totale du dessin. Palier samedi
+  recalé pour que ce point tombe exactement sur le haut de tête mesuré
+  du chevalier (`#knightGirl svg`, `getBoundingClientRect`), vérifié
+  par capture d'écran plutôt que par le calcul seul — le calcul pur
+  (poitrine à hauteur de tête, PIEDS gardés au niveau d'avant) aurait
+  fait dépasser le dragon très largement au-dessus de la scène
+  (~70px), recouvrant la grille de chapitres au-dessus. Palier samedi
+  final : pieds remontés par rapport au palier vendredi (228px contre
+  280px) plutôt que gardés fixes — lu comme le dragon qui se dresse de
+  toute sa hauteur, pas un recul. Paliers mardi-vendredi remis à
+  l'échelle par le même facteur (240/175 ≈ 1,37) que l'ancien palier
+  samedi, pour une progression cohérente sur toute la semaine.
+- Piège retrouvé une fois de plus (voir "toujours tester sous 320px"
+  plus haut) : les largeurs/positions de `WEEK_DRAGON_TIERS` sont
+  calibrées à l'œil sur un écran de 390px — le palier samedi agrandi
+  (left:85 + width:240 = 325px) déborde horizontalement dès que la
+  scène mesure moins de ~330px de large, débordement réel confirmé par
+  test automatisé à 310/320px (pas juste théorique). Corrigé dans
+  `renderWeekDragon()` (scene.js) par un filet générique : après avoir
+  posé `left`/`width` du palier, mesure la largeur réelle de
+  `#battleScene` et rétrécit `width` si `left + width` dépasse le bord
+  — ne touche jamais `left`, cohérent avec les correctifs déjà
+  appliqués à `.scene-plan2`/`.scene-castle` pour le même genre de
+  débordement.
+- Nouvelle fonctionnalité liée (même demande) : à partir du palier où
+  le dragon "a passé la barrière" (choisi comme vendredi-samedi,
+  index 4-5 de `WEEK_DRAGON_TIERS` — les deux paliers où sa largeur
+  fait un vrai bond et où il domine visuellement la scène ; un seuil
+  basé sur la position du dragon par rapport à `#scenePlan2` ne
+  marchait pas, la barrière est déjà dépassée en pixels dès mardi),
+  l'oiseau se cache derrière le chevalier et regarde vers le dragon.
+  Implémenté avec un second élément (`#birdPeek`, dans `#knightZone`)
+  plutôt qu'en déplaçant `#creatureFigure` : la pile de crânes et les
+  défaites hebdo restent à leur place habituelle (à gauche), seul
+  l'oiseau lui-même change de position — `updateBirdHiding()`
+  (scene.js) bascule une classe `.bird-hiding` sur `#battleZone` qui
+  passe `#creatureFigure` à `opacity:0` et affiche `#birdPeek`. Pas de
+  miroir nécessaire : `BIRD_SVG` regarde déjà vers la gauche par
+  défaut, donc vers le dragon une fois posé sur le flanc gauche du
+  chevalier. z-index négatif sur `.bird-peek` pour se dessiner
+  derrière `.knight-girl` (non positionné) — attention : ce négatif
+  s'échappe du `.knight-zone` qui l'entoure (position:relative SEUL ne
+  crée pas de contexte d'empilement, il faut aussi un z-index non-auto)
+  et remonte jusqu'au contexte de `.battle-zone` (qui, lui, a bien
+  z-index:1 explicite) ; ça n'a pas posé de problème ici car rien
+  d'autre à ce niveau ne se trouve sur le passage du petit oiseau, mais
+  à garder en tête pour la prochaine fois qu'un z-index négatif est
+  posé sur un descendant profond.

@@ -632,6 +632,28 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   gap:4px;
   margin:0;
 }
+/* Oiseau caché derrière le chevalier (11/08/2026, demande explicite,
+   voir updateBirdHiding/scene.js) : z-index négatif pour se dessiner
+   DERRIÈRE .knight-girl (non positionné, donc peint au-dessus de tout
+   descendant positionné à z-index négatif de ce même .knight-zone,
+   qui sert d'ancre via position:relative ci-dessus) — pas de miroir,
+   BIRD_SVG regarde déjà vers la gauche par défaut, donc vers le
+   dragon une fois posé sur le flanc gauche du chevalier. */
+.bird-peek{
+  display:none;
+  position:absolute;
+  left:-34px;
+  bottom:0;
+  z-index:-1;
+  color:var(--fg);
+}
+.bird-peek svg{
+  display:block;
+  height:38px;
+  width:auto;
+}
+.battle-zone.bird-hiding #creatureFigure{ opacity:0; }
+.battle-zone.bird-hiding .bird-peek{ display:block; }
 .knight-girl{
   flex:none;
   line-height:0;

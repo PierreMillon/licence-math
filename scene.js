@@ -204,12 +204,30 @@ const WEEK_DRAGON_TIERS = [
   // l'intervalle 0,5-2,0 (jamais plus grossier que la lune) ; paliers
   // 3-5 déjà dans cet intervalle, INCHANGÉS (déjà réglés à l'œil).
   { svg: 'sleeping',   top: 226, left: 15,  width: 30 },  // lundi    : endormi, dans le noir de la porte — densité 2,0 (plan 4)
-  { svg: 'victorious', top: 188, left: 10,  width: 50 },  // mardi    : réveillé, sort au seuil — densité 2,0 (plan 4)
-  { svg: 'victorious', top: 175, left: 25,  width: 66 },  // mercredi — densité 1,52 (plan 3)
-  { svg: 'victorious', top: 174, left: 55,  width: 80 },  // jeudi
-  { svg: 'victorious', top: 161, left: 90,  width: 125 }, // vendredi
-  { svg: 'victorious', top: 154, left: 110, width: 175 }, // samedi   : arrivé, dressé derrière les personnages
+  { svg: 'victorious', top: 170, left: 10,  width: 69 },  // mardi    : réveillé, sort au seuil — densité 2,0 (plan 4)
+  { svg: 'victorious', top: 152, left: 25,  width: 90 },  // mercredi — densité 1,52 (plan 3)
+  { svg: 'victorious', top: 146, left: 55,  width: 110 }, // jeudi
+  { svg: 'victorious', top: 117, left: 90,  width: 171 }, // vendredi
+  { svg: 'victorious', top: 0,   left: 85,  width: 240 }, // samedi   : arrivé, dressé derrière les personnages
 ];
+/* Paliers mardi-samedi redimensionnés le 11/08/2026 (demande explicite :
+   "trop petit", le dragon du samedi doit avoir sa poitrine à la hauteur
+   de la tête du chevalier). Mesuré à l'écran plutôt qu'à l'œil : sur
+   DRAGON_VICTORIOUS_SVG (viewBox 100×95), le bas du cou / haut de la
+   poitrine tombe vers y≈34 (~36% de la hauteur totale, repéré en
+   affichant le SVG seul avec une grille de repère). Palier samedi
+   calé pour que ce point tombe exactement sur le haut de tête mesuré
+   du chevalier (#knightGirl svg, getBoundingClientRect) — vérifié par
+   capture d'écran (largeur 390px), pas de recouvrement horizontal
+   (dragon large de 240px dans une scène de 358px de large). Paliers
+   mardi-vendredi remis à l'échelle par le même facteur (240/175 ≈
+   1,37) que l'ancien palier samedi, pieds (bas de l'élément) gardés au
+   même niveau qu'avant pour ne pas casser la trajectoire d'approche —
+   SAUF le palier samedi, où grandir "pieds fixes" aurait fait dépasser
+   le dragon largement au-dessus de la scène (donc recouvert la grille
+   de chapitres) : son bas remonte un peu par rapport à vendredi
+   (228px contre 280px), lecture assumée comme le dragon qui se dresse
+   de toute sa hauteur plutôt qu'un recul. */
 
 /* Lundi=palier 0 ... samedi=palier 5 ; dimanche (combat déjà joué)
    reste sur le palier d'arrivée. */
@@ -256,6 +274,51 @@ function renderWeekDragon(){
      horizontal pour qu'il regarde vers la droite, donc vers le
      chevalier qu'il approche (retour du 11/08/2026). */
   el.style.transform = tier.svg === 'sleeping' ? '' : 'scaleX(-1)';
+  /* Largeurs des paliers 1-5 calibrées à l'œil sur un écran de 390px
+     (11/08/2026, resize pour la poitrine du dragon du samedi) —
+     jamais revérifiées sous ~340px de large. Sans ce filet, le palier
+     samedi (left:85 + width:240 = 325px) déborde dès que la scène
+     mesure moins de ~330px (trouvé par test automatisé à 310/320px,
+     débordement horizontal réel, pas juste théorique — voir CLAUDE.md,
+     leçon "toujours tester sous 320px"). Rétrécit SEULEMENT si
+     nécessaire, ne touche jamais `left` : plus simple, et cohérent
+     avec le correctif déjà appliqué à .scene-plan2/.scene-castle. */
+  if(battleScene){
+    const sceneRect = battleScene.getBoundingClientRect();
+    if(sceneRect.width > 0){
+      const maxRight = sceneRect.width - 4;
+      const currentLeft = parseFloat(el.style.left);
+      const currentWidth = parseFloat(el.style.width);
+      if(currentLeft + currentWidth > maxRight){
+        el.style.width = Math.max(20, maxRight - currentLeft) + 'px';
+      }
+    }
+  }
+  updateBirdHiding(weekDragonTier(new Date()));
+}
+
+/* Palier à partir duquel le dragon est considéré comme ayant "passé la
+   barrière" (11/08/2026, demande explicite) : vendredi et samedi (index
+   4 et 5) — les deux paliers où sa largeur fait un vrai bond (110→171→
+   240px) et où il domine visuellement la scène, plutôt qu'un seuil basé
+   sur sa position par rapport à #scenePlan2 (déjà dépassée dès mardi en
+   pixels, ça ne collait pas à "quand il approche vraiment"). À partir de
+   ce palier, l'oiseau (#creatureFigure, sa place habituelle à gauche)
+   s'efface et une version réduite (#birdPeek, dans #knightZone, z-index
+   négatif donc dessinée derrière le chevalier) apparaît sur son flanc
+   gauche — elle regarde donc vers le dragon sans miroir nécessaire :
+   BIRD_SVG regarde déjà vers la gauche par défaut. */
+const BIRD_HIDE_FROM_TIER = 4;
+
+function updateBirdHiding(tierIndex){
+  const battleZone = document.getElementById('battleZone');
+  const birdPeek = document.getElementById('birdPeek');
+  if(!battleZone || !birdPeek) return;
+  const hiding = tierIndex >= BIRD_HIDE_FROM_TIER;
+  battleZone.classList.toggle('bird-hiding', hiding);
+  if(hiding && !birdPeek.innerHTML && typeof BIRD_SVG !== 'undefined'){
+    birdPeek.innerHTML = BIRD_SVG;
+  }
 }
 
 /* ---------- aligne le bas de la mascotte (oiseau/dragon) sur le bas du
