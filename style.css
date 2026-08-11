@@ -415,6 +415,12 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   z-index:0;
   color:var(--fg-dim);
   opacity:.85;
+  /* Rendue invisible le 11/08/2026 (demande explicite, pas satisfait
+     du rendu actuel) — l'emplacement/l'architecture (top/left, voir
+     aussi WEEK_DRAGON_TIERS qui s'y référait) reste en place pour ne
+     pas tout recalculer si elle revient plus tard, seule la peinture
+     à l'écran est coupée. */
+  visibility:hidden;
 }
 .scene-cave svg{
   display:block;

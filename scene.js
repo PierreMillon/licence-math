@@ -73,15 +73,27 @@ function moonPhaseFraction(date){
   return (((elapsed % LUNAR_CYCLE_S) + LUNAR_CYCLE_S) % LUNAR_CYCLE_S) / LUNAR_CYCLE_S;
 }
 
+/* Vraie cause du "la lune est invisible" enfin trouvée le 11/08/2026,
+   après plusieurs correctifs qui n'y étaient pour rien (débordement
+   de plan2, position recalée sur le château...) : ce n'était pas un
+   bug. La vraie phase lunaire du moment était à ~96% cachée (quelques
+   jours avant la nouvelle lune) — confirmé en forçant artificiellement
+   le disque plein à l'écran, qui s'affiche parfaitement. Un disque de
+   26px caché à 96% ne laisse qu'un filet de ~1px, invisible sur un
+   téléphone. Exact scientifiquement, mais se lit comme "cassé" plutôt
+   que "nouvelle lune" pour qui regarde sans le savoir — MOON_MIN_
+   ILLUMINATED garde toujours une petite portion visible, même à la
+   nouvelle lune exacte, pour ne plus jamais avoir l'air d'un bug. */
+const MOON_MIN_ILLUMINATED = 0.18;
+
 function applyMoonPhase(el){
   const phase = moonPhaseFraction(new Date());
-  const illuminated = (1 - Math.cos(2 * Math.PI * phase)) / 2; // 0..1
+  const illuminated = Math.max(MOON_MIN_ILLUMINATED, (1 - Math.cos(2 * Math.PI * phase)) / 2); // 0..1
   let hiddenPct = Math.round((1 - illuminated) * 100);
-  // Sécurité (11/08/2026, retour "la lune est invisible") : une valeur
-  // invalide ou hors 0-100 dans inset() peut faire disparaître tout le
-  // disque plutôt que d'être ignorée selon le moteur de rendu — on
-  // s'assure qu'on reste toujours dans un intervalle valide, quoi qu'il
-  // arrive en amont.
+  // Sécurité (11/08/2026, avant de trouver la vraie cause ci-dessus) :
+  // une valeur invalide ou hors 0-100 dans inset() peut faire
+  // disparaître tout le disque plutôt que d'être ignorée selon le
+  // moteur de rendu — gardée par prudence, ne coûte rien.
   if(!Number.isFinite(hiddenPct)) hiddenPct = 0;
   hiddenPct = Math.max(0, Math.min(100, hiddenPct));
   el.style.clipPath = `inset(0 0 0 ${hiddenPct}%)`;
@@ -150,14 +162,38 @@ function weekDragonTier(date){
   return day - 1;
 }
 
+/* Aspect largeur:hauteur du dragon endormi (DRAGON_SVG, viewBox
+   60×39) — sert à convertir une largeur en hauteur pour caler son bas
+   (voir renderWeekDragon, palier "lundi"). */
+const DRAGON_SLEEPING_ASPECT = 39 / 60;
+
 function renderWeekDragon(){
   const el = document.getElementById('sceneDragon');
+  const castleEl = document.getElementById('sceneCastle');
+  const battleScene = document.getElementById('battleScene');
   if(!el || typeof DRAGON_SVG === 'undefined' || typeof DRAGON_VICTORIOUS_SVG === 'undefined') return;
   const tier = WEEK_DRAGON_TIERS[weekDragonTier(new Date())];
   el.innerHTML = tier.svg === 'sleeping' ? DRAGON_SVG : DRAGON_VICTORIOUS_SVG;
-  el.style.top = tier.top + 'px';
   el.style.left = tier.left + 'px';
   el.style.width = tier.width + 'px';
+  /* Palier "lundi" (endormi) : le bas du dragon calé sur le bas réel
+     de la falaise du château, mesuré plutôt que codé en dur (11/08/2026,
+     demande explicite — la grotte devenue invisible, ci-dessus, ne sert
+     plus de repère). Les autres paliers gardent leur top réglé à l'œil,
+     inchangé. */
+  if(tier.svg === 'sleeping' && castleEl && battleScene){
+    const castleRect = castleEl.getBoundingClientRect();
+    const sceneRect = battleScene.getBoundingClientRect();
+    if(castleRect.height > 0 && sceneRect.height > 0){
+      const castleBottomInScene = castleRect.bottom - sceneRect.top;
+      const dragonHeight = tier.width * DRAGON_SLEEPING_ASPECT;
+      el.style.top = Math.max(0, castleBottomInScene - dragonHeight) + 'px';
+    }else{
+      el.style.top = tier.top + 'px'; // pas encore mis en page, valeur de secours
+    }
+  }else{
+    el.style.top = tier.top + 'px';
+  }
   /* DRAGON_VICTORIOUS_SVG regarde vers la gauche par défaut (dessiné
      pour la scène de défaite, où le sens n'a pas d'importance) — miroir
      horizontal pour qu'il regarde vers la droite, donc vers le
