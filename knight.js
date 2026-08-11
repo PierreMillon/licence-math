@@ -9,15 +9,21 @@
    plus bas) et sur les fiches (pièce miniature en bas de page).
    ============================================================ */
 
+/* Ordre z (10/08/2026, corrigé) : le bouclier et l'épée sont tenus
+   devant le corps, à bout de bras — ils doivent donc passer AU-DESSUS
+   du plastron et des gantelets, sinon ces deux pièces (larges et
+   quasi pleines depuis leurs propres retouches) les recouvrent
+   entièrement et les rendent invisibles. Casque toujours au sommet
+   (la tête dépasse de tout le reste). */
 const KNIGHT_PIECES = [
   { chapterId: 'logique',      svg: () => KNIGHT_BOTTES_SVG,     z: 2 },
   { chapterId: 'algebre',      svg: () => KNIGHT_JAMBIERES_SVG,  z: 1 },
-  { chapterId: 'calculus',     svg: () => KNIGHT_GANTELETS_SVG,  z: 6 },
-  { chapterId: 'analyse',      svg: () => KNIGHT_PLASTRON_SVG,   z: 5 },
-  { chapterId: 'probabilites', svg: () => KNIGHT_BOUCLIER_SVG,   z: 3 },
+  { chapterId: 'calculus',     svg: () => KNIGHT_GANTELETS_SVG,  z: 4 },
+  { chapterId: 'analyse',      svg: () => KNIGHT_PLASTRON_SVG,   z: 3 },
+  { chapterId: 'probabilites', svg: () => KNIGHT_BOUCLIER_SVG,   z: 5 },
   { chapterId: 'statistiques', svg: () => KNIGHT_CAPE_SVG,       z: 0 },
   { chapterId: 'java',         svg: () => KNIGHT_CASQUE_SVG,     z: 7 },
-  { chapterId: 'python',       svg: () => KNIGHT_EPEE_SVG,       z: 4 },
+  { chapterId: 'python',       svg: () => KNIGHT_EPEE_SVG,       z: 6 },
 ];
 window.KNIGHT_PIECES = KNIGHT_PIECES;
 
@@ -85,11 +91,42 @@ const KNIGHT_GIRL_OVERLAY = {
   java:         { left: 17, top: 0,  width: 75, height: 33 }, // casque   → tête + cheveux
   statistiques: { left: 8,  top: 23, width: 92, height: 34 }, // cape     → derrière le buste/épaules
   analyse:      { left: 22, top: 26, width: 73, height: 25 }, // plastron → chemise
-  probabilites: { left: 6,  top: 26, width: 26, height: 38 }, // bouclier → bras gauche
-  python:       { left: 76, top: 6,  width: 20, height: 59 }, // épée     → tenue dans la main droite
+  // bouclier/épée retaillés le 10/08/2026 (2e retour, "on voit pas
+  // l'épée et le bouclier") : les cadres précédents étaient bien plus
+  // grands que la silhouette réelle de l'objet une fois ses propres
+  // proportions conservées (voir KNIGHT_HELD_OBJECTS) — l'objet ne
+  // remplissait qu'une petite portion du cadre, flottant, à peine
+  // visible. Recalés sur l'aspect ratio réel de chaque pièce (11:17
+  // pour le bouclier, 7:29 pour l'épée) pour que l'objet remplisse
+  // tout son cadre, puis pivotés (KNIGHT_HELD_ROTATION).
+  probabilites: { left: 3,  top: 27, width: 29, height: 16 }, // bouclier → bras gauche
+  python:       { left: 72, top: 11, width: 25, height: 36 }, // épée     → tenue dans la main droite
   calculus:     { left: 14, top: 39, width: 82, height: 26 }, // gantelets→ les deux mains
   algebre:      { left: 25, top: 51, width: 67, height: 38 }, // jambières→ le jean
   logique:      { left: 5,  top: 89, width: 87, height: 10 }, // bottes   → les deux pieds
+};
+
+/* Bouclier et épée ne sont pas de l'armure portée à même le corps :
+   ce sont des objets tenus, bien plus fins/étroits que la zone qui
+   leur est réservée. Les étirer en preserveAspectRatio="none" comme
+   les autres pièces les déformait en gros pavé de la même couleur
+   gris/or que le plastron et les gantelets juste à côté — résultat :
+   invisibles à l'œil, noyés dans le reste de l'armure (retour du
+   10/08/2026 : "on voit pas l'épée et le bouclier"). Pour ces deux-là
+   seulement on garde leurs proportions d'origine (comportement par
+   défaut "meet"), pour qu'ils gardent une silhouette reconnaissable
+   (bouclier en écusson, épée fine avec pommeau) au lieu de se fondre. */
+const KNIGHT_HELD_OBJECTS = new Set(['probabilites', 'python']);
+
+/* Rotation appliquée à ces deux objets tenus (retour du 10/08/2026 :
+   "oriente-les, tu fais des rotations") — épée pivotée autour de la
+   garde/main (bas de la pièce) pour que la pointe (haut de la pièce)
+   parte vers l'extérieur du corps (le chevalier est tourné vers la
+   gauche, l'épée est tenue côté droit) ; bouclier pivoté autour de
+   son centre pour un angle de garde naturel. */
+const KNIGHT_HELD_ROTATION = {
+  python:       { deg: 38,  origin: '50% 100%' }, // épée     → pivote sur la garde, pointe vers l'extérieur
+  probabilites: { deg: -14, origin: '50% 50%'  }, // bouclier → léger angle de garde
 };
 
 function renderKnight(){
@@ -107,11 +144,16 @@ function renderKnight(){
     // garder les proportions d'origine de la pièce, mais ici la pièce
     // doit remplir EXACTEMENT la zone du corps choisie (KNIGHT_GIRL_
     // OVERLAY), sinon le comportement par défaut ("meet") la recadre au
-    // centre et elle ne touche plus la main/le pied visé.
+    // centre et elle ne touche plus la main/le pied visé. Exception :
+    // bouclier/épée (KNIGHT_HELD_OBJECTS, voir plus haut) gardent leurs
+    // proportions.
+    const aspectAttr = KNIGHT_HELD_OBJECTS.has(p.chapterId) ? '' : 'preserveAspectRatio="none" ';
     const miniSvg = knightPieceMiniSVG(p.chapterId, p.svg())
-      .replace('<svg ', '<svg preserveAspectRatio="none" ');
+      .replace('<svg ', `<svg ${aspectAttr}`);
     const clip = miniPieceClipStyle(fraction);
-    const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};`;
+    const rot = KNIGHT_HELD_ROTATION[p.chapterId];
+    const rotStyle = rot ? `transform:rotate(${rot.deg}deg);transform-origin:${rot.origin};` : '';
+    const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};${rotStyle}`;
     return `<div class="knight-piece-wrap" style="${pos}${clip}">${miniSvg}</div>`;
   }).join('');
   figure.innerHTML = piecesHTML;
