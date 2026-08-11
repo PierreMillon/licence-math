@@ -173,6 +173,30 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   zones `data-tooltip`) — sinon les deux gestes se déclenchent en même
   temps.
 
+## Boutons fixes tout en bas d'écran inertes au tactile réel (11/08/2026)
+
+- Signalé : appui sur l'épée (`.scroll-top-btn`, bas-droite) sans aucune
+  réaction visuelle, uniquement sur iPhone réel, jamais reproduit en
+  simulation (clic programmatique Playwright fonctionnait très bien,
+  y compris coordonnée brute + `elementsFromPoint`). "Aucune réaction
+  du tout" (pas même le flash au toucher) pointe vers un toucher qui
+  n'atteint jamais la page plutôt qu'un bug de handler JS.
+- Hypothèse retenue (pas confirmée à 100%, mais corrigée par prudence
+  car sans coût) : `.scroll-top-btn` et `.version-badge` étaient à
+  `bottom:14px`, hauteur 42px — leur bord bas ne finit qu'à ~56px du
+  bord réel de l'écran. Sur un iPhone à indicateur d'accueil (sans
+  bouton physique), iOS réserve ~34px tout en bas pour le geste
+  "glisser pour revenir à l'accueil" — un appui qui atterrit dedans
+  peut être intercepté par le système avant même d'arriver à la page.
+- Corrigé avec `bottom:calc(14px + env(safe-area-inset-bottom))` sur
+  ces deux boutons (0 sur navigateur classique, la vraie hauteur de la
+  zone réservée en PWA plein écran sur iPhone à encoche/indicateur).
+  Nécessite `viewport-fit=cover` dans le `<meta viewport>` de TOUTES
+  les pages, sinon `env(safe-area-inset-bottom)` vaut toujours 0 et le
+  correctif ne fait rien — ajouté aux 15 pages en même temps.
+  `.wander-monster` (décoratif, non cliquable) laissé tel quel,
+  pas concerné puisqu'il n'y a rien à taper dessus.
+
 ## `preventDefault()` sur `touchstart` bloque les clics des enfants (11/08/2026)
 
 - Trouvé sur `#exoProgressBar` (tooltips.js) : un `touchstart` qui

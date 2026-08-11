@@ -179,7 +179,7 @@ a:hover{ color:var(--fg-dim); }
 /* ---------- scroll-to-top button (bas droite) ---------- */
 .scroll-top-btn{
   position:fixed;
-  bottom:14px;
+  bottom:calc(14px + env(safe-area-inset-bottom));
   right:16px;
   width:42px;
   height:42px;
@@ -258,7 +258,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 .version-badge{
   position:fixed;
-  bottom:14px;
+  bottom:calc(14px + env(safe-area-inset-bottom));
   left:16px;
   width:42px;
   height:42px;
@@ -1002,6 +1002,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 .progress-row .progress-bar{
   flex:1;
+  height:11px;
   margin:0;
 }
 
@@ -1017,24 +1018,22 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   position:relative;
   display:flex;
   flex-direction:column;
-  gap:10px;
-  border:2px solid var(--fg);
+  gap:7px;
+  border:1px solid var(--fg-dim);
   background:var(--bg-panel);
-  padding:16px;
-  box-shadow:4px 4px 0 var(--fg-dim);
-  transition:transform .12s ease, box-shadow .12s ease;
+  padding:10px 12px;
+  transition:border-color .12s ease;
   cursor:pointer;
 }
 
 .chapter-card:hover,
 .chapter-card:focus-visible{
-  transform:translate(-2px,-2px);
-  box-shadow:6px 6px 0 var(--fg);
+  border-color:var(--fg);
 }
 
 .chapter-card__title{
   font-family:var(--font-title);
-  font-size:1.55rem;
+  font-size:1.2rem;
   letter-spacing:.08rem;
 }
 
