@@ -17,6 +17,20 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   fois dans un résumé de contexte, redonnée une deuxième fois avec la
   demande explicite de ne plus l'oublier.)
 
+## Format des notes de version (ne jamais redemander)
+
+- Très court, juste le "quoi", jamais le "comment"/"pourquoi" (donné le
+  11/08/2026, appliqué rétroactivement aux entrées v117-121 en plus
+  des suivantes). Exemple donné par Pierre : « Bulle de l'oiseau
+  redessinée façon bande dessinée : fond noir, bord et texte blancs —
+  fusionne le marqueur d'absence et la phrase taquine, qui alternent
+  au hasard » devient « Bulle de l'oiseau redessinée avec phrase
+  taquine ». Une poignée de mots par ligne, pas une phrase complète.
+  Les versions plus anciennes que 117 n'ont pas été reprises (pas
+  demandé explicitement, risque de perte d'info sans gain réel vu
+  qu'elles sont peu consultées) — à refaire sur demande explicite si
+  besoin un jour.
+
 ## Système chevalier / dragon — contexte narratif (voir aussi scene.js, weekly.js, creature.js)
 
 - Lore : le chevalier descend du château pour affronter le dragon qui
@@ -149,4 +163,77 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   ou `display-mode:standalone`) — sur un onglet de navigateur classique
   le spinner natif suffit déjà, pas de doublon. Geste suivi au doigt
   (touchstart/touchmove/touchend), seuil 70px avant que le relâchement
-  déclenche `location.reload()`.
+  déclenche `location.reload()`. La pièce n'anime (spin CSS accéléré)
+  qu'à partir de 35% du seuil de tir (`SPIN_START_FRACTION`), pas dès
+  le premier pixel de glissement — sinon ça tournait au rythme du
+  doigt au lieu de tourner "toute seule" comme une toupie. Ignore le
+  geste si une sélection de texte est en cours (`hasActiveSelection`)
+  ou si le toucher démarre sur une zone qui a déjà son propre geste
+  tactile (`PULL_REFRESH_IGNORE_SELECTOR` : barre de progression,
+  zones `data-tooltip`) — sinon les deux gestes se déclenchent en même
+  temps.
+
+## `preventDefault()` sur `touchstart` bloque les clics des enfants (11/08/2026)
+
+- Trouvé sur `#exoProgressBar` (tooltips.js) : un `touchstart` qui
+  appelle `e.preventDefault()` pour ouvrir une infobulle tactile
+  supprime aussi l'événement `click` synthétique que le navigateur
+  aurait généré ensuite — donc TOUT bouton/lien à l'intérieur de cette
+  zone devient injoignable au tactile, même si rien dans le code ne
+  cible ce bouton explicitement. `tooltips.js` ignore maintenant
+  `preventDefault()` (et le déclenchement de l'infobulle) dès que la
+  cible du toucher est/contient `button, a, input, select, textarea`
+  — règle générale, pas un correctif au cas par cas. Par prudence et
+  parce que c'était redondant avec le texte déjà affiché en dessous,
+  l'infobulle d'`#exoProgressBar` a aussi été retirée complètement.
+  Après ce nettoyage il ne reste qu'UNE seule zone `data-tooltip` sur
+  le site : le dragon de la semaine (`#sceneDragon`) — choix explicite
+  de Pierre après une liste de toutes les infobulles créées cette
+  session (réponse : tout retirer sauf celle-là).
+- Encore une instance de `min-width:auto` (voir plus haut) : la boîte
+  de formule scrollable (`.math-scroll`) était en `inline-flex`/
+  `inline-block` sans `min-width:0`, donc débordait de son cadre au
+  lieu de scroller dedans. Passée en `display:block; width:100%;
+  min-width:0`. Au passage, l'icône "↔" qui indiquait "ça scrolle" a
+  été retirée (demande explicite, deux captures annotées à l'appui) :
+  le cadre en pointillés déborde maintenant jusqu'au bord du cadre de
+  page, ce débordement visuel suffit à suggérer qu'on peut glisser
+  dedans — pas besoin d'une icône séparée.
+
+## Zoom (pincement/double-tap) désactivé (11/08/2026, décision inversée)
+
+- Une décision précédente (10/08/2026) avait explicitement gardé le
+  zoom actif. Pierre est revenu dessus après un exemple concret sur
+  iPhone (le re-zoom retombe au mauvais endroit, gênant) : zoom
+  désormais désactivé partout (`maximum-scale=1.0,
+  user-scalable=no` dans le `<meta viewport>` des 15 pages, et
+  `pinch-zoom` retiré des valeurs `touch-action`). Si Pierre redemande
+  un jour à le réactiver, c'est un aller-retour déjà fait une fois,
+  pas une nouveauté à re-designer.
+- Question ouverte non résolue côté accessibilité : le réglage iOS
+  système « Taille du texte » (Dynamic Type) ne s'applique pas au
+  contenu web classique comme il s'applique aux apps natives — ce
+  n'est pas un bug corrigible par du CSS/JS côté site, c'est une
+  limite de la plateforme. Expliqué à Pierre le 11/08/2026.
+
+## État hebdo vs état "vie entière" — piège pour tout ce qui touche à la progression
+
+- Le site a DEUX couches de state par chapitre : le state "vie
+  entière" (`CHAPTER_STATE_KEYS`/`l1maths_progress`, menu.js/
+  progression.js) et le state "hebdo" (`weeklyStateKey(chapterId)`/
+  `WEEKLY_PROGRESS_KEY`, weekly.js) dont dépendent les pièces
+  d'armure et le score du combat de la semaine. Écrire dans l'une
+  sans l'autre les désynchronise silencieusement. Trouvé sur l'import
+  de code de progression (`progression.js`/`applyChapterLevel`) qui
+  ne mettait à jour QUE le state vie entière — l'armure ne se
+  reconstituait jamais après un import. Corrigé en écrivant les deux
+  systématiquement à cet endroit. Réflexe à avoir pour toute future
+  fonctionnalité qui touche la progression par chapitre : vérifier
+  si elle doit aussi toucher la couche hebdo.
+- L'export/import (mot de passe-phrase) inclut maintenant aussi les
+  préférences de réglages (`l1maths_notation` — dérivation u/v vs
+  f/g, confirmation de réponse, mode page/continu, musique), packées
+  dans un 9e "code" ajouté après les 8 codes de chapitres. Rétro-
+  compatible : une ancienne phrase n'a simplement pas ce 9e code
+  (`decoded.codes[8] === undefined`), donc rien n'essaie de
+  l'appliquer.

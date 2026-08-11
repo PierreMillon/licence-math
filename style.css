@@ -33,14 +33,17 @@ html,body{
      horizontalement sur la page elle-même (hors zones de glissement
      volontaires comme .math-scroll) ne doit rien faire — ni décaler la
      page avec un effet élastique, ni faire "remonter" le geste vers un
-     historique de navigation. IMPORTANT (bug corrigé le 10/08/2026) :
-     "pan-y" seul désactive aussi le pincement de zoom dans la plupart
-     des navigateurs (Safari iOS notamment), qui ne l'autorise que s'il
-     est listé explicitement — "pinch-zoom" doit rester possible, seul
-     le zoom EN DESSOUS de 100% est bloqué (minimum-scale=1.0 sur le
-     viewport, voir chaque <head>), pas le zoom en général. */
+     historique de navigation.
+     Zoom entièrement désactivé le 11/08/2026 (demande explicite,
+     reviens sur le choix du 10/08/2026 qui le gardait possible
+     exprès) : le pincement/double-tap laissait parfois la page
+     re-zoomée au mauvais endroit après un rechargement, gênant plus
+     qu'utile. maximum-scale=1.0 + user-scalable=no posés sur le
+     viewport (chaque <head>) suffisent à eux seuls à bloquer le
+     pincement — "pinch-zoom" retiré ici aussi par cohérence, même si
+     déjà sans effet une fois user-scalable=no posé. */
   overscroll-behavior-x:none;
-  touch-action:pan-y pinch-zoom;
+  touch-action:pan-y;
 }
 
 body{
@@ -160,7 +163,13 @@ a:hover{ color:var(--fg-dim); }
 .pull-refresh-coin svg{ display:block; width:100%; height:100%; }
 #pullRefreshIndicator.ready .pull-refresh-coin{ color:var(--fg); }
 .pull-refresh-coin.spinning{
-  animation:pullRefreshCoinSpin .5s linear infinite;
+  /* Durée posée en JS (pwa.js, animationDuration) : raccourcit à
+     mesure qu'on tire, pour une pièce qui tourne toute seule de plus
+     en plus vite, comme une toupie — .5s ici en secours seulement. */
+  animation-name:pullRefreshCoinSpin;
+  animation-duration:.5s;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
 }
 @keyframes pullRefreshCoinSpin{
   from{ transform:rotateY(0deg); }
@@ -760,21 +769,15 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   font-style:italic;
   text-align:center;
 }
-.creature-bubble__sig{
-  display:block;
-  font-style:normal;
-  font-family:var(--font-subtitle);
-  font-size:.68rem;
-  letter-spacing:.02rem;
-  margin-top:3px;
-  color:var(--fg-dim);
-}
 .creature-figure{
+  cursor:pointer; /* appui pour la faire parler, voir initBirdTapReveal (creature.js) */
+  transition:opacity .2s ease;
   display:flex;
   align-items:flex-end;
   justify-content:center;
   min-height:70px;
 }
+.creature-figure.peeking{ opacity:0; }
 .creature-icon{
   display:block;
   width:auto;
@@ -1470,7 +1473,7 @@ code{
 .katex-display{
   overflow-x:auto;
   overflow-y:hidden;
-  touch-action:pan-x pinch-zoom;
+  touch-action:pan-x;
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   background:var(--bg-panel);
@@ -1478,29 +1481,34 @@ code{
   padding:12px 10px;
   margin:10px 0;
 }
+/* Redessiné le 11/08/2026 (demande explicite) : plus d'icône "↔" à
+   côté du cadre (retirée aussi de wrapOverflowingMath, menu.js) — le
+   cadre en pointillé va maintenant lui-même jusqu'aux bords du cadre
+   de la page (.crt), pour qu'on comprenne que ça glisse par le simple
+   fait que ça "déborde" visuellement, plutôt que par une icône à côté.
+   Passé de inline-flex à block/width:100% au passage : l'ancienne
+   version (inline-flex, .math-scroll sans min-width:0) avait le même
+   bug que .crt > * (voir CLAUDE.md, fragilité des positions
+   absolues/flexbox) — un item flex refuse par défaut de rétrécir sous
+   la largeur intrinsèque de son contenu, donc le cadre débordait de
+   l'écran au lieu de rester dedans et de scroller en interne. */
 .math-scroll-wrap{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  max-width:100%;
-  vertical-align:middle;
+  display:block;
+  width:100%;
+  margin:8px 0;
 }
 .math-scroll{
-  display:inline-block;
-  max-width:100%;
+  display:block;
+  width:100%;
+  min-width:0;
   overflow-x:auto;
   overflow-y:hidden;
-  touch-action:pan-x pinch-zoom;
+  touch-action:pan-x;
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   background:#050505;
   border:1px dashed var(--fg-dim);
   padding:3px 6px;
-}
-.math-scroll-hint{
-  flex:none;
-  color:var(--fg-dim);
-  font-size:.85em;
 }
 
 .exo.answered.ok{ border-color:var(--ok); }

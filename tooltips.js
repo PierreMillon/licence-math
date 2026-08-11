@@ -61,6 +61,13 @@ function initInfoTooltips(){
       else show(zone);
     });
     zone.addEventListener('touchstart', (e) => {
+      // Ne PAS preventDefault() si le doigt touche un élément interactif
+      // à l'intérieur de la zone (bouton, lien...) : sur mobile, ça
+      // supprime le click synthétique qui suivrait normalement le tap,
+      // rendant l'élément intouchable. Bug trouvé le 11/08/2026 sur
+      // #exoProgressBar (carrés d'exercice cliquables) — corrigé aussi
+      // à la racine ici pour toute future zone du même genre.
+      if(e.target.closest && e.target.closest('button, a, input, select, textarea')) return;
       e.preventDefault();
       const t = e.touches[0];
       positionAt(t.clientX, t.clientY);

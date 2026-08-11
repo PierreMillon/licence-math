@@ -33,12 +33,28 @@ function isStandaloneWebApp(){
    qui tourne" pour qu'on comprenne que ça va rafraîchir). */
 const PULL_REFRESH_COIN_SVG = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="1" y="7" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/></svg>';
 
+/* Zones à ignorer pour le geste de tirage : des éléments qui ont déjà
+   leur propre interaction tactile en haut de page (barre de
+   progression globale — grade-tooltip, app.js — et toute zone
+   d'infobulle, tooltips.js). Sans ça, poser le doigt dessus déclenche
+   AUSSI le pull-to-refresh en plus de leur propre geste — bug constaté
+   le 11/08/2026 sur la barre de progression de l'accueil. */
+const PULL_REFRESH_IGNORE_SELECTOR = '#globalProgressBar, .grade-block-wrap, [data-tooltip]';
+
 function initPullToRefresh(){
   if(!isStandaloneWebApp()) return;
 
   const PULL_THRESHOLD = 70; // px à tirer avant que le relâchement déclenche le rafraîchissement
   const PULL_MAX = 100;      // au-delà, le spinner ne descend plus (résistance)
-  const SPIN_MAX_DEG_PER_PULL_PX = 6; // plus on tire, plus la pièce tourne vite
+  // La pièce apparaît dès qu'on tire un peu, mais ne se met à tourner
+  // TOUTE SEULE (animation CSS, indépendante du geste) qu'à partir de
+  // cette fraction du seuil — de plus en plus vite à l'approche du
+  // seuil, comme une toupie qu'on lance (demande explicite du
+  // 11/08/2026 : avant, la rotation suivait le doigt image par image
+  // et s'arrêtait dès qu'on arrêtait de bouger, ce n'était pas ça).
+  const SPIN_START_FRACTION = 0.35;
+  const SPIN_DURATION_MAX_S = 1.1; // vitesse au tout début de la rotation
+  const SPIN_DURATION_MIN_S = 0.25; // vitesse une fois le seuil atteint
 
   const indicator = document.createElement('div');
   indicator.id = 'pullRefreshIndicator';
@@ -52,39 +68,58 @@ function initPullToRefresh(){
   let startY = null;
   let tracking = false; // le doigt a démarré en haut de la page, on suit le geste
   let refreshing = false;
-  let spinDeg = 0;
 
   function pageScrollTop(){
     return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 
+  /* Sélection de texte en cours (11/08/2026, bug rapporté) : sur la
+     page changelog, glisser le doigt pour étendre une sélection de
+     texte déclenchait AUSSI le pull-to-refresh — au relâchement, la
+     page rechargeait avant d'avoir pu appuyer sur "Copier". Si une
+     sélection non vide existe, on abandonne le geste de rafraîchissement. */
+  function hasActiveSelection(){
+    const sel = window.getSelection && window.getSelection();
+    return !!(sel && sel.toString().length > 0);
+  }
+
   function reset(){
     indicator.style.transform = '';
-    coin.style.transform = '';
+    coin.style.animationDuration = '';
     coin.classList.remove('spinning');
     indicator.classList.remove('visible', 'ready');
-    spinDeg = 0;
   }
 
   document.addEventListener('touchstart', (e) => {
     if(refreshing || e.touches.length !== 1) return;
     if(pageScrollTop() > 0){ startY = null; tracking = false; return; }
+    if(e.target.closest && e.target.closest(PULL_REFRESH_IGNORE_SELECTOR)){ startY = null; tracking = false; return; }
+    if(hasActiveSelection()){ startY = null; tracking = false; return; }
     startY = e.touches[0].clientY;
     tracking = true;
   }, { passive: true });
 
   document.addEventListener('touchmove', (e) => {
     if(!tracking || startY === null || refreshing) return;
+    if(hasActiveSelection()){ tracking = false; startY = null; reset(); return; }
     const dy = e.touches[0].clientY - startY;
     if(dy <= 0 || pageScrollTop() > 0){ reset(); return; }
     const pull = Math.min(dy, PULL_MAX);
     indicator.style.transform = `translateY(${pull}px)`;
     indicator.classList.add('visible');
-    indicator.classList.toggle('ready', pull >= PULL_THRESHOLD);
-    // La pièce tourne d'autant plus vite qu'on tire loin — vitesse
-    // proportionnelle à la distance tirée, pas juste un on/off.
-    spinDeg += (pull / PULL_MAX) * SPIN_MAX_DEG_PER_PULL_PX;
-    coin.style.transform = `rotateY(${spinDeg}deg)`;
+    const ready = pull >= PULL_THRESHOLD;
+    indicator.classList.toggle('ready', ready);
+
+    const spinStartPull = PULL_THRESHOLD * SPIN_START_FRACTION;
+    if(pull >= spinStartPull){
+      const t = Math.min(1, (pull - spinStartPull) / (PULL_THRESHOLD - spinStartPull));
+      const duration = SPIN_DURATION_MAX_S + (SPIN_DURATION_MIN_S - SPIN_DURATION_MAX_S) * t;
+      coin.style.animationDuration = duration + 's';
+      coin.classList.add('spinning');
+    }else{
+      coin.classList.remove('spinning');
+      coin.style.animationDuration = '';
+    }
   }, { passive: true });
 
   document.addEventListener('touchend', () => {
@@ -94,6 +129,7 @@ function initPullToRefresh(){
     startY = null;
     if(ready){
       refreshing = true;
+      coin.style.animationDuration = SPIN_DURATION_MIN_S + 's';
       coin.classList.add('spinning'); // tourne en continu (CSS) pendant le rechargement
       indicator.style.transform = `translateY(${PULL_THRESHOLD}px)`;
       window.location.reload();

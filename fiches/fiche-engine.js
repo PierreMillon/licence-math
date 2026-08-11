@@ -94,6 +94,24 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     return s.correct ? ' correct' : ' incorrect';
   }
 
+  /* Tutoriel adaptatif (11/08/2026, demande explicite) : l'indice
+     "Cliquer un carré = exercice correspondant" sous la barre
+     disparaît définitivement une fois qu'on a compris — ici, dès
+     qu'on a cliqué 10 carrés en tout, tous chapitres confondus
+     (compteur global, pas par fiche). */
+  const EXO_SQUARE_CLICKS_KEY = 'l1maths_exo_square_clicks';
+  const EXO_HINT_DISMISS_THRESHOLD = 10;
+
+  function loadExoSquareClicks(){
+    const n = parseInt(localStorage.getItem(EXO_SQUARE_CLICKS_KEY), 10);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function updateExoHintVisibility(){
+    const hint = document.getElementById('exoProgressBarHint') || document.querySelector('.exo-progress-bar__hint');
+    if(hint) hint.hidden = loadExoSquareClicks() >= EXO_HINT_DISMISS_THRESHOLD;
+  }
+
   function renderExoProgressBar(state){
     const bar = document.getElementById('exoProgressBar');
     if(!bar) return;
@@ -103,9 +121,12 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     bar.querySelectorAll('.exo-progress-bar__sq').forEach(sq => {
       sq.addEventListener('click', () => {
         const exId = sq.dataset.exid;
+        localStorage.setItem(EXO_SQUARE_CLICKS_KEY, String(loadExoSquareClicks() + 1));
+        updateExoHintVisibility();
         goToPage(findPageForExercise(exId), 'exo-' + exId);
       });
     });
+    updateExoHintVisibility();
   }
 
   function updateExoProgressSquare(state, ex){

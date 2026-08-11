@@ -171,6 +171,61 @@ function scheduleBirdBlink(figure, heightPx){
   }, delay);
 }
 
+/* Bulle BD (voir style.css .creature-bubble) : trois petits helpers
+   pour poser son contenu, réutilisés par le rendu automatique
+   (renderCreature, seuil L>=3) ET par l'appui sur l'oiseau
+   (initBirdTapReveal ci-dessous, toujours disponible). Signature
+   ("— Le Scribe aux Six Voix") retirée le 11/08/2026 : n'intéressait
+   pas Pierre, seule la phrase reste. */
+function showBubblePhrase(bubble){
+  const idx = nextTeasePhraseIndex();
+  bubble.innerHTML = `“${BIRD_TEASE_PHRASES[idx]}”`;
+  bubble.classList.remove('glyph');
+  bubble.classList.add('phrase', 'visible');
+}
+function showBubbleGlyph(bubble, txt){
+  bubble.textContent = txt;
+  bubble.classList.remove('phrase');
+  bubble.classList.add('glyph', 'visible');
+}
+function hideBubble(bubble){
+  bubble.innerHTML = '';
+  bubble.classList.remove('visible', 'glyph', 'phrase');
+}
+
+/* Appui sur l'oiseau (11/08/2026, demande explicite) : l'oiseau
+   lui-même n'intéresse pas Pierre, ce qui compte c'est le message —
+   un appui le remplace donc par sa bulle (une phrase taquine,
+   toujours disponible, indépendante du seuil d'absence L>=3 qui régit
+   l'apparition automatique). Ré-appuyer (même zone, restée cliquable
+   même une fois l'oiseau caché) referme la bulle et fait réapparaître
+   l'oiseau. */
+function initBirdTapReveal(){
+  const figure = document.getElementById('creatureFigure');
+  const bubble = document.getElementById('creatureBubble');
+  if(!figure || !bubble) return;
+  let peeking = false;
+
+  function togglePeek(){
+    peeking = !peeking;
+    figure.classList.toggle('peeking', peeking);
+    if(peeking) showBubblePhrase(bubble);
+    else{
+      // Ne referme pas une bulle affichée pour une vraie raison
+      // (absence en cours, L>=3) — repasse juste par le rendu normal.
+      const state = tickDailyGrowth();
+      const txt = bubbleText(state.lateness);
+      if(txt) showBubbleGlyph(bubble, txt);
+      else hideBubble(bubble);
+    }
+  }
+
+  figure.addEventListener('click', (e) => {
+    e.stopPropagation();
+    togglePeek();
+  });
+}
+
 function renderCreature(){
   const zone = document.getElementById('creatureZone');
   if(!zone) return;
@@ -196,24 +251,16 @@ function renderCreature(){
      alterne au hasard entre les deux à chaque chargement de page
      (pas de préférence pour l'un ou l'autre — 50/50, décidé une fois
      par rendu, pas en boucle). Toujours le même seuil d'apparition
-     (L>=3, bubbleText). */
+     (L>=3, bubbleText). Signature ("— Le Scribe aux Six Voix")
+     retirée le 11/08/2026 (demande explicite, n'intéressait pas
+     Pierre) — seule la phrase reste. */
   const txt = bubbleText(L);
   if(bubble){
     if(txt){
-      const showPhrase = Math.random() < 0.5;
-      if(showPhrase){
-        const idx = nextTeasePhraseIndex();
-        bubble.innerHTML = `“${BIRD_TEASE_PHRASES[idx]}”<span class="creature-bubble__sig">— ${BIRD_TEASE_SIGNATURE}</span>`;
-        bubble.classList.remove('glyph');
-        bubble.classList.add('phrase', 'visible');
-      }else{
-        bubble.textContent = txt;
-        bubble.classList.remove('phrase');
-        bubble.classList.add('glyph', 'visible');
-      }
+      if(Math.random() < 0.5) showBubblePhrase(bubble);
+      else showBubbleGlyph(bubble, txt);
     }else{
-      bubble.innerHTML = '';
-      bubble.classList.remove('visible', 'glyph', 'phrase');
+      hideBubble(bubble);
     }
   }
 
@@ -233,4 +280,5 @@ function renderCreature(){
 document.addEventListener('DOMContentLoaded', () => {
   tickDailyGrowth();
   renderCreature();
+  initBirdTapReveal();
 });

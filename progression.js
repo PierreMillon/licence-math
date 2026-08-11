@@ -200,9 +200,42 @@ function badgeWord(overallPercent){
   return tier[wordIdx];
 }
 
+/* Préférences des réglages (notation.html) embarquées dans la phrase
+   (11/08/2026, demande explicite) : un bit chacune, combinées dans un
+   9ᵉ "code" ajouté après les 8 codes de chapitre — le mécanisme
+   d'encodage (encodeCodes, nibbles par paire) n'a pas besoin de
+   changer, juste un code de plus dans le tableau. Rétrocompatible :
+   une phrase déjà exportée AVANT ce changement n'a pas ce 9ᵉ code
+   (undefined au décodage), importProgressPhrase l'ignore alors
+   simplement au lieu de planter. */
+const NOTATION_TOPICS_FOR_EXPORT = [
+  { topic: 'derivation',    values: ['fg', 'uv'],             fallback: 'fg' },
+  { topic: 'confirmAnswer', values: ['on', 'off'],            fallback: 'on' },
+  { topic: 'pageMode',      values: ['paged', 'continuous'],  fallback: 'paged' },
+  { topic: 'music',         values: ['off', 'on'],            fallback: 'off' },
+];
+
+function encodePrefsNibble(){
+  let n = 0;
+  NOTATION_TOPICS_FOR_EXPORT.forEach((t, i) => {
+    const value = window.getNotationPreference ? window.getNotationPreference(t.topic, t.fallback) : t.fallback;
+    if(t.values.indexOf(value) === 1) n |= (1 << i);
+  });
+  return n;
+}
+
+function applyPrefsNibble(n){
+  if(typeof window.setNotationPreference !== 'function') return;
+  NOTATION_TOPICS_FOR_EXPORT.forEach((t, i) => {
+    const bit = (n >> i) & 1;
+    window.setNotationPreference(t.topic, t.values[bit]);
+  });
+}
+
 function exportProgressPhrase(){
   const ids = Object.keys(CHAPTER_STATE_KEYS);
   const codes = ids.map(id => Math.round((chapterMasteryPercent(id) / 100) * 15));
+  codes.push(encodePrefsNibble());
   const badge = badgeWord(overallMasteryPercent());
   return `${badge}-${encodeCodes(codes, ids.length)}`;
 }
@@ -213,7 +246,13 @@ window.exportProgressPhrase = exportProgressPhrase;
    d'affichage réel) comme réussis, K = round(niveau/15 * total) — comme
    la pyramide de l'autre site, ce n'est pas l'historique exact qui
    revient, juste une maîtrise équivalente en pourcentage. Écrase l'état
-   local existant pour ce chapitre. */
+   local existant pour ce chapitre.
+   Écrit aussi dans la couche HEBDOMADAIRE (weeklyStateKey/
+   WEEKLY_PROGRESS_KEY, weekly.js) — bug trouvé le 11/08/2026 : sans
+   ça, importer un code restaure bien la progression permanente mais
+   PAS la progression de la semaine, dont dépendent les pièces
+   d'armure (weeklyChapterFraction) — elles ne bougeaient jamais après
+   un import. */
 function applyChapterLevel(chapterId, level){
   const total = (typeof CHAPTER_TOTALS !== 'undefined' && CHAPTER_TOTALS[chapterId]) || 0;
   if(total <= 0) return;
@@ -231,6 +270,15 @@ function applyChapterLevel(chapterId, level){
   catch(e){ progress = {}; }
   progress[chapterId] = { completed: correctCount, correct: correctCount };
   localStorage.setItem('l1maths_progress', JSON.stringify(progress));
+
+  if(typeof window.weeklyStateKey === 'function' && typeof window.WEEKLY_PROGRESS_KEY === 'string'){
+    localStorage.setItem(window.weeklyStateKey(chapterId), JSON.stringify(state));
+    let weeklyProgress = {};
+    try{ weeklyProgress = JSON.parse(localStorage.getItem(window.WEEKLY_PROGRESS_KEY)) || {}; }
+    catch(e){ weeklyProgress = {}; }
+    weeklyProgress[chapterId] = { completed: correctCount, correct: correctCount };
+    localStorage.setItem(window.WEEKLY_PROGRESS_KEY, JSON.stringify(weeklyProgress));
+  }
 }
 
 function importProgressPhrase(phrase){
@@ -244,6 +292,10 @@ function importProgressPhrase(phrase){
     applyChapterLevel(id, code);
     applied++;
   });
+  // 9ᵉ code = préférences (voir exportProgressPhrase) ; absent sur une
+  // phrase exportée avant ce changement, ignoré silencieusement alors.
+  const prefsCode = decoded.codes[ids.length];
+  if(prefsCode !== undefined) applyPrefsNibble(prefsCode);
   return { applied, mismatch };
 }
 window.importProgressPhrase = importProgressPhrase;

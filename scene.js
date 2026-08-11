@@ -41,9 +41,9 @@ function renderSceneMoon(){
    sans l'autre. La vraie cause du "hors champ" trouvée entre-temps :
    .scene-plan2 débordait horizontalement sous ~312px de large (voir
    sa règle, corrigée) — right:0 reste donc la bonne position
-   horizontale pour la lune, inchangée, seul le top est recalculé ici. */
-const MOON_ABOVE_CASTLE_TOP_PX = 80;
-
+   horizontale pour la lune, inchangée, seul le top est recalculé ici.
+   Alignée pile sur le haut du château (11/08/2026, demande explicite
+   — était 80px au-dessus). */
 function alignSceneMoon(){
   const moon = document.getElementById('sceneMoon');
   const castle = document.getElementById('sceneCastle');
@@ -53,7 +53,7 @@ function alignSceneMoon(){
   const sceneRect = battleScene.getBoundingClientRect();
   if(castleRect.height === 0 || sceneRect.height === 0) return; // pas encore rendu
   const castleTopInScene = castleRect.top - sceneRect.top;
-  moon.style.top = Math.max(0, castleTopInScene - MOON_ABOVE_CASTLE_TOP_PX) + 'px';
+  moon.style.top = Math.max(0, castleTopInScene) + 'px';
 }
 
 /* Phase réelle de la lune, calculée localement (aucune API/réseau —
@@ -155,8 +155,12 @@ function alignScenePlan2(){
 
   const castleBottom = castleRect.bottom - sceneRect.top;
   const knightBottom = knightRect.bottom - sceneRect.top;
-  const gapCenter = (castleBottom + knightBottom) / 2;
-  el.style.top = Math.max(0, gapCenter - elRect.height / 2) + 'px';
+  const gapMid = (castleBottom + knightBottom) / 2;
+  // Le BAS de la bande (pas son centre) au milieu de l'écart château/
+  // pieds (11/08/2026, demande explicite — précédemment centrée, ce
+  // qui la faisait paraître trop basse) : toute la bande se retrouve
+  // au-dessus du point milieu, sa base posée exactement dessus.
+  el.style.top = Math.max(0, gapMid - elRect.height) + 'px';
 }
 
 /* ---------- dragon de la semaine : sort de la grotte et s'approche ---------- */
@@ -359,8 +363,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // mise en page sur certains navigateurs mobiles — réaligner au
   // redimensionnement (déclenché aussi par un changement de zoom sur
   // la plupart des moteurs) limite les dégâts si ça arrive.
+  let sceneResizeTimer = null;
   window.addEventListener('resize', () => {
-    alignSceneMoon();
-    alignScenePlan2();
+    clearTimeout(sceneResizeTimer);
+    sceneResizeTimer = setTimeout(() => {
+      alignSceneMoon();
+      alignScenePlan2();
+    }, 150);
   });
 });
