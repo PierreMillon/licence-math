@@ -71,7 +71,11 @@ a:hover{ color:var(--fg-dim); }
   flex:1;
   display:flex;
   flex-direction:column;
-  padding:24px 16px 48px;
+  /* padding-bottom : dégage largement .scroll-top-btn/.version-badge
+     (42px de haut, bottom:14px + zone de sécurité iOS) — sinon la
+     dernière ligne de texte du pied de page peut se retrouver
+     recouverte par ces boutons fixes tout en bas d'écran. */
+  padding:24px 16px calc(84px + env(safe-area-inset-bottom));
   max-width:980px;
   margin:0 auto;
   width:100%;
@@ -437,10 +441,14 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 .battle-scene{
   position:relative;
-  margin:8px 0 24px;
+  margin:8px 0 12px;
   /* padding-top réserve la place du château + de la grotte, posés en
-     arrière-plan (absolus) juste au-dessus des personnages. */
-  padding-top:152px;
+     arrière-plan (absolus) juste au-dessus des personnages. Réduit de
+     152 à 82px (11/08/2026, retour "trop d'espace vide en haut") en
+     même temps que le top du château (90px -> 20px, même écart de
+     70px) pour garder le même léger chevauchement château/personnages
+     qu'avant, juste sans le vide au-dessus. */
+  padding-top:82px;
 }
 .scene-moon{
   position:absolute;
@@ -507,7 +515,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
    chevaucher légèrement le haut des personnages. */
 .scene-castle{
   position:absolute;
-  top:90px;
+  top:20px;
   left:0;
   z-index:0;
   color:var(--fg-dim);

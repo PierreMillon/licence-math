@@ -340,3 +340,32 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   gérer. `animation-duration` posé en `style.` inline par-dessus le
   raccourci CSS `animation:` existant (même technique déjà utilisée
   pour la pièce du pull-to-refresh).
+
+## Espaces vides dans la scène + pied de page recouvert par les boutons du bas (11/08/2026)
+
+- Signalé (captures annotées à l'appui) : deux grands espaces vides
+  dans la scène de combat (au-dessus du château, et entre le texte du
+  combat hebdo et le pied de page), plus le texte de fin de page qui
+  passait sous les boutons fixes du bas sur iPhone en scroll normal
+  (le contournement manuel de Pierre : tirer un peu la page vers le
+  bas avec le doigt pour "lever" artificiellement le contenu au-delà
+  du rebond élastique iOS — pas praticable au quotidien).
+- Cause de l'espace au-dessus du château : `.scene-castle{top:90px}`
+  (poussé vers le bas le 10/08/2026 pour rapprocher château+lune des
+  personnages) alors que `.battle-scene{padding-top:152px}` réservait
+  toujours autant de place qu'avant ce décalage — un vide de 90px
+  entre le haut de la scène et le château. Corrigé en réduisant les
+  deux du même écart (90px→20px et 152px→82px) pour garder EXACTEMENT
+  le même chevauchement château/personnages qu'avant (calculé :
+  toujours 59,4px), juste sans le vide au-dessus. Leçon : quand deux
+  valeurs sont liées (un offset + une réserve d'espace dimensionnée
+  pour cet offset), les retoucher séparément au fil des sessions finit
+  par les désynchroniser silencieusement.
+- Cause du pied de page recouvert : `.crt` (le conteneur flex qui
+  encadre toute la page) n'avait que 48px de padding-bottom — pas
+  assez pour dégager `.scroll-top-btn`/`.version-badge` (42px de haut,
+  `bottom:14px + env(safe-area-inset-bottom)`, cf. leçon plus haut sur
+  ces mêmes boutons). Corrigé en portant le padding-bottom de `.crt` à
+  `calc(84px + env(safe-area-inset-bottom))` — dégage largement les
+  boutons quel que soit l'appareil, pas seulement les iPhone à
+  indicateur d'accueil.

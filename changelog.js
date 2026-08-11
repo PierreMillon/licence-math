@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 125, date: "11/08/2026", desc: "<ul><li>Espaces vides réduits autour du château et du combat</li><li>Pied de page : ne passe plus sous les boutons du bas</li></ul>" },
   { v: 124, date: "11/08/2026", desc: "<ul><li>Rond de réponse aligné sur la 1re ligne du texte</li><li>Formules qui débordaient dans les QCM : corrigé</li><li>Point orphelin retiré après certaines formules</li><li>Score des fiches simplifié (retrait de « complétés »)</li><li>Export/import : la pile de crânes est incluse</li><li>Rythme du cœur du menu varie avec le taux de bonnes réponses</li></ul>" },
   { v: 123, date: "11/08/2026", desc: "<ul><li>Cartes de chapitre : cadre affiné, moins imposant</li><li>Bouton retour-en-haut et badge de version : réactifs tout en bas sur iPhone récent</li></ul>" },
   { v: 122, date: "11/08/2026", desc: "<ul><li>Import/export : les pièces d'armure se mettent à jour</li><li>Import/export : les réglages sont inclus</li><li>Infobulle de la barre d'exercices retirée (bloquait le clic)</li><li>Indice sous la barre d'exercices disparaît après 10 clics</li><li>Formules trop larges : plus d'icône, cadre pleine largeur</li><li>Zoom (pincement/double-tap) désactivé</li><li>Appui sur l'oiseau : affiche sa phrase à sa place</li><li>Infobulles réduites à une seule (le dragon)</li></ul>" },
