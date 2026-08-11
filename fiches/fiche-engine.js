@@ -61,7 +61,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
   function updateScoreHeader(completed, correct){
     const el = document.getElementById('ficheScore');
     if(el){
-      el.textContent = `SCORE : ${correct}/${EXERCISES.length}   —   COMPLÉTÉS : ${completed}/${EXERCISES.length}`;
+      el.textContent = `SCORE : ${correct}/${EXERCISES.length}`;
     }
   }
 

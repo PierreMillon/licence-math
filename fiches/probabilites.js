@@ -12,14 +12,14 @@ const EXERCISES = [
   statement: `Dans une population de 80 femmes, 36 sont salariées (événement A), 39 sont mères (événement B), et 15 sont les deux à la fois. Que vaut \\(P(A\\cup B)\\) ?`,
   options: [`\\(3/4\\)`, `\\(36/80\\)`, `\\(1/4\\)`],
   correctIndex: 0,
-  explain: `\\(P(A\\cup B)=P(A)+P(B)-P(A\\cap B) = 36/80+39/80-15/80 = 60/80 = 3/4\\).`
+  explain: `\\(P(A\\cup B)=P(A)+P(B)-P(A\\cap B) = 36/80+39/80-15/80 = 60/80 = 3/4\\)`
 },
 {
     id: 'ex2', section: 'denombrement',
   statement: `Avec les mêmes données (36 salariées, 39 mères, 15 les deux, sur 80 femmes), quelle est la probabilité qu'une femme choisie au hasard ne soit NI salariée NI mère ?`,
   options: [`\\(1/4\\)`, `\\(3/4\\)`, `\\(15/80\\)`],
   correctIndex: 0,
-  explain: `\\(P(\\overline{A\\cup B})=1-P(A\\cup B)=1-3/4=1/4\\).`
+  explain: `\\(P(\\overline{A\\cup B})=1-P(A\\cup B)=1-3/4=1/4\\)`
 },
 {
     id: 'ex3', section: 'denombrement',
@@ -44,28 +44,28 @@ const EXERCISES = [
   statement: `Une urne contient 5 boules rouges et 3 boules noires (8 boules au total). On tire 2 boules sans remise. Quelle est la probabilité que les 2 boules soient rouges ?`,
   options: [`\\(5/14\\)`, `\\(1/4\\)`, `\\(5/8\\)`],
   correctIndex: 0,
-  explain: `\\(P = \\dfrac{C_5^2}{C_8^2} = \\dfrac{10}{28} = \\dfrac{5}{14}\\).`
+  explain: `\\(P = \\dfrac{C_5^2}{C_8^2} = \\dfrac{10}{28} = \\dfrac{5}{14}\\)`
 },
 {
     id: 'ex6', section: 'denombrement',
   statement: `Le mot STATISTIQUES comporte 12 lettres : S répété 3 fois, T répété 3 fois, I répété 2 fois (les autres lettres une seule fois). Combien d'anagrammes distincts peut-on former ?`,
   options: [`\\(6\\,652\\,800\\)`, `\\(12!\\)`, `\\(479\\,001\\,600\\)`],
   correctIndex: 0,
-  explain: `Nombre d'anagrammes \\(= \\dfrac{12!}{3!\\times 3!\\times 2!} = \\dfrac{479\\,001\\,600}{72} = 6\\,652\\,800\\).`
+  explain: `Nombre d'anagrammes \\(= \\dfrac{12!}{3!\\times 3!\\times 2!} = \\dfrac{479\\,001\\,600}{72} = 6\\,652\\,800\\)`
 },
 {
     id: 'ex7', section: 'conditionnelle',
   statement: `Un lac contient 40% de brochets, 25% de truites et 35% de sandres. 50% des brochets, 60% des truites et 45% des sandres sont de taille réglementaire. Quelle est la probabilité qu'un poisson pêché soit un brochet ET de taille réglementaire ?`,
   options: [`\\(0.20\\)`, `\\(0.50\\)`, `\\(0.40\\)`],
   correctIndex: 0,
-  explain: `\\(P(\\text{brochet}\\cap\\text{réglementaire}) = P(\\text{brochet})\\times P(\\text{réglementaire}\\mid\\text{brochet}) = 0.40\\times 0.50 = 0.20\\).`
+  explain: `\\(P(\\text{brochet}\\cap\\text{réglementaire}) = P(\\text{brochet})\\times P(\\text{réglementaire}\\mid\\text{brochet}) = 0.40\\times 0.50 = 0.20\\)`
 },
 {
     id: 'ex8', section: 'conditionnelle',
   statement: `Avec les mêmes données, quelle est la probabilité qu'un poisson pêché au hasard dans ce lac soit de taille réglementaire (toutes espèces confondues) ?`,
   options: [`\\(0.5075\\)`, `\\(0.45\\)`, `\\(0.6\\)`],
   correctIndex: 0,
-  explain: `Par la formule des probabilités totales : \\(P(\\text{réglementaire}) = 0.40\\times0.50+0.25\\times0.60+0.35\\times0.45 = 0.20+0.15+0.1575 = 0.5075\\).`
+  explain: `Par la formule des probabilités totales : \\(P(\\text{réglementaire}) = 0.40\\times0.50+0.25\\times0.60+0.35\\times0.45 = 0.20+0.15+0.1575 = 0.5075\\)`
 },
 {
     id: 'ex9', section: 'conditionnelle',
@@ -83,14 +83,14 @@ const EXERCISES = [
     `Oui, car les trois événements ont la même probabilité 1/2`
   ],
   correctIndex: 0,
-  explain: `L'indépendance deux à deux n'implique pas l'indépendance mutuelle : ici \\(P(A\\cap B\\cap C)=P(\\text{les deux dés pairs})=1/4\\) alors que \\(P(A)P(B)P(C)=1/8\\).`
+  explain: `L'indépendance deux à deux n'implique pas l'indépendance mutuelle : ici \\(P(A\\cap B\\cap C)=P(\\text{les deux dés pairs})=1/4\\) alors que \\(P(A)P(B)P(C)=1/8\\)`
 },
 {
     id: 'ex11', section: 'conditionnelle',
   statement: `Une urne A contient 3 boules rouges et 2 noires, une urne B contient 1 boule rouge et 4 noires. On choisit une urne au hasard (1 chance sur 2 chacune) puis on tire une boule : elle est rouge. Quelle est la probabilité qu'elle provienne de l'urne A ?`,
   options: [`\\(3/4\\)`, `\\(3/5\\)`, `\\(1/2\\)`],
   correctIndex: 0,
-  explain: `\\(P(\\text{rouge})=\\tfrac12\\times\\tfrac35+\\tfrac12\\times\\tfrac15=\\tfrac25\\). Par Bayes, \\(P(A\\mid\\text{rouge})=\\dfrac{\\tfrac12\\times\\tfrac35}{\\tfrac25}=\\dfrac{3}{4}\\).`
+  explain: `\\(P(\\text{rouge})=\\tfrac12\\times\\tfrac35+\\tfrac12\\times\\tfrac15=\\tfrac25\\). Par Bayes, \\(P(A\\mid\\text{rouge})=\\dfrac{\\tfrac12\\times\\tfrac35}{\\tfrac25}=\\dfrac{3}{4}\\)`
 },
 {
     id: 'ex12', section: 'variables-aleatoires',
@@ -104,7 +104,7 @@ const EXERCISES = [
   statement: `Une urne contient \\(2n=10\\) trombones dont \\(n-1=4\\) verts et \\(n+1=6\\) jaunes (\\(n=5\\)). On tire 2 trombones avec remise. Quelle est la probabilité de tirer deux trombones verts ?`,
   options: [`\\(0.16\\)`, `\\(0.36\\)`, `\\(0.4\\)`],
   correctIndex: 0,
-  explain: `Tirages avec remise donc indépendants : \\(P(\\text{vert})=4/10=0.4\\), donc \\(P(\\text{2 verts})=0.4^2=0.16\\).`
+  explain: `Tirages avec remise donc indépendants : \\(P(\\text{vert})=4/10=0.4\\), donc \\(P(\\text{2 verts})=0.4^2=0.16\\)`
 },
 {
     id: 'ex14', section: 'variables-aleatoires',
@@ -118,7 +118,7 @@ const EXERCISES = [
   statement: `Une v.a. X suit la loi : \\(P(X=0)=0.2\\), \\(P(X=1)=0.5\\), \\(P(X=2)=0.3\\). Quelle est \\(V(X)\\) ?`,
   options: [`\\(0.49\\)`, `\\(1.1\\)`, `\\(1.7\\)`],
   correctIndex: 0,
-  explain: `\\(E(X)=1.1\\), \\(E(X^2)=0\\times0.2+1\\times0.5+4\\times0.3=1.7\\), donc \\(V(X)=E(X^2)-E(X)^2=1.7-1.21=0.49\\).`
+  explain: `\\(E(X)=1.1\\), \\(E(X^2)=0\\times0.2+1\\times0.5+4\\times0.3=1.7\\), donc \\(V(X)=E(X^2)-E(X)^2=1.7-1.21=0.49\\)`
 },
 {
     id: 'ex16', section: 'variables-aleatoires',
@@ -169,21 +169,21 @@ const EXERCISES = [
     `\\(E(X)=0.3\\), \\(V(X)=2.1\\)`
   ],
   correctIndex: 0,
-  explain: `\\(E(X)=np=10\\times0.3=3\\) et \\(V(X)=np(1-p)=10\\times0.3\\times0.7=2.1\\).`
+  explain: `\\(E(X)=np=10\\times0.3=3\\) et \\(V(X)=np(1-p)=10\\times0.3\\times0.7=2.1\\)`
 },
 {
     id: 'ex21', section: 'lois-usuelles',
   statement: `On tire 3 boules sans remise dans une urne contenant 5 rouges et 3 noires (8 boules). Soit X le nombre de boules rouges tirées. Quelle est \\(E(X)\\) ?`,
   options: [`\\(15/8=1.875\\)`, `\\(3/8\\)`, `\\(5/8\\)`],
   correctIndex: 0,
-  explain: `Pour la loi hypergéométrique, \\(E(X)=n\\times K/N=3\\times5/8=15/8=1.875\\).`
+  explain: `Pour la loi hypergéométrique, \\(E(X)=n\\times K/N=3\\times5/8=15/8=1.875\\)`
 },
 {
     id: 'ex22', section: 'lois-usuelles',
   statement: `On lance un dé truqué pour lequel \\(P(\\text{obtenir un 6})=1/4\\), jusqu'à obtenir un premier 6. Quel est le nombre moyen de lancers nécessaires ?`,
   options: [`\\(4\\)`, `\\(1/4\\)`, `\\(6\\)`],
   correctIndex: 0,
-  explain: `Pour une loi géométrique de paramètre p, \\(E(X)=1/p=1/(1/4)=4\\).`
+  explain: `Pour une loi géométrique de paramètre p, \\(E(X)=1/p=1/(1/4)=4\\)`
 },
 {
     id: 'ex23', section: 'lois-usuelles',
@@ -229,7 +229,7 @@ Piège : l'indépendance deux à deux de 3 événements n'entraîne PAS leur ind
 <span class="math">Loi de Bernoulli</span> \\(\\mathcal B(p)\\) : \\(P(X=1)=p\\), \\(E(X)=p\\), \\(V(X)=p(1-p)\\).<br>
 <span class="math">Loi binomiale</span> \\(\\mathcal B(n,p)\\) (tirages AVEC remise, n répétitions indépendantes de Bernoulli) : \\(P(X=k)=C_n^k\\,p^k(1-p)^{n-k}\\), \\(E(X)=np\\), \\(V(X)=np(1-p)\\).<br>
 <span class="math">Loi hypergéométrique</span> \\(\\mathcal H(N,n,p)\\) (tirages SANS remise dans une population finie de taille N) : \\(E(X)=np\\), \\(V(X)=np(1-p)\\dfrac{N-n}{N-1}\\).<br>
-<span class="math">Loi géométrique</span> \\(\\mathcal G(p)\\) (rang du premier succès) : \\(P(X=k)=(1-p)^{k-1}p\\), \\(E(X)=1/p\\), \\(V(X)=\\dfrac{1-p}{p^2}\\).`
+<span class="math">Loi géométrique</span> \\(\\mathcal G(p)\\) (rang du premier succès) : \\(P(X=k)=(1-p)^{k-1}p\\), \\(E(X)=1/p\\), \\(V(X)=\\dfrac{1-p}{p^2}\\)`
 }
 ];
 

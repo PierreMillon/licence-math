@@ -261,3 +261,82 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   compatible : une ancienne phrase n'a simplement pas ce 9e code
   (`decoded.codes[8] === undefined`), donc rien n'essaie de
   l'appliquer.
+- Même mécanisme étendu à un 10e code (11/08/2026) : la pile de
+  crânes vie entière (`l1maths_skull_pile`, réinitialisations
+  complètes du site) est maintenant exportée elle aussi, plafonnée à
+  15 (une seule pile visible reste lisible au-delà, perdre le compte
+  exact n'a pas d'impact pratique). Choix explicite : seule la pile
+  vie entière est exportée, PAS les pertes/victoires hebdomadaires
+  (`creatureLosses`/`knightCoins`, weekly.js) — elles se
+  réinitialisent de toute façon chaque lundi, les exporter n'aurait
+  aucun sens. Lu/écrit directement en localStorage dans
+  `progression.js` plutôt que via `window.loadSkullPile()`
+  (creature.js) : `progression.js` tourne aussi sur des pages qui ne
+  chargent pas creature.js (`progression.html`), pas de dépendance de
+  chargement de script à gérer.
+
+## Mesure de largeur AVANT que les polices custom soient chargées (11/08/2026)
+
+- Bug réel trouvé (signalé par Pierre, capture à l'appui) : une
+  formule KaTeX dans une option de QCM débordait complètement de
+  l'écran (texte coupé net au bord), et le geste pour la faire
+  glisser déplaçait TOUTE LA PAGE horizontalement au lieu de rester
+  contenu dans le petit cadre prévu — l'écran restait ensuite décalé,
+  plus moyen de scroller normalement.
+- Cause : `wrapOverflowingMath()` (menu.js) décide d'envelopper une
+  formule dans `.math-scroll` en comparant sa largeur mesurée à celle
+  de son conteneur — mais si cette mesure a lieu AVANT que Jersey 10
+  (police custom, plus large que la police de secours) soit
+  effectivement chargée (`font-display: optional` dans le lien
+  Google Fonts), la formule "tient" au moment du calcul avec la
+  police de secours étroite, puis déborde une fois Jersey 10 en place
+  — sans jamais se faire rattraper, puisque `wrapOverflowingMath` ne
+  revient jamais sur ce qu'il a déjà jugé correct.
+- Corrigé en rejouant `wrapOverflowingMath` une seconde fois une fois
+  `document.fonts.ready` résolu (dans `typesetMath`, menu.js) — la
+  fonction ignore déjà ce qui est correctement enveloppé, donc ce
+  second passage ne fait rien sur ce qui était déjà bon, et rattrape
+  ce qui a été mal jugé au premier passage.
+- Pas confirmé à 100 % comme LA cause exacte (comportement de
+  `font-display:optional` notoirement variable entre moteurs/versions
+  iOS), mais correction sans risque et qui couvre exactement cette
+  classe de problème — à garder si le symptôme réapparaît.
+
+## Point orphelin après une formule dans les textes d'explication (11/08/2026)
+
+- Trouvé (signalé par Pierre, capture à l'appui) : certaines phrases
+  `explain` se terminaient par `\)."`  — un point juste après le
+  délimiteur de fermeture LaTeX, donc EN DEHORS de la formule, en
+  texte normal. Invisible tant que la formule tient sur une ligne
+  (le point suit juste derrière) ; mais dès que la formule est assez
+  large pour être enveloppée dans `.math-scroll` (devient un bloc),
+  ce point se retrouve seul sur la ligne suivante, orphelin.
+  29 occurrences trouvées (`probabilites.js`, `statistiques.js`,
+  uniquement ces deux fichiers) — point supprimé partout par recherche
+  globale (`\).` en fin de chaîne → `\)`), aucune n'avait de texte
+  après le point donc aucun risque de casser une phrase plus longue.
+  Réflexe pour du contenu futur : ne jamais mettre de ponctuation
+  juste après un `\)` fermant si la formule peut potentiellement
+  déborder — soit la mettre DANS la formule, soit la retirer.
+
+## Rythme du cœur du menu (11/08/2026, demande explicite)
+
+- Idée initiale de Pierre (capteur de bruit ambiant ou capteur de
+  vibrations du téléphone pour capter le vrai rythme cardiaque) —
+  expliqué que la vraie technique pour ça sur téléphone est
+  caméra+flash (PPG), pas l'accéléromètre, et que dans tous les cas
+  ça demande une permission caméra/micro pour un simple détail
+  décoratif — jugé disproportionné, pas implémenté.
+- Version retenue à la place (bien plus simple, pas de capteur) : le
+  rythme varie selon le taux de bonnes réponses réel du site
+  (correct/répondu, toutes fiches confondues — PAS la complétion/
+  progression, juste la précision). 0% ou pas encore de données =
+  rythme "pas sportif" (88 BPM) ; 100% = rythme "sportif au repos"
+  (50 BPM). `computeAccuracyPercent()`/`applyHeartRate()` dans
+  menu.js (chargé partout, contrairement à weekly.js/CHAPTER_TOTALS
+  absents de changelog/mistakes/notation.html) — lit directement
+  `l1maths_progress`, ne dépend d'aucun total par chapitre donc
+  fonctionne identiquement sur toutes les pages sans dégradation à
+  gérer. `animation-duration` posé en `style.` inline par-dessus le
+  raccourci CSS `animation:` existant (même technique déjà utilisée
+  pour la pièce du pull-to-refresh).

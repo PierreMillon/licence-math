@@ -232,10 +232,28 @@ function applyPrefsNibble(n){
   });
 }
 
+/* Pile de crânes (creature.js, réinitialisations complètes du site) :
+   lue directement en localStorage plutôt que via window.loadSkullPile
+   pour ne pas dépendre du chargement de creature.js — progression.js
+   tourne aussi sur progression.html, qui ne charge pas creature.js.
+   10ᵉ code, plafonné à 15 (une seule pile de crânes visible reste
+   lisible bien au-delà de 15 réinitialisations ; perdre le compte
+   exact au-delà de ce plafond lors d'un import n'a pas d'impact
+   pratique). Uniquement la pile "vie entière" : les pertes/victoires
+   hebdomadaires ne sont pas exportées, elles se réinitialisent de
+   toute façon chaque lundi. */
+const SKULL_PILE_KEY_FOR_EXPORT = 'l1maths_skull_pile';
+
+function loadSkullPileForExport(){
+  const n = parseInt(localStorage.getItem(SKULL_PILE_KEY_FOR_EXPORT), 10);
+  return Number.isFinite(n) ? n : 0;
+}
+
 function exportProgressPhrase(){
   const ids = Object.keys(CHAPTER_STATE_KEYS);
   const codes = ids.map(id => Math.round((chapterMasteryPercent(id) / 100) * 15));
   codes.push(encodePrefsNibble());
+  codes.push(Math.min(15, loadSkullPileForExport()));
   const badge = badgeWord(overallMasteryPercent());
   return `${badge}-${encodeCodes(codes, ids.length)}`;
 }
@@ -296,6 +314,11 @@ function importProgressPhrase(phrase){
   // phrase exportée avant ce changement, ignoré silencieusement alors.
   const prefsCode = decoded.codes[ids.length];
   if(prefsCode !== undefined) applyPrefsNibble(prefsCode);
+  // 10ᵉ code = pile de crânes (réinitialisations complètes, plafonné à
+  // 15) ; absent sur une phrase exportée avant ce changement, ignoré
+  // silencieusement alors (la pile locale existante n'est pas touchée).
+  const skullCode = decoded.codes[ids.length + 1];
+  if(skullCode !== undefined) localStorage.setItem(SKULL_PILE_KEY_FOR_EXPORT, String(skullCode));
   return { applied, mismatch };
 }
 window.importProgressPhrase = importProgressPhrase;

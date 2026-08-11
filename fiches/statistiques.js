@@ -12,70 +12,70 @@ const EXERCISES = [
   statement: `Une série statistique de notes (0,1,2,3) a pour effectifs (10,10,40,20) sur \\(N=80\\) étudiants. Quelle est la moyenne \\(\\bar x\\) ?`,
   options: [`\\(1.875\\)`, `\\(1.5\\)`, `\\(2\\)`],
   correctIndex: 0,
-  explain: `\\(\\bar x=(0\\times10+1\\times10+2\\times40+3\\times20)/80=150/80=1.875\\).`
+  explain: `\\(\\bar x=(0\\times10+1\\times10+2\\times40+3\\times20)/80=150/80=1.875\\)`
 },
 {
     id: 'ex2', section: 'univariee',
   statement: `Avec la même série (notes 0,1,2,3 ; effectifs 10,10,40,20 sur 80), quelle est la variance \\(V(X)\\) ?`,
   options: [`\\(0.859375\\)`, `\\(1.875\\)`, `\\(4.375\\)`],
   correctIndex: 0,
-  explain: `\\(E(X^2)=(0\\times10+1\\times10+4\\times40+9\\times20)/80=350/80=4.375\\), donc \\(V(X)=4.375-1.875^2=4.375-3.515625=0.859375\\).`
+  explain: `\\(E(X^2)=(0\\times10+1\\times10+4\\times40+9\\times20)/80=350/80=4.375\\), donc \\(V(X)=4.375-1.875^2=4.375-3.515625=0.859375\\)`
 },
 {
     id: 'ex3', section: 'univariee',
   statement: `On transforme les notes en points via \\(T=4X-3\\) (barème : +4 par bonne réponse, -3 fixe). Sachant \\(\\bar x=1.875\\), quelle est la moyenne de T ?`,
   options: [`\\(4.5\\)`, `\\(1.875\\)`, `\\(7.5\\)`],
   correctIndex: 0,
-  explain: `\\(E(T)=4\\times E(X)-3=4\\times1.875-3=7.5-3=4.5\\).`
+  explain: `\\(E(T)=4\\times E(X)-3=4\\times1.875-3=7.5-3=4.5\\)`
 },
 {
     id: 'ex4', section: 'univariee',
   statement: `Toujours avec \\(T=4X-3\\) et \\(V(X)=0.859375\\), quelle est \\(V(T)\\) ?`,
   options: [`\\(13.75\\)`, `\\(0.859375\\)`, `\\(0.4375\\)`],
   correctIndex: 0,
-  explain: `\\(V(aX+b)=a^2V(X)\\) : le terme constant -3 n'affecte PAS la variance, donc \\(V(T)=4^2\\times0.859375=16\\times0.859375=13.75\\).`
+  explain: `\\(V(aX+b)=a^2V(X)\\) : le terme constant -3 n'affecte PAS la variance, donc \\(V(T)=4^2\\times0.859375=16\\times0.859375=13.75\\)`
 },
 {
     id: 'ex5', section: 'univariee',
   statement: `Si \\(V(X)=2\\), que vaut \\(V(3X+7)\\) ?`,
   options: [`\\(18\\)`, `\\(13\\)`, `\\(6\\)`],
   correctIndex: 0,
-  explain: `\\(V(aX+b)=a^2V(X)\\) : la constante \\(b=7\\) n'intervient pas, donc \\(V(3X+7)=3^2\\times2=9\\times2=18\\).`
+  explain: `\\(V(aX+b)=a^2V(X)\\) : la constante \\(b=7\\) n'intervient pas, donc \\(V(3X+7)=3^2\\times2=9\\times2=18\\)`
 },
 {
     id: 'ex6', section: 'univariee',
   statement: `Dans la série précédente (notes 0,1,2,3 ; effectifs 10,10,40,20 sur 80), quelle est la fréquence \\(f\\) de la note 2 ?`,
   options: [`\\(0.5\\)`, `\\(0.4\\)`, `\\(0.25\\)`],
   correctIndex: 0,
-  explain: `\\(f = n_i/N = 40/80 = 0.5\\).`
+  explain: `\\(f = n_i/N = 40/80 = 0.5\\)`
 },
 {
     id: 'ex7', section: 'boite-moustache',
   statement: `Pour la série de notes (0,1,2,3 ; effectifs 10,10,40,20 sur 80), la fréquence cumulée atteint exactement 0.25 à la valeur 1. Quel est donc \\(Q_1\\) ?`,
   options: [`\\(1\\)`, `\\(0\\)`, `\\(1.5\\)`],
   correctIndex: 0,
-  explain: `\\(Q_1\\) est la valeur où la fréquence cumulée croissante atteint 0.25 ; ici cela correspond exactement à \\(x=1\\).`
+  explain: `\\(Q_1\\) est la valeur où la fréquence cumulée croissante atteint 0.25 ; ici cela correspond exactement à \\(x=1\\)`
 },
 {
     id: 'ex8', section: 'boite-moustache',
   statement: `Avec la même série, la fréquence cumulée atteint exactement 0.75 à la valeur 2. Quel est \\(Q_3\\) ?`,
   options: [`\\(2\\)`, `\\(3\\)`, `\\(1.5\\)`],
   correctIndex: 0,
-  explain: `\\(Q_3\\) est la valeur où la fréquence cumulée croissante atteint 0.75 ; ici cela correspond exactement à \\(x=2\\).`
+  explain: `\\(Q_3\\) est la valeur où la fréquence cumulée croissante atteint 0.75 ; ici cela correspond exactement à \\(x=2\\)`
 },
 {
     id: 'ex9', section: 'boite-moustache',
   statement: `Avec \\(Q_1=1\\) et \\(Q_3=2\\), quel est l'écart interquartile ?`,
   options: [`\\(1\\)`, `\\(2\\)`, `\\(3\\)`],
   correctIndex: 0,
-  explain: `\\(EIQ = Q_3-Q_1 = 2-1 = 1\\).`
+  explain: `\\(EIQ = Q_3-Q_1 = 2-1 = 1\\)`
 },
 {
     id: 'ex10', section: 'boite-moustache',
   statement: `Par interpolation linéaire entre les points (1 ; 0.25) et (2 ; 0.75) de la courbe des fréquences cumulées, quelle est la médiane (fréquence cumulée = 0.5) ?`,
   options: [`\\(1.5\\)`, `\\(1\\)`, `\\(2\\)`],
   correctIndex: 0,
-  explain: `La fraction \\((0.5-0.25)/(0.75-0.25)=0.5\\), donc médiane \\(= 1+0.5\\times(2-1)=1.5\\).`
+  explain: `La fraction \\((0.5-0.25)/(0.75-0.25)=0.5\\), donc médiane \\(= 1+0.5\\times(2-1)=1.5\\)`
 },
 {
     id: 'ex11', section: 'boite-moustache',
@@ -93,14 +93,14 @@ const EXERCISES = [
   statement: `Pour un nuage de points avec \\(\\bar x=3\\) et \\(\\bar y=5\\), quel est le point moyen G ?`,
   options: [`\\((3,5)\\)`, `\\((5,3)\\)`, `\\((3,3)\\)`],
   correctIndex: 0,
-  explain: `Le point moyen est simplement \\(G(\\bar x,\\bar y) = (3,5)\\).`
+  explain: `Le point moyen est simplement \\(G(\\bar x,\\bar y) = (3,5)\\)`
 },
 {
     id: 'ex13', section: 'ajustements',
   statement: `Pour une série de points avec \\(Cov(X,Y)=1.8\\) et \\(V(X)=2\\), quel est le coefficient directeur a de la droite de régression des moindres carrés ?`,
   options: [`\\(0.9\\)`, `\\(1.8\\)`, `\\(3.6\\)`],
   correctIndex: 0,
-  explain: `\\(a = Cov(X,Y)/V(X) = 1.8/2 = 0.9\\).`
+  explain: `\\(a = Cov(X,Y)/V(X) = 1.8/2 = 0.9\\)`
 },
 {
     id: 'ex14', section: 'ajustements',
@@ -111,7 +111,7 @@ const EXERCISES = [
     `Le premier point du nuage`
   ],
   correctIndex: 0,
-  explain: `Par construction (\\(b=\\bar y-a\\bar x\\)), la droite de régression des moindres carrés passe toujours par le point moyen \\(G(\\bar x,\\bar y)\\).`
+  explain: `Par construction (\\(b=\\bar y-a\\bar x\\)), la droite de régression des moindres carrés passe toujours par le point moyen \\(G(\\bar x,\\bar y)\\)`
 },
 {
     id: 'ex15', section: 'ajustements',
@@ -159,7 +159,7 @@ const SECTIONS = [
   cours: `<span class="math">Boîte à moustaches</span> : résume une série par 5 valeurs — minimum, \\(Q_1\\), médiane, \\(Q_3\\), maximum.<br>
 <span class="math">Quartiles</span> \\(Q_1, Q_3\\) : obtenus par interpolation linéaire sur la courbe des fréquences cumulées croissantes (\\(Q_1\\) : fréquence cumulée = 0.25 ; \\(Q_3\\) : = 0.75 ; médiane : = 0.5).<br>
 <span class="math">Écart interquartile</span> : \\(EIQ=Q_3-Q_1\\), mesure la dispersion de la moitié centrale des données (moins sensible aux valeurs extrêmes que l'étendue).<br>
-Une valeur est souvent jugée atypique si elle sort de l'intervalle \\([Q_1-1.5\\,EIQ,\\ Q_3+1.5\\,EIQ]\\).`
+Une valeur est souvent jugée atypique si elle sort de l'intervalle \\([Q_1-1.5\\,EIQ,\\ Q_3+1.5\\,EIQ]\\)`
 },
 {
   id: 'ajustements',
@@ -168,7 +168,7 @@ Une valeur est souvent jugée atypique si elle sort de l'intervalle \\([Q_1-1.5\
 <span class="math">Droite de Mayer</span> : méthode simple (antérieure aux moindres carrés) reliant \\(G_1\\) (moyenne du 1er groupe de points, classés selon x) et \\(G_2\\) (moyenne du 2e groupe).<br>
 <span class="math">Droite de régression</span> (moindres carrés) : \\(y=ax+b\\) avec \\(a=\\dfrac{Cov(X,Y)}{V(X)}\\), \\(b=\\bar y-a\\bar x\\) — cette droite passe TOUJOURS par le point moyen G.<br>
 <span class="math">Coefficient de corrélation linéaire</span> : \\(r=\\dfrac{Cov(X,Y)}{\\sigma_X\\sigma_Y}\\in[-1,1]\\) ; \\(|r|\\) proche de 1 ⇒ ajustement affine pertinent.<br>
-Ajustement non linéaire : changement de variable (ex. \\(z=\\ln y\\)), on ajuste z de façon affine en x, d'où le modèle exponentiel \\(y=e^{ax+b}\\).`
+Ajustement non linéaire : changement de variable (ex. \\(z=\\ln y\\)), on ajuste z de façon affine en x, d'où le modèle exponentiel \\(y=e^{ax+b}\\)`
 }
 ];
 

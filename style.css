@@ -1403,8 +1403,12 @@ code{
   cursor:pointer;
   display:flex;
   gap:8px;
-  align-items:center;
+  align-items:flex-start;
   font-size:1.1rem;
+}
+.qcm-options label span{
+  min-width:0;
+  overflow-wrap:anywhere;
 }
 .qcm-options input[type="radio"]{
   appearance:none;
@@ -1413,6 +1417,7 @@ code{
   height:20px;
   min-width:20px;
   margin:0;
+  margin-top:.15em; /* recale le rond sur la 1re ligne du texte (label en align-items:flex-start) */
   border:2px solid var(--fg);
   border-radius:50%;
   background:#000;
