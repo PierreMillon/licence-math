@@ -6,13 +6,45 @@
    site sont corrects au moment du reset, le joueur gagne une pièce d'or ;
    sinon le dragon gagne un crâne. Score cumulé, jamais remis à
    zéro. Chargé sur toutes les pages, avant fiche-engine.js.
-   ============================================================ */
 
+   Difficulté adaptative (11/08/2026, demande explicite, voir
+   CLAUDE.md) : WEEKLY_THRESHOLD n'est plus une constante fixe, elle
+   varie de ±10 points selon les résultats — une défaite (crâne, que
+   ce soit une vraie défaite hebdo OU une réinitialisation complète du
+   site, les deux comptent pareil par choix explicite) fait baisser
+   l'objectif de la semaine suivante, une victoire le fait monter.
+   Bornée entre WEEKLY_THRESHOLD_MIN et WEEKLY_THRESHOLD_MAX pour que
+   le combat ne devienne jamais ni trivial ni impossible. */
 const CHAPTER_TOTALS = {
   logique: 34, calculus: 27, algebre: 12, analyse: 21,
   probabilites: 23, statistiques: 17, java: 52, python: 43,
 };
-const WEEKLY_THRESHOLD = 0.6;
+const WEEKLY_THRESHOLD_BASE = 0.6;
+const WEEKLY_THRESHOLD_STEP = 0.10;
+const WEEKLY_THRESHOLD_MIN = 0.30;
+const WEEKLY_THRESHOLD_MAX = 0.90;
+const WEEKLY_THRESHOLD_KEY = 'l1maths_weekly_threshold';
+
+function loadWeeklyThreshold(){
+  const n = parseFloat(localStorage.getItem(WEEKLY_THRESHOLD_KEY));
+  if(!Number.isFinite(n)) return WEEKLY_THRESHOLD_BASE;
+  return Math.max(WEEKLY_THRESHOLD_MIN, Math.min(WEEKLY_THRESHOLD_MAX, n));
+}
+
+/* Variable "live" lue par tout le reste du code (victory.js,
+   progression.js, ce fichier) comme avant — c'était une const, elle
+   reste une valeur simple à lire, seule sa mutation change. */
+let WEEKLY_THRESHOLD = loadWeeklyThreshold();
+
+/* +delta après une victoire, -delta après une défaite (delta déjà
+   signé par l'appelant). Persiste et met à jour la variable live. */
+function adjustWeeklyThreshold(delta){
+  const next = Math.max(WEEKLY_THRESHOLD_MIN, Math.min(WEEKLY_THRESHOLD_MAX, loadWeeklyThreshold() + delta));
+  localStorage.setItem(WEEKLY_THRESHOLD_KEY, String(next));
+  WEEKLY_THRESHOLD = next;
+  return next;
+}
+window.adjustWeeklyThreshold = adjustWeeklyThreshold;
 
 const WEEKLY_META_KEY = 'l1maths_weekly_meta';
 const WEEKLY_PROGRESS_KEY = 'l1maths_weekly_progress';
@@ -119,6 +151,7 @@ function resolveAndResetWeek(newWeekStart){
     else score.losses += 1;
     localStorage.setItem(WEEKLY_SCORE_KEY, JSON.stringify(score));
     localStorage.setItem(LAST_RESULT_KEY, won ? 'victory' : 'defeat');
+    adjustWeeklyThreshold(won ? WEEKLY_THRESHOLD_STEP : -WEEKLY_THRESHOLD_STEP);
   }
 
   Object.keys(CHAPTER_TOTALS).forEach(id => {

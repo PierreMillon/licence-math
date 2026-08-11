@@ -355,11 +355,14 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-moon{
   position:absolute;
-  /* Revenue à top:10px le 10/08/2026 — une tentative précédente
-     l'avait fait descendre au niveau du château, mais une lune plus
-     basse que le château n'a pas de sens (elle doit rester haut dans
-     le ciel, en haut à droite). Seul l'alignement sur le bord droit
-     (right:0) était la bonne idée à garder de cette tentative. */
+  /* Revenue au bord droit (right:0) le 11/08/2026 — la vraie cause du
+     "hors champ" trouvée : .scene-plan2 débordait horizontalement en
+     dessous de ~312px de large (voir sa règle plus bas), ce qui
+     perturbait tout élément calé sur le bord droit de la page. Plus
+     besoin de contourner right:0 une fois ce débordement corrigé.
+     top de secours ici (avant le premier rendu JS) ; alignSceneMoon()
+     (scene.js) recalcule le vrai top juste après, à partir du
+     château mesuré — right:0 reste fixe, lui, aligné sur le cadre. */
   top:10px;
   right:0;
   z-index:0;
@@ -467,7 +470,13 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .scene-plan2 svg{
   display:block;
-  width:280px;
+  /* Largeur fixe (280px) débordait sur tout écran plus étroit que
+     ~312px (280 + les 16px de padding de .crt de chaque côté) — bug
+     confirmé le 11/08/2026 (débordement horizontal réel détecté à
+     280px de large, jamais testé en dessous de 320px jusqu'ici). Se
+     limite maintenant à l'espace réellement disponible, quelle que
+     soit la largeur de l'écran, au lieu de déborder silencieusement. */
+  width:min(280px, calc(100vw - 32px));
   height:auto;
 }
 

@@ -30,6 +30,29 @@ function renderSceneMoon(){
   applyMoonPhase(el);
 }
 
+/* Position (top) de la lune calée sur celle du château, MESURÉE
+   plutôt que codée en dur deux fois (11/08/2026, voir CLAUDE.md —
+   "point 5" de la discussion sur la fragilité des positions
+   absolues) : avant, le top du château et celui de la lune étaient
+   deux nombres indépendants dans le CSS, qui auraient pu dériver l'un
+   sans l'autre. La vraie cause du "hors champ" trouvée entre-temps :
+   .scene-plan2 débordait horizontalement sous ~312px de large (voir
+   sa règle, corrigée) — right:0 reste donc la bonne position
+   horizontale pour la lune, inchangée, seul le top est recalculé ici. */
+const MOON_ABOVE_CASTLE_TOP_PX = 80;
+
+function alignSceneMoon(){
+  const moon = document.getElementById('sceneMoon');
+  const castle = document.getElementById('sceneCastle');
+  const battleScene = document.getElementById('battleScene');
+  if(!moon || !castle || !battleScene) return;
+  const castleRect = castle.getBoundingClientRect();
+  const sceneRect = battleScene.getBoundingClientRect();
+  if(castleRect.height === 0 || sceneRect.height === 0) return; // pas encore rendu
+  const castleTopInScene = castleRect.top - sceneRect.top;
+  moon.style.top = Math.max(0, castleTopInScene - MOON_ABOVE_CASTLE_TOP_PX) + 'px';
+}
+
 /* Phase réelle de la lune, calculée localement (aucune API/réseau —
    cohérent avec le reste du site, ex. transfert de progression par
    phrase). Approximation classique (précision ~1 jour) : fraction de
@@ -233,9 +256,17 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWeekDragon();
   initWanderMonster();
   alignCreatureFoot();
+  alignSceneMoon();
   // Les polices/webfonts peuvent charger après coup et décaler la mise
   // en page : on réajuste une fois de plus au chargement complet.
   window.addEventListener('load', () => {
     alignCreatureFoot();
+    alignSceneMoon();
   });
+  // Un pinch-zoom (activé exprès cette session, voir style.css
+  // touch-action) peut désynchroniser viewport visuel et viewport de
+  // mise en page sur certains navigateurs mobiles — réaligner au
+  // redimensionnement (déclenché aussi par un changement de zoom sur
+  // la plupart des moteurs) limite les dégâts si ça arrive.
+  window.addEventListener('resize', alignSceneMoon);
 });

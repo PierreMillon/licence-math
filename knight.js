@@ -129,6 +129,15 @@ const KNIGHT_HELD_ROTATION = {
   probabilites: { deg: -14, origin: '50% 50%'  }, // bouclier → léger angle de garde
 };
 
+/* Refonte "pièce forgée" du 11/08/2026 (demande explicite, voir
+   CLAUDE.md) : la révélation progressive (bas vers haut) reste sur la
+   petite icône de la carte de chapitre (app.js, inchangée — elle
+   utilisait déjà exactement ce mécanisme), mais sur le grand
+   chevalier une pièce n'apparaît plus qu'une fois son chapitre à
+   100% — rien avant, entière d'un coup à 100%, jamais de version
+   partielle sur le corps. Résout à la racine le problème des cheveux
+   qui dépassaient du casque pendant sa révélation progressive (plus
+   de révélation du tout à gérer ici, juste un oui/non). */
 function renderKnight(){
   const zone = document.getElementById('knightZone');
   const figure = document.getElementById('knightFigure');
@@ -140,6 +149,7 @@ function renderKnight(){
     const spot = KNIGHT_GIRL_OVERLAY[p.chapterId];
     if(!spot) return '';
     const fraction = window.weeklyChapterFraction ? window.weeklyChapterFraction(p.chapterId) : 0;
+    if(fraction < 1) return ''; // pas encore forgée : rien sur le chevalier
     // preserveAspectRatio="none" : sur le badge (aspect carré) on veut
     // garder les proportions d'origine de la pièce, mais ici la pièce
     // doit remplir EXACTEMENT la zone du corps choisie (KNIGHT_GIRL_
@@ -150,11 +160,10 @@ function renderKnight(){
     const aspectAttr = KNIGHT_HELD_OBJECTS.has(p.chapterId) ? '' : 'preserveAspectRatio="none" ';
     const miniSvg = knightPieceMiniSVG(p.chapterId, p.svg())
       .replace('<svg ', `<svg ${aspectAttr}`);
-    const clip = miniPieceClipStyle(fraction);
     const rot = KNIGHT_HELD_ROTATION[p.chapterId];
     const rotStyle = rot ? `transform:rotate(${rot.deg}deg);transform-origin:${rot.origin};` : '';
     const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};${rotStyle}`;
-    return `<div class="knight-piece-wrap" style="${pos}${clip}">${miniSvg}</div>`;
+    return `<div class="knight-piece-wrap" style="${pos}">${miniSvg}</div>`;
   }).join('');
   figure.innerHTML = piecesHTML;
 }

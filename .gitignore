@@ -1,0 +1,4 @@
+# Sorties transitoires du test de non-régression visuelle
+# (scripts/visual_regression.sh) — seule scripts/visual-baselines/
+# (la référence) est versionnée.
+scripts/visual-check/

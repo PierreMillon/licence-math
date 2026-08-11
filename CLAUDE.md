@@ -47,3 +47,38 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   dimanche minuit, INCHANGÉE. Seule l'évaluation du combat (score,
   victoire/défaite) s'arrête de facto le samedi minuit — la remise à
   zéro réelle des données reste le lundi comme avant.
+- Difficulté adaptative (11/08/2026, livrée) : WEEKLY_THRESHOLD
+  (weekly.js) n'est plus une constante à 60% mais varie de ±10 points
+  selon les résultats — défaite hebdo OU réinitialisation complète du
+  site (les deux comptent pareil, choix explicite) baissent l'objectif
+  de la semaine suivante ; une victoire le fait monter. Bornée 30%-90%
+  (WEEKLY_THRESHOLD_MIN/MAX).
+- Pièces d'armure "forgées" (11/08/2026, livrée) : une pièce n'apparaît
+  plus jamais partiellement sur le grand chevalier — rien avant 100%
+  de progression hebdo dans le chapitre, entière d'un coup une fois
+  atteint (knight.js/renderKnight, `if(fraction<1) return ''`). La
+  révélation progressive bas→haut reste sur la petite icône de la
+  carte de chapitre (app.js) — mécanisme déjà existant, inchangé, pas
+  de nouveau système à construire pour ça.
+
+## Fragilité des positions absolues (retenir pour la suite)
+
+- Principe : ne jamais positionner "en dur" (position absolute + un
+  nombre de pixels choisi à l'œil) un élément qui partage son espace
+  avec du contenu dont la longueur peut varier (texte, phrases). Ça a
+  cassé une fois avec la bulle de l'oiseau (chevauchait le décor du
+  dessus) — corrigé en sortant l'élément variable du flux figé plutôt
+  qu'en ajustant les coordonnées.
+- Vraie cause trouvée pour un bug "lune hors champ" signalé plusieurs
+  fois sur mobile (jamais reproduit avec les largeurs testées jusque
+  là, ≥320px) : `.scene-plan2 svg` avait une largeur FIXE (280px) qui
+  déborde horizontalement sous ~312px de large — un écran plus étroit
+  que prévu suffit à décaler tout élément calé sur `right:0` ailleurs
+  sur la page. Corrigé (`width:min(280px, calc(100vw - 32px))`).
+  Leçon : toujours tester des largeurs sous 320px, pas seulement
+  320-430px comme fait jusqu'ici.
+- `#sceneMoon` a son `top` calculé depuis la position réelle mesurée
+  de `#sceneCastle` (scene.js/`alignSceneMoon`) plutôt que deux
+  nombres indépendants en CSS, pour ne plus pouvoir dériver l'un sans
+  l'autre silencieusement — position horizontale (`right:0`) laissée
+  telle quelle, la vraie cause étant le débordement de plan2 ci-dessus.
