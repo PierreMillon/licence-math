@@ -569,7 +569,11 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   top:217px;
   left:10px;
   width:16px;
-  z-index:0;
+  /* z-index:1 (au-dessus de .scene-plan2, la barrière/campagne, qui
+     reste à 0) : le dragon doit rester visible devant la grille plutôt
+     que passer derrière (même z-index que plan2 avant, l'ordre DOM
+     tranchait en faveur de la barrière posée après lui). */
+  z-index:1;
   color:var(--fg);
   transition:top .4s ease, left .4s ease, width .4s ease;
 }
@@ -827,30 +831,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .creature-losses .weekly-score-more{
   color:var(--fg);
-}
-
-/* ---------- petit monstre qui traverse le bas de l'écran ---------- */
-.wander-monster{
-  position:fixed;
-  left:-90px;
-  bottom:14px;
-  width:70px;
-  height:auto;
-  z-index:40;
-  color:var(--fg);
-  pointer-events:none;
-}
-.wander-monster svg{
-  display:block;
-  width:100%;
-  height:auto;
-}
-.wander-monster.walking{
-  animation:wanderAcross 11s linear;
-}
-@keyframes wanderAcross{
-  0%{ left:-90px; }
-  100%{ left:calc(100vw + 90px); }
 }
 
 .victory-scene{

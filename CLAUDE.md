@@ -194,8 +194,10 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   Nécessite `viewport-fit=cover` dans le `<meta viewport>` de TOUTES
   les pages, sinon `env(safe-area-inset-bottom)` vaut toujours 0 et le
   correctif ne fait rien — ajouté aux 15 pages en même temps.
-  `.wander-monster` (décoratif, non cliquable) laissé tel quel,
-  pas concerné puisqu'il n'y a rien à taper dessus.
+  `.wander-monster` (décoratif, non cliquable) avait été laissé tel
+  quel à l'époque, pas concerné puisqu'il n'y avait rien à taper
+  dessus — fonctionnalité retirée depuis (voir plus bas), la remarque
+  ne s'applique donc plus qu'à titre historique.
 
 ## `preventDefault()` sur `touchstart` bloque les clics des enfants (11/08/2026)
 
@@ -369,3 +371,25 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   `calc(84px + env(safe-area-inset-bottom))` — dégage largement les
   boutons quel que soit l'appareil, pas seulement les iPhone à
   indicateur d'accueil.
+
+## Petit monstre errant retiré + dragon caché derrière la barrière (11/08/2026)
+
+- Retiré sur demande explicite : le petit monstre qui traversait
+  l'écran après 3 minutes d'inactivité (`.wander-monster`,
+  `initWanderMonster()`/`scene.js`, `MONSTER_WALK_SVG`/
+  `creature-svgs.js`, page de démo `demo-monstre.html` — supprimée,
+  n'était liée depuis aucune autre page). Fonctionnalité entièrement
+  retirée, pas juste masquée — plus aucune trace dans le HTML/JS/CSS.
+  Curseur clignotant retiré aussi des phrases de sagesse en bas de
+  fiche (`#ficheEndPhrase`) sur les 8 pages, demande explicite.
+- Signalé au passage : le dragon de la semaine (`#sceneDragon`)
+  s'affichait DERRIÈRE la barrière de campagne (`#scenePlan2`) au lieu
+  de devant. Cause : les deux étaient à `z-index:0` — à égalité de
+  z-index, l'ordre de peinture retombe sur l'ordre du DOM, et
+  `.scene-plan2` est déclaré après `.scene-dragon` dans index.html,
+  donc peint par-dessus. Corrigé en passant `.scene-dragon` à
+  `z-index:1`. Réflexe à garder pour tout futur élément du système de
+  plans de la scène (voir les autres notes sur château/lune/plan2
+  plus haut) : un `z-index` explicite et distinct par plan évite ce
+  genre de piège lié à l'ordre de déclaration dans le HTML, qui peut
+  changer sans rapport avec l'intention visuelle.

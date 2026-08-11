@@ -294,60 +294,12 @@ function alignCreatureFoot(){
   if(delta) zone.style.transform = `translateY(${delta}px)`;
 }
 
-/* ---------- petit monstre : traverse l'écran après 3 min d'inactivité ---------- */
-const WANDER_IDLE_MS = 3 * 60 * 1000;
-const WANDER_ACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'wheel'];
-
-function playMonsterGroikSound(){
-  if(typeof getAudioCtx !== 'function' || typeof playSlide !== 'function') return;
-  const ctx = getAudioCtx();
-  const now = ctx.currentTime;
-  playSlide(ctx, 220, 80, now, 0.22, { vol: 0.28, shape: 'sawtooth', attack: 0.008, release: 0.08 });
-  playSlide(ctx, 130, 65, now + 0.03, 0.24, { vol: 0.16, shape: 'square', attack: 0.008, release: 0.1 });
-}
-
-function initWanderMonster(){
-  const el = document.getElementById('wanderMonster');
-  if(!el || typeof MONSTER_WALK_SVG === 'undefined') return;
-  el.innerHTML = MONSTER_WALK_SVG;
-
-  let idleTimer = null;
-
-  function runWander(){
-    el.hidden = false;
-    el.classList.remove('walking');
-    void el.offsetWidth; // force reflow pour pouvoir rejouer l'animation
-    el.classList.add('walking');
-    playMonsterGroikSound();
-  }
-
-  function onWalkEnd(e){
-    if(e.target !== el) return;
-    el.hidden = true;
-    el.classList.remove('walking');
-    scheduleWander();
-  }
-  el.addEventListener('animationend', onWalkEnd);
-
-  function scheduleWander(){
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(runWander, WANDER_IDLE_MS);
-  }
-
-  WANDER_ACTIVITY_EVENTS.forEach(evt => {
-    window.addEventListener(evt, scheduleWander, { passive: true });
-  });
-
-  scheduleWander();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();
   renderSceneMoon();
   renderSceneCastle();
   renderScenePlan2();
   renderWeekDragon();
-  initWanderMonster();
   alignCreatureFoot();
   alignSceneMoon();
   alignScenePlan2();
