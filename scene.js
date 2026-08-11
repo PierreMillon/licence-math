@@ -4,9 +4,9 @@
    - le chevalier (personnage complet, en couleur) posé dans la
      zone chevalier, à côté du système de pièces d'équipement
      existant (inchangé) ;
-   - l'oiseau posé entre le dragon (mascotte de progression,
-     creature.js) et le chevalier, qui cligne des yeux à un
-     intervalle aléatoire entre 3 et 10 secondes ;
+   - le dragon de la semaine (voir renderWeekDragon), qui sort de la
+     grotte et s'en approche un palier par jour, du lundi au samedi —
+     refonte du 11/08/2026, voir CLAUDE.md ;
    - un petit monstre qui traverse le bas de l'écran après 3
      minutes sans la moindre activité (souris, clavier, tactile,
      scroll), avec un bruitage synthétisé. Se réarme à chaque
@@ -77,63 +77,62 @@ function renderScenePlan2(){
   el.innerHTML = PLAN2_SVG;
 }
 
-/* ---------- oiseau : clin d'œil aléatoire (3 à 10 s) ---------- */
-function initSceneBird(){
-  const el = document.getElementById('sceneBird');
-  if(!el || typeof BIRD_SVG === 'undefined') return;
+/* ---------- dragon de la semaine : sort de la grotte et s'approche ---------- */
+/* Refonte du 11/08/2026 (voir CLAUDE.md) : remplace l'ancien oiseau
+   décoratif (qui n'apparaissait qu'une fois la mascotte d'absence
+   transformée en dragon, jamais vu par un élève assidu — le défaut
+   corrigé par cette refonte). Il s'approche d'un palier par jour, du
+   lundi au samedi, jusqu'à arriver au premier plan juste avant le
+   combat (déclenché à minuit, voir weekly.js/isWeeklyRestDay). Le
+   dimanche affiche le résultat (victory.js) à la place de toute la
+   scène, donc ce dragon n'est de toute façon plus visible ce jour-là
+   — sauf si rien n'a été fait cette semaine, auquel cas il reste
+   sagement à son palier d'arrivée faute de combat déclenché.
+   Deux dessins différents, PAS un seul redimensionné du début à la
+   fin (retour du 11/08/2026) : DRAGON_SVG (endormi, roulé en boule)
+   UNIQUEMENT le lundi ; à partir de mardi il est réveillé et debout —
+   silhouette dressée DRAGON_VICTORIOUS_SVG, déjà dessinée pour la
+   scène de défaite (victory.js), réutilisée telle quelle ici. */
+const WEEK_DRAGON_TIERS = [
+  // top/left/width en px (repère de .battle-scene), + quel dessin.
+  // Réglés à l'œil par capture d'écran, pas par calcul de densité pur
+  // — un dragon qui s'approche est une pose artistique. Palier 0 calé
+  // sur le centre réel de la porte noire de la grotte (CAVE_SVG :
+  // ouverture x24-40/y12-28 sur son viewBox 64×28, donc x15-25/
+  // y224,5-234,5 une fois la grotte affichée à top:217/width:40) ;
+  // paliers 1-5 en DRAGON_VICTORIOUS_SVG (aspect ~1:1, bien plus haut
+  // que large que le dessin endormi 60×39) donc tailles/hauteurs
+  // recalées en conséquence, pieds posés progressivement plus bas (du
+  // niveau de la grotte vers celui des pieds du chevalier).
+  { svg: 'sleeping',   top: 226, left: 15,  width: 10 },  // lundi    : endormi, dans le noir de la porte
+  { svg: 'victorious', top: 214, left: 10,  width: 22 },  // mardi    : réveillé, sort au seuil
+  { svg: 'victorious', top: 195, left: 25,  width: 45 },  // mercredi
+  { svg: 'victorious', top: 174, left: 55,  width: 80 },  // jeudi
+  { svg: 'victorious', top: 161, left: 90,  width: 125 }, // vendredi
+  { svg: 'victorious', top: 154, left: 110, width: 175 }, // samedi   : arrivé, dressé derrière les personnages
+];
 
-  /* Tant que la mascotte de progression est encore un oiseau (peu de
-     retard), pas la peine d'en afficher un deuxième juste à côté :
-     l'oiseau décoratif n'apparaît qu'une fois le dragon sorti. */
-  const lateness = typeof window.getCreatureLateness === 'function' ? window.getCreatureLateness() : 2;
-  if(lateness <= 1){
-    el.hidden = true;
-    return;
-  }
-
-  let blinking = false;
-  function render(){
-    el.innerHTML = blinking ? BIRD_SVG_BLINK : BIRD_SVG;
-  }
-  function scheduleNext(){
-    const delay = 3000 + Math.random() * 7000; // 3 à 10 s
-    setTimeout(() => {
-      blinking = true;
-      render();
-      setTimeout(() => {
-        blinking = false;
-        render();
-        scheduleNext();
-      }, 140); // durée du clignement
-    }, delay);
-  }
-
-  render();
-  scheduleNext();
+/* Lundi=palier 0 ... samedi=palier 5 ; dimanche (combat déjà joué)
+   reste sur le palier d'arrivée. */
+function weekDragonTier(date){
+  const day = date.getDay(); // 0=dimanche .. 6=samedi
+  if(day === 0) return 5;
+  return day - 1;
 }
 
-/* ---------- aligne le bas de l'oiseau sur le bas du chevalier ---------- */
-/* La colonne du chevalier contient aussi les pièces d'or gagnées sous
-   elle : son bord bas (utilisé par align-items:flex-end de la rangée)
-   n'est donc pas au niveau des pieds du chevalier, mais plus bas.
-   Un margin-bottom fixe en CSS ne peut pas suivre une hauteur de
-   colonne variable (le nombre de pièces peut faire changer de ligne)
-   → mesure réelle des deux SVG et ajustement au pixel près. */
-function alignSceneBird(){
-  const bird = document.getElementById('sceneBird');
-  const knightGirl = document.getElementById('knightGirl');
-  if(!bird || bird.hidden || !knightGirl) return;
-  const birdSvg = bird.querySelector('svg');
-  const knightSvg = knightGirl.querySelector('svg');
-  if(!birdSvg || !knightSvg) return;
-
-  const birdRect = birdSvg.getBoundingClientRect();
-  const knightRect = knightSvg.getBoundingClientRect();
-  if(birdRect.height === 0 || knightRect.height === 0) return; // pas encore rendu
-
-  const delta = knightRect.bottom - birdRect.bottom;
-  const currentMargin = parseFloat(getComputedStyle(bird).marginBottom) || 0;
-  bird.style.marginBottom = (currentMargin + delta) + 'px';
+function renderWeekDragon(){
+  const el = document.getElementById('sceneDragon');
+  if(!el || typeof DRAGON_SVG === 'undefined' || typeof DRAGON_VICTORIOUS_SVG === 'undefined') return;
+  const tier = WEEK_DRAGON_TIERS[weekDragonTier(new Date())];
+  el.innerHTML = tier.svg === 'sleeping' ? DRAGON_SVG : DRAGON_VICTORIOUS_SVG;
+  el.style.top = tier.top + 'px';
+  el.style.left = tier.left + 'px';
+  el.style.width = tier.width + 'px';
+  /* DRAGON_VICTORIOUS_SVG regarde vers la gauche par défaut (dessiné
+     pour la scène de défaite, où le sens n'a pas d'importance) — miroir
+     horizontal pour qu'il regarde vers la droite, donc vers le
+     chevalier qu'il approche (retour du 11/08/2026). */
+  el.style.transform = tier.svg === 'sleeping' ? '' : 'scaleX(-1)';
 }
 
 /* ---------- aligne le bas de la mascotte (oiseau/dragon) sur le bas du
@@ -224,14 +223,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSceneMoon();
   renderSceneCastle();
   renderScenePlan2();
-  initSceneBird();
+  renderWeekDragon();
   initWanderMonster();
-  alignSceneBird();
   alignCreatureFoot();
   // Les polices/webfonts peuvent charger après coup et décaler la mise
   // en page : on réajuste une fois de plus au chargement complet.
   window.addEventListener('load', () => {
-    alignSceneBird();
     alignCreatureFoot();
   });
 });

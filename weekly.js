@@ -136,8 +136,44 @@ function ensureWeekCurrent(){
   }
 }
 
+/* Calcule et pose le verdict du combat dès qu'on arrive dimanche, au
+   lieu d'attendre la remise à zéro du lundi (resolveAndResetWeek, plus
+   bas dans ce fichier) — réutilise le même drapeau (LAST_RESULT_KEY)
+   donc tout l'affichage existant de victory.js marche sans y toucher.
+   Comme recordWeeklyAnswer ne touche plus rien le dimanche (voir
+   isWeeklyRestDay ci-dessus), ce verdict reste identique toute la
+   journée même si on le recalcule à chaque chargement — idempotent :
+   si le drapeau est déjà posé (première fois cette semaine, ou déjà
+   vu/fermé et qu'on revient), on ne le repose pas une deuxième fois. */
+function ensureSundayOutcomeShown(){
+  if(!isWeeklyRestDay()) return;
+  ensureWeekCurrent();
+  if(localStorage.getItem(LAST_RESULT_KEY)) return;
+  const { total, correct } = weeklyTotals();
+  if(correct <= 0) return; // rien fait cette semaine, pas de verdict à montrer
+  const ratio = total > 0 ? correct / total : 0;
+  const won = ratio >= WEEKLY_THRESHOLD;
+  localStorage.setItem(LAST_RESULT_KEY, won ? 'victory' : 'defeat');
+}
+window.ensureSundayOutcomeShown = ensureSundayOutcomeShown;
+
+/* Dimanche est un jour de repos pour le combat (demande du 11/08/2026,
+   voir CLAUDE.md) : plus aucune réponse ne touche la couche hebdo à
+   partir de samedi minuit — ni le score du combat, ni le remplissage
+   de l'armure du chevalier (weeklyChapterFraction lit la même donnée).
+   Le score reste donc exactement celui de samedi minuit jusqu'à la
+   vraie remise à zéro du lundi (resolveAndResetWeek, inchangée). La
+   progression PERMANENTE (compteur global, PROGRESS_KEY dans
+   fiche-engine.js) n'est pas concernée : elle continue de bouger
+   normalement le dimanche, seul recordWeeklyAnswer est court-circuité
+   ici. */
+function isWeeklyRestDay(){
+  return new Date().getDay() === 0; // 0 = dimanche
+}
+
 function recordWeeklyAnswer(chapterId, exId, isCorrect){
   ensureWeekCurrent();
+  if(isWeeklyRestDay()) return;
   const key = weeklyStateKey(chapterId);
   let state = {};
   try{ state = JSON.parse(localStorage.getItem(key)) || {}; }
@@ -180,5 +216,6 @@ function renderWeeklyScore(){
 
 document.addEventListener('DOMContentLoaded', () => {
   ensureWeekCurrent();
+  ensureSundayOutcomeShown(); // avant victory.js (chargé après, même événement)
   renderWeeklyScore();
 });

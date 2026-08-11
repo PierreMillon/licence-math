@@ -23,16 +23,27 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   vit dans la grotte sous ses fondations — métaphore assumée (on ne se
   bat pas contre quelqu'un d'autre, on va chercher en soi-même quelque
   chose qu'il faut mériter).
-- Deux dragons distincts dans le code, ne pas les confondre :
-  1. `creature.js` — mascotte d'ABSENCE (oiseau ↔ dragon selon les
-     jours sans exercice répondu). Système en cours de refonte (voir
-     discussion du 11/08/2026) : le dragon-absence doit céder la place
-     à un dragon-semaine (ci-dessous), l'oiseau restant la mascotte
-     permanente qui porte la bulle de taquinerie.
-  2. `weekly.js` + scène de victoire/défaite (`index.html`) — combat
-     hebdomadaire au seuil de 60%, dragon vivant dans la grotte de la
-     scène de fond.
+- Refonte du 11/08/2026 (livrée) : l'oiseau (`creature.js`) est
+  maintenant la mascotte PERMANENTE, ne se transforme plus jamais en
+  dragon — il porte la bulle d'alerte d'absence (`bubbleText`,
+  inchangée) et une phrase taquine (`BIRD_TEASE_PHRASES`, voix fictive
+  unique "Le Scribe aux Six Voix" fondant Asimov/Shakespeare/Poe/
+  Lovecraft/Woody Allen/Monty Python — PUNCHLINES COURTES qui
+  capturent juste l'ambiance de chacun, jamais une citation/tournure
+  reconnaissable d'un auteur précis, retour explicite du 11/08/2026
+  après une 1re version jugée trop littérale).
+- Le dragon de la semaine (`scene.js`/`renderWeekDragon`) sort de la
+  grotte et s'approche un palier par jour, lundi → samedi (voir
+  `WEEK_DRAGON_TIERS`) : lundi il est ENDORMI (`DRAGON_SVG`, roulé en
+  boule, à peine visible dans le noir de la porte de la grotte) ; à
+  partir de mardi il est RÉVEILLÉ ET DEBOUT (`DRAGON_VICTORIOUS_SVG`,
+  silhouette dressée, tournée vers la droite — vers le chevalier).
+  Combat déclenché samedi minuit (`weekly.js`/`isWeeklyRestDay`,
+  dimanche = repos, le score ne bouge plus) ; résultat affiché en
+  statique toute la journée de dimanche (`ensureSundayOutcomeShown`,
+  réutilise le même drapeau/affichage que le reset du lundi,
+  `victory.js` inchangé).
 - Semaine calendaire (affichage, countdown "il reste Xj Yh") : lundi →
-  dimanche minuit. Ne pas confondre avec une éventuelle semaine de
-  score plus courte (lundi → samedi) si elle est mise en place —
-  vérifier weekly.js et son historique de commits pour l'état actuel.
+  dimanche minuit, INCHANGÉE. Seule l'évaluation du combat (score,
+  victoire/défaite) s'arrête de facto le samedi minuit — la remise à
+  zéro réelle des données reste le lundi comme avant.

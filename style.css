@@ -426,6 +426,28 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   height:auto;
 }
 
+/* Dragon de la semaine (refonte du 11/08/2026, voir CLAUDE.md et
+   scene.js/renderWeekDragon) : sort de la grotte et s'en approche un
+   palier par jour. Contrairement au reste du décor (château/grotte/
+   plan2, atténués en var(--fg-dim)), il reste en var(--fg) — c'est un
+   personnage de l'histoire de la semaine, pas un simple fond. top/
+   left/width posés en JS à chaque jour (voir WEEK_DRAGON_TIERS),
+   valeurs ici juste des repères de secours avant le premier rendu. */
+.scene-dragon{
+  position:absolute;
+  top:217px;
+  left:10px;
+  width:16px;
+  z-index:0;
+  color:var(--fg);
+  transition:top .4s ease, left .4s ease, width .4s ease;
+}
+.scene-dragon svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
 /* Plan 2 (bâtiments/campagne) du système de profondeur à 4 plans —
    bande large (cottage, clôture, arbres) plutôt qu'une icône isolée,
    posée entre le château (plan 3, plus loin, en haut de la scène) et
@@ -546,6 +568,39 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   transition:opacity .2s ease, transform .2s ease;
 }
 .creature-bubble.visible{ opacity:1; transform:translateY(0); }
+/* Phrase taquine de l'oiseau (BIRD_TEASE_PHRASES, creature.js), même
+   seuil d'apparition que la bulle (L>=3). Bloc de page normal, HORS de
+   .creature-zone/.battle-zone (voir index.html) : imbriquée dans la
+   colonne flex de l'oiseau, une phrase plus longue que la bulle
+   faisait grandir la colonne vers le haut (align-items:flex-end) et
+   chevauchait le décor en position absolue au-dessus — bug vu à
+   l'écran le 11/08/2026. En bloc normal, elle pousse simplement le
+   reste de la page vers le bas au besoin, jamais de chevauchement. */
+.creature-tease{
+  align-self:center;
+  max-width:280px;
+  margin:10px auto 0;
+  font-size:.72rem;
+  line-height:1.35;
+  font-style:italic;
+  color:var(--fg-dim);
+  text-align:center;
+  opacity:0;
+  max-height:0;
+  overflow:hidden;
+  transition:opacity .2s ease;
+}
+.creature-tease.visible{ opacity:1; max-height:200px; }
+.creature-tease__sig{
+  display:block;
+  font-style:normal;
+  font-family:var(--font-subtitle);
+  font-size:.68rem;
+  letter-spacing:.02rem;
+  margin-top:3px;
+  color:var(--fg-dim);
+  opacity:.8;
+}
 .creature-figure{
   display:flex;
   align-items:flex-end;
@@ -593,23 +648,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .creature-losses .weekly-score-more{
   color:var(--fg);
-}
-
-/* ---------- oiseau posé entre le dragon et le chevalier ---------- */
-.scene-bird{
-  flex:none;
-  align-self:flex-end;
-  /* margin-bottom posé dynamiquement par scene.js (alignSceneBird) pour
-     que le bas de l'oiseau tombe exactement au niveau des pieds du
-     chevalier, pas du bas de la colonne (qui inclut les pièces d'or
-     sous elle) — un chiffre fixe ne suit pas cette hauteur variable. */
-  margin-bottom:0;
-  line-height:0;
-}
-.scene-bird svg{
-  height:19px;
-  width:auto;
-  display:block;
 }
 
 /* ---------- petit monstre qui traverse le bas de l'écran ---------- */

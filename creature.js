@@ -1,37 +1,32 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — creature.js
-   Mascotte de progression : un oiseau qui grossit en dragon plus
-   le nombre de jours sans exercice répondu augmente (à partir du
-   2e jour, plafonné à 40 jours), et redescend d'un cran à chaque
-   exercice répondu. Bulle d'alerte progressive au-delà de 3 jours.
-   Pile de crânes : +1 uniquement à la réinitialisation de TOUT le
-   site, et seulement s'il y avait une vraie progression à perdre
-   (jamais sur une réinitialisation de chapitre, jamais si le site
-   était déjà à zéro — pour ne pas pouvoir en farmer gratuitement).
-   Chargé sur toutes les pages ; ne rend la mascotte que si
-   #creatureZone existe (page d'accueil).
+   Mascotte permanente : un oiseau, toujours affiché (posé en bas de
+   la scène de combat), qui ne se transforme plus en dragon — voir
+   scene.js pour le dragon, désormais un personnage à part entière lié
+   au jour de la semaine (refonte du 11/08/2026, voir CLAUDE.md).
+   L'oiseau garde deux rôles : une bulle d'alerte progressive dès 3
+   jours sans exercice répondu (bubbleText), et une phrase taquine
+   piochée dans BIRD_TEASE_PHRASES au même seuil, signée par un des
+   auteurs de CLAUDE.md. Pile de crânes : +1 uniquement à la
+   réinitialisation de TOUT le site, et seulement s'il y avait une
+   vraie progression à perdre (jamais sur une réinitialisation de
+   chapitre, jamais si le site était déjà à zéro — pour ne pas pouvoir
+   en farmer gratuitement). Chargé sur toutes les pages ; ne rend la
+   mascotte que si #creatureZone existe (page d'accueil).
    ============================================================ */
 
 const CREATURE_STATE_KEY = 'l1maths_creature_state';
 const SKULL_PILE_KEY = 'l1maths_skull_pile';
 const MAX_LATENESS = 40;
-/* Recalé le 10/08/2026 sur la grille de densité du système de
-   profondeur à 4 plans (plan 1 = personnages+sol, densité cible 0,5
-   unité de grille par px écran, calée sur le chevalier — grille
-   33×94 affichée à 180px de haut, densité réelle 0,52). L'oiseau
-   (grille BIRD_SVG 31×23, voir creature-svgs.js) doit avoir la même
-   densité que le chevalier puisqu'ils sont sur le même plan : hauteur
-   affichée = hauteur de grille / densité cible = 23 / 0,5 = 46px
-   (était 35px, valeur arbitraire d'une réduction de moitié antérieure
-   qui ne visait pas encore cette densité). N'affecte que le point de
-   départ de l'interpolation vers le dragon (L>=2, voir renderCreature)
-   — DRAGON_MAX_HEIGHT_PX, lui, reste hors de ce système de plans. */
+/* Calé le 10/08/2026 sur la grille de densité du système de profondeur
+   à 4 plans (plan 1 = personnages+sol, densité cible 0,5 unité de
+   grille par px écran, calée sur le chevalier — grille 33×94 affichée
+   à 188px de haut, densité réelle 0,52). L'oiseau (grille BIRD_SVG
+   31×23, voir creature-svgs.js) doit avoir la même densité que le
+   chevalier puisqu'ils sont sur le même plan : hauteur affichée =
+   hauteur de grille / densité cible = 23 / 0,5 = 46px. Fixe depuis la
+   refonte du 11/08/2026 (l'oiseau ne grossit plus jamais). */
 const BIRD_HEIGHT_PX = 46;
-/* Le nouveau dragon endormi (viewBox 60x39, plus large que haut) prend
-   beaucoup plus de largeur à hauteur égale que l'ancien monstre rond
-   (60x58) : hauteur max réduite en conséquence pour garder un
-   encombrement similaire (~270px de large au maximum). */
-const DRAGON_MAX_HEIGHT_PX = 175;
 
 function todayStr(){
   const d = new Date();
@@ -102,17 +97,66 @@ function bubbleText(lateness){
   return count <= 8 ? '?'.repeat(count) : ('×' + count);
 }
 
-/* Exposée pour scene.js : évite d'afficher un deuxième oiseau décoratif
-   à côté de celui de la mascotte tant que le dragon n'est pas encore
-   sorti (L<=1, mascotte encore sous forme d'oiseau). */
-function getCreatureLateness(){
-  return tickDailyGrowth().lateness;
-}
-window.getCreatureLateness = getCreatureLateness;
+/* Phrases taquines de l'oiseau, une fois le seuil de la bulle atteint
+   (L>=3, même seuil que bubbleText). Demande explicite de Pierre du
+   11/08/2026 (voir CLAUDE.md) : PAS dix pastiches séparés, un par
+   auteur, ni des phrases longues qui reprennent une tournure connue de
+   chacun (1re version, jugée trop littérale) — une seule voix fictive,
+   "Le Scribe aux Six Voix", qui a fondu en elle l'esprit d'Asimov,
+   Shakespeare, Edgar Allan Poe, Lovecraft, Woody Allen et Monty Python
+   sans jamais citer ou parodier une phrase précise de l'un d'eux :
+   juste leur ambiance commune — courtes, punchlines, un peu sombre, un
+   peu drôle, irrévérencieuse, mystique, réflexive, absurde, intelligente.
+   Tirage sans répétition immédiate, même mécanique que END_PHRASES
+   (menu.js). */
+const BIRD_TEASE_PHRASES = [
+  "Le dragon ne dort jamais complètement. Toi non plus, apparemment.",
+  "Réviser ou pas, l'univers s'en moque. Toi, un peu moins.",
+  "Quelque chose respire dans le noir. Sûrement rien. Sûrement.",
+  "Techniquement tout va bien. Émotionnellement, il y a un dragon.",
+  "Le temps est une illusion — sauf le lundi du reset.",
+  "Ce n'est qu'une égratignure, disait-il, juste avant de perdre.",
+  "Le silence a une texture, ces derniers jours. Pas la bonne.",
+  "Continuer est absurde. Abandonner l'est davantage. On continue.",
+  "Quelque part un dragon grandit. Ici, une fiche t'attend, tranquille.",
+  "Tout ceci a un sens caché. Ou pas. Ouvre la fiche, tu verras bien.",
+];
+const BIRD_TEASE_SIGNATURE = "Le Scribe aux Six Voix";
 
-/* Clin d'œil de l'oiseau de la mascotte (tant qu'elle est encore un
-   oiseau, L<=1) : intervalle aléatoire entre 3 et 10 secondes, comme
-   l'oiseau décoratif de scene.js. Arrêté dès que le dragon sort. */
+const TEASE_BAG_KEY = 'l1maths_teasephrase_bag';
+const TEASE_LAST_KEY = 'l1maths_teasephrase_last';
+
+function shuffledIndices(length){
+  const arr = Array.from({ length }, (_, i) => i);
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function nextTeasePhraseIndex(){
+  let bag = [];
+  try{ bag = JSON.parse(sessionStorage.getItem(TEASE_BAG_KEY)) || []; }
+  catch(e){ bag = []; }
+
+  if(!Array.isArray(bag) || bag.length === 0){
+    const previousLast = Number(sessionStorage.getItem(TEASE_LAST_KEY));
+    bag = shuffledIndices(BIRD_TEASE_PHRASES.length);
+    if(BIRD_TEASE_PHRASES.length > 1){
+      while(bag[0] === previousLast) bag = shuffledIndices(BIRD_TEASE_PHRASES.length);
+    }
+  }
+
+  const idx = bag.shift();
+  sessionStorage.setItem(TEASE_BAG_KEY, JSON.stringify(bag));
+  sessionStorage.setItem(TEASE_LAST_KEY, String(idx));
+  return idx;
+}
+
+/* Clin d'œil de l'oiseau : intervalle aléatoire entre 3 et 10
+   secondes. Permanent depuis la refonte du 11/08/2026 (l'oiseau ne
+   disparaît/se transforme plus jamais). */
 let birdBlinkTimer = null;
 
 function scheduleBirdBlink(figure, heightPx){
@@ -140,23 +184,15 @@ function renderCreature(){
 
   const figure = document.getElementById('creatureFigure');
   const bubble = document.getElementById('creatureBubble');
+  const tease = document.getElementById('creatureTease');
   const pile = document.getElementById('skullPile');
 
-  let svg, heightPx;
-  if(L <= 1){
-    svg = BIRD_SVG;
-    heightPx = BIRD_HEIGHT_PX;
-  }else{
-    svg = DRAGON_SVG;
-    const t = Math.min(1, (L - 2) / (MAX_LATENESS - 2));
-    heightPx = Math.round(BIRD_HEIGHT_PX + t * (DRAGON_MAX_HEIGHT_PX - BIRD_HEIGHT_PX));
-  }
-  figure.innerHTML = svg;
+  figure.innerHTML = BIRD_SVG;
   const svgEl = figure.querySelector('.creature-icon');
-  if(svgEl) svgEl.style.height = heightPx + 'px';
+  if(svgEl) svgEl.style.height = BIRD_HEIGHT_PX + 'px';
 
   clearTimeout(birdBlinkTimer);
-  if(L <= 1) scheduleBirdBlink(figure, heightPx);
+  scheduleBirdBlink(figure, BIRD_HEIGHT_PX);
 
   const txt = bubbleText(L);
   if(bubble){
@@ -166,6 +202,20 @@ function renderCreature(){
     }else{
       bubble.textContent = '';
       bubble.classList.remove('visible');
+    }
+  }
+
+  /* Phrase taquine : même seuil que la bulle (L>=3), une seule par
+     rendu (pas une par bulle affichée en boucle, ça bougerait sans
+     arrêt) — voir BIRD_TEASE_PHRASES plus haut. */
+  if(tease){
+    if(txt){
+      const idx = nextTeasePhraseIndex();
+      tease.innerHTML = `“${BIRD_TEASE_PHRASES[idx]}”<span class="creature-tease__sig">— ${BIRD_TEASE_SIGNATURE}</span>`;
+      tease.classList.add('visible');
+    }else{
+      tease.innerHTML = '';
+      tease.classList.remove('visible');
     }
   }
 
