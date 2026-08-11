@@ -75,7 +75,14 @@ const KNIGHT_GIRL_OVERLAY = {
   // y162-178. Les pièces sont étirées avec preserveAspectRatio="none"
   // (voir renderKnight) donc ces zones sont remplies exactement, sans
   // recadrage centré qui les décalerait.
-  java:         { left: 28, top: 1,  width: 44, height: 25 }, // casque   → tête
+  // java (casque) corrigé le 10/08/2026 : la zone "tête" ci-dessus ne
+  // mesurait que la peau du visage, pas les cheveux — un casque plein
+  // stretché sur cette zone-là laissait les cheveux (bien plus larges
+  // ET plus hauts, x6-30/y1-30 sur le viewBox 33x94 du chevalier)
+  // dépasser sur les côtés. Remesuré directement sur le groupe cyan
+  // (cheveux) de KNIGHT_GIRL_SVG : left=18%, top=1%, width=73%,
+  // height=31%, avec une petite marge de sécurité.
+  java:         { left: 17, top: 0,  width: 75, height: 33 }, // casque   → tête + cheveux
   statistiques: { left: 8,  top: 23, width: 92, height: 34 }, // cape     → derrière le buste/épaules
   analyse:      { left: 22, top: 26, width: 73, height: 25 }, // plastron → chemise
   probabilites: { left: 6,  top: 26, width: 26, height: 38 }, // bouclier → bras gauche
