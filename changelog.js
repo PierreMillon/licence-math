@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 118, date: "11/08/2026", desc: "Ajout d'une mesure d'audience anonyme et agrégée (GoatCounter) — pas de cookie, pas d'IP conservée, juste un compteur de visites pour savoir si le site sert à quelqu'un." },
   { v: 117, date: "11/08/2026", desc: "<ul><li>Corrigé un débordement horizontal (la bande château/campagne avait une largeur fixe qui débordait sur les écrans étroits) — probable vraie cause de la lune invisible sur mobile</li><li>Armure du chevalier « forgée » : une pièce n'apparaît plus que d'un coup, entière, une fois son chapitre à 100% cette semaine (avant, elle se révélait partiellement comme sur les cartes de chapitre) — corrige aussi à la racine tout risque de cheveux visibles autour du casque</li><li>Objectif hebdomadaire devenu adaptatif : il baisse de 10 points après une défaite (ou une réinitialisation complète du site) et remonte de 10 points après une victoire, entre 30% et 90%</li></ul>" },
   { v: 116, date: "11/08/2026", desc: "<ul><li>Nouvelles phrases pour l'oiseau — plus courtes, plus sobres, sans référence reconnaissable aux auteurs qui les inspirent</li><li>Sécurité ajoutée sur le calcul de la phase de la lune, pour éviter qu'une valeur inattendue ne la rende invisible</li></ul>" },
   { v: 115, date: "11/08/2026", desc: "Un fin contour a été ajouté à chaque pièce d'équipement du chevalier — sans lui, des pièces voisines de la même couleur se fondaient entre elles et devenaient difficiles à distinguer." },
