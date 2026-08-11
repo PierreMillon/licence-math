@@ -82,3 +82,29 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   nombres indépendants en CSS, pour ne plus pouvoir dériver l'un sans
   l'autre silencieusement — position horizontale (`right:0`) laissée
   telle quelle, la vraie cause étant le débordement de plan2 ci-dessus.
+- Même technique appliquée à `#scenePlan2` (11/08/2026) :
+  `alignScenePlan2()` centre la bande verticalement entre le bas
+  mesuré du château et le bas mesuré des pieds du chevalier, plutôt
+  qu'un `top` fixe. Largeur aussi passée de fixe (280px) à 100% du
+  conteneur (`.battle-scene`, déjà dans la marge standard du site via
+  le padding de `.crt` — pas besoin d'un décalage propre à plan2).
+
+## PWA (icône écran d'accueil + pull-to-refresh)
+
+- Icône d'écran d'accueil (11/08/2026) : générée à partir de
+  `BIRD_SVG` (creature-svgs.js), pas dessinée à part — carré noir +
+  silhouette de l'oiseau (contour blanc aux grandes tailles 180/192/
+  512px, silhouette pleine blanche aux petites tailles 16/32px où le
+  contour fin devient illisible). Fichiers dans `icons/`, référencés
+  par `manifest.json` (racine) et par un bloc de balises `<head>`
+  identique sur toutes les pages (`apple-touch-icon`, favicons,
+  `apple-mobile-web-app-capable`, `theme-color`). Si l'oiseau change
+  de dessin un jour, les icônes ne se régénèrent pas toutes seules —
+  il faudra relancer le script de rendu (voir session du 11/08/2026).
+- Pull-to-refresh (11/08/2026) : `pwa.js`, nouveau fichier, chargé sur
+  toutes les pages juste après menu.js. Ne s'active QUE si le site
+  tourne en mode « ajouté à l'écran d'accueil » (`navigator.standalone`
+  ou `display-mode:standalone`) — sur un onglet de navigateur classique
+  le spinner natif suffit déjà, pas de doublon. Geste suivi au doigt
+  (touchstart/touchmove/touchend), seuil 70px avant que le relâchement
+  déclenche `location.reload()`.

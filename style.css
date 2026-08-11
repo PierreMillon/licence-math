@@ -109,6 +109,46 @@ a:hover{ color:var(--fg-dim); }
 }
 .menu-btn.flash{ background:var(--fg); }
 
+/* ---------- indicateur "tirer pour rafraîchir" (pwa.js) ---------- */
+/* Uniquement visible en mode "ajouté à l'écran d'accueil" (voir
+   isStandaloneWebApp() dans pwa.js) — un onglet de navigateur normal
+   garde son propre spinner natif. Position fixed au-dessus du haut de
+   l'écran, translateY suit le doigt (poussé par pwa.js), inchangé au
+   repos donc invisible tant que .visible n'est pas ajouté. */
+#pullRefreshIndicator{
+  position:fixed;
+  top:-40px;
+  left:0;
+  right:0;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  opacity:0;
+  transition:opacity .15s ease;
+  pointer-events:none;
+}
+#pullRefreshIndicator.visible{ opacity:1; }
+.pull-refresh-spinner{
+  width:20px;
+  height:20px;
+  border:2px solid var(--fg-dim);
+  border-top-color:var(--fg);
+  border-radius:50%;
+}
+#pullRefreshIndicator.ready .pull-refresh-spinner{
+  border-top-color:var(--fg);
+  border-color:var(--fg);
+}
+#pullRefreshIndicator.spinning .pull-refresh-spinner{
+  animation:pullRefreshSpin .6s linear infinite;
+}
+@keyframes pullRefreshSpin{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+
 /* ---------- scroll-to-top button (bas droite) ---------- */
 .scroll-top-btn{
   position:fixed;
@@ -461,28 +501,29 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
    bande large (cottage, clôture, arbres) plutôt qu'une icône isolée,
    posée entre le château (plan 3, plus loin, en haut de la scène) et
    les personnages (plan 1, au premier plan) — voir PLAN2_SVG,
-   creature-svgs.js. Densité 1,0 pile : viewBox 280×24, largeur
-   affichée 280px (280/280 = 1) — tient sur un écran de 320px de
-   large (contenu utile ~288px, voir .crt) ; une première version à
-   340px débordait de 36px, testé et corrigé. Position en dur (comme
-   le reste du décor de cette scène), pas responsive au-delà. */
+   creature-svgs.js.
+   Repositionnée le 11/08/2026 (demande explicite) : bord à bord
+   (left:0 à right:0, dans la même marge que le reste du site — cette
+   marge vient déjà du padding de .crt, .scene-plan2 n'a pas besoin de
+   son propre décalage) au lieu d'une largeur fixe de 280px. La
+   largeur suit donc l'écran, pas de min() ni de vérification sous
+   320px à faire ici. top : valeur de secours seulement, voir
+   alignScenePlan2() (scene.js) qui centre la bande verticalement
+   entre le bas du château et le bas des pieds du chevalier — mesuré
+   plutôt que codé en dur, même logique que pour la lune (voir
+   Fragilité des positions absolues, CLAUDE.md). */
 .scene-plan2{
   position:absolute;
   top:274px;
   left:0;
+  right:0;
   z-index:0;
   color:var(--fg-dim);
   opacity:.85;
 }
 .scene-plan2 svg{
   display:block;
-  /* Largeur fixe (280px) débordait sur tout écran plus étroit que
-     ~312px (280 + les 16px de padding de .crt de chaque côté) — bug
-     confirmé le 11/08/2026 (débordement horizontal réel détecté à
-     280px de large, jamais testé en dessous de 320px jusqu'ici). Se
-     limite maintenant à l'espace réellement disponible, quelle que
-     soit la largeur de l'écran, au lieu de déborder silencieusement. */
-  width:min(280px, calc(100vw - 32px));
+  width:100%;
   height:auto;
 }
 

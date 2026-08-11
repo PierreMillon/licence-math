@@ -119,6 +119,33 @@ function renderScenePlan2(){
   el.innerHTML = PLAN2_SVG;
 }
 
+/* Centre verticalement la bande plan2 dans l'espace entre le bas du
+   château et le bas des pieds du chevalier (demande explicite du
+   11/08/2026 — "pile poil" entre les deux), mesuré plutôt que codé en
+   dur : voir alignSceneMoon() ci-dessous pour la même logique. Appelée
+   après le rendu du château, du plan2 et du chevalier, car elle a
+   besoin des trois pour mesurer. */
+function alignScenePlan2(){
+  const el = document.getElementById('scenePlan2');
+  const castleEl = document.getElementById('sceneCastle');
+  const knightGirl = document.getElementById('knightGirl');
+  const battleScene = document.getElementById('battleScene');
+  if(!el || !castleEl || !knightGirl || !battleScene) return;
+  const knightSvg = knightGirl.querySelector('svg');
+  if(!knightSvg) return;
+
+  const castleRect = castleEl.getBoundingClientRect();
+  const knightRect = knightSvg.getBoundingClientRect();
+  const sceneRect = battleScene.getBoundingClientRect();
+  const elRect = el.getBoundingClientRect();
+  if(castleRect.height === 0 || knightRect.height === 0 || elRect.height === 0) return; // pas encore rendu
+
+  const castleBottom = castleRect.bottom - sceneRect.top;
+  const knightBottom = knightRect.bottom - sceneRect.top;
+  const gapCenter = (castleBottom + knightBottom) / 2;
+  el.style.top = Math.max(0, gapCenter - elRect.height / 2) + 'px';
+}
+
 /* ---------- dragon de la semaine : sort de la grotte et s'approche ---------- */
 /* Refonte du 11/08/2026 (voir CLAUDE.md) : remplace l'ancien oiseau
    décoratif (qui n'apparaissait qu'une fois la mascotte d'absence
@@ -293,16 +320,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initWanderMonster();
   alignCreatureFoot();
   alignSceneMoon();
+  alignScenePlan2();
   // Les polices/webfonts peuvent charger après coup et décaler la mise
   // en page : on réajuste une fois de plus au chargement complet.
   window.addEventListener('load', () => {
     alignCreatureFoot();
     alignSceneMoon();
+    alignScenePlan2();
   });
   // Un pinch-zoom (activé exprès cette session, voir style.css
   // touch-action) peut désynchroniser viewport visuel et viewport de
   // mise en page sur certains navigateurs mobiles — réaligner au
   // redimensionnement (déclenché aussi par un changement de zoom sur
   // la plupart des moteurs) limite les dégâts si ça arrive.
-  window.addEventListener('resize', alignSceneMoon);
+  window.addEventListener('resize', () => {
+    alignSceneMoon();
+    alignScenePlan2();
+  });
 });
