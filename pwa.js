@@ -156,6 +156,25 @@ function initPullToRefresh(){
    PWA) — pas de garde isStandaloneWebApp() ici, la réponse de Pierre
    sur ce point décrivait un geste générique, pas propre au mode
    plein écran. */
+/* Distance minimale de tiré (px) avant qu'un relâchement recharge une
+   nouvelle phrase (12/08/2026, demande explicite : "à chaque fois on
+   a envie de tirer" — effet loterie/machine à sous assumé). Volontai-
+   rement > 0 : un tout petit tremblement de doigt qui arme puis
+   relâche tout de suite ne doit pas grill er une phrase pour rien. */
+const PHRASE_RELOAD_MIN_DRAG = 20;
+
+/* Recharge la phrase du pied de page — fonctions différentes selon la
+   page (renderEndPhrase pour #ficheEndPhrase, menu.js, chargé partout ;
+   renderFooterCycle pour #footerHint, app.js, uniquement sur l'accueil)
+   : on appelle celle qui existe, l'autre est simplement absente de
+   `window` sur les pages où elle ne s'applique pas. Sur les 5 pages à
+   étiquette fixe (progression/mistakes/revision/changelog/notation),
+   aucune des deux n'existe/ne trouve son élément : no-op silencieux. */
+function reloadFooterPhrase(){
+  if(typeof window.renderEndPhrase === 'function') window.renderEndPhrase();
+  if(typeof window.renderFooterCycle === 'function') window.renderFooterCycle();
+}
+
 function initFooterReveal(){
   const wrap = document.querySelector('.footer-reveal');
   if(!wrap) return;
@@ -163,6 +182,7 @@ function initFooterReveal(){
   let startY = null;
   let armed = false;   // le doigt a démarré alors qu'on était déjà au vrai bas de la page
   let dragging = false;
+  let maxDy = 0;        // tiré maximum atteint pendant le geste (voir PHRASE_RELOAD_MIN_DRAG)
 
   function isAtBottom(){
     const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
@@ -185,6 +205,7 @@ function initFooterReveal(){
     armed = isAtBottom() && !hasActiveSelection();
     startY = armed ? e.touches[0].clientY : null;
     dragging = false;
+    maxDy = 0;
   }, { passive: true });
 
   document.addEventListener('touchmove', (e) => {
@@ -196,15 +217,24 @@ function initFooterReveal(){
     const dy = startY - e.touches[0].clientY;
     if(dy <= 0){ if(dragging) collapse(); dragging = false; return; }
     dragging = true;
+    if(dy > maxDy) maxDy = dy;
     wrap.style.transition = 'none';
     wrap.style.maxHeight = Math.min(dy, wrap.scrollHeight) + 'px';
   }, { passive: true });
 
   document.addEventListener('touchend', () => {
-    if(dragging) collapse();
+    if(dragging){
+      // Nouvelle phrase posée AVANT le repli (pas après) : on la voit
+      // apparaître un instant pendant que le bloc se referme, retour
+      // visuel immédiat que le tiré a "fait quelque chose" — donne
+      // envie de retirer pour en voir une autre.
+      if(maxDy >= PHRASE_RELOAD_MIN_DRAG) reloadFooterPhrase();
+      collapse();
+    }
     armed = false;
     startY = null;
     dragging = false;
+    maxDy = 0;
   }, { passive: true });
 
   document.addEventListener('touchcancel', () => {
@@ -212,6 +242,7 @@ function initFooterReveal(){
     armed = false;
     startY = null;
     dragging = false;
+    maxDy = 0;
   }, { passive: true });
 }
 

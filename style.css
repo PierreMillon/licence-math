@@ -466,6 +466,17 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   width:26px;
   height:26px;
   opacity:.8;
+  /* Légère rotation (12/08/2026, demande explicite, croquis fourni) :
+     la technique à deux cercles (voir plus bas) ne peut naturellement
+     produire qu'un croissant aux pointes verticales (12h/6h, ventre
+     tourné à gauche ou à droite selon le sens du glissement) — un
+     croissant "penché" façon lune de dessin animé demande de faire
+     pivoter l'ensemble disque+cache comme un seul bloc rigide plutôt
+     que de retoucher le calcul de phase. Rotation posée ici plutôt
+     que sur .moon-disc/.moon-occluder séparément pour que leur
+     décalage horizontal relatif (translateX, voir applyMoonPhase)
+     tourne avec eux sans se désaligner. */
+  transform:rotate(-25deg);
 }
 /* Phase lunaire redessinée en "éclipse à deux cercles" (11/08/2026,
    demande explicite) : un disque plein blanc (.moon-disc, toujours

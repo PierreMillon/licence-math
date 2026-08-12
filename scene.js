@@ -313,16 +313,17 @@ function renderWeekDragon(){
   updateBirdHiding(weekDragonTier(new Date()));
 }
 
-/* Palier à partir duquel le dragon est considéré comme "tout proche"
-   (11/08/2026, demande explicite) : vendredi et samedi (index 4 et 5)
-   — les deux paliers où sa largeur fait un vrai bond (110→171→240px)
-   et où il domine visuellement la scène. À partir de ce palier,
-   l'oiseau (#creatureFigure, sa place habituelle à gauche)
-   s'efface et une version réduite (#birdPeek, dans #knightZone, z-index
-   négatif donc dessinée derrière le chevalier) apparaît sur son flanc
-   gauche — elle regarde donc vers le dragon sans miroir nécessaire :
-   BIRD_SVG regarde déjà vers la gauche par défaut. */
-const BIRD_HIDE_FROM_TIER = 4;
+/* Palier à partir duquel le dragon est considéré comme "assez proche
+   pour faire peur" (12/08/2026, demande explicite après capture sur
+   iPhone réel un mercredi — Pierre veut l'oiseau déjà caché à ce
+   stade) : abaissé de vendredi (index 4) à mercredi (index 2). À
+   partir de ce palier, l'oiseau (#creatureFigure, sa place habituelle
+   à gauche) s'efface et une version réduite (#birdPeek, dans
+   #knightZone, z-index négatif donc dessinée derrière le chevalier)
+   apparaît sur son flanc gauche — elle regarde donc vers le dragon
+   sans miroir nécessaire : BIRD_SVG regarde déjà vers la gauche par
+   défaut. */
+const BIRD_HIDE_FROM_TIER = 2;
 
 function updateBirdHiding(tierIndex){
   const battleZone = document.getElementById('battleZone');

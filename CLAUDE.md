@@ -649,3 +649,37 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   complet de ship + attente de retour utilisateur sur un vrai
   appareil) et changer d'approche structurellement plutôt que de
   continuer à ajuster les paramètres de la technique suspecte.
+
+## Dragon confirmé corrigé sur iPhone réel + 3 ajustements mineurs (12/08/2026, demande explicite)
+
+- Pierre a confirmé sur son iPhone réel que le contour en copies DOM
+  (v130) fonctionne parfaitement — clôt le feuilleton du contour
+  invisible (3 tentatives : `var()`/`calc()` dans le filtre, valeurs
+  pré-résolues dans le filtre, puis abandon du filtre pour de vraies
+  copies DOM).
+- Seuil de `BIRD_HIDE_FROM_TIER` abaissé de vendredi à mercredi (index
+  4 → 2) : Pierre a jugé, capture à l'appui un mercredi, que l'oiseau
+  devait déjà être caché derrière le chevalier à ce stade ("le dragon
+  s'approche et ça fait peur"). Pas de nouvelle logique, juste la
+  constante changée.
+- Lune : légère rotation (`transform:rotate(-25deg)` sur `.scene-moon`,
+  donc sur le disque ET le cache ensemble comme un seul bloc rigide,
+  pour ne pas désaligner leur décalage horizontal relatif) — demande
+  explicite avec croquis fourni (angle approximatif, "juste une
+  rotation légère"). La technique à deux cercles (voir plus haut) ne
+  peut naturellement produire qu'un croissant aux pointes verticales ;
+  une rotation d'ensemble était le seul moyen simple de l'incliner
+  sans toucher au calcul de phase.
+- Phrase de sagesse : le geste de révélation en tirant tout en bas
+  (v129, voir plus haut) recharge maintenant une NOUVELLE phrase à
+  chaque relâchement (au lieu de rester figée jusqu'au rechargement de
+  page) — demande explicite, effet "loterie" assumé ("à chaque fois on
+  a envie de tirer"). `reloadFooterPhrase()` (pwa.js) appelle
+  `window.renderEndPhrase`/`window.renderFooterCycle`, celle qui
+  existe sur la page courante (l'autre est simplement absente de
+  `window` — pas de branchement par page à maintenir). Seuil
+  `PHRASE_RELOAD_MIN_DRAG` (20px) avant de déclencher : un tremblement
+  de doigt qui arme puis relâche tout de suite ne doit pas gâcher une
+  phrase pour rien. Posée AVANT le repli du bloc (pas après), pour que
+  le changement soit visible un instant pendant que ça se referme —
+  retour visuel immédiat que le geste a "fait quelque chose".
