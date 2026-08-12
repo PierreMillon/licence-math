@@ -125,44 +125,6 @@ function renderSceneCastle(){
   if(caveEl && typeof CAVE_SVG !== 'undefined') caveEl.innerHTML = CAVE_SVG;
 }
 
-/* ---------- plan 2 (bâtiments/campagne), entre le château et les personnages ---------- */
-function renderScenePlan2(){
-  const el = document.getElementById('scenePlan2');
-  if(!el || typeof PLAN2_SVG === 'undefined') return;
-  el.innerHTML = PLAN2_SVG;
-}
-
-/* Centre verticalement la bande plan2 dans l'espace entre le bas du
-   château et le bas des pieds du chevalier (demande explicite du
-   11/08/2026 — "pile poil" entre les deux), mesuré plutôt que codé en
-   dur : voir alignSceneMoon() ci-dessous pour la même logique. Appelée
-   après le rendu du château, du plan2 et du chevalier, car elle a
-   besoin des trois pour mesurer. */
-function alignScenePlan2(){
-  const el = document.getElementById('scenePlan2');
-  const castleEl = document.getElementById('sceneCastle');
-  const knightGirl = document.getElementById('knightGirl');
-  const battleScene = document.getElementById('battleScene');
-  if(!el || !castleEl || !knightGirl || !battleScene) return;
-  const knightSvg = knightGirl.querySelector('svg');
-  if(!knightSvg) return;
-
-  const castleRect = castleEl.getBoundingClientRect();
-  const knightRect = knightSvg.getBoundingClientRect();
-  const sceneRect = battleScene.getBoundingClientRect();
-  const elRect = el.getBoundingClientRect();
-  if(castleRect.height === 0 || knightRect.height === 0 || elRect.height === 0) return; // pas encore rendu
-
-  const castleBottom = castleRect.bottom - sceneRect.top;
-  const knightBottom = knightRect.bottom - sceneRect.top;
-  const gapMid = (castleBottom + knightBottom) / 2;
-  // Le BAS de la bande (pas son centre) au milieu de l'écart château/
-  // pieds (11/08/2026, demande explicite — précédemment centrée, ce
-  // qui la faisait paraître trop basse) : toute la bande se retrouve
-  // au-dessus du point milieu, sa base posée exactement dessus.
-  el.style.top = Math.max(0, gapMid - elRect.height) + 'px';
-}
-
 /* ---------- dragon de la semaine : sort de la grotte et s'approche ---------- */
 /* Refonte du 11/08/2026 (voir CLAUDE.md) : remplace l'ancien oiseau
    décoratif (qui n'apparaissait qu'une fois la mascotte d'absence
@@ -253,7 +215,7 @@ function renderWeekDragon(){
   const battleScene = document.getElementById('battleScene');
   if(!el || typeof DRAGON_SVG === 'undefined' || typeof DRAGON_VICTORIOUS_SVG === 'undefined') return;
   const tier = WEEK_DRAGON_TIERS[weekDragonTier(new Date())];
-  el.innerHTML = tier.svg === 'sleeping' ? DRAGON_SVG : DRAGON_VICTORIOUS_SVG;
+  const svgMarkup = tier.svg === 'sleeping' ? DRAGON_SVG : DRAGON_VICTORIOUS_SVG;
   el.style.left = tier.left + 'px';
   el.style.width = tier.width + 'px';
   /* Opacité réduite UNIQUEMENT pour le palier endormi (11/08/2026,
@@ -303,7 +265,7 @@ function renderWeekDragon(){
      débordement horizontal réel, pas juste théorique — voir CLAUDE.md,
      leçon "toujours tester sous 320px"). Rétrécit SEULEMENT si
      nécessaire, ne touche jamais `left` : plus simple, et cohérent
-     avec le correctif déjà appliqué à .scene-plan2/.scene-castle. */
+     avec le correctif déjà appliqué à .scene-castle. */
   if(battleScene){
     const sceneRect = battleScene.getBoundingClientRect();
     if(sceneRect.width > 0){
@@ -315,47 +277,47 @@ function renderWeekDragon(){
       }
     }
   }
-  /* Épaisseur du contour blanc (voir .scene-dragon svg, style.css) —
-     posée ici plutôt qu'en CSS fixe pour rester proportionnelle à la
-     taille RÉELLEMENT affichée (après clamp anti-débordement
-     ci-dessus). Cible ~1 unité de la grille source du dragon (mesuré
-     après mise à l'échelle), pour donner un contour de la même
+  /* Épaisseur du contour blanc — cible ~1 unité de la grille source du
+     dragon (mesurée après mise à l'échelle, donc après le clamp anti-
+     débordement ci-dessus), pour donner un contour de la même
      épaisseur "en unités de dessin" que le halo blanc de l'oiseau
      (BIRD_SVG, dessiné en dur dans sa propre grille) — demande
      explicite de Pierre ("aussi fin... proportionnellement").
-     Filtre posé directement en JS avec des valeurs px déjà calculées
-     (PAS de `var()`/`calc()` dans le drop-shadow, voir style.css) :
-     signalé par Pierre sur iPhone réel, le dragon restait presque
-     tout noir — contour quasi invisible, jamais reproduit en
-     simulation Chromium. Suspecté : support fragile sur WebKit de
-     `calc(var(--x) * -1)` utilisé comme décalage de drop-shadow. */
+     Technique du contour reconstruite en 8 VRAIES COPIES DOM décalées
+     (translate CSS) plutôt qu'un filtre `drop-shadow` (12/08/2026) :
+     le filtre laissait le dragon presque entièrement noir sur iPhone
+     réel — contour quasi invisible — à DEUX reprises malgré deux
+     correctifs différents (d'abord `var()`/`calc()` dans le filtre,
+     puis des valeurs déjà résolues en JS), jamais reproduit en
+     simulation Chromium. `drop-shadow` chaîné 8 fois reste visiblement
+     fragile sur WebKit quelle que soit la façon de lui fournir ses
+     valeurs — abandonné plutôt que retenté une 3e fois. `translate`
+     sur un élément dupliqué n'a pas cette fragilité (propriété CSS
+     parmi les plus basiques et les mieux supportées, aucun filtre
+     impliqué) : 8 copies blanches légèrement décalées derrière une
+     copie noire sans décalage — la ou les copies blanches qui
+     dépassent, sur les bords et dans chaque trou du dessin, forment le
+     contour. Même effet visuel que le filtre, sans son point faible. */
   const dragonViewBoxWidth = tier.svg === 'sleeping' ? 60 : 100;
   const finalWidth = parseFloat(el.style.width);
   const outlinePx = (finalWidth / dragonViewBoxWidth) * DRAGON_OUTLINE_UNIT_THICKNESS;
-  const off = outlinePx.toFixed(2);
-  const neg = (-outlinePx).toFixed(2);
-  const dragonSvgEl = el.querySelector('svg');
-  if(dragonSvgEl){
-    dragonSvgEl.style.filter =
-      `drop-shadow(${off}px 0 0 var(--fg)) ` +
-      `drop-shadow(${neg}px 0 0 var(--fg)) ` +
-      `drop-shadow(0 ${off}px 0 var(--fg)) ` +
-      `drop-shadow(0 ${neg}px 0 var(--fg)) ` +
-      `drop-shadow(${off}px ${off}px 0 var(--fg)) ` +
-      `drop-shadow(${neg}px ${off}px 0 var(--fg)) ` +
-      `drop-shadow(${off}px ${neg}px 0 var(--fg)) ` +
-      `drop-shadow(${neg}px ${neg}px 0 var(--fg))`;
+  const offsets = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]];
+  let html = '';
+  for(const [dx, dy] of offsets){
+    const tx = (dx * outlinePx).toFixed(2);
+    const ty = (dy * outlinePx).toFixed(2);
+    html += `<div class="dragon-copy dragon-copy--outline" style="transform:translate(${tx}px, ${ty}px)">${svgMarkup}</div>`;
   }
+  html += `<div class="dragon-copy dragon-copy--main">${svgMarkup}</div>`;
+  el.innerHTML = html;
   updateBirdHiding(weekDragonTier(new Date()));
 }
 
-/* Palier à partir duquel le dragon est considéré comme ayant "passé la
-   barrière" (11/08/2026, demande explicite) : vendredi et samedi (index
-   4 et 5) — les deux paliers où sa largeur fait un vrai bond (110→171→
-   240px) et où il domine visuellement la scène, plutôt qu'un seuil basé
-   sur sa position par rapport à #scenePlan2 (déjà dépassée dès mardi en
-   pixels, ça ne collait pas à "quand il approche vraiment"). À partir de
-   ce palier, l'oiseau (#creatureFigure, sa place habituelle à gauche)
+/* Palier à partir duquel le dragon est considéré comme "tout proche"
+   (11/08/2026, demande explicite) : vendredi et samedi (index 4 et 5)
+   — les deux paliers où sa largeur fait un vrai bond (110→171→240px)
+   et où il domine visuellement la scène. À partir de ce palier,
+   l'oiseau (#creatureFigure, sa place habituelle à gauche)
    s'efface et une version réduite (#birdPeek, dans #knightZone, z-index
    négatif donc dessinée derrière le chevalier) apparaît sur son flanc
    gauche — elle regarde donc vers le dragon sans miroir nécessaire :
@@ -413,17 +375,14 @@ document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();
   renderSceneMoon();
   renderSceneCastle();
-  renderScenePlan2();
   renderWeekDragon();
   alignCreatureFoot();
   alignSceneMoon();
-  alignScenePlan2();
   // Les polices/webfonts peuvent charger après coup et décaler la mise
   // en page : on réajuste une fois de plus au chargement complet.
   window.addEventListener('load', () => {
     alignCreatureFoot();
     alignSceneMoon();
-    alignScenePlan2();
   });
   // Un pinch-zoom (activé exprès cette session, voir style.css
   // touch-action) peut désynchroniser viewport visuel et viewport de
@@ -435,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(sceneResizeTimer);
     sceneResizeTimer = setTimeout(() => {
       alignSceneMoon();
-      alignScenePlan2();
     }, 150);
   });
 });

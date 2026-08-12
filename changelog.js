@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 130, date: "12/08/2026", desc: "<ul><li>Barrière de campagne retirée de la scène de combat</li><li>Contour du dragon reconstruit en profondeur (toujours invisible sur iPhone malgré le correctif précédent)</li></ul>" },
   { v: 129, date: "12/08/2026", desc: "<ul><li>Contour du dragon invisible sur iPhone réel : corrigé</li><li>Phrase de sagesse et ligne de séparation cachées, révélées en tirant tout en bas de la page</li></ul>" },
   { v: 128, date: "11/08/2026", desc: "<ul><li>Curseurs clignotants restants retirés (accueil et 5 autres pages)</li><li>Dragon en couleurs inversées, contour blanc</li><li>Clignement de l'oiseau parfois long (œil fermé 1s)</li><li>Historique : « ACTUELLE » et cadre épais retirés</li><li>Anciens commentaires de version simplifiés</li></ul>" },
   { v: 127, date: "11/08/2026", desc: "<ul><li>Dragon du samedi bien plus grand (poitrine à hauteur de tête)</li><li>L'oiseau se cache derrière le chevalier en fin de semaine</li></ul>" },

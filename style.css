@@ -559,97 +559,53 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 /* Dragon de la semaine (refonte du 11/08/2026, voir CLAUDE.md et
    scene.js/renderWeekDragon) : sort de la grotte et s'en approche un
-   palier par jour. Contrairement au reste du décor (château/grotte/
-   plan2, atténués en var(--fg-dim)), il reste en var(--fg) — c'est un
+   palier par jour. Contrairement au reste du décor (château/grotte,
+   atténués en var(--fg-dim)), il reste en var(--fg) — c'est un
    personnage de l'histoire de la semaine, pas un simple fond. top/
    left/width posés en JS à chaque jour (voir WEEK_DRAGON_TIERS),
-   valeurs ici juste des repères de secours avant le premier rendu. */
+   valeurs ici juste des repères de secours avant le premier rendu.
+   Barrière de campagne (plan 2, ex-.scene-plan2) retirée entièrement
+   le 12/08/2026 (demande explicite, jugée "vraiment moche"). */
 .scene-dragon{
   position:absolute;
   top:217px;
   left:10px;
   width:16px;
-  /* z-index:1 (au-dessus de .scene-plan2, la barrière/campagne, qui
-     reste à 0) : le dragon doit rester visible devant la grille plutôt
-     que passer derrière (même z-index que plan2 avant, l'ordre DOM
-     tranchait en faveur de la barrière posée après lui). */
   z-index:1;
-  /* Couleurs inversées (11/08/2026, demande explicite) : le dragon
-     était rempli en blanc (var(--fg)) avec le détail (écailles, ailes)
-     dessiné en creux (pixels non remplis, donc noirs — couleur de
-     fond qui transparaît). Inversé : rempli en noir (var(--bg), donc
-     invisible sur le fond noir de la scène) + contour blanc posé en
-     filtre (voir svg ci-dessous) qui trace aussi bien le pourtour
-     extérieur que CHAQUE trou interne du dessin (le filtre suit le
-     canal alpha exact, troue compris) — donne exactement l'effet
-     inverse : silhouette noire, tout le détail qui était en creux
-     ressort maintenant en traits blancs. Jugé "plus impressionnant"
-     (demande de Pierre) qu'un dragon blanc plein.
-     */
-  color:var(--bg);
   transition:top .4s ease, left .4s ease, width .4s ease;
 }
-.scene-dragon svg{
-  display:block;
-  width:100%;
-  height:auto;
-  /* Même technique que .knight-piece-wrap svg (8 drop-shadow
-     cardinales+diagonales) mais en blanc plutôt qu'en gris foncé :
-     ici c'est TOUT le contour (extérieur + trous internes) qui doit
-     ressortir, pas juste distinguer des pièces adjacentes de même
-     couleur.
-     Filtre posé entièrement en JS (renderWeekDragon, scene.js) avec
-     des valeurs déjà calculées en px, PAS en `var()`/`calc()` CSS
-     (11/08/2026, signalé par Pierre sur iPhone réel : le dragon
-     restait presque tout noir, contour quasi invisible — jamais
-     reproduit en simulation Chromium/Playwright. Cause suspectée :
-     support fragile de `calc(var(--x) * -1)` utilisé comme valeur de
-     décalage À L'INTÉRIEUR d'un drop-shadow sur WebKit — déjà vu une
-     fois sur ce projet avec un autre bug invisible en simulation mais
-     réel sur Safari, cf. CLAUDE.md. Un `var()` utilisé seulement pour
-     la COULEUR reste standard et sans risque, gardé tel quel plus
-     bas). Le fallback CSS ci-dessous ne sert qu'avant le premier
-     rendu JS. */
-  filter:
-    drop-shadow(1px 0 0 var(--fg))
-    drop-shadow(-1px 0 0 var(--fg))
-    drop-shadow(0 1px 0 var(--fg))
-    drop-shadow(0 -1px 0 var(--fg))
-    drop-shadow(1px 1px 0 var(--fg))
-    drop-shadow(-1px 1px 0 var(--fg))
-    drop-shadow(1px -1px 0 var(--fg))
-    drop-shadow(-1px -1px 0 var(--fg));
-}
-
-/* Plan 2 (bâtiments/campagne) du système de profondeur à 4 plans —
-   bande large (cottage, clôture, arbres) plutôt qu'une icône isolée,
-   posée entre le château (plan 3, plus loin, en haut de la scène) et
-   les personnages (plan 1, au premier plan) — voir PLAN2_SVG,
-   creature-svgs.js.
-   Repositionnée le 11/08/2026 (demande explicite) : bord à bord
-   (left:0 à right:0, dans la même marge que le reste du site — cette
-   marge vient déjà du padding de .crt, .scene-plan2 n'a pas besoin de
-   son propre décalage) au lieu d'une largeur fixe de 280px. La
-   largeur suit donc l'écran, pas de min() ni de vérification sous
-   320px à faire ici. top : valeur de secours seulement, voir
-   alignScenePlan2() (scene.js) qui centre la bande verticalement
-   entre le bas du château et le bas des pieds du chevalier — mesuré
-   plutôt que codé en dur, même logique que pour la lune (voir
-   Fragilité des positions absolues, CLAUDE.md). */
-.scene-plan2{
+/* Couleurs inversées (11/08/2026, demande explicite) : le dragon
+   était rempli en blanc (var(--fg)) avec le détail (écailles, ailes)
+   dessiné en creux (pixels non remplis, donc noirs — couleur de fond
+   qui transparaît). Inversé : silhouette rendue en noir + contour
+   blanc qui trace aussi bien le pourtour extérieur que CHAQUE trou
+   interne du dessin — donne exactement l'effet inverse. Jugé "plus
+   impressionnant" (demande de Pierre) qu'un dragon blanc plein.
+   Contour reconstruit en VRAIES COPIES DOM décalées (12/08/2026,
+   voir renderWeekDragon/scene.js) plutôt qu'en filtre `drop-shadow` :
+   le filtre laissait le dragon presque entièrement noir sur iPhone
+   réel — contour quasi invisible — à deux reprises malgré deux
+   correctifs différents, jamais reproduit en simulation Chromium.
+   `drop-shadow` chaîné 8 fois reste fragile sur WebKit quelle que
+   soit la façon de lui fournir ses valeurs — abandonné. `.dragon-copy`
+   (8 copies blanches légèrement décalées via `transform:translate`,
+   posées en JS) derrière `.dragon-copy--main` (la copie noire, sans
+   décalage) : les bords blancs qui dépassent, sur le pourtour et dans
+   chaque trou du dessin, forment le contour — même effet visuel que
+   le filtre, sans dépendre d'un effet CSS fragile sur ce moteur. */
+.dragon-copy{
   position:absolute;
-  top:274px;
+  top:0;
   left:0;
-  right:0;
-  z-index:0;
-  color:var(--fg-dim);
-  opacity:.85;
+  width:100%;
 }
-.scene-plan2 svg{
+.dragon-copy svg{
   display:block;
   width:100%;
   height:auto;
 }
+.dragon-copy--outline{ color:var(--fg); }
+.dragon-copy--main{ color:var(--bg); }
 
 .battle-zone{
   position:relative;

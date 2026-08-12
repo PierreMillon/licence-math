@@ -608,3 +608,44 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   le wrapper n'entoure que `.pixel-rule` + `#ficheEndPhrase`, PAS
   `.chapter-nav`/`.reset-btn` qui suivent juste après dans le pied de
   page ; sur changelog.html il n'entoure pas le lien "CODE SOURCE ↗".
+
+## Barrière de campagne retirée + contour du dragon reconstruit sans filtre (12/08/2026, demande explicite)
+
+- Barrière de campagne (plan 2, `.scene-plan2`/`#scenePlan2`,
+  `PLAN2_SVG`) retirée entièrement — jugée "vraiment moche" par Pierre.
+  Fonctionnalité entièrement retirée, pas juste masquée : HTML
+  (index.html), CSS (`.scene-plan2`), JS (`renderScenePlan2()`/
+  `alignScenePlan2()`, scene.js) et l'asset (`PLAN2_SVG`,
+  creature-svgs.js) supprimés, plus aucune trace dans le code actif.
+- Le correctif du contour blanc du dragon posé en v129 (filtre
+  `drop-shadow` avec valeurs déjà résolues en JS, pour éviter
+  `var()`/`calc()` dans le filtre) n'a PAS marché — Pierre a signalé
+  le dragon toujours presque tout noir sur son iPhone réel, capture à
+  l'appui, juste après le ship. Deux correctifs différents ont donc
+  échoué sur ce même bug (`var()`/`calc()` dans le filtre d'abord,
+  valeurs pré-résolues ensuite) sans jamais être reproductibles en
+  simulation Chromium — signe que le problème n'est pas dans la façon
+  de fournir les valeurs au filtre, mais dans `drop-shadow` lui-même
+  chaîné 8 fois sur ce moteur, quelle que soit sa configuration.
+- Plutôt que tenter un 3e correctif sur la même technique, changement
+  d'approche complet : la technique du contour est reconstruite en
+  VRAIES COPIES DOM plutôt qu'en filtre CSS. `renderWeekDragon()`
+  (scene.js) construit maintenant 9 `<div>` superposés dans
+  `#sceneDragon` — 8 copies blanches (`.dragon-copy--outline`)
+  légèrement décalées via `transform:translate()` (une par direction
+  cardinale/diagonale), et 1 copie noire sans décalage
+  (`.dragon-copy--main`) par-dessus. Les bords des copies blanches qui
+  dépassent, sur le pourtour extérieur et dans chaque trou du dessin,
+  forment le contour — même effet visuel que le filtre, sans lui.
+  `transform:translate()` est une des propriétés CSS les plus
+  élémentaires et les mieux supportées, sans le passif de fragilité de
+  `drop-shadow` chaîné plusieurs fois observé ici. Pas de garantie à
+  100% que ce soit LA cause exacte du bug (toujours pas d'accès à un
+  vrai appareil Apple pour vérifier), mais le changement de technique
+  élimine par construction toute la classe de risque identifiée.
+- Réflexe à renforcer : après un 2e échec consécutif d'un même
+  correctif sur un bug non reproductible en simulation, arrêter
+  d'itérer sur la même technique (chaque itération coûte un cycle
+  complet de ship + attente de retour utilisateur sur un vrai
+  appareil) et changer d'approche structurellement plutôt que de
+  continuer à ajuster les paramètres de la technique suspecte.
