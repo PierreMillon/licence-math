@@ -594,32 +594,31 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   width:100%;
   height:auto;
   /* Même technique que .knight-piece-wrap svg (8 drop-shadow
-     cardinales+diagonales, voir plus bas) mais en blanc plutôt qu'en
-     gris foncé : ici c'est TOUT le contour (extérieur + trous
-     internes) qui doit ressortir, pas juste distinguer des pièces
-     adjacentes de même couleur.
-     Épaisseur en `var(--dragon-outline)` plutôt qu'un 1px fixe
-     (11/08/2026, demande explicite : "aussi fin que le contour blanc
-     de l'oiseau, proportionnellement") — posée par renderWeekDragon()
-     (scene.js) à ~1 unité de la grille source du dragon (calculée
-     depuis sa largeur affichée / la largeur de son viewBox), pour que
-     le contour reste visuellement "1 pixel du dessin" à n'importe
-     quelle taille plutôt qu'un 1px écran fixe. Sans ça, le palier
-     lundi (endormi, tout petit, ~0,5px/unité) débordait en un gros
-     blob blanc plein (1px écran = 2 unités de sa grille à cette
-     taille, largement assez pour que les 8 copies décalées se
-     recouvrent et remplissent toute la silhouette) — signalé par
-     Pierre, capture à l'appui. Fallback 1px si jamais la variable
-     n'est pas encore posée (premier rendu). */
+     cardinales+diagonales) mais en blanc plutôt qu'en gris foncé :
+     ici c'est TOUT le contour (extérieur + trous internes) qui doit
+     ressortir, pas juste distinguer des pièces adjacentes de même
+     couleur.
+     Filtre posé entièrement en JS (renderWeekDragon, scene.js) avec
+     des valeurs déjà calculées en px, PAS en `var()`/`calc()` CSS
+     (11/08/2026, signalé par Pierre sur iPhone réel : le dragon
+     restait presque tout noir, contour quasi invisible — jamais
+     reproduit en simulation Chromium/Playwright. Cause suspectée :
+     support fragile de `calc(var(--x) * -1)` utilisé comme valeur de
+     décalage À L'INTÉRIEUR d'un drop-shadow sur WebKit — déjà vu une
+     fois sur ce projet avec un autre bug invisible en simulation mais
+     réel sur Safari, cf. CLAUDE.md. Un `var()` utilisé seulement pour
+     la COULEUR reste standard et sans risque, gardé tel quel plus
+     bas). Le fallback CSS ci-dessous ne sert qu'avant le premier
+     rendu JS. */
   filter:
-    drop-shadow(var(--dragon-outline, 1px) 0 0 var(--fg))
-    drop-shadow(calc(var(--dragon-outline, 1px) * -1) 0 0 var(--fg))
-    drop-shadow(0 var(--dragon-outline, 1px) 0 var(--fg))
-    drop-shadow(0 calc(var(--dragon-outline, 1px) * -1) 0 var(--fg))
-    drop-shadow(var(--dragon-outline, 1px) var(--dragon-outline, 1px) 0 var(--fg))
-    drop-shadow(calc(var(--dragon-outline, 1px) * -1) var(--dragon-outline, 1px) 0 var(--fg))
-    drop-shadow(var(--dragon-outline, 1px) calc(var(--dragon-outline, 1px) * -1) 0 var(--fg))
-    drop-shadow(calc(var(--dragon-outline, 1px) * -1) calc(var(--dragon-outline, 1px) * -1) 0 var(--fg));
+    drop-shadow(1px 0 0 var(--fg))
+    drop-shadow(-1px 0 0 var(--fg))
+    drop-shadow(0 1px 0 var(--fg))
+    drop-shadow(0 -1px 0 var(--fg))
+    drop-shadow(1px 1px 0 var(--fg))
+    drop-shadow(-1px 1px 0 var(--fg))
+    drop-shadow(1px -1px 0 var(--fg))
+    drop-shadow(-1px -1px 0 var(--fg));
 }
 
 /* Plan 2 (bâtiments/campagne) du système de profondeur à 4 plans —
@@ -1168,6 +1167,21 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   padding-top:32px;
   color:var(--fg-dim);
   font-size:1.05rem;
+}
+/* Ligne de séparation (.pixel-rule) + phrase de sagesse/étiquette de
+   pied de page : masquées en usage normal (11/08/2026, demande
+   explicite), révélées uniquement en forçant le glissement au-delà du
+   vrai bas de la page (voir initFooterReveal, pwa.js) — PAS un tiré
+   pour rafraîchir, aucun rechargement déclenché. max-height:0 plutôt
+   que display:none/opacity:0 : ne réserve aucun espace normalement
+   (sinon le vrai bas de page serait toujours "avant" ce bloc et le
+   révélerait par un simple scroll, sans avoir besoin de forcer le
+   geste). Hauteur cible posée en JS via scrollHeight (le contenu,
+   texte variable, n'a pas de hauteur fixe connue à l'avance). */
+.footer-reveal{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
 }
 
 /* ---------- fiche pages ---------- */

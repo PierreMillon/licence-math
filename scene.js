@@ -322,11 +322,30 @@ function renderWeekDragon(){
      après mise à l'échelle), pour donner un contour de la même
      épaisseur "en unités de dessin" que le halo blanc de l'oiseau
      (BIRD_SVG, dessiné en dur dans sa propre grille) — demande
-     explicite de Pierre ("aussi fin... proportionnellement"). */
+     explicite de Pierre ("aussi fin... proportionnellement").
+     Filtre posé directement en JS avec des valeurs px déjà calculées
+     (PAS de `var()`/`calc()` dans le drop-shadow, voir style.css) :
+     signalé par Pierre sur iPhone réel, le dragon restait presque
+     tout noir — contour quasi invisible, jamais reproduit en
+     simulation Chromium. Suspecté : support fragile sur WebKit de
+     `calc(var(--x) * -1)` utilisé comme décalage de drop-shadow. */
   const dragonViewBoxWidth = tier.svg === 'sleeping' ? 60 : 100;
   const finalWidth = parseFloat(el.style.width);
   const outlinePx = (finalWidth / dragonViewBoxWidth) * DRAGON_OUTLINE_UNIT_THICKNESS;
-  el.style.setProperty('--dragon-outline', outlinePx.toFixed(2) + 'px');
+  const off = outlinePx.toFixed(2);
+  const neg = (-outlinePx).toFixed(2);
+  const dragonSvgEl = el.querySelector('svg');
+  if(dragonSvgEl){
+    dragonSvgEl.style.filter =
+      `drop-shadow(${off}px 0 0 var(--fg)) ` +
+      `drop-shadow(${neg}px 0 0 var(--fg)) ` +
+      `drop-shadow(0 ${off}px 0 var(--fg)) ` +
+      `drop-shadow(0 ${neg}px 0 var(--fg)) ` +
+      `drop-shadow(${off}px ${off}px 0 var(--fg)) ` +
+      `drop-shadow(${neg}px ${off}px 0 var(--fg)) ` +
+      `drop-shadow(${off}px ${neg}px 0 var(--fg)) ` +
+      `drop-shadow(${neg}px ${neg}px 0 var(--fg))`;
+  }
   updateBirdHiding(weekDragonTier(new Date()));
 }
 

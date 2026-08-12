@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 129, date: "12/08/2026", desc: "<ul><li>Contour du dragon invisible sur iPhone réel : corrigé</li><li>Phrase de sagesse et ligne de séparation cachées, révélées en tirant tout en bas de la page</li></ul>" },
   { v: 128, date: "11/08/2026", desc: "<ul><li>Curseurs clignotants restants retirés (accueil et 5 autres pages)</li><li>Dragon en couleurs inversées, contour blanc</li><li>Clignement de l'oiseau parfois long (œil fermé 1s)</li><li>Historique : « ACTUELLE » et cadre épais retirés</li><li>Anciens commentaires de version simplifiés</li></ul>" },
   { v: 127, date: "11/08/2026", desc: "<ul><li>Dragon du samedi bien plus grand (poitrine à hauteur de tête)</li><li>L'oiseau se cache derrière le chevalier en fin de semaine</li></ul>" },
   { v: 126, date: "11/08/2026", desc: "<ul><li>Curseur clignotant retiré en fin de fiche</li><li>Petit monstre errant retiré</li><li>Dragon affiché devant la barrière</li></ul>" },

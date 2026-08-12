@@ -534,3 +534,77 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   gardées : le changelog est un historique, pas une description de
   l'état actuel — le réécrire pour effacer ce qui a existé serait
   malhonnête.
+
+## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
+
+- Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon
+  inversé (voir plus haut) restait presque entièrement noir — contour
+  blanc quasi invisible. Jamais reproduit en simulation Chromium/
+  Playwright malgré plusieurs vérifications avant le ship (même bug de
+  classe que celui déjà noté une fois sur ce projet : un souci visible
+  seulement sur Safari réel, invisible en simulation). Cause suspectée
+  (pas confirmée à 100%, corrigée par prudence) : le filtre utilisait
+  `drop-shadow(var(--dragon-outline, 1px) ... )` et
+  `drop-shadow(calc(var(--dragon-outline, 1px) * -1) ...)` — support
+  fragile sur WebKit de `var()`/`calc()` utilisés comme valeur de
+  DÉCALAGE (pas de couleur) à l'intérieur d'un `drop-shadow`.
+- Corrigé en sortant tout le calcul en JS (`renderWeekDragon`,
+  scene.js) : la valeur `outlinePx` est calculée normalement, puis
+  formatée en chaîne de caractères AVEC l'unité déjà résolue
+  (`${off}px`), et le filtre complet est posé directement en
+  `dragonSvgEl.style.filter = ...` — plus aucun `var()`/`calc()` dans
+  le filtre pour les décalages, seule la COULEUR reste en `var(--fg)`
+  (usage standard et sans risque, `var()` pour une couleur est très
+  répandu et ne pose pas ce genre de problème). Le fallback CSS
+  statique (`.scene-dragon svg{filter:...}`, 1px fixe) ne sert plus
+  qu'avant le tout premier rendu JS.
+- Réflexe à garder : pour tout futur filtre CSS (`drop-shadow`,
+  `blur`, etc.) dont un paramètre NUMÉRIQUE doit varier dynamiquement,
+  préférer calculer la valeur complète en JS et l'injecter déjà
+  résolue plutôt que de faire porter le calcul par `calc()`/`var()`
+  directement dans la propriété `filter` — pas de garantie de test
+  réel sur Safari dans ce projet (pas d'accès à un vrai appareil Apple
+  depuis l'environnement de dev), donc mieux vaut éviter par
+  construction les coins connus pour être fragiles sur ce moteur.
+
+## Phrase de sagesse + ligne de séparation révélées en tirant tout en bas (12/08/2026, demande explicite)
+
+- Demande : la phrase de sagesse/étiquette de pied de page et la ligne
+  `.pixel-rule` juste au-dessus ne doivent plus apparaître dans l'usage
+  normal de la page — seulement en "forçant le déplacement" au-delà du
+  vrai bas de la page (le rebond natif iOS/Android quand on continue de
+  glisser le doigt alors qu'il n'y a plus rien à faire défiler).
+  Explicitement PAS un tiré-pour-rafraîchir (`initPullToRefresh`,
+  pwa.js) : pas de rechargement de page déclenché, geste totalement
+  indépendant. Confirmé par Pierre : marche partout (onglet classique
+  ET mode PWA), contrairement au pull-to-refresh du haut de page qui
+  lui reste réservé au mode plein écran (voir plus haut, pwa.js).
+- Implémenté avec un nouveau wrapper `.footer-reveal` (CSS :
+  `max-height:0; overflow:hidden;` par défaut) posé autour de
+  `.pixel-rule` + la phrase/étiquette SEULEMENT — pas le reste du pied
+  de page quand il y en a plus (boutons chapitre précédent/suivant et
+  reset sur les fiches, lien CODE SOURCE sur changelog.html, laissés
+  hors du wrapper, toujours visibles). `max-height:0` plutôt que
+  `display:none`/`opacity:0` : ne réserve AUCUN espace en usage normal
+  — sinon le vrai bas de page se retrouverait toujours "avant" ce bloc
+  et un simple scroll suffirait à le révéler, sans avoir besoin de
+  forcer le geste au-delà.
+- Nouvelle fonction `initFooterReveal()` (pwa.js, à côté de
+  `initPullToRefresh` mais SANS la garde `isStandaloneWebApp()`) :
+  au `touchstart`, arme le geste seulement si on est déjà au vrai bas
+  mesuré de la page (`scrollHeight` vs `scrollY + innerHeight`) ; au
+  `touchmove`, calcule `dy = startY - clientY` (positif si le doigt
+  continue de "pousser" vers le bas malgré l'absence de contenu
+  restant) et pose `max-height` proportionnellement, plafonné à
+  `wrap.scrollHeight` (hauteur réelle du contenu, texte variable donc
+  pas de valeur fixe possible) ; au relâchement, remonte TOUJOURS à 0
+  avec une transition — aucune action n'est jamais déclenchée, quelle
+  que soit la distance tirée, contrairement au pull-to-refresh qui
+  déclenche un reload au-delà d'un seuil. Reprend la même garde
+  `hasActiveSelection()` que le pull-to-refresh (sélection de texte en
+  cours) pour la même raison.
+- Appliqué sur les 14 pages du site (accueil, 8 fiches, mes erreurs,
+  progression, révision ciblée, historique, réglages) — sur les fiches
+  le wrapper n'entoure que `.pixel-rule` + `#ficheEndPhrase`, PAS
+  `.chapter-nav`/`.reset-btn` qui suivent juste après dans le pied de
+  page ; sur changelog.html il n'entoure pas le lien "CODE SOURCE ↗".

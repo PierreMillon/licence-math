@@ -145,4 +145,77 @@ function initPullToRefresh(){
   }, { passive: true });
 }
 
-document.addEventListener('DOMContentLoaded', initPullToRefresh);
+/* ---------- révélation de la phrase de sagesse / ligne de séparation
+   en bas de page (11/08/2026, demande explicite) ---------- */
+/* Normalement masquée (max-height:0, voir .footer-reveal, style.css)
+   — ne se montre qu'en forçant le glissement au-delà du vrai bas de
+   la page (rebond natif iOS/Android), PAS un tiré pour rafraîchir :
+   aucun rechargement déclenché ("ce n'est pas un tiré pour
+   rafraîchir", demande explicite de Pierre). Contrairement à
+   initPullToRefresh ci-dessus, marche PARTOUT (onglet classique ou
+   PWA) — pas de garde isStandaloneWebApp() ici, la réponse de Pierre
+   sur ce point décrivait un geste générique, pas propre au mode
+   plein écran. */
+function initFooterReveal(){
+  const wrap = document.querySelector('.footer-reveal');
+  if(!wrap) return;
+
+  let startY = null;
+  let armed = false;   // le doigt a démarré alors qu'on était déjà au vrai bas de la page
+  let dragging = false;
+
+  function isAtBottom(){
+    const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    return window.innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+  }
+  // Même garde que initPullToRefresh (sélection de texte en cours) :
+  // sans ça, étendre une sélection près du bas de page pourrait aussi
+  // révéler ce bloc.
+  function hasActiveSelection(){
+    const sel = window.getSelection && window.getSelection();
+    return !!(sel && sel.toString().length > 0);
+  }
+  function collapse(){
+    wrap.style.transition = 'max-height .3s ease';
+    wrap.style.maxHeight = '0px';
+  }
+
+  document.addEventListener('touchstart', (e) => {
+    if(e.touches.length !== 1){ armed = false; startY = null; return; }
+    armed = isAtBottom() && !hasActiveSelection();
+    startY = armed ? e.touches[0].clientY : null;
+    dragging = false;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if(!armed || startY === null) return;
+    if(hasActiveSelection()){ armed = false; startY = null; if(dragging) collapse(); dragging = false; return; }
+    // dy positif si le doigt continue de "pousser" la page vers le bas
+    // alors qu'il n'y a déjà plus rien à faire défiler — le geste de
+    // rebond qu'on détourne ici.
+    const dy = startY - e.touches[0].clientY;
+    if(dy <= 0){ if(dragging) collapse(); dragging = false; return; }
+    dragging = true;
+    wrap.style.transition = 'none';
+    wrap.style.maxHeight = Math.min(dy, wrap.scrollHeight) + 'px';
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    if(dragging) collapse();
+    armed = false;
+    startY = null;
+    dragging = false;
+  }, { passive: true });
+
+  document.addEventListener('touchcancel', () => {
+    if(dragging) collapse();
+    armed = false;
+    startY = null;
+    dragging = false;
+  }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initPullToRefresh();
+  initFooterReveal();
+});
