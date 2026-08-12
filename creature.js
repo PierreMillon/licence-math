@@ -152,8 +152,20 @@ function nextTeasePhraseIndex(){
 
 /* Clin d'œil de l'oiseau : intervalle aléatoire entre 3 et 10
    secondes. Permanent depuis la refonte du 11/08/2026 (l'oiseau ne
-   disparaît/se transforme plus jamais). */
+   disparaît/se transforme plus jamais). Durée du clignement variable
+   (11/08/2026, demande explicite) : la plupart du temps un clignement
+   rapide (140ms, comportement d'origine), mais parfois un clignement
+   long — œil gardé fermé une seconde entière — pour casser la
+   régularité mécanique. Pas un taux fixe : la fréquence du clignement
+   long est elle-même retirée au hasard entre 10% et 50% À CHAQUE
+   clignement ("varie... entre une fois sur deux et une fois sur dix
+   au hasard"), plutôt qu'un seul pourcentage constant pour toute la
+   session. */
 let birdBlinkTimer = null;
+const LONG_BLINK_MS = 1000;
+const SHORT_BLINK_MS = 140;
+const LONG_BLINK_CHANCE_MIN = 0.1;
+const LONG_BLINK_CHANCE_MAX = 0.5;
 
 function scheduleBirdBlink(figure, heightPx){
   clearTimeout(birdBlinkTimer);
@@ -162,12 +174,14 @@ function scheduleBirdBlink(figure, heightPx){
     figure.innerHTML = BIRD_SVG_BLINK;
     const blinkEl = figure.querySelector('.creature-icon');
     if(blinkEl) blinkEl.style.height = heightPx + 'px';
+    const longBlinkChance = LONG_BLINK_CHANCE_MIN + Math.random() * (LONG_BLINK_CHANCE_MAX - LONG_BLINK_CHANCE_MIN);
+    const closedDuration = Math.random() < longBlinkChance ? LONG_BLINK_MS : SHORT_BLINK_MS;
     setTimeout(() => {
       figure.innerHTML = BIRD_SVG;
       const openEl = figure.querySelector('.creature-icon');
       if(openEl) openEl.style.height = heightPx + 'px';
       scheduleBirdBlink(figure, heightPx);
-    }, 140);
+    }, closedDuration);
   }, delay);
 }
 

@@ -574,13 +574,52 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
      que passer derrière (même z-index que plan2 avant, l'ordre DOM
      tranchait en faveur de la barrière posée après lui). */
   z-index:1;
-  color:var(--fg);
+  /* Couleurs inversées (11/08/2026, demande explicite) : le dragon
+     était rempli en blanc (var(--fg)) avec le détail (écailles, ailes)
+     dessiné en creux (pixels non remplis, donc noirs — couleur de
+     fond qui transparaît). Inversé : rempli en noir (var(--bg), donc
+     invisible sur le fond noir de la scène) + contour blanc posé en
+     filtre (voir svg ci-dessous) qui trace aussi bien le pourtour
+     extérieur que CHAQUE trou interne du dessin (le filtre suit le
+     canal alpha exact, troue compris) — donne exactement l'effet
+     inverse : silhouette noire, tout le détail qui était en creux
+     ressort maintenant en traits blancs. Jugé "plus impressionnant"
+     (demande de Pierre) qu'un dragon blanc plein.
+     */
+  color:var(--bg);
   transition:top .4s ease, left .4s ease, width .4s ease;
 }
 .scene-dragon svg{
   display:block;
   width:100%;
   height:auto;
+  /* Même technique que .knight-piece-wrap svg (8 drop-shadow
+     cardinales+diagonales, voir plus bas) mais en blanc plutôt qu'en
+     gris foncé : ici c'est TOUT le contour (extérieur + trous
+     internes) qui doit ressortir, pas juste distinguer des pièces
+     adjacentes de même couleur.
+     Épaisseur en `var(--dragon-outline)` plutôt qu'un 1px fixe
+     (11/08/2026, demande explicite : "aussi fin que le contour blanc
+     de l'oiseau, proportionnellement") — posée par renderWeekDragon()
+     (scene.js) à ~1 unité de la grille source du dragon (calculée
+     depuis sa largeur affichée / la largeur de son viewBox), pour que
+     le contour reste visuellement "1 pixel du dessin" à n'importe
+     quelle taille plutôt qu'un 1px écran fixe. Sans ça, le palier
+     lundi (endormi, tout petit, ~0,5px/unité) débordait en un gros
+     blob blanc plein (1px écran = 2 unités de sa grille à cette
+     taille, largement assez pour que les 8 copies décalées se
+     recouvrent et remplissent toute la silhouette) — signalé par
+     Pierre, capture à l'appui. Fallback 1px si jamais la variable
+     n'est pas encore posée (premier rendu). */
+  filter:
+    drop-shadow(var(--dragon-outline, 1px) 0 0 var(--fg))
+    drop-shadow(calc(var(--dragon-outline, 1px) * -1) 0 0 var(--fg))
+    drop-shadow(0 var(--dragon-outline, 1px) 0 var(--fg))
+    drop-shadow(0 calc(var(--dragon-outline, 1px) * -1) 0 var(--fg))
+    drop-shadow(var(--dragon-outline, 1px) var(--dragon-outline, 1px) 0 var(--fg))
+    drop-shadow(calc(var(--dragon-outline, 1px) * -1) var(--dragon-outline, 1px) 0 var(--fg))
+    drop-shadow(var(--dragon-outline, 1px) calc(var(--dragon-outline, 1px) * -1) 0 var(--fg))
+    drop-shadow(calc(var(--dragon-outline, 1px) * -1) calc(var(--dragon-outline, 1px) * -1) 0 var(--fg));
 }
 
 /* Plan 2 (bâtiments/campagne) du système de profondeur à 4 plans —
@@ -1129,18 +1168,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   padding-top:32px;
   color:var(--fg-dim);
   font-size:1.05rem;
-}
-
-.cursor{
-  display:inline-block;
-  width:.55em;
-  background:var(--fg);
-  color:transparent;
-  animation:blink 1s steps(1) infinite;
-}
-@keyframes blink{
-  0%,49%{ opacity:1; }
-  50%,100%{ opacity:0; }
 }
 
 /* ---------- fiche pages ---------- */

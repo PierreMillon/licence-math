@@ -449,3 +449,88 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   d'autre à ce niveau ne se trouve sur le passage du petit oiseau, mais
   à garder en tête pour la prochaine fois qu'un z-index négatif est
   posé sur un descendant profond.
+
+## Dragon en couleurs inversées + épaisseur de contour proportionnelle (11/08/2026, demande explicite)
+
+- Demande : "tout ce qui est blanc devient noir, tout ce qui est noir
+  devient blanc" sur le dragon, pour qu'il ait des contours blancs et
+  paraisse "plus impressionnant". Techniquement : `.scene-dragon`
+  passe de `color:var(--fg)` (rempli en blanc) à `color:var(--bg)`
+  (rempli en noir, donc invisible sur le fond noir de la scène) + un
+  filtre `drop-shadow` (8 copies cardinales/diagonales, même technique
+  que `.knight-piece-wrap svg`) en blanc sur `.scene-dragon svg`, qui
+  trace TOUT le contour (extérieur + chaque trou interne, le filtre
+  suit le canal alpha exact) — donne exactement l'effet inverse :
+  silhouette noire, le détail qui était en creux ressort en traits
+  blancs.
+- Épaisseur du contour rendue PROPORTIONNELLE (demande explicite
+  séparée, "aussi fin que le contour de l'oiseau, proportionnellement")
+  : un `drop-shadow` à 1px fixe en CSS aurait donné un contour trop
+  épais sur le grand dragon du samedi (240px) et trop fin sur le petit
+  dragon du mardi (69px) relativement à leur propre détail. Corrigé en
+  postant l'épaisseur via une variable CSS `--dragon-outline`, calculée
+  en JS (`renderWeekDragon`, scene.js) à CHAQUE rendu : largeur affichée
+  du dragon ÷ largeur de son viewBox source × 1 unité cible — donne un
+  contour toujours "1 pixel du dessin" quelle que soit la taille
+  affichée, au lieu d'un 1px écran fixe. Cible de 1 unité choisie par
+  approximation du halo blanc de l'oiseau (BIRD_SVG, dessiné en dur
+  dans sa grille, pas mesuré au pixel exact — c'est un halo à la main,
+  pas uniforme partout).
+- Piège trouvé en cours de route : la pose "endormi roulé en boule"
+  (DRAGON_SVG, palier lundi) est trop pleine (peu de trous internes)
+  pour que la technique du contour fonctionne — à sa taille minuscule
+  (~30px pour un viewBox 60, donc ~0,5px/unité), les 8 copies décalées
+  du filtre se recouvrent presque entièrement et remplissent toute la
+  silhouette au lieu de tracer un contour creux, donnant un gros blob
+  blanc plein (signalé par Pierre, capture à l'appui : "ça fait une
+  grosse masse blanche"). Pas de vrai contour creux possible pour cette
+  pose à cette échelle sans reconstruire un système différent — corrigé
+  pragmatiquement en baissant l'opacité de `#sceneDragon` à 0.4
+  UNIQUEMENT pour ce palier (`tier.svg === 'sleeping'`), ce qui
+  assourdit le blob en un gris discret plutôt qu'un blanc éclatant —
+  cohérent avec l'intention d'origine ("à peine visible dans le noir
+  de la porte de la grotte"), qui s'était perdue en passant du
+  remplissage blanc plein d'avant à l'inversion noir+contour. Les
+  autres paliers (dessin détaillé, DRAGON_VICTORIOUS_SVG) restent à
+  pleine opacité, le contour y trace correctement le détail.
+
+## Clignement de l'oiseau à durée variable (11/08/2026, demande explicite)
+
+- Le clignement rapide (140ms, `BIRD_SVG_BLINK`) reste le comportement
+  par défaut, mais devient parfois un clignement long (`LONG_BLINK_MS`
+  = 1000ms, œil gardé fermé une seconde entière) — réutilise le MÊME
+  sprite `BIRD_SVG_BLINK` (pas de nouveau dessin), seule la durée
+  pendant laquelle il reste affiché change. Fréquence du clignement
+  long PAS fixe : retirée au hasard entre 10% et 50%
+  (`LONG_BLINK_CHANCE_MIN`/`MAX`) À CHAQUE clignement plutôt qu'un seul
+  taux constant pour toute la session — collait à la formulation de
+  Pierre ("varie... entre une fois sur deux et une fois sur dix au
+  hasard") prise au pied de la lettre plutôt qu'interprétée comme un
+  taux moyen unique.
+
+## Historique des versions : retrait du badge « ACTUELLE » + simplification rétroactive (11/08/2026, demande explicite)
+
+- Le cadre de la dernière version avait un bord plus clair
+  (`.changelog__entry.current{border-color:var(--fg)}`, vs
+  `var(--fg-dim)` pour les autres) et un badge « ACTUELLE » — perçu par
+  Pierre comme un cadre "légèrement plus épais" (optiquement vrai même
+  si l'épaisseur en px était identique, un bord blanc plein paraissant
+  plus présent qu'un bord gris terne). Retiré : classe `.current` et
+  badge supprimés de `changelog.js`, règle CSS et `.changelog__tag`
+  (devenue inutile) supprimées de `changelog.html` — toutes les cartes
+  ont maintenant exactement le même style.
+- Reprise du ménage "notes de version courtes" (voir plus haut, format
+  du 11/08/2026) au-delà du cutoff v117 posé la première fois — cette
+  fois sur demande EXPLICITE ("refais un tour des commentaires de
+  version les plus longs"), donc plus de raison de s'arrêter à v117.
+  Repassé sur ~50 entrées (v55 à v116), converties en phrases courtes
+  sans "comment/pourquoi", ou en listes à puces terses quand plusieurs
+  faits distincts. Remarques de remerciement (« Merci XXX ! ») gardées
+  telles quelles — c'est une fonctionnalité à part (créditer les
+  contributeurs), pas de la prose à raccourcir. Entrées déjà courtes
+  (v1-v54 pour l'essentiel, une ligne factuelle) laissées telles
+  quelles, pas de gain à les retoucher. Mentions de fonctionnalités
+  depuis retirées (ex. le petit monstre, v74/v77) volontairement
+  gardées : le changelog est un historique, pas une description de
+  l'état actuel — le réécrire pour effacer ce qui a existé serait
+  malhonnête.

@@ -242,6 +242,11 @@ function weekDragonTier(date){
    (voir renderWeekDragon, palier "lundi"). */
 const DRAGON_SLEEPING_ASPECT = 39 / 60;
 
+/* Épaisseur cible du contour blanc du dragon, en unités de sa propre
+   grille source (pas en px écran) — voir renderWeekDragon, calcul de
+   --dragon-outline. */
+const DRAGON_OUTLINE_UNIT_THICKNESS = 1;
+
 function renderWeekDragon(){
   const el = document.getElementById('sceneDragon');
   const castleEl = document.getElementById('sceneCastle');
@@ -251,6 +256,22 @@ function renderWeekDragon(){
   el.innerHTML = tier.svg === 'sleeping' ? DRAGON_SVG : DRAGON_VICTORIOUS_SVG;
   el.style.left = tier.left + 'px';
   el.style.width = tier.width + 'px';
+  /* Opacité réduite UNIQUEMENT pour le palier endormi (11/08/2026,
+     demande explicite après capture) : la pose roulée en boule
+     (DRAGON_SVG) est trop pleine (peu de trous internes) pour que la
+     technique du contour (8 drop-shadow, voir style.css) trace un
+     vrai contour creux comme sur DRAGON_VICTORIOUS_SVG — à cette
+     échelle (~30px), les 8 copies décalées se recouvrent et
+     remplissent presque toute la silhouette, donnant un gros blob
+     blanc plein plutôt qu'un contour. Plutôt que de reconstruire un
+     système de contour différent pour ce seul palier, on assume le
+     blob et on l'assourdit : cohérent avec l'intention d'origine
+     ("à peine visible dans le noir de la porte de la grotte"), qui
+     s'est perdue en passant du remplissage blanc plein d'avant à
+     l'inversion noir+contour. Les autres paliers (dragon éveillé,
+     dessin détaillé) restent à pleine opacité, le contour y trace
+     correctement le détail. */
+  el.style.opacity = tier.svg === 'sleeping' ? '0.4' : '1';
   /* Palier "lundi" (endormi) : le bas du dragon calé sur le bas réel
      de la falaise du château, mesuré plutôt que codé en dur (11/08/2026,
      demande explicite — la grotte devenue invisible, ci-dessus, ne sert
@@ -294,6 +315,18 @@ function renderWeekDragon(){
       }
     }
   }
+  /* Épaisseur du contour blanc (voir .scene-dragon svg, style.css) —
+     posée ici plutôt qu'en CSS fixe pour rester proportionnelle à la
+     taille RÉELLEMENT affichée (après clamp anti-débordement
+     ci-dessus). Cible ~1 unité de la grille source du dragon (mesuré
+     après mise à l'échelle), pour donner un contour de la même
+     épaisseur "en unités de dessin" que le halo blanc de l'oiseau
+     (BIRD_SVG, dessiné en dur dans sa propre grille) — demande
+     explicite de Pierre ("aussi fin... proportionnellement"). */
+  const dragonViewBoxWidth = tier.svg === 'sleeping' ? 60 : 100;
+  const finalWidth = parseFloat(el.style.width);
+  const outlinePx = (finalWidth / dragonViewBoxWidth) * DRAGON_OUTLINE_UNIT_THICKNESS;
+  el.style.setProperty('--dragon-outline', outlinePx.toFixed(2) + 'px');
   updateBirdHiding(weekDragonTier(new Date()));
 }
 
