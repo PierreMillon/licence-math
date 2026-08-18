@@ -686,6 +686,42 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   creature.js) y touche — contrairement à la barre hebdomadaire,
   remise à zéro chaque lundi par design.
 
+## Dragon et chevalier posés au pixel près sur le sol (18/08/2026, demande explicite)
+
+- Demande : le bas du dragon ET le bas du chevalier (bottes ou pas)
+  doivent être posés exactement sur la ligne de sol, sans le moindre
+  vide visible, dans les deux cas.
+- Cause trouvée par mesure (`getBBox()`) plutôt qu'à l'œil : le
+  chevalier (`KNIGHT_GIRL_SVG`) remplit exactement son propre viewBox
+  (aucune marge), donc `bottom:0` seul le posait déjà pile sur le sol
+  — mais `DRAGON_VICTORIOUS_SVG` a une marge vide d'environ 7% de sa
+  hauteur en bas de SON viewBox (le dessin ne descend pas jusqu'au
+  bord du cadre) : `bottom:0` sur le cadre laissait donc un vide
+  visible sous la queue, invisible dans le CSS/JS (qui ne voit que la
+  boîte, pas le dessin réel dedans).
+- Corrigé avec deux nouvelles fonctions dans scene.js :
+  `groundOffsetPx(svgEl, hauteurAffichée)` mesure cette marge via
+  `getBBox()` vs `viewBox` (en unités du dessin, convertie en px selon
+  la taille affichée — pas une valeur codée en dur, s'adapterait tout
+  seul si un des deux dessins était retracé un jour) ;
+  `groundLineHeightPx(strip)` mesure la hauteur réelle de la ligne de
+  sol elle-même (`.battle-ground`, 2px) plutôt que de la dupliquer en
+  dur — le "sol" réel est son bord HAUT, pas son bord bas. `bottom` du
+  cadre = hauteur du sol MOINS la marge du dessin (pas plus — piège
+  rencontré en cours de route : additionner les deux pousse le dessin
+  trop haut, laissant justement le vide qu'on cherchait à corriger ;
+  il faut soustraire pour que le dessin RECULE dans son cadre jusqu'à
+  ce que son propre bord réel touche le sol). Le chevalier (marge
+  nulle) n'a rien laissé paraître de cette erreur de signe lors des
+  premiers tests — seul le dragon (marge non nulle) l'a révélée.
+  Nouvelle fonction `alignKnightFeet()` (chevalier) + calcul ajouté en
+  fin de `renderWeekDragon()` (dragon), toutes deux appelées après
+  `alignBattleStripHeight()` (l'ordre compte : il faut connaître la
+  hauteur de la bande avant de mesurer quoi que ce soit), et
+  réappelées au resize/load comme le reste des alignements de la
+  scène. Vérifié à 0,00px d'écart (chevalier) et 0,02px (dragon,
+  arrondi) à 310/320/390/430px de large.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon

@@ -534,7 +534,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   bottom:0;
   left:0;
   z-index:1;
-  transition:left .4s ease, width .4s ease, height .4s ease;
+  transition:left .4s ease, width .4s ease, height .4s ease, bottom .2s ease;
 }
 /* Couleurs inversées (11/08/2026, demande explicite) : le dragon
    était rempli en blanc (var(--fg)) avec le détail (écailles, ailes)
@@ -579,6 +579,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   bottom:0;
   height:100%;
   z-index:1;
+  transition:bottom .2s ease;
 }
 .knight-girl{
   height:100%;

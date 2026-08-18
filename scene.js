@@ -21,6 +21,47 @@ function renderKnightGirl(){
   el.innerHTML = KNIGHT_GIRL_SVG;
 }
 
+/* ---------- calage au pixel près sur la ligne de sol ---------- */
+/* Demande explicite du 18/08/2026 : le bas du dragon ET le bas du
+   chevalier (bottes ou pas) doivent être posés exactement sur le sol,
+   pas flottants au-dessus. Piège trouvé : certains dessins ont une
+   marge vide en bas de leur propre viewBox (le dragon en a une
+   d'environ 7% de sa hauteur — vérifié via getBBox), donc caler
+   juste le CADRE de l'élément sur bottom:0 ne suffit pas, il reste un
+   vide visible entre le dessin réel et le sol. Mesuré via getBBox()
+   plutôt que codé en dur : dépend du dessin, peut changer si un jour
+   un des deux est retracé. */
+function groundOffsetPx(svgEl, displayedHeightPx){
+  if(!svgEl || !svgEl.viewBox || !svgEl.viewBox.baseVal) return 0;
+  const vb = svgEl.viewBox.baseVal;
+  if(vb.height <= 0) return 0;
+  let bbox;
+  try{ bbox = svgEl.getBBox(); }
+  catch(e){ return 0; } // pas encore rendu / pas dans le DOM
+  const bottomMarginUnits = Math.max(0, vb.height - (bbox.y + bbox.height));
+  return (bottomMarginUnits / vb.height) * displayedHeightPx;
+}
+
+/* Épaisseur de la ligne de sol elle-même (mesurée, pas dupliquée
+   depuis le CSS .battle-ground) : le "sol" réel est le HAUT de cette
+   ligne, pas son bas — sans ce décalage, les pieds/la queue finiraient
+   cachés DERRIÈRE la ligne plutôt que posés dessus. */
+function groundLineHeightPx(strip){
+  const ground = strip.querySelector('.battle-ground');
+  return ground ? ground.getBoundingClientRect().height : 0;
+}
+
+function alignKnightFeet(){
+  const strip = document.getElementById('battleStrip');
+  const zone = document.getElementById('knightZone');
+  const svg = document.querySelector('#knightGirl svg');
+  if(!strip || !zone || !svg) return;
+  const h = zone.getBoundingClientRect().height;
+  if(h === 0) return;
+  zone.style.bottom = (groundLineHeightPx(strip) - groundOffsetPx(svg, h)) + 'px';
+}
+window.alignKnightFeet = alignKnightFeet;
+
 /* ---------- hauteur de la bande de combat, calée sur une carte de
    chapitre (demande explicite : "aussi haut qu'une carte de chapitre
    entière") ---------- */
@@ -122,17 +163,26 @@ function renderWeekDragon(){
   }
   html += `<div class="dragon-copy dragon-copy--main">${DRAGON_VICTORIOUS_SVG}</div>`;
   el.innerHTML = html;
+
+  // Calage au pixel près sur le sol (voir groundOffsetPx plus haut) :
+  // le dessin du dragon a une marge vide en bas de son propre viewBox,
+  // sans quoi la queue flotterait au-dessus de la ligne.
+  const mainSvgEl = el.querySelector('.dragon-copy--main svg');
+  el.style.bottom = (groundLineHeightPx(strip) - groundOffsetPx(mainSvgEl, heightPx)) + 'px';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();
   // Ordre important : la hauteur de la bande doit être connue avant
-  // de positionner le dragon (renderWeekDragon en dépend).
+  // de positionner le dragon et le chevalier (en dépendent tous les
+  // deux pour le calage au sol, voir alignKnightFeet/renderWeekDragon).
   alignBattleStripHeight();
   renderWeekDragon();
+  alignKnightFeet();
   window.addEventListener('load', () => {
     alignBattleStripHeight();
     renderWeekDragon();
+    alignKnightFeet();
   });
   let sceneResizeTimer = null;
   window.addEventListener('resize', () => {
@@ -140,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sceneResizeTimer = setTimeout(() => {
       alignBattleStripHeight();
       renderWeekDragon();
+      alignKnightFeet();
     }, 150);
   });
 });
