@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 132, date: "18/08/2026", desc: "Nouvelle barre hebdomadaire sous la barre totale, en haut de l'accueil" },
   { v: 131, date: "12/08/2026", desc: "<ul><li>L'oiseau se cache derrière le chevalier dès mercredi (au lieu de vendredi)</li><li>Lune légèrement penchée</li><li>Tirer la phrase de sagesse tout en bas en charge une nouvelle à chaque fois</li></ul>" },
   { v: 130, date: "12/08/2026", desc: "<ul><li>Barrière de campagne retirée de la scène de combat</li><li>Contour du dragon reconstruit en profondeur (toujours invisible sur iPhone malgré le correctif précédent)</li></ul>" },
   { v: 129, date: "12/08/2026", desc: "<ul><li>Contour du dragon invisible sur iPhone réel : corrigé</li><li>Phrase de sagesse et ligne de séparation cachées, révélées en tirant tout en bas de la page</li></ul>" },

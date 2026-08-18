@@ -232,7 +232,9 @@ function iconRow(n, iconSvg, cap){
 }
 
 function renderWeeklyScore(){
-  const el = document.getElementById('weeklyScore');
+  const fillEl = document.getElementById('weeklyBarFill');
+  const scoreEl = document.getElementById('weeklyBarScore');
+  const metaEl = document.getElementById('weeklyBarMeta');
   const coinsEl = document.getElementById('knightCoins');
   const lossesEl = document.getElementById('creatureLosses');
   ensureWeekCurrent();
@@ -242,7 +244,9 @@ function renderWeeklyScore(){
   const ICON_CAP = 5;
 
   const objectifPct = Math.round(WEEKLY_THRESHOLD * 100);
-  if(el) el.innerHTML = `<div class="weekly-score-text">COMBAT DE LA SEMAINE : ${pct}% (objectif ${objectifPct}%) — ${weeklyTimeRemainingText()}</div>`;
+  if(fillEl) fillEl.style.width = pct + '%';
+  if(scoreEl) scoreEl.textContent = pct + '%';
+  if(metaEl) metaEl.textContent = `objectif ${objectifPct}% — ${weeklyTimeRemainingText()}`;
   if(coinsEl) coinsEl.innerHTML = iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP);
   if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }

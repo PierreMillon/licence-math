@@ -367,6 +367,54 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   white-space:nowrap;
 }
 
+/* Barre hebdomadaire (12/08/2026, demande explicite) : sous la barre
+   totale (#globalProgressBar, vie entière, jamais remise à zéro), une
+   seconde barre qui elle SE remet à zéro chaque lundi — remplace le
+   texte "COMBAT DE LA SEMAINE : X%..." qui était affiché plus bas dans
+   la scène de combat (renderWeeklyScore, weekly.js). Un seul rectangle
+   qui se remplit en %, pas des segments comme la barre globale — plus
+   lisible pour un pourcentage unique. Tooltip générique (tooltips.js,
+   data-tooltip) expliquant la remise à zéro hebdomadaire. */
+.weekly-bar-wrap{
+  margin-top:10px;
+}
+.weekly-bar-block{
+  display:grid;
+  grid-template-columns:1fr auto;
+  column-gap:10px;
+  align-items:center;
+}
+.weekly-bar{
+  grid-column:1;
+  grid-row:1;
+  height:14px;
+  border:1px solid var(--fg);
+  background:#000;
+  padding:2px;
+  cursor:help;
+}
+.weekly-bar__fill{
+  height:100%;
+  width:0%;
+  background:var(--fg);
+  transition:width .2s ease;
+}
+.weekly-bar__score{
+  grid-column:2;
+  grid-row:1;
+  font-family:var(--font-title);
+  font-size:1.1rem;
+  color:var(--amber);
+  white-space:nowrap;
+}
+.weekly-bar__meta{
+  margin-top:4px;
+  font-family:var(--font-subtitle);
+  font-size:.7rem;
+  color:var(--fg-dim);
+  text-align:center;
+}
+
 .grade-tooltip{
   position:absolute;
   left:50%;
@@ -417,22 +465,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 #infoTooltip.visible{ opacity:1; }
 
-.weekly-score{
-  display:flex;
-  justify-content:center;
-  margin:0;
-  margin-top:22px;
-}
-.weekly-score-text{
-  font-family:var(--font-title);
-  font-size:.68rem;
-  color:var(--fg);
-  text-align:center;
-  letter-spacing:.01rem;
-  background:transparent;
-  padding:3px 8px;
-  max-width:100%;
-}
 .weekly-score-more{
   font-family:var(--font-subtitle);
   font-size:.72rem;
