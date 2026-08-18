@@ -42,28 +42,37 @@ function alignBattleStripHeight(){
 }
 window.alignBattleStripHeight = alignBattleStripHeight;
 
-/* ---------- dragon de la semaine : sort de la grotte et s'approche ---------- */
+/* ---------- dragon de la semaine : s'approche jour après jour ---------- */
 /* Système remis à plat le 18/08/2026 (voir CLAUDE.md) : plus de
    positions en pixels calées à l'œil sur un écran de 390px (fragile,
    débordait sous ~320px, plusieurs correctifs successifs) — chaque
-   palier est maintenant une fraction de la hauteur/largeur RÉELLE de
-   la bande (#battleStrip), mesurée à chaque rendu. Le dragon grandit
-   et se rapproche du chevalier (posé à droite) à mesure que la
-   semaine avance ; samedi il occupe presque toute la hauteur de la
-   bande, juste à côté du chevalier.
-   Deux dessins différents (inchangé) : DRAGON_SVG (endormi, roulé en
-   boule) le lundi ; DRAGON_VICTORIOUS_SVG (silhouette dressée) à
-   partir de mardi — regarde vers la gauche par défaut, mirroir
-   horizontal pour qu'il regarde vers la droite (vers le chevalier). */
+   palier est maintenant une fraction de la largeur RÉELLE de la bande
+   (#battleStrip), mesurée à chaque rendu.
+   Taille FIXE (demande explicite du 18/08/2026, "enlève les
+   variations de taille, grand tout le temps") : DRAGON_HEIGHT_FRAC
+   fixe la hauteur à 100% de la bande pour tous les paliers, seule sa
+   position (leftFrac) avance d'un jour à l'autre.
+   UN SEUL dessin désormais, DRAGON_VICTORIOUS_SVG, tous les jours y
+   compris le lundi (retour du 18/08/2026 — l'ancienne pose "endormie
+   roulée en boule", DRAGON_SVG, donnait un gros blob gris à cette
+   taille : trop pleine, pas assez de trous internes pour que la
+   technique du contour trace quoi que ce soit, quelle que soit
+   l'échelle — pas juste un problème de petite taille comme supposé au
+   11/08/2026). L'opacité réduite du lundi ("pas encore réveillé")
+   retirée aussi juste après (même demande) : le dragon a exactement
+   le même rendu tous les jours, seule sa position (leftFrac) avance.
+   Regarde vers la gauche par défaut — mirroir horizontal pour qu'il
+   regarde vers la droite (vers le chevalier). */
+const DRAGON_HEIGHT_FRAC = 1.0;
+const DRAGON_VICTORIOUS_ASPECT = 100 / 95;
 const WEEK_DRAGON_TIERS = [
-  // heightFrac : hauteur du dragon en fraction de la hauteur de la bande.
-  // leftFrac   : position du bord gauche du dragon, en fraction de la largeur de la bande.
-  { svg: 'sleeping',   heightFrac: 0.30, leftFrac: 0.02 }, // lundi    : endormi, à peine sorti
-  { svg: 'victorious', heightFrac: 0.45, leftFrac: 0.04 }, // mardi    : réveillé et debout
-  { svg: 'victorious', heightFrac: 0.58, leftFrac: 0.10 }, // mercredi
-  { svg: 'victorious', heightFrac: 0.72, leftFrac: 0.18 }, // jeudi
-  { svg: 'victorious', heightFrac: 0.86, leftFrac: 0.28 }, // vendredi
-  { svg: 'victorious', heightFrac: 1.0,  leftFrac: 0.42 }, // samedi   : dressé de toute sa hauteur, tout près du chevalier
+  // leftFrac : position du bord gauche du dragon, en fraction de la largeur de la bande.
+  { leftFrac: 0.02 }, // lundi
+  { leftFrac: 0.04 }, // mardi
+  { leftFrac: 0.10 }, // mercredi
+  { leftFrac: 0.18 }, // jeudi
+  { leftFrac: 0.28 }, // vendredi
+  { leftFrac: 0.42 }, // samedi : tout près du chevalier
 ];
 
 /* Lundi=palier 0 ... samedi=palier 5 ; dimanche (combat déjà joué)
@@ -74,11 +83,6 @@ function weekDragonTier(date){
   return day - 1;
 }
 
-/* Aspects largeur:hauteur des deux dessins (viewBox), pour convertir
-   une hauteur en largeur affichée. */
-const DRAGON_SLEEPING_ASPECT = 60 / 39;
-const DRAGON_VICTORIOUS_ASPECT = 100 / 95;
-
 /* Épaisseur cible du contour blanc du dragon, en unités de sa propre
    grille source (pas en px écran) — voir renderWeekDragon, calcul de
    outlinePx. Technique en copies DOM (12/08/2026, voir CLAUDE.md) :
@@ -88,30 +92,18 @@ const DRAGON_OUTLINE_UNIT_THICKNESS = 1;
 function renderWeekDragon(){
   const el = document.getElementById('sceneDragon');
   const strip = document.getElementById('battleStrip');
-  if(!el || !strip || typeof DRAGON_SVG === 'undefined' || typeof DRAGON_VICTORIOUS_SVG === 'undefined') return;
+  if(!el || !strip || typeof DRAGON_VICTORIOUS_SVG === 'undefined') return;
   const stripRect = strip.getBoundingClientRect();
   if(stripRect.height === 0 || stripRect.width === 0) return; // pas encore mis en page
 
   const tier = WEEK_DRAGON_TIERS[weekDragonTier(new Date())];
-  const svgMarkup = tier.svg === 'sleeping' ? DRAGON_SVG : DRAGON_VICTORIOUS_SVG;
-  const aspect = tier.svg === 'sleeping' ? DRAGON_SLEEPING_ASPECT : DRAGON_VICTORIOUS_ASPECT;
 
-  const heightPx = tier.heightFrac * stripRect.height;
-  const widthPx = heightPx * aspect;
+  const heightPx = DRAGON_HEIGHT_FRAC * stripRect.height;
+  const widthPx = heightPx * DRAGON_VICTORIOUS_ASPECT;
   el.style.height = heightPx + 'px';
   el.style.width = widthPx + 'px';
   el.style.left = (tier.leftFrac * stripRect.width) + 'px';
-
-  /* Opacité réduite UNIQUEMENT pour le palier endormi (hérité du
-     11/08/2026, voir CLAUDE.md) : la pose roulée en boule est trop
-     pleine (peu de trous internes) pour que la technique du contour
-     trace un vrai contour creux à cette échelle — plutôt qu'un gros
-     blob blanc plein, on assourdit l'ensemble en gris discret. */
-  el.style.opacity = tier.svg === 'sleeping' ? '0.4' : '1';
-
-  /* DRAGON_VICTORIOUS_SVG regarde vers la gauche par défaut — miroir
-     horizontal pour qu'il regarde vers la droite, vers le chevalier. */
-  el.style.transform = tier.svg === 'sleeping' ? '' : 'scaleX(-1)';
+  el.style.transform = 'scaleX(-1)'; // regarde vers la droite, vers le chevalier
 
   /* Épaisseur du contour blanc — cible ~1 unité de la grille source du
      dragon (voir CLAUDE.md, refonte du 12/08/2026) : 8 copies DOM
@@ -120,16 +112,15 @@ function renderWeekDragon(){
      (invisible sur Safari réel à deux reprises malgré deux correctifs
      différents — abandonné pour cette technique, confirmée fiable
      depuis sur iPhone réel). */
-  const dragonViewBoxWidth = tier.svg === 'sleeping' ? 60 : 100;
-  const outlinePx = (widthPx / dragonViewBoxWidth) * DRAGON_OUTLINE_UNIT_THICKNESS;
+  const outlinePx = (widthPx / 100) * DRAGON_OUTLINE_UNIT_THICKNESS;
   const offsets = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]];
   let html = '';
   for(const [dx, dy] of offsets){
     const tx = (dx * outlinePx).toFixed(2);
     const ty = (dy * outlinePx).toFixed(2);
-    html += `<div class="dragon-copy dragon-copy--outline" style="transform:translate(${tx}px, ${ty}px)">${svgMarkup}</div>`;
+    html += `<div class="dragon-copy dragon-copy--outline" style="transform:translate(${tx}px, ${ty}px)">${DRAGON_VICTORIOUS_SVG}</div>`;
   }
-  html += `<div class="dragon-copy dragon-copy--main">${svgMarkup}</div>`;
+  html += `<div class="dragon-copy dragon-copy--main">${DRAGON_VICTORIOUS_SVG}</div>`;
   el.innerHTML = html;
 }
 

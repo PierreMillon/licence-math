@@ -584,6 +584,39 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   réellement (vie entière vs hebdomadaire), pas sur leur emplacement
   visuel d'avant.
 
+## Scène remontée sous les barres + dragon à taille fixe (18/08/2026, demande explicite, juste après la refonte ci-dessus)
+
+- Trois retouches rapides sur la refonte du jour, dans la foulée :
+  1. `.battle-scene` déplacée dans le HTML pour se retrouver juste
+     sous les deux barres du header (barre totale + barre hebdo),
+     AVANT `<main>`/la grille de chapitres — elle avait été placée
+     après la grille par erreur lors de la première implémentation,
+     alors que la demande d'origine (12/08/2026) disait bien "avant
+     les trucs de chapitre". Aucun impact sur `alignBattleStripHeight`
+     (scene.js) : la mesure de `.chapter-card` se fait par
+     `getBoundingClientRect`, indépendant de la position de l'élément
+     dans le DOM — seul l'ORDRE D'EXÉCUTION des scripts compte (déjà
+     bon, app.js avant scene.js), pas l'ordre de déclaration HTML.
+  2. Variation de taille du dragon supprimée ("grand tout le temps") :
+     `DRAGON_HEIGHT_FRAC` devient une constante unique (1.0) au lieu
+     d'un champ par palier dans `WEEK_DRAGON_TIERS` — seule la position
+     (`leftFrac`, l'approche) varie encore d'un jour à l'autre.
+  3. Conséquence trouvée en testant la taille max sur le palier lundi
+     (endormi, `DRAGON_SVG`) : gros blob gris plutôt qu'un contour net
+     (capture envoyée à Pierre). Confirme que le problème identifié le
+     11/08/2026 ("pas assez de trous internes pour la technique du
+     contour") n'était PAS qu'une question de petite échelle comme
+     supposé alors — cette pose ne fonctionnera JAMAIS avec la
+     technique du contour, quelle que soit sa taille affichée. Question
+     posée à Pierre plutôt que de deviner : réponse = même pose dressée
+     (DRAGON_VICTORIOUS_SVG) tous les jours y compris le lundi, plus de
+     dessin "endormi roulé en boule" du tout. `DRAGON_SVG` retiré
+     entièrement de `creature-svgs.js` (plus aucun usage). L'opacité
+     réduite du lundi (assourdir pour dire "pas encore réveillé"),
+     ajoutée dans la foulée puis retirée par une demande explicite
+     suivante ("oublie assombri aussi") : le dragon a maintenant EXACTE-
+     MENT le même rendu tous les jours, seule sa position le distingue.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon
