@@ -1492,7 +1492,14 @@ code{
   transition:transform .25s ease;
   display:flex;
   flex-direction:column;
-  padding:18px 16px;
+  /* padding-bottom réserve la zone d'indicateur d'accueil iOS (même
+     correctif que .scroll-top-btn/.version-badge, voir CLAUDE.md) :
+     .drawer__reset (pousse en bas via margin-top:auto) se retrouvait
+     avec ses derniers pixels masqués par cette zone système, sous le
+     bas visible de l'écran malgré overflow-y:auto — il n'y avait
+     simplement plus rien à faire défiler, le vide manquant n'était
+     pas dans le contenu mais dans le padding. */
+  padding:18px 16px calc(18px + env(safe-area-inset-bottom));
   overflow-y:auto;
 }
 .drawer.open{ transform:translateX(0); }

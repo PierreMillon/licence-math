@@ -722,6 +722,25 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   scène. Vérifié à 0,00px d'écart (chevalier) et 0,02px (dragon,
   arrondi) à 310/320/390/430px de large.
 
+## Bouton "réinitialiser le site" du menu masqué sous l'indicateur d'accueil iPhone (18/08/2026)
+
+- Nouvelle occurrence de la classe de bug déjà rencontrée sur
+  `.scroll-top-btn`/`.version-badge` (voir plus haut) : le bouton
+  `.drawer__reset` ("RÉINITIALISER LA PROGRESSION DE TOUT LE SITE",
+  poussé en bas du tiroir de menu via `margin-top:auto`) passe en mode
+  "REGRETS ? (Ns)" (rouge) après un clic — capture envoyée par Pierre
+  montrant ce bouton rouge coupé net en bas de l'écran.
+- Cause : `.drawer` a `overflow-y:auto` mais son `padding-bottom`
+  (18px) ne réservait pas la zone d'indicateur d'accueil iOS
+  (`env(safe-area-inset-bottom)`) — le bouton se retrouvait avec ses
+  derniers pixels sous cette zone système, et comme c'était déjà le
+  tout bas du contenu défilable, il n'y avait rien de plus à faire
+  défiler pour le révéler. Corrigé en portant le padding-bottom du
+  tiroir à `calc(18px + env(safe-area-inset-bottom))`, même technique
+  que les deux boutons fixes déjà corrigés pour la même raison —
+  `viewport-fit=cover` déjà présent sur toutes les pages depuis ce
+  premier correctif, rien à ajouter côté `<meta viewport>`.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon
