@@ -344,6 +344,17 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   margin-top:18px;
 }
 
+/* Libellés des deux barres du haut (18/08/2026, demande explicite —
+   distinguer clairement "vie entière" de "cette semaine" sans avoir
+   à ouvrir le tooltip). */
+.bar-label{
+  font-family:var(--font-subtitle);
+  font-size:.68rem;
+  letter-spacing:.04rem;
+  color:var(--fg-dim);
+  margin-bottom:4px;
+}
+
 .grade-block{
   display:grid;
   grid-template-columns:1fr auto;

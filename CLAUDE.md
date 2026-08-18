@@ -670,6 +670,22 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   l'oiseau reste visible en permanence, tap ou pas — la bulle
   apparaît simplement au-dessus de lui comme une vraie bulle de BD.
 
+## Libellés des deux barres du haut (18/08/2026, demande explicite)
+
+- Nommage demandé pour distinguer clairement les deux nouvelles barres
+  (v132/v133) sans avoir à ouvrir un tooltip : « PROGRESSION TOTALE »
+  au-dessus de la barre vie entière (`.bar-label`, index.html), «
+  PROGRESSION HEBDOMADAIRE » au-dessus de la barre qui se remet à zéro
+  chaque lundi — demande explicite "vraiment hyper claire" pour cette
+  dernière, donc un libellé littéral plutôt qu'un nom thématique
+  (chevalier/dragon).
+- Nuance demandée pour la barre totale, glissée dans son tooltip
+  existant (`gradeTooltip`, app.js/renderGlobalProgress) plutôt que
+  dans le libellé lui-même : elle ne se remet JAMAIS à zéro d'elle-
+  même, seule une réinitialisation complète du site (pile de crânes,
+  creature.js) y touche — contrairement à la barre hebdomadaire,
+  remise à zéro chaque lundi par design.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon

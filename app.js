@@ -124,7 +124,11 @@ function renderGlobalProgress(){
   const tooltipEl = document.getElementById('gradeTooltip');
   if(tooltipEl){
     const grade = totalExercises > 0 ? Math.round((totalCorrect / totalExercises) * 20 * 10) / 10 : 0;
-    tooltipEl.innerHTML = `<span class="grade-tooltip__num">${grade}/20</span>note théorique si l'examen ne testait que ce que tu maîtrises déjà`;
+    /* Précision ajoutée le 18/08/2026 (demande explicite) : cette barre
+       ne se remet JAMAIS à zéro d'elle-même, contrairement à la barre
+       hebdomadaire juste en dessous — seule une réinitialisation
+       complète du site (pile de crânes, creature.js) y touche. */
+    tooltipEl.innerHTML = `<span class="grade-tooltip__num">${grade}/20</span>note théorique si l'examen ne testait que ce que tu maîtrises déjà — ne se remet à zéro qu'en cas de réinitialisation complète du site (pile de crânes)`;
   }
 
   updateGlobalProgressSpacing(bar, totalExercises);
