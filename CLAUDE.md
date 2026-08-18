@@ -17,6 +17,19 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   fois dans un résumé de contexte, redonnée une deuxième fois avec la
   demande explicite de ne plus l'oublier.)
 
+## À traiter plus tard, sur demande explicite : "échec du shell en arrière-plan"
+
+- Pierre a signalé (capture à l'appui, 18/08/2026) une erreur "Échec du
+  shell en arrière-plan" visible dans l'historique d'exécution de
+  cette session Claude Code — ce n'est PAS la première fois qu'il en
+  parle, une mention précédente a été perdue (probablement dans un
+  résumé de contexte, même mécanisme que la note sur les auteurs de la
+  mascotte ci-dessous). Pas encore de détail exploitable sur la cause
+  exacte (le message était tronqué dans la capture) — à creuser
+  vraiment la prochaine fois que Pierre le redemande explicitement,
+  pas maintenant (demande explicite de reporter). Ne pas re-perdre
+  cette note une deuxième fois.
+
 ## Format des notes de version (ne jamais redemander)
 
 - Très court, juste le "quoi", jamais le "comment"/"pourquoi" (donné le
