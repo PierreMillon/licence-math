@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 140, date: "18/08/2026", desc: "Symbole d'inclusion N⊂Z⊂Q⊂R⊂C simplifié (rendu plus lisible)" },
   { v: 139, date: "18/08/2026", desc: "Dragon et chevalier posés au pixel près sur le sol (mesuré, plus de vide sous la queue du dragon)" },
   { v: 138, date: "18/08/2026", desc: "<ul><li>Libellés « PROGRESSION TOTALE » / « PROGRESSION HEBDOMADAIRE » sur les deux barres du haut</li><li>Tooltip de la barre totale précise qu'elle ne se remet à zéro qu'en cas de réinitialisation complète</li></ul>" },
   { v: 137, date: "18/08/2026", desc: "<ul><li>Bulle de l'oiseau remise au-dessus, avec l'espace réservé qu'il faut</li><li>L'oiseau ne disparaît plus quand on appuie dessus</li></ul>" },
