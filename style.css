@@ -385,6 +385,7 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   align-items:center;
 }
 .weekly-bar{
+  position:relative;
   grid-column:1;
   grid-row:1;
   height:14px;
@@ -399,6 +400,24 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   background:var(--fg);
   transition:width .2s ease;
 }
+/* Repère de l'objectif hebdomadaire (12/08/2026, demande explicite) :
+   remplace le texte "objectif X%" par un simple trait vertical posé
+   sur la barre, positionné en JS (renderWeeklyScore, weekly.js) selon
+   WEEKLY_THRESHOLD — variable (30%-90%), donc jamais une position fixe
+   en CSS. Le chiffre exact reste consultable dans le tooltip de la
+   barre plutôt que d'encombrer l'affichage en permanence. Ambre pour
+   rester lisible aussi bien sur le fond noir que sur le remplissage
+   blanc. */
+.weekly-bar__tick{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0%;
+  width:2px;
+  background:var(--amber);
+  transform:translateX(-1px);
+  pointer-events:none;
+}
 .weekly-bar__score{
   grid-column:2;
   grid-row:1;
@@ -406,13 +425,6 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   font-size:1.1rem;
   color:var(--amber);
   white-space:nowrap;
-}
-.weekly-bar__meta{
-  margin-top:4px;
-  font-family:var(--font-subtitle);
-  font-size:.7rem;
-  color:var(--fg-dim);
-  text-align:center;
 }
 
 .grade-tooltip{

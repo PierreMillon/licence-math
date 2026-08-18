@@ -232,9 +232,10 @@ function iconRow(n, iconSvg, cap){
 }
 
 function renderWeeklyScore(){
+  const barEl = document.getElementById('weeklyBar');
   const fillEl = document.getElementById('weeklyBarFill');
+  const tickEl = document.getElementById('weeklyBarTick');
   const scoreEl = document.getElementById('weeklyBarScore');
-  const metaEl = document.getElementById('weeklyBarMeta');
   const coinsEl = document.getElementById('knightCoins');
   const lossesEl = document.getElementById('creatureLosses');
   ensureWeekCurrent();
@@ -245,8 +246,15 @@ function renderWeeklyScore(){
 
   const objectifPct = Math.round(WEEKLY_THRESHOLD * 100);
   if(fillEl) fillEl.style.width = pct + '%';
+  if(tickEl) tickEl.style.left = objectifPct + '%';
   if(scoreEl) scoreEl.textContent = pct + '%';
-  if(metaEl) metaEl.textContent = `objectif ${objectifPct}% — ${weeklyTimeRemainingText()}`;
+  /* Objectif exact + compte à rebours déplacés dans le tooltip
+     (12/08/2026, demande explicite) : plus de texte "objectif X% —
+     il reste Xj Yh" affiché en permanence sous la barre, juste le
+     repère visuel (.weekly-bar__tick ci-dessus) — le détail chiffré
+     reste consultable au clic/appui, réattribué à chaque rendu car
+     WEEKLY_THRESHOLD et le compte à rebours changent. */
+  if(barEl) barEl.setAttribute('data-tooltip', `Chaque lundi à minuit, cette barre repart à zéro, ainsi que tous les chapitres et toutes les questions de la semaine. Objectif actuel : ${objectifPct}% — ${weeklyTimeRemainingText()}.`);
   if(coinsEl) coinsEl.innerHTML = iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP);
   if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }
