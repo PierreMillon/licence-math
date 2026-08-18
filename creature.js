@@ -1,9 +1,10 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — creature.js
-   Mascotte permanente : un oiseau, toujours affiché (posé en bas de
-   la scène de combat), qui ne se transforme plus en dragon — voir
-   scene.js pour le dragon, désormais un personnage à part entière lié
-   au jour de la semaine (refonte du 11/08/2026, voir CLAUDE.md).
+   Mascotte permanente : un oiseau, toujours affiché — isolé tout en
+   bas de la page depuis le 18/08/2026 (chantier de simplification,
+   voir CLAUDE.md), plus dans la scène de combat. Ne se transforme
+   plus en dragon — voir scene.js pour le dragon, un personnage à part
+   entière lié au jour de la semaine (refonte du 11/08/2026).
    L'oiseau garde deux rôles : une bulle d'alerte progressive dès 3
    jours sans exercice répondu (bubbleText), et une phrase taquine
    piochée dans BIRD_TEASE_PHRASES au même seuil, signée par un des

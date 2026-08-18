@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 134, date: "18/08/2026", desc: "<ul><li>Scène de combat simplifiée : château/grotte/lune retirés, dragon et chevalier sur une seule ligne</li><li>L'oiseau isolé tout en bas de la page</li></ul>" },
   { v: 133, date: "18/08/2026", desc: "Objectif hebdomadaire affiché en repère sur la barre, plus en texte" },
   { v: 132, date: "18/08/2026", desc: "Nouvelle barre hebdomadaire sous la barre totale, en haut de l'accueil" },
   { v: 131, date: "12/08/2026", desc: "<ul><li>L'oiseau se cache derrière le chevalier dès mercredi (au lieu de vendredi)</li><li>Lune légèrement penchée</li><li>Tirer la phrase de sagesse tout en bas en charge une nouvelle à chaque fois</li></ul>" },

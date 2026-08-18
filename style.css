@@ -483,151 +483,47 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   margin-left:3px;
 }
 
+/* Scène de combat remise à plat le 18/08/2026 (demande explicite,
+   chantier de simplification, voir CLAUDE.md) : plus de château, de
+   grotte ni de lune en arrière-plan — une seule bande compacte
+   (.battle-strip) avec un sol, le dragon à gauche et le chevalier à
+   droite. Hauteur calée sur celle d'une carte de chapitre, mesurée en
+   JS (alignBattleStripHeight, scene.js) plutôt que fixée ici. */
 .battle-scene{
-  position:relative;
   margin:8px 0 12px;
-  /* padding-top réserve la place du château + de la grotte, posés en
-     arrière-plan (absolus) juste au-dessus des personnages. Réduit de
-     152 à 82px (11/08/2026, retour "trop d'espace vide en haut") en
-     même temps que le top du château (90px -> 20px, même écart de
-     70px) pour garder le même léger chevauchement château/personnages
-     qu'avant, juste sans le vide au-dessus. */
-  padding-top:82px;
 }
-.scene-moon{
+.battle-strip{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+}
+.battle-ground{
   position:absolute;
-  /* Revenue au bord droit (right:0) le 11/08/2026 — la vraie cause du
-     "hors champ" trouvée : .scene-plan2 débordait horizontalement en
-     dessous de ~312px de large (voir sa règle plus bas), ce qui
-     perturbait tout élément calé sur le bord droit de la page. Plus
-     besoin de contourner right:0 une fois ce débordement corrigé.
-     top de secours ici (avant le premier rendu JS) ; alignSceneMoon()
-     (scene.js) recalcule le vrai top juste après, à partir du
-     château mesuré — right:0 reste fixe, lui, aligné sur le cadre. */
-  top:10px;
+  left:0;
   right:0;
+  bottom:0;
+  height:2px;
+  background:var(--fg-dim);
   z-index:0;
-  width:26px;
-  height:26px;
-  opacity:.8;
-  /* Légère rotation (12/08/2026, demande explicite, croquis fourni) :
-     la technique à deux cercles (voir plus bas) ne peut naturellement
-     produire qu'un croissant aux pointes verticales (12h/6h, ventre
-     tourné à gauche ou à droite selon le sens du glissement) — un
-     croissant "penché" façon lune de dessin animé demande de faire
-     pivoter l'ensemble disque+cache comme un seul bloc rigide plutôt
-     que de retoucher le calcul de phase. Rotation posée ici plutôt
-     que sur .moon-disc/.moon-occluder séparément pour que leur
-     décalage horizontal relatif (translateX, voir applyMoonPhase)
-     tourne avec eux sans se désaligner. */
-  transform:rotate(-25deg);
 }
-/* Phase lunaire redessinée en "éclipse à deux cercles" (11/08/2026,
-   demande explicite) : un disque plein blanc (.moon-disc, toujours
-   entier, jamais retouché) et un second disque STRICTEMENT identique
-   par-dessus (.moon-occluder), couleur du fond de la scène plutôt que
-   découpé — il glisse horizontalement (translateX) pour recouvrir
-   plus ou moins le premier. Décalé complètement à côté (100% de sa
-   propre largeur) = disque blanc entièrement visible (pleine lune) ;
-   décalé à 0% = parfaitement superposé = disque blanc entièrement
-   recouvert (nouvelle lune). Remplace l'ancien clip-path (inset), qui
-   ne pouvait découper qu'un rectangle droit — ici la zone visible
-   restante est un vrai croissant, la superposition de deux cercles.
-   Le pourcentage de décalage est posé en JS (applyMoonPhase, scene.js)
-   selon la fraction illuminée du jour. */
-.scene-moon .moon-disc,
-.scene-moon .moon-occluder{
-  position:absolute;
-  top:0;
-  left:0;
-  display:block;
-}
-.scene-moon .moon-disc svg,
-.scene-moon .moon-occluder svg{
-  display:block;
-  /* Redessinée en disque plein le 10/08/2026 (MOON_SVG, viewBox
-     52×52, cercle plein généré au pixel près). Densité 52/26 = 2,0
-     pile (plan 4), taille affichée inchangée (26px). */
-  width:26px;
-  height:auto;
-}
-.scene-moon .moon-disc{ color:var(--fg-dim); } /* dimmé, cohérent avec le reste du décor (château, grotte) */
-.scene-moon .moon-occluder{
-  color:var(--bg); /* même couleur que le fond de la scène : "efface" plutôt que découpe */
-  will-change:transform;
-}
-/* Château plaqué tout à gauche (aligné sur la bordure gauche des
-   cadres, ex. la barre de vie — demande du 10/08/2026, au lieu d'être
-   centré), avec sa grotte juste en dessous (le dragon y « habite ») :
-   le chevalier descend du château pour l'affronter — c'est lui-même
-   qu'il affronte, pas un autre, d'où la grotte sous ses propres
-   fondations. Décor en arrière-plan (z-index:0, comme la lune),
-   atténué pour ne pas concurrencer les personnages au premier plan.
-   Descendu le 10/08/2026 (était top:0) pour que le groupe château+
-   lune se rapproche des personnages au lieu de flotter tout en haut
-   de la scène — les personnages restent devant (z-index:1 sur
-   .battle-zone), même si le bas du château/de la grotte finit par
-   chevaucher légèrement le haut des personnages. */
-.scene-castle{
-  position:absolute;
-  top:20px;
-  left:0;
-  z-index:0;
-  color:var(--fg-dim);
-  opacity:.85;
-}
-.scene-castle svg{
-  display:block;
-  width:42px;
-  height:auto;
-}
-/* Grotte posée sous le bas de la falaise (pas sous les tours) : le
-   château tracé inclut la falaise d'origine sur toute sa hauteur, donc
-   le bas du SVG château EST le bas de la falaise. Quelques pixels
-   d'écart (gap) pour que la grotte ne touche pas directement. */
-.scene-cave{
-  position:absolute;
-  top:217px;
-  left:0;
-  z-index:0;
-  color:var(--fg-dim);
-  opacity:.85;
-  /* Rendue invisible le 11/08/2026 (demande explicite, pas satisfait
-     du rendu actuel) — l'emplacement/l'architecture (top/left, voir
-     aussi WEEK_DRAGON_TIERS qui s'y référait) reste en place pour ne
-     pas tout recalculer si elle revient plus tard, seule la peinture
-     à l'écran est coupée. */
-  visibility:hidden;
-}
-.scene-cave svg{
-  display:block;
-  /* Densité corrigée le 10/08/2026 par doublage de la grille source
-     (CAVE_SVG, viewBox 32×14 -> 64×28, même silhouette — voir
-     creature-svgs.js), PAS par réduction de la taille affichée :
-     64/40 = 1,6, proche de la densité réelle du château (1,52, même
-     plan 3). Un premier essai avait réduit la taille affichée à 21px
-     à la place — rendu dégradé (grotte trop petite), annulé. Cette
-     approche est la même que celle qui a marché pour la lune. */
-  width:40px;
-  height:auto;
+.battle-meta{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  margin-top:6px;
 }
 
-/* Dragon de la semaine (refonte du 11/08/2026, voir CLAUDE.md et
-   scene.js/renderWeekDragon) : sort de la grotte et s'en approche un
-   palier par jour. Contrairement au reste du décor (château/grotte,
-   atténués en var(--fg-dim)), il reste en var(--fg) — c'est un
-   personnage de l'histoire de la semaine, pas un simple fond. top/
-   left/width posés en JS à chaque jour (voir WEEK_DRAGON_TIERS),
-   valeurs ici juste des repères de secours avant le premier rendu.
-   Barrière de campagne (plan 2, ex-.scene-plan2) retirée entièrement
-   le 12/08/2026 (demande explicite, jugée "vraiment moche"). */
+/* Dragon de la semaine (voir scene.js/renderWeekDragon) : posé au sol
+   de la bande, grandit et se rapproche du chevalier jour après jour —
+   height/left posés en JS en fraction de la bande mesurée (plus de
+   pixels fixes calibrés à l'œil, fragiles sous ~320px de large, voir
+   l'historique de ce souci en CLAUDE.md). */
 .scene-dragon{
   position:absolute;
-  top:217px;
-  left:10px;
-  width:16px;
+  bottom:0;
+  left:0;
   z-index:1;
-  transition:top .4s ease, left .4s ease, width .4s ease;
+  transition:left .4s ease, width .4s ease, height .4s ease;
 }
 /* Couleurs inversées (11/08/2026, demande explicite) : le dragon
    était rempli en blanc (var(--fg)) avec le détail (écailles, ailes)
@@ -662,71 +558,36 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 .dragon-copy--outline{ color:var(--fg); }
 .dragon-copy--main{ color:var(--bg); }
 
-.battle-zone{
-  position:relative;
-  z-index:1;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  gap:28px;
-  margin:0;
-  flex-wrap:wrap;
-}
-
+/* Chevalier plaqué à droite de la bande, hauteur = 100% de
+   .battle-strip (donc alignée sur celle d'une carte de chapitre,
+   voir alignBattleStripHeight/scene.js) plutôt qu'une valeur fixe en
+   px comme avant la refonte du 18/08/2026. */
 .knight-zone{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  margin:0;
-}
-/* Oiseau caché derrière le chevalier (11/08/2026, demande explicite,
-   voir updateBirdHiding/scene.js) : z-index négatif pour se dessiner
-   DERRIÈRE .knight-girl (non positionné, donc peint au-dessus de tout
-   descendant positionné à z-index négatif de ce même .knight-zone,
-   qui sert d'ancre via position:relative ci-dessus) — pas de miroir,
-   BIRD_SVG regarde déjà vers la gauche par défaut, donc vers le
-   dragon une fois posé sur le flanc gauche du chevalier. */
-.bird-peek{
-  display:none;
   position:absolute;
-  left:-34px;
+  right:2px;
   bottom:0;
-  z-index:-1;
-  color:var(--fg);
+  height:100%;
+  z-index:1;
 }
-.bird-peek svg{
-  display:block;
-  height:38px;
-  width:auto;
-}
-.battle-zone.bird-hiding #creatureFigure{ opacity:0; }
-.battle-zone.bird-hiding .bird-peek{ display:block; }
 .knight-girl{
-  flex:none;
+  height:100%;
   line-height:0;
 }
 .knight-girl svg{
-  /* 188px = 94 (hauteur de grille KNIGHT_GIRL_SVG, viewBox 33×94) /
-     0,5 (densité cible du plan 1, système de profondeur du
-     10/08/2026) — était 180px, une valeur qui n'était pas encore
-     calée sur cette densité exacte. */
-  height:188px;
+  height:100%;
   width:auto;
   image-rendering:pixelated;
   display:block;
 }
 /* Cadre d'équipement en surimpression sur le chevalier en couleur :
-   même hauteur/ratio que le SVG du chevalier (posé en haut de la
-   colonne), positionné en absolu pour ne pas être détruit par le
-   innerHTML du chevalier (scene.js) ni pousser les pièces d'or. */
+   même hauteur/ratio que le SVG du chevalier, positionné en absolu
+   pour ne pas être détruit par le innerHTML du chevalier (scene.js). */
 .knight-figure{
   position:absolute;
-  top:0;
+  bottom:0;
   left:50%;
   transform:translateX(-50%);
-  height:188px;
+  height:100%;
   aspect-ratio:33/94;
   pointer-events:none;
 }
@@ -782,12 +643,16 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   height:auto;
 }
 
+/* Isolé tout en bas de la page depuis le 18/08/2026 (demande
+   explicite, chantier de simplification) : n'a plus rien à voir avec
+   la scène de combat (.battle-scene) — juste une petite marge pour
+   respirer par rapport à la grille de chapitres au-dessus. */
 .creature-zone{
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:6px;
-  margin:0;
+  margin:24px 0 0;
   min-height:90px;
   position:relative; /* ancre la bulle BD (.creature-bubble), voir plus bas */
 }

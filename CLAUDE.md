@@ -535,6 +535,55 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   l'état actuel — le réécrire pour effacer ce qui a existé serait
   malhonnête.
 
+## Scène de combat simplifiée : plus de château/grotte/lune (18/08/2026, demande explicite)
+
+- Chantier de simplification évoqué en exploration le 12/08/2026
+  (exemple jamais mis en prod à l'époque), demandé pour de vrai cette
+  fois : retire entièrement château (`CASTLE_SVG`), grotte (`CAVE_SVG`)
+  et lune (`MOON_SVG`, sa phase réelle, sa rotation) — plus aucune
+  trace dans le HTML/CSS/JS ni dans `creature-svgs.js`. Remplacés par
+  une seule bande compacte (`.battle-strip`/`#battleStrip`) : un sol
+  (`.battle-ground`, simple ligne), le dragon de la semaine à gauche
+  qui avance jour après jour, le chevalier à droite qui se dresse là
+  où il était déjà (système d'armure knight.js inchangé — 100%
+  compatible, positions en % relatives à sa propre grille).
+- Hauteur de la bande = hauteur d'une carte de chapitre (demande
+  explicite, précisée par question : "une carte entière", pas les
+  11px de la mini-barre de progression d'une carte). MESURÉE
+  (`alignBattleStripHeight`, scene.js) sur une vraie `.chapter-card`
+  plutôt que codée en dur — implique que `app.js` (qui construit la
+  grille) doit s'exécuter AVANT `scene.js` : réordonnancement des
+  balises `<script>` dans index.html (app.js juste avant scene.js,
+  après tout le reste), inhabituel sur ce site où scene.js passait
+  systématiquement avant app.js jusqu'ici.
+- `WEEK_DRAGON_TIERS` entièrement repensé : positions/tailles en
+  FRACTION de la largeur/hauteur réelle de la bande (`heightFrac`/
+  `leftFrac`), plus en pixels calibrés à l'œil sur un écran de 390px.
+  Corrige par construction toute la classe de bugs de débordement sous
+  ~320px rencontrée plusieurs fois avec l'ancien système (voir plus
+  haut, "toujours tester sous 320px") — vérifié à 310px et 320px après
+  coup, aucun débordement, plus besoin du filet de sécurité ad hoc
+  que ça demandait avant.
+- Technique du contour du dragon (copies DOM, 12/08/2026) reprise à
+  l'identique, juste réalimentée par les nouvelles dimensions
+  mesurées — aucune régression attendue, confirmée par test.
+- Mécanique "l'oiseau se cache derrière le chevalier" (11-12/08/2026,
+  `#birdPeek`/`updateBirdHiding`/`BIRD_HIDE_FROM_TIER`) retirée
+  entièrement : n'a plus de sens une fois l'oiseau isolé (voir plus
+  bas), il n'est plus jamais à proximité du chevalier.
+- L'oiseau (`creature.js`, `#creatureZone`) déplacé tel quel (aucun
+  changement de code dans creature.js — juste son emplacement dans le
+  HTML) tout en bas de la page, après la scène de combat, avant le
+  pied de page. Totalement indépendant de la scène de combat
+  maintenant. La pile de crânes vie entière (`#skullPile`) part avec
+  lui (conceptuellement liée à l'oiseau/à l'historique de réinitial-
+  isation du site, pas au combat hebdo) ; les victoires/défaites de la
+  semaine (`#knightCoins`/`#creatureLosses`, weekly.js) restent avec
+  la scène de combat, regroupées sous la bande (`.battle-meta`) —
+  distinction faite sur la base de ce que chaque compteur représente
+  réellement (vie entière vs hebdomadaire), pas sur leur emplacement
+  visuel d'avant.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon
