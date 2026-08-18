@@ -645,8 +645,10 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 
 /* Isolé tout en bas de la page depuis le 18/08/2026 (demande
    explicite, chantier de simplification) : n'a plus rien à voir avec
-   la scène de combat (.battle-scene) — juste une petite marge pour
-   respirer par rapport à la grille de chapitres au-dessus. */
+   la scène de combat (.battle-scene). margin-top de base pour
+   respirer par rapport à la grille de chapitres au-dessus — porté à
+   plus que ça EN JS (applyCreatureZoneSpacing, creature.js) dès que la
+   bulle est visible, voir commentaire de .creature-bubble ci-dessous. */
 .creature-zone{
   display:flex;
   flex-direction:column;
@@ -664,20 +666,22 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
    seule bulle, qui alterne au hasard entre les deux à chaque
    chargement de page (voir renderCreature, creature.js). position:
    absolute (ancrée sur .creature-zone ci-dessus) plutôt qu'un bloc
-   dans le flux flex : peut grandir librement sans pousser la colonne.
-   Basculée SOUS l'oiseau plutôt qu'au-dessus (18/08/2026, signalé
-   capture à l'appui) : depuis que l'oiseau est isolé tout en bas de
-   page (refonte du 18/08/2026), au-dessus de lui il y a la grille de
-   chapitres — une bulle qui grandit vers le haut recouvrait la carte
-   du dernier chapitre (score illisible). En dessous, il n'y a que la
-   pile de crânes et le pied de page, un endroit bien plus sûr pour
-   qu'un texte de longueur variable empiète sans gêner. */
+   dans le flux flex : peut grandir librement sans pousser la colonne
+   dans son propre espace.
+   Passée un temps sous l'oiseau (18/08/2026) puis remise au-dessus
+   juste après (même jour, demande explicite : "plus logique") — pour
+   ne plus jamais recouvrir la carte du dernier chapitre au-dessus,
+   `applyCreatureZoneSpacing()` (creature.js) mesure la hauteur réelle
+   de la bulle dès qu'elle devient visible et pousse TOUTE la colonne
+   (`#creatureZone`, y compris l'oiseau) vers le bas d'autant — plutôt
+   qu'une marge fixe codée en dur (fragile, voir plus haut la note sur
+   les positions absolues : la longueur du texte varie). */
 .creature-bubble{
   position:absolute;
   left:50%;
-  top:100%;
+  bottom:100%;
   transform:translateX(-50%);
-  margin-top:12px;
+  margin-bottom:12px;
   z-index:5;
   max-width:min(230px, calc(100vw - 24px));
   background:var(--bg);
@@ -689,22 +693,22 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   transition:opacity .2s ease;
 }
 .creature-bubble.visible{ opacity:1; }
-/* Petite pointe pixel vers l'oiseau (au-dessus, depuis le basculement
-   ci-dessus) — deux carrés qui se rétrécissent, plus cohérent avec
-   l'esthétique en carrés nets du site qu'un triangle CSS classique. */
+/* Petite pointe pixel sous la bulle, vers l'oiseau — deux carrés qui
+   se rétrécissent, plus cohérent avec l'esthétique en carrés nets du
+   site qu'un triangle CSS classique. */
 .creature-bubble::after{
   content:"";
   position:absolute;
   left:50%;
-  top:-8px;
+  bottom:-8px;
   transform:translateX(-50%);
   width:10px;
   height:6px;
   background:var(--bg);
   border-left:2px solid var(--fg);
   border-right:2px solid var(--fg);
-  border-top:2px solid var(--fg);
-  clip-path:polygon(0 100%, 100% 100%, 50% 0);
+  border-bottom:2px solid var(--fg);
+  clip-path:polygon(0 0, 100% 0, 50% 100%);
 }
 .creature-bubble.glyph{
   font-family:var(--font-title);
@@ -720,13 +724,11 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 }
 .creature-figure{
   cursor:pointer; /* appui pour la faire parler, voir initBirdTapReveal (creature.js) */
-  transition:opacity .2s ease;
   display:flex;
   align-items:flex-end;
   justify-content:center;
   min-height:70px;
 }
-.creature-figure.peeking{ opacity:0; }
 .creature-icon{
   display:block;
   width:auto;

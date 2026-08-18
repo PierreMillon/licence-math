@@ -186,6 +186,28 @@ function scheduleBirdBlink(figure, heightPx){
   }, delay);
 }
 
+/* Espace réservé au-dessus de #creatureZone pour que la bulle (qui
+   grandit vers le haut, voir style.css .creature-bubble) ne recouvre
+   jamais la carte du dernier chapitre juste au-dessus (18/08/2026,
+   signalé capture à l'appui — l'oiseau est isolé tout en bas de page
+   depuis la refonte du même jour). Mesure la hauteur RÉELLE de la
+   bulle une fois son contenu posé plutôt qu'une marge fixe codée en
+   dur — le texte est de longueur variable (glyphe court vs phrase
+   taquine), voir la note sur la fragilité des positions absolues.
+   Appelée à la fin des trois helpers ci-dessous, donc toujours à jour
+   quel que soit l'appelant (rendu automatique ou appui sur l'oiseau). */
+function applyCreatureZoneSpacing(){
+  const zone = document.getElementById('creatureZone');
+  const bubble = document.getElementById('creatureBubble');
+  if(!zone || !bubble) return;
+  if(bubble.classList.contains('visible')){
+    const h = bubble.getBoundingClientRect().height;
+    zone.style.marginTop = Math.round(h + 36) + 'px'; // bulle + pointe + marge de respiration
+  }else{
+    zone.style.marginTop = ''; // retombe sur la marge de base (24px, CSS)
+  }
+}
+
 /* Bulle BD (voir style.css .creature-bubble) : trois petits helpers
    pour poser son contenu, réutilisés par le rendu automatique
    (renderCreature, seuil L>=3) ET par l'appui sur l'oiseau
@@ -197,34 +219,39 @@ function showBubblePhrase(bubble){
   bubble.innerHTML = `“${BIRD_TEASE_PHRASES[idx]}”`;
   bubble.classList.remove('glyph');
   bubble.classList.add('phrase', 'visible');
+  applyCreatureZoneSpacing();
 }
 function showBubbleGlyph(bubble, txt){
   bubble.textContent = txt;
   bubble.classList.remove('phrase');
   bubble.classList.add('glyph', 'visible');
+  applyCreatureZoneSpacing();
 }
 function hideBubble(bubble){
   bubble.innerHTML = '';
   bubble.classList.remove('visible', 'glyph', 'phrase');
+  applyCreatureZoneSpacing();
 }
 
-/* Appui sur l'oiseau (11/08/2026, demande explicite) : l'oiseau
-   lui-même n'intéresse pas Pierre, ce qui compte c'est le message —
-   un appui le remplace donc par sa bulle (une phrase taquine,
-   toujours disponible, indépendante du seuil d'absence L>=3 qui régit
-   l'apparition automatique). Ré-appuyer (même zone, restée cliquable
-   même une fois l'oiseau caché) referme la bulle et fait réapparaître
-   l'oiseau. */
+/* Appui sur l'oiseau (11/08/2026, demande explicite à l'origine) :
+   fait apparaître sa bulle (une phrase taquine, toujours disponible,
+   indépendante du seuil d'absence L>=3 qui régit l'apparition
+   automatique). Re-appuyer referme la bulle et repasse par le rendu
+   normal. L'oiseau lui-même reste TOUJOURS visible pendant ce temps
+   (18/08/2026, demande explicite — "il devient noir, c'est chelou") :
+   il ne disparaît plus jamais au tap, contrairement au comportement
+   d'origine du 11/08/2026 qui le rendait invisible (opacity:0)
+   pendant que la bulle parlait à sa place — jugé déroutant une fois
+   revu avec la bulle repositionnée au-dessus. */
 function initBirdTapReveal(){
   const figure = document.getElementById('creatureFigure');
   const bubble = document.getElementById('creatureBubble');
   if(!figure || !bubble) return;
-  let peeking = false;
+  let showingTease = false;
 
   function togglePeek(){
-    peeking = !peeking;
-    figure.classList.toggle('peeking', peeking);
-    if(peeking) showBubblePhrase(bubble);
+    showingTease = !showingTease;
+    if(showingTease) showBubblePhrase(bubble);
     else{
       // Ne referme pas une bulle affichée pour une vraie raison
       // (absence en cours, L>=3) — repasse juste par le rendu normal.

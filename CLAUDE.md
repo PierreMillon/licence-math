@@ -645,6 +645,31 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   suivant continue de se déclencher normalement). À utiliser après un
   import si on veut repartir sur une semaine vierge.
 
+## Bulle de l'oiseau remise au-dessus + oiseau qui ne disparaît plus au tap (18/08/2026, demande explicite, juste après)
+
+- Retour de Pierre sur le choix "bulle sous l'oiseau" du même jour :
+  "plus logique" de la garder au-dessus, plutôt lever l'oiseau. Bulle
+  remise en `bottom:100%` (pointe vers le bas, comme à l'origine du
+  11/08/2026) — mais pour ne plus jamais recouvrir la carte du dernier
+  chapitre au-dessus (raison du changement précédent), `#creatureZone`
+  reçoit maintenant un `margin-top` calculé en JS
+  (`applyCreatureZoneSpacing`, creature.js) : mesure la hauteur RÉELLE
+  de la bulle dès qu'elle devient visible et pousse toute la colonne
+  (oiseau + pile de crânes) vers le bas d'autant, plutôt qu'une marge
+  fixe (le texte est de longueur variable — voir la note plus haut sur
+  la fragilité des positions codées en dur). Appelée depuis les trois
+  helpers de contenu de la bulle (`showBubblePhrase`/`showBubbleGlyph`/
+  `hideBubble`), donc à jour quel que soit l'appelant (rendu
+  automatique au chargement, ou appui sur l'oiseau).
+- Signalé au même moment : appuyer sur l'oiseau le fait "disparaître,
+  devenir noir" — comportement en fait volontaire depuis le
+  11/08/2026 (`.creature-figure.peeking{opacity:0}`, l'oiseau
+  s'effaçait pour laisser toute la place à sa bulle), mais jugé
+  "chelou" maintenant que la bulle est repositionnée. Retiré
+  entièrement (classe `.peeking` et sa règle CSS supprimées) :
+  l'oiseau reste visible en permanence, tap ou pas — la bulle
+  apparaît simplement au-dessus de lui comme une vraie bulle de BD.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon
