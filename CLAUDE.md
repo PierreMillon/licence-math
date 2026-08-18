@@ -617,6 +617,34 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
      suivante ("oublie assombri aussi") : le dragon a maintenant EXACTE-
      MENT le même rendu tous les jours, seule sa position le distingue.
 
+## Bulle de l'oiseau redirigée sous lui + bouton reset semaine (18/08/2026, signalé capture à l'appui)
+
+- Depuis que l'oiseau est isolé tout en bas de page (refonte du
+  18/08/2026 ci-dessus), sa bulle BD (position:absolute, grandit vers
+  le haut, voir plus haut) se retrouvait à recouvrir la carte du
+  dernier chapitre (PYTHON) — au-dessus de l'oiseau il y a maintenant
+  la grille de chapitres, plus le décor de la scène de combat comme
+  avant. Basculée sous l'oiseau (`top:100%` au lieu de `bottom:100%`,
+  pointe retournée) : en dessous il n'y a que la pile de crânes et le
+  pied de page, un endroit sûr pour du texte de longueur variable.
+- Signalé au même moment : "gardé le score hebdo" après une opération
+  d'import de phrase. Cause réelle, pas un bug — `applyChapterLevel`
+  (progression.js) écrit délibérément la même fraction dans la couche
+  vie entière ET la couche hebdo à l'import (corrigé le 11/08/2026,
+  voir plus haut : sans ça l'armure ne se reconstituait jamais après
+  import). Donc réimporter une phrase "reforge" l'armure d'un coup —
+  comportement voulu dans le cas général, mais gênant si on veut
+  restaurer sa progression permanente SANS repartir avec l'armure
+  complète. Pas de solution via la phrase elle-même (les codes
+  n'encodent qu'un niveau par chapitre, pas une couche hebdo séparée)
+  — ajouté à la place un bouton dédié sur progression.html,
+  « RÉINITIALISER MA SEMAINE » (`resetWeekOnly()`, weekly.js) : vide
+  uniquement l'état hebdo par chapitre + `WEEKLY_PROGRESS_KEY`, sans
+  toucher au score cumulé (wins/losses, jamais remis à zéro par
+  design), au seuil adaptatif, ni à `WEEKLY_META_KEY` (le vrai lundi
+  suivant continue de se déclencher normalement). À utiliser après un
+  import si on veut repartir sur une semaine vierge.
+
 ## `calc(var(--x))` dans un `drop-shadow` invisible sur Safari réel (12/08/2026)
 
 - Signalé par Pierre sur iPhone réel (capture à l'appui) : le dragon

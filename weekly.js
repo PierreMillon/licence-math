@@ -161,6 +161,25 @@ function resolveAndResetWeek(newWeekStart){
   localStorage.setItem(WEEKLY_META_KEY, JSON.stringify({ weekStart: newWeekStart }));
 }
 
+/* Remise à zéro MANUELLE de la seule couche hebdo (18/08/2026, demande
+   explicite — cas d'usage : réimporter une phrase de progression pour
+   restaurer la progression permanente sans que ça "reforge" l'armure
+   d'un coup, l'import écrivant par ailleurs la même fraction dans les
+   deux couches, voir progression.js/applyChapterLevel). Contrairement
+   à resolveAndResetWeek (déclenchée par le vrai passage au lundi), ne
+   touche NI le score cumulé (wins/losses, jamais remis à zéro par
+   design) NI le seuil adaptatif NI WEEKLY_META_KEY (la vraie date de
+   la semaine en cours reste correcte, le prochain lundi réel
+   continuera de se déclencher normalement). Exposée sur
+   progression.html (bouton dédié, progression-page.js). */
+function resetWeekOnly(){
+  Object.keys(CHAPTER_TOTALS).forEach(id => {
+    localStorage.removeItem(weeklyStateKey(id));
+  });
+  localStorage.removeItem(WEEKLY_PROGRESS_KEY);
+}
+window.resetWeekOnly = resetWeekOnly;
+
 function ensureWeekCurrent(){
   const meta = loadWeeklyMeta();
   const nowStart = currentWeekStartStr();

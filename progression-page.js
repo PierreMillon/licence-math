@@ -75,7 +75,19 @@ function setupTransferUI(){
   });
 }
 
+function setupResetWeekUI(){
+  const btn = document.getElementById('resetWeekBtn');
+  const message = document.getElementById('resetWeekMessage');
+  if(!btn) return;
+  btn.addEventListener('click', () => {
+    if(!window.confirm('Remettre à zéro uniquement l\'armure du chevalier et la barre hebdomadaire sur cet appareil ? Le reste (progression permanente, erreurs fréquentes...) n\'est pas touché.')) return;
+    if(window.resetWeekOnly) window.resetWeekOnly();
+    if(message) message.textContent = 'Semaine réinitialisée.';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProgressionPage();
   setupTransferUI();
+  setupResetWeekUI();
 });

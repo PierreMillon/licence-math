@@ -656,27 +656,28 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   min-height:90px;
   position:relative; /* ancre la bulle BD (.creature-bubble), voir plus bas */
 }
-/* Bulle BD au-dessus de l'oiseau (redesign du 11/08/2026, demande
-   explicite) : fond noir opaque + bord blanc + texte blanc, façon
-   bande dessinée pixel, au lieu du texte rouge sur fond transparent
-   d'avant — assez opaque pour "écraser" (occulter) le décor derrière
-   elle. Fusionne ici DEUX choses qui étaient deux blocs séparés :
-   le marqueur d'absence (bubbleText, "?"/"!"/"×N" — plus on tarde,
-   plus il y a de "?") et la phrase taquine (BIRD_TEASE_PHRASES) —
-   une seule bulle, qui alterne au hasard entre les deux à chaque
+/* Bulle BD (redesign du 11/08/2026, demande explicite) : fond noir
+   opaque + bord blanc + texte blanc, façon bande dessinée pixel.
+   Fusionne ici DEUX choses qui étaient deux blocs séparés : le
+   marqueur d'absence (bubbleText, "?"/"!"/"×N" — plus on tarde, plus
+   il y a de "?") et la phrase taquine (BIRD_TEASE_PHRASES) — une
+   seule bulle, qui alterne au hasard entre les deux à chaque
    chargement de page (voir renderCreature, creature.js). position:
    absolute (ancrée sur .creature-zone ci-dessus) plutôt qu'un bloc
-   dans le flux flex : peut grandir librement sans pousser la colonne
-   ni décaler le chevalier, quitte à chevaucher un peu le décor du
-   dessus — assumé maintenant qu'elle est opaque (l'ancien problème,
-   avant qu'elle soit opaque, c'était justement qu'un texte transparent
-   grandissant chevauchait le décor de façon disgracieuse). */
+   dans le flux flex : peut grandir librement sans pousser la colonne.
+   Basculée SOUS l'oiseau plutôt qu'au-dessus (18/08/2026, signalé
+   capture à l'appui) : depuis que l'oiseau est isolé tout en bas de
+   page (refonte du 18/08/2026), au-dessus de lui il y a la grille de
+   chapitres — une bulle qui grandit vers le haut recouvrait la carte
+   du dernier chapitre (score illisible). En dessous, il n'y a que la
+   pile de crânes et le pied de page, un endroit bien plus sûr pour
+   qu'un texte de longueur variable empiète sans gêner. */
 .creature-bubble{
   position:absolute;
   left:50%;
-  bottom:100%;
+  top:100%;
   transform:translateX(-50%);
-  margin-bottom:12px;
+  margin-top:12px;
   z-index:5;
   max-width:min(230px, calc(100vw - 24px));
   background:var(--bg);
@@ -688,22 +689,22 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   transition:opacity .2s ease;
 }
 .creature-bubble.visible{ opacity:1; }
-/* Petite pointe pixel sous la bulle, vers l'oiseau — deux carrés qui
-   se rétrécissent, plus cohérent avec l'esthétique en carrés nets du
-   site qu'un triangle CSS classique. */
+/* Petite pointe pixel vers l'oiseau (au-dessus, depuis le basculement
+   ci-dessus) — deux carrés qui se rétrécissent, plus cohérent avec
+   l'esthétique en carrés nets du site qu'un triangle CSS classique. */
 .creature-bubble::after{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-8px;
+  top:-8px;
   transform:translateX(-50%);
   width:10px;
   height:6px;
   background:var(--bg);
   border-left:2px solid var(--fg);
   border-right:2px solid var(--fg);
-  border-bottom:2px solid var(--fg);
-  clip-path:polygon(0 0, 100% 0, 50% 100%);
+  border-top:2px solid var(--fg);
+  clip-path:polygon(0 100%, 100% 100%, 50% 0);
 }
 .creature-bubble.glyph{
   font-family:var(--font-title);
