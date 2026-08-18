@@ -6,7 +6,6 @@
    ============================================================ */
 
 const VERSIONS = [
-  { v: 141, date: "18/08/2026", desc: "Fond du site en vert fluo" },
   { v: 140, date: "18/08/2026", desc: "Symbole d'inclusion N⊂Z⊂Q⊂R⊂C simplifié (rendu plus lisible)" },
   { v: 139, date: "18/08/2026", desc: "Dragon et chevalier posés au pixel près sur le sol (mesuré, plus de vide sous la queue du dragon)" },
   { v: 138, date: "18/08/2026", desc: "<ul><li>Libellés « PROGRESSION TOTALE » / « PROGRESSION HEBDOMADAIRE » sur les deux barres du haut</li><li>Tooltip de la barre totale précise qu'elle ne se remet à zéro qu'en cas de réinitialisation complète</li></ul>" },
