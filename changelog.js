@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 142, date: "18/08/2026", desc: "Mode hors-ligne : le site fonctionne même sans réseau après une première visite" },
   { v: 141, date: "18/08/2026", desc: "Bouton « réinitialiser tout le site » ne passe plus sous l'indicateur d'accueil iPhone" },
   { v: 140, date: "18/08/2026", desc: "Symbole d'inclusion N⊂Z⊂Q⊂R⊂C simplifié (rendu plus lisible)" },
   { v: 139, date: "18/08/2026", desc: "Dragon et chevalier posés au pixel près sur le sol (mesuré, plus de vide sous la queue du dragon)" },

@@ -15,6 +15,20 @@ fi
 echo "SITE_VERSION = $SITE_VERSION"
 
 fail=0
+
+# sw.js a sa propre constante VERSION (nom de cache) qui doit avancer en
+# même temps que SITE_VERSION — sinon soit le service worker sert
+# indéfiniment une vieille version en cache, soit il précache des ?v=
+# qui ne correspondent à aucune entrée jamais mise à jour. Voir sw.js.
+SW_VERSION=$(grep -oE "const VERSION = [0-9]+;" sw.js | grep -oE "[0-9]+" || true)
+if [ -z "$SW_VERSION" ]; then
+  echo "Impossible de lire VERSION dans sw.js" >&2
+  exit 1
+fi
+if [ "$SW_VERSION" != "$SITE_VERSION" ]; then
+  echo "::error file=sw.js::VERSION ($SW_VERSION) désynchronisé de SITE_VERSION ($SITE_VERSION)"
+  fail=1
+fi
 while IFS= read -r -d '' file; do
   # ?v=N sur des fichiers locaux uniquement (pas les CDN externes type Google Fonts)
   mismatches=$(grep -oE '(href|src)="[^"]*\?v=[0-9]+"' "$file" | grep -v "fonts.googleapis" | grep -oE '\?v=[0-9]+' | grep -oE '[0-9]+' | sort -u | grep -v "^${SITE_VERSION}$" || true)

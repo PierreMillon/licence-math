@@ -246,7 +246,25 @@ function initFooterReveal(){
   }, { passive: true });
 }
 
+/* ---------- service worker (mode hors-ligne, 18/08/2026) ----------
+   Enregistré ici plutôt que dans menu.js : pwa.js est déjà le fichier
+   dédié à tout ce qui touche au comportement PWA/plein écran du site,
+   chargé sur toutes les pages juste après menu.js. Garde de support
+   standard (`'serviceWorker' in navigator`) — les navigateurs qui ne
+   le supportent pas continuent de fonctionner normalement, juste sans
+   le mode hors-ligne. La mise à jour (nouveau sw.js détecté) est un
+   comportement natif du navigateur à chaque visite avec réseau, rien
+   à coder ici pour ça — voir sw.js pour le détail de la stratégie. */
+function registerServiceWorker(){
+  if(!('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.register('sw.js').catch(() => {
+    // Échec silencieux (ex. sw.js indisponible) : le site continue de
+    // fonctionner normalement, juste sans le mode hors-ligne.
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initPullToRefresh();
   initFooterReveal();
+  registerServiceWorker();
 });

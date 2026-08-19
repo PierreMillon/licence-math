@@ -902,3 +902,66 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   phrase pour rien. Posée AVANT le repli du bloc (pas après), pour que
   le changement soit visible un instant pendant que ça se referme —
   retour visuel immédiat que le geste a "fait quelque chose".
+
+## Mode hors-ligne : service worker (19/08/2026, demande explicite)
+
+- Demande d'origine, à partir d'un prompt générique uploadé par Pierre
+  jugé pertinent : « le minimum pour un mode hors-ligne fonctionnel qui
+  se reconnecte juste pour les mises à jour si réseau. Sinon sans
+  réseau, ça reste fonctionnel. Gratuit toujours ! » — puis, une fois
+  validé, réappliquer le même dispositif sur les autres sites du même
+  auteur (`alice-et-sophie` en premier, en attendant confirmation/accès
+  pour d'éventuels autres dépôts).
+- Nouveau fichier `sw.js` (n'existait pas avant — PWA jusque-là limitée
+  au manifest + icônes + meta iOS, cf. notes du 11/08/2026). Stratégie
+  cache-first, cohérente avec un site 100% statique sans API : `install`
+  précharge tout (14 pages HTML, tout le CSS/JS versionné avec son
+  `?v=`, KaTeX vendorisé, manifest, icônes) ; `activate` supprime les
+  caches des versions précédentes ; `fetch` sert le cache en priorité,
+  ne retombe sur le réseau que si l'entrée n'existe pas en cache.
+  Google Fonts et le script goatcounter (analytics) volontairement
+  exclus du cache et de l'interception fetch (`url.origin !==
+  self.location.origin` → laissé passer tel quel) : ressources externes
+  non essentielles, le site doit rester utilisable sans elles (police
+  de secours déjà gérée par ailleurs).
+- `self.skipWaiting()` + `self.clients.claim()` à l'installation/
+  activation : une nouvelle version prend la main dès qu'elle a fini de
+  s'installer, sans attendre la fermeture de tous les onglets — cohérent
+  avec « se reconnecte juste pour les mises à jour » plutôt qu'un
+  service worker qui resterait bloqué sur l'ancienne version. La
+  détection elle-même (le navigateur va chercher un `sw.js` à jour) est
+  un comportement natif à chaque navigation avec réseau, rien à coder
+  pour ça — mais dans la pratique un navigateur donné ne relance pas
+  forcément cette vérification à CHAQUE rechargement consécutif rapide
+  (throttling interne au navigateur, observé en test) ; un appel
+  explicite à `registration.update()` la déclenche à coup sûr, mais pas
+  besoin d'aller jusque-là ici puisque l'usage réel (visites espacées
+  dans le temps, pas des rechargements en rafale) suffit largement.
+- Enregistré depuis `pwa.js` (`registerServiceWorker()`, appelé au
+  `DOMContentLoaded` comme le reste du fichier) plutôt que menu.js :
+  pwa.js est déjà le fichier dédié à tout ce qui touche au comportement
+  PWA/plein écran, chargé sur toutes les pages. Garde standard
+  `'serviceWorker' in navigator`, échec silencieux si l'enregistrement
+  échoue (le site continue de fonctionner normalement, juste sans mode
+  hors-ligne) — pas de message d'erreur affiché, ce serait plus gênant
+  qu'utile pour une dégradation qui n'empêche rien.
+- **`sw.js` a sa propre constante `VERSION`, à faire avancer EN MÊME
+  TEMPS que `SITE_VERSION` (menu.js) à chaque ship** — sinon soit le
+  service worker sert indéfiniment une vieille version en cache
+  (`VERSION` pas montée), soit il précache des `?v=` qui ne
+  correspondent plus à rien de servi par le site (versionnage
+  désynchronisé). `scripts/check-versions.sh` vérifie maintenant aussi
+  cette valeur en plus des `?v=` habituels — un décalage fait échouer
+  le script comme un `?v=` désynchronisé.
+- Testé via Playwright (`context.setOffline(true)` après un premier
+  chargement en ligne) : page d'accueil ET navigation vers une autre
+  page fonctionnent entièrement hors-ligne, contenu identique. Testé
+  aussi l'invalidation du cache lors d'un changement de `VERSION`
+  (ancien cache bien supprimé par `activate`, uniquement le nouveau
+  cache présent après mise à jour) — confirmé via un appel explicite à
+  `registration.update()` dans le test, pour ne pas dépendre du
+  throttling de détection automatique évoqué plus haut. Pas de test
+  possible sur un vrai iPhone/Safari depuis cet environnement (WebKit
+  non installé ici) — comportement standard de Service Worker,
+  implémentation volontairement simple (pas de usage de fonctionnalités
+  exotiques), risque jugé faible.
