@@ -31,7 +31,7 @@
    montée), soit il retélécharge tout à chaque visite sans jamais
    trouver le cache à jour (des ?v= qui ne correspondent à aucune
    entrée précachée). */
-const VERSION = 142;
+const VERSION = 143;
 const CACHE_NAME = 'l1maths-v' + VERSION;
 
 /* Fichiers versionnés (?v=VERSION dans les balises <link>/<script> de

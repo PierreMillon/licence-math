@@ -965,3 +965,67 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   non installé ici) — comportement standard de Service Worker,
   implémentation volontairement simple (pas de usage de fonctionnalités
   exotiques), risque jugé faible.
+
+## Barre "progression totale" retirée du haut de l'accueil (19/08/2026, demande explicite, discutée avant de coder)
+
+- Demande d'origine : simplifier/clarifier les textes d'explication des
+  deux barres du haut, et envisager n'en garder qu'une avec "les mêmes
+  options". Discuté avant d'implémenter (Pierre l'a explicitement
+  demandé) : 3 options proposées (bascule bouton, texte + une seule
+  barre, barre à deux niveaux) — Pierre a choisi la 2e, reformulée :
+  la barre hebdomadaire (liée au dragon/combat) reste seule affichée,
+  la barre "vie entière" est entièrement retirée de l'accueil (pas
+  reléguée en texte non plus, contrairement à ma proposition initiale
+  — "on enlève les deux", confirmé explicitement après ma proposition
+  d'afficher au moins un chiffre "12,4/20" en texte).
+- Retrait complet, pas juste masqué (cohérent avec la convention du
+  projet) : `.grade-block-wrap`/`#globalProgressBar`/`#gradeTooltip`
+  retirés d'index.html ; `renderGlobalProgress()`,
+  `globalProgressSquaresHTML()`, `updateGlobalProgressSpacing()`,
+  `initGradeTooltip()` et leurs appels retirés d'app.js ; CSS associé
+  (`.grade-block-wrap`, `.grade-block`, `.global-progress-bar` et ses
+  variantes `.seg-spaced`, `.grade-tooltip`) retiré de style.css ;
+  référence dans `PULL_REFRESH_IGNORE_SELECTOR` (pwa.js) et commentaire
+  d'en-tête de tooltips.js mis à jour (ne mentionnaient que l'ancien
+  système). La note théorique sur 20 et la précision "ne se remet à
+  zéro qu'en cas de réinitialisation complète" existaient uniquement
+  dans ce tooltip retiré — elles ne sont donc plus affichées nulle
+  part sur le site (pas déplacées vers progression.html, décision
+  explicite). `.progress-bar`/`.progress-bar__seg` (classes de base,
+  partagées avec les petites barres de chaque carte de chapitre) NON
+  touchées — seules les règles spécifiques à `.global-progress-bar`
+  ont été retirées.
+- Texte du tooltip de la barre hebdomadaire simplifié à la demande
+  explicite de Pierre, formulation donnée mot pour mot : « Objectif :
+  60%. Remise à zéro chaque dimanche minuit — il reste 5j. » (remplace
+  l'ancien « Chaque lundi à minuit, cette barre repart à zéro, ainsi
+  que tous les chapitres et toutes les questions de la semaine.
+  Objectif actuel : 60% — il reste 5j 16h. »). Le libellé au-dessus
+  reste « PROGRESSION HEBDOMADAIRE » (Pierre a explicitement refusé la
+  version raccourcie « CETTE SEMAINE » que j'avais proposée).
+- **Piège de formulation "dimanche" vs "lundi" — à ne pas re-corriger
+  par erreur** : Pierre a écrit "chaque dimanche minuit" alors que
+  toute la logique réelle (weekly.js : `mondayOf()`,
+  `resolveAndResetWeek()`, `ensureWeekCurrent()`) est câblée sur le
+  lundi — la remise à zéro réelle des données a TOUJOURS lieu le
+  lundi, inchangé. Question posée explicitement avant de coder
+  ("tu voulais dire lundi, ou tu veux vraiment déplacer la remise à
+  zéro au dimanche ?"), et la réponse ("dimanche, vraiment") a d'abord
+  semblé entraîner un vrai conflit avec l'écran de résultat figé
+  affiché toute la journée du dimanche (`ensureSundayOutcomeShown`,
+  livré le 11/08/2026) — puisque "dimanche minuit" au sens strict
+  (00h00 dimanche) tombe au MÊME instant que "samedi minuit" (fin du
+  combat), ce qui aurait fait disparaître l'écran de résultat avant
+  qu'on ait pu le voir. Reposé la question, réponse finale de Pierre :
+  "combat samedi minuit, affichage tout le dimanche, dimanche minuit
+  remise à 0" — ce qui décrit en réalité EXACTEMENT le comportement
+  déjà en place (le "minuit" du dimanche soir = la transition vers le
+  lundi = ce que le code appelle "lundi 00h00"), "dimanche minuit"
+  étant juste la façon courante de dire "la nuit de dimanche à lundi"
+  plutôt que la formulation stricte "lundi minuit". **Donc : AUCUN
+  changement de comportement, seulement le texte affiché** — la vraie
+  remise à zéro reste le lundi comme avant, weekly.js entièrement
+  inchangé sur ce point. Commentaire ajouté dans
+  `weeklyTimeRemainingText()` (weekly.js) pour éviter qu'une future
+  session ne "corrige" ce texte vers "lundi" en pensant réparer une
+  coquille.

@@ -33,13 +33,14 @@ function isStandaloneWebApp(){
    qui tourne" pour qu'on comprenne que ça va rafraîchir). */
 const PULL_REFRESH_COIN_SVG = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="1" y="7" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/></svg>';
 
-/* Zones à ignorer pour le geste de tirage : des éléments qui ont déjà
-   leur propre interaction tactile en haut de page (barre de
-   progression globale — grade-tooltip, app.js — et toute zone
-   d'infobulle, tooltips.js). Sans ça, poser le doigt dessus déclenche
-   AUSSI le pull-to-refresh en plus de leur propre geste — bug constaté
-   le 11/08/2026 sur la barre de progression de l'accueil. */
-const PULL_REFRESH_IGNORE_SELECTOR = '#globalProgressBar, .grade-block-wrap, [data-tooltip]';
+/* Zones à ignorer pour le geste de tirage : toute zone d'infobulle
+   (tooltips.js) a déjà sa propre interaction tactile. Sans ça, poser
+   le doigt dessus déclenche AUSSI le pull-to-refresh en plus de son
+   propre geste — bug constaté le 11/08/2026 sur la barre de
+   progression de l'accueil (barre globale depuis retirée le
+   19/08/2026, voir CLAUDE.md — la barre hebdomadaire restante est
+   déjà couverte par [data-tooltip]). */
+const PULL_REFRESH_IGNORE_SELECTOR = '[data-tooltip]';
 
 function initPullToRefresh(){
   if(!isStandaloneWebApp()) return;

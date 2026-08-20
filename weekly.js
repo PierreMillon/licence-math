@@ -77,7 +77,12 @@ function currentWeekStartStr(){
 /* Texte "il reste Xj Yh" avant la remise à zéro du lundi 00h00 (retour
    utilisateur : le % affiché seul ne disait pas où on en était dans la
    semaine). Basé sur mondayOf() + 7 jours, donc toujours cohérent avec le
-   lundi effectif qui déclenchera resolveAndResetWeek() dans ensureWeekCurrent. */
+   lundi effectif qui déclenchera resolveAndResetWeek() dans ensureWeekCurrent.
+   Le tooltip de la barre (renderWeeklyScore) dit "chaque dimanche minuit" —
+   même instant que "lundi 00h00" ici (formulation choisie par Pierre le
+   19/08/2026, faillait presque être "corrigée" en lundi par erreur avant
+   de vérifier que c'était voulu — garder les deux formulations en tête si
+   ce texte est retouché un jour). */
 function weeklyTimeRemainingText(){
   const nextMonday = mondayOf(new Date());
   nextMonday.setDate(nextMonday.getDate() + 7);
@@ -273,7 +278,7 @@ function renderWeeklyScore(){
      repère visuel (.weekly-bar__tick ci-dessus) — le détail chiffré
      reste consultable au clic/appui, réattribué à chaque rendu car
      WEEKLY_THRESHOLD et le compte à rebours changent. */
-  if(barEl) barEl.setAttribute('data-tooltip', `Chaque lundi à minuit, cette barre repart à zéro, ainsi que tous les chapitres et toutes les questions de la semaine. Objectif actuel : ${objectifPct}% — ${weeklyTimeRemainingText()}.`);
+  if(barEl) barEl.setAttribute('data-tooltip', `Objectif : ${objectifPct}%. Remise à zéro chaque dimanche minuit — ${weeklyTimeRemainingText()}.`);
   if(coinsEl) coinsEl.innerHTML = iconRow(score.wins, COIN_SMALL_SVG, ICON_CAP);
   if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }

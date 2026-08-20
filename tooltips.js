@@ -4,14 +4,10 @@
    (ordinateur) sur une zone marquée data-tooltip affiche son
    explication en une phrase.
 
-   Reprend le geste déjà utilisé par #gradeTooltip (voir
-   initGradeTooltip, app.js) — généralisé ici à toutes les autres
-   zones de la scène de combat (pile de crânes, pièces d'or, dragon,
-   etc.) via UNE SEULE bulle partagée (#infoTooltip, créée ici en JS,
-   pas besoin de la poser dans chaque page HTML) plutôt qu'une par
-   zone. #gradeTooltip n'est pas repris dans ce système : son contenu
-   (la note théorique) est calculé dynamiquement par app.js, pas une
-   simple phrase fixe — pas de raison de toucher à ce qui marche déjà.
+   Couvre toutes les zones de la scène de combat (pile de crânes,
+   pièces d'or, dragon, barre hebdomadaire, etc.) via UNE SEULE bulle
+   partagée (#infoTooltip, créée ici en JS, pas besoin de la poser
+   dans chaque page HTML) plutôt qu'une par zone.
 
    Chargé sur toutes les pages ; ne fait rien si la page ne contient
    aucune zone data-tooltip (ex. changelog, notation). */
