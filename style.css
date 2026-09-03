@@ -413,7 +413,13 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
 #infoTooltip{
   position:fixed;
   width:max-content;
-  max-width:220px;
+  /* 260px (au lieu de 220px) : les lectures orales de formule ajoutées
+     le 19/08/2026 sont des phrases complètes, plus longues que les
+     phrases courtes d'origine (dragon, barre hebdo). Plafond
+     calc(100vw - 24px) en plus, leçon déjà tirée ailleurs sur ce
+     projet (bulle de l'oiseau) : ne jamais laisser une largeur fixe
+     déborder sous ~280px d'écran. */
+  max-width:min(260px, calc(100vw - 24px));
   border:1px solid var(--fg);
   background:var(--bg);
   color:var(--fg);
@@ -1212,6 +1218,22 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   color:var(--fg-dim);
 }
 .cours-crosslink a{ color:var(--fg-dim); text-decoration:underline; }
+
+/* Lecture à voix haute d'une formule (19/08/2026, demande explicite) :
+   marqueur discret posé juste après une formule \(...\) qui introduit
+   un symbole pour la première fois dans la fiche — voir la convention
+   documentée en tête de fiches/fiche-engine.js. Réutilise le système
+   générique d'infobulles (tooltips.js, data-tooltip) plutôt qu'un
+   nouveau mécanisme. */
+.symbol-read{
+  display:inline-block;
+  margin-left:.2em;
+  color:var(--fg-dim);
+  cursor:help;
+  font-size:.85em;
+  -webkit-tap-highlight-color:transparent;
+}
+
 code, .math{
   color:#fff;
   background:rgba(255,255,255,.1);

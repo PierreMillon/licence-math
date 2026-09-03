@@ -9,13 +9,22 @@
    partagée (#infoTooltip, créée ici en JS, pas besoin de la poser
    dans chaque page HTML) plutôt qu'une par zone.
 
-   Chargé sur toutes les pages ; ne fait rien si la page ne contient
-   aucune zone data-tooltip (ex. changelog, notation). */
+   Délégué sur `document` (19/08/2026, corrigé à la racine) plutôt que
+   des écouteurs posés zone par zone au chargement : une fiche est
+   paginée (fiche-engine.js/renderPage) et reconstruit son contenu à
+   chaque changement de page — une zone data-tooltip ajoutée APRÈS le
+   DOMContentLoaded initial (ex. les marqueurs "comment ça se lit à
+   voix haute", voir plus bas) ne recevait alors jamais ses écouteurs.
+   La délégation lit `[data-tooltip]` au moment du clic/toucher, donc
+   fonctionne sur n'importe quelle zone présente à cet instant, même
+   ajoutée bien après le chargement de la page.
+
+   Chargé sur toutes les pages ; ne crée l'élément bulle qu'une fois,
+   mais reste actif même sur une page sans aucune zone data-tooltip
+   au chargement (coût négligeable, et certaines pages en gagnent
+   après coup — voir ci-dessus). */
 
 function initInfoTooltips(){
-  const zones = document.querySelectorAll('[data-tooltip]');
-  if(zones.length === 0) return;
-
   const tooltip = document.createElement('div');
   tooltip.id = 'infoTooltip';
   tooltip.setAttribute('role', 'tooltip');
@@ -50,39 +59,42 @@ function initInfoTooltips(){
     tooltip.style.transform = 'translate(-50%, -100%)';
   }
 
-  zones.forEach(zone => {
-    zone.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
+    const zone = e.target.closest && e.target.closest('[data-tooltip]');
+    if(zone){
       e.stopPropagation();
       if(activeZone === zone && tooltip.classList.contains('visible')) reset();
       else show(zone);
-    });
-    zone.addEventListener('touchstart', (e) => {
-      // Ne PAS preventDefault() si le doigt touche un élément interactif
-      // à l'intérieur de la zone (bouton, lien...) : sur mobile, ça
-      // supprime le click synthétique qui suivrait normalement le tap,
-      // rendant l'élément intouchable. Bug trouvé le 11/08/2026 sur
-      // #exoProgressBar (carrés d'exercice cliquables) — corrigé aussi
-      // à la racine ici pour toute future zone du même genre.
-      if(e.target.closest && e.target.closest('button, a, input, select, textarea')) return;
-      e.preventDefault();
-      const t = e.touches[0];
-      positionAt(t.clientX, t.clientY);
-      show(zone);
-    }, { passive: false });
-    zone.addEventListener('touchmove', (e) => {
-      if(activeZone !== zone) return;
-      e.preventDefault();
-      const t = e.touches[0];
-      positionAt(t.clientX, t.clientY);
-    }, { passive: false });
-    zone.addEventListener('touchend', () => { if(activeZone === zone) hideKeepingPosition(); });
-    zone.addEventListener('touchcancel', () => { if(activeZone === zone) hideKeepingPosition(); });
+      return;
+    }
+    if(activeZone && e.target !== activeZone && !activeZone.contains(e.target) && !tooltip.contains(e.target)) reset();
   });
 
-  document.addEventListener('click', (e) => {
+  document.addEventListener('touchstart', (e) => {
+    const zone = e.target.closest && e.target.closest('[data-tooltip]');
+    if(!zone) return;
+    // Ne PAS preventDefault() si le doigt touche un élément interactif
+    // à l'intérieur de la zone (bouton, lien...) : sur mobile, ça
+    // supprime le click synthétique qui suivrait normalement le tap,
+    // rendant l'élément intouchable. Bug trouvé le 11/08/2026 sur
+    // #exoProgressBar (carrés d'exercice cliquables) — corrigé aussi
+    // à la racine ici pour toute future zone du même genre.
+    if(e.target.closest('button, a, input, select, textarea')) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    positionAt(t.clientX, t.clientY);
+    show(zone);
+  }, { passive: false });
+
+  document.addEventListener('touchmove', (e) => {
     if(!activeZone) return;
-    if(e.target !== activeZone && !activeZone.contains(e.target) && !tooltip.contains(e.target)) reset();
-  });
+    e.preventDefault();
+    const t = e.touches[0];
+    positionAt(t.clientX, t.clientY);
+  }, { passive: false });
+
+  document.addEventListener('touchend', () => { if(activeZone) hideKeepingPosition(); });
+  document.addEventListener('touchcancel', () => { if(activeZone) hideKeepingPosition(); });
 }
 
 document.addEventListener('DOMContentLoaded', initInfoTooltips);

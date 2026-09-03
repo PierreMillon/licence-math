@@ -1104,3 +1104,51 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   déjà éventuellement présente en localStorage pour ce chapitre (si
   Pierre avait pris de l'avance dessus avant de le masquer) réapparaît
   intacte, rien n'est jamais supprimé par le masquage lui-même.
+
+## Lecture à voix haute des formules à leur première apparition (19/08/2026, demande explicite, discutée avant de coder)
+
+- Demande : quand un symbole mathématique apparaît pour la première
+  fois dans une fiche, expliquer comment TOUTE LA PHRASE se lit à voix
+  haute en français (pas juste le nom du symbole isolé) — précisé
+  explicitement après question : "la phrase entière... mais juste la
+  première fois... si le même symbole revient par la suite on répète
+  pas".
+- Pas de détection automatique du "premier symbole" : la lecture orale
+  d'une formule entière ne se déduit pas fiablement du LaTeX seul (ex.
+  "∀x ∈ ℝ" peut se lire "pour tout x appartenant à R" ou "quel que
+  soit x réel" selon le contexte) — décision éditoriale manuelle, au
+  moment d'écrire/relire le contenu d'une fiche. Convention documentée
+  en tête de `fiches/fiche-engine.js` : un marqueur `<span
+  class="symbol-read" data-tooltip="...">ⓘ</span>` posé juste après la
+  formule concernée, réutilisant le système générique d'infobulles
+  (tooltips.js) plutôt qu'un nouveau mécanisme.
+- **Vérifié avant d'écrire du contenu** : PYTHON (seul chapitre actif,
+  voir plus haut) n'a en réalité aucun symbole mathématique de ce
+  genre à annoter — ses `%`/`×`/`↔`/`→` sont soit l'opérateur modulo
+  Python (déjà expliqué en ligne dans le texte lui-même), soit des
+  flèches structurelles de renvoi vers un autre chapitre
+  (`.cours-crosslink`, existant, ne pas confondre avec ce nouveau
+  système). Les vrais candidats (∈, ∀, ∃, ⊂, ⇒...) sont dans les
+  chapitres encore masqués (LOGIQUE, ALGÈBRE...) — rien à retrofiter
+  sur PYTHON pour l'instant. Le mécanisme est prêt, le contenu
+  s'ajoutera fiche par fiche à mesure que les chapitres seront
+  réactivés et que leur contenu symbolique réel sera sous les yeux.
+- **Bug latent trouvé et corrigé en construisant ce mécanisme** :
+  `tooltips.js` posait ses écouteurs une seule fois au chargement de
+  la page, sur un instantané figé de `document.querySelectorAll(
+  '[data-tooltip]')` — une zone ajoutée APRÈS coup (ex. un marqueur
+  `.symbol-read` sur la page 2+ d'une fiche paginée,
+  fiche-engine.js/renderPage reconstruit le contenu à chaque
+  changement de page) ne recevait jamais ses écouteurs, donc jamais
+  cliquable. Corrigé à la racine par délégation sur `document`
+  (`e.target.closest('[data-tooltip]')` au moment du clic/toucher,
+  plutôt qu'un binding par zone à l'avance) — corrige aussi tout futur
+  cas similaire, pas seulement celui-ci. Testé : une zone ajoutée
+  dynamiquement en JS après le chargement fonctionne immédiatement,
+  sans rien de spécial à faire ; les deux tooltips existants (dragon,
+  barre hebdomadaire) inchangés après le refactor.
+- `#infoTooltip` élargi de 220px à `min(260px, calc(100vw - 24px))` :
+  les lectures orales sont des phrases complètes, plus longues que les
+  courtes phrases d'origine (dragon, barre hebdo) — plafond
+  `calc(100vw - 24px)` en plus, même leçon que la bulle de l'oiseau
+  (jamais de largeur fixe qui peut déborder sous ~280px d'écran).

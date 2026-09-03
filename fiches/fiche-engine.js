@@ -11,6 +11,29 @@ const PROGRESS_KEY = 'l1maths_progress';
 /* typesetMath : voir menu.js (partagé, chargé avant ce fichier sur
    toute fiche). */
 
+/* ---------- convention : lecture à voix haute d'un symbole (19/08/2026,
+   demande explicite) ----------
+   Quand une formule \(...\) introduit un symbole mathématique pour la
+   première fois dans la fiche (∈, ∀, ∃, ⊂, ⇒...), ajouter juste après
+   la formule un marqueur avec la lecture orale COMPLÈTE de toute la
+   phrase (pas juste le nom du symbole isolé) :
+
+     \(\forall x \in \mathbb{R},\ x^2 \geq 0\)<span class="symbol-read"
+     data-tooltip="pour tout x appartenant à R, x au carré est
+     supérieur ou égal à zéro">ⓘ</span>
+
+   Une seule fois par symbole et par fiche — si le même symbole revient
+   plus loin, ne PAS répéter le marqueur. Décision manuelle au moment
+   d'écrire/relire le contenu (pas de détection automatique : la
+   lecture d'une formule entière ne se déduit pas de façon fiable du
+   LaTeX seul, contrairement au nom d'un symbole isolé).
+   Réutilise le système générique data-tooltip (tooltips.js) — voir
+   .symbol-read dans style.css pour le rendu. Ne PAS confondre avec
+   .cours-crosslink (renvoi vers un autre chapitre, pas une lecture).
+   Chantier volontairement pas rétroactif sur toutes les fiches en une
+   fois : à ajouter fiche par fiche au moment d'écrire ou de relire son
+   contenu. */
+
 /* Applique la préférence de notation (u/v vs f/g, voir menu → NOTATION)
    aux exercices qui proposent une variante (statementUv/optionsUv/
    explainUv — pour l'instant seulement les 3 QCM de dérivation du
