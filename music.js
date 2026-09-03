@@ -20,7 +20,11 @@
    couche courante (recalculée) sur la page suivante, comme n'importe
    quel son de ce site (aucun son ne survit à une navigation).
    Chargé après menu.js (getAudioCtx/playTone) et weekly.js
-   (weeklyTotals), sur les fiches, la page de révision et l'accueil.
+   (weeklyTotals), sur les 14 pages du site (19/08/2026 : ajouté aux 4
+   pages qui ne l'avaient pas encore — changelog/mistakes/notation/
+   progression — demande explicite, "si activée doit jouer partout,
+   spécialement dans les réglages" : on ne pouvait pas vérifier que le
+   réglage marchait sans quitter la page où on venait de l'activer).
    ============================================================ */
 
 const MUSIC_BPM = 132;

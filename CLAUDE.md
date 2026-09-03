@@ -1152,3 +1152,43 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   courtes phrases d'origine (dragon, barre hebdo) — plafond
   `calc(100vw - 24px)` en plus, même leçon que la bulle de l'oiseau
   (jamais de largeur fixe qui peut déborder sous ~280px d'écran).
+
+## Trois retouches rapides sur les fiches et les réglages (19/08/2026, demandes explicites)
+
+- **Badge d'équipement masqué à 0% de progression hebdo** :
+  `.fiche-piece-block` (nom + pièce + libellé "ÉQUIPEMENT GAGNÉ CETTE
+  SEMAINE", en haut de chaque fiche) ne s'affiche plus que dès qu'au
+  moins une réponse correcte a été donnée cette semaine sur ce
+  chapitre (`weeklyChapterFraction > 0`) — avant, affiché même à 0%
+  (juste un nom + un cadre vide, comportement délibéré à l'origine du
+  11/08/2026, mais jugé confus). `hidden` (pas opacity/visibility) sur
+  le bloc entier pour que l'espace se referme et que les exercices
+  remontent, comme demandé explicitement — `renderFichePieceBadge()`
+  (fiche-engine.js) pose l'attribut avant tout le reste, sort tôt si
+  la fraction est nulle.
+- **Seuil de disparition de l'indice "cliquer un carré" corrigé** :
+  `EXO_HINT_DISMISS_THRESHOLD` (fiche-engine.js) était à 10, alors que
+  la demande d'origine du 11/08/2026 disait 2 — décalage jamais
+  remarqué jusqu'à ce que Pierre le signale de nouveau. Repassé à 2
+  (compteur global de clics sur un carré, peu importe le chapitre ou
+  qu'il s'agisse du même carré deux fois).
+- **Musique de fond + % de progression dans le tiroir de menu absents
+  sur 4 pages** : `music.js` n'était chargé que sur les fiches, la
+  page de révision et l'accueil (limite documentée à l'origine, pas un
+  bug) — Pierre a explicitement demandé que la musique, une fois
+  activée, joue partout, "spécialement dans les réglages" (impossible
+  de vérifier que le réglage marchait sans changer de page). Ajouté à
+  changelog.html/mistakes.html/notation.html/progression.html (+
+  `weekly.js`, sa dépendance pour le niveau via le combat hebdo, sur
+  les 3 premières qui ne l'avaient pas encore — progression.html
+  l'avait déjà). Aucune dépendance DOM dans music.js (vérifié), donc
+  rien à craindre sur des pages sans scène de combat.
+  Au passage, même cause racine trouvée pour un symptôme signalé au
+  même moment : le % à côté du nom d'un chapitre dans le tiroir de
+  menu restait vide sur ces mêmes 4 pages, faute de `CHAPTER_TOTALS`
+  (weekly.js) pour connaître le total de questions. Corrigé plus
+  proprement plutôt que par le même ajout de script : `chapterCompletedPercent`
+  (menu.js) lit maintenant le total directement dans `CHAPTERS`
+  (chapters.js, chargé sur les 14 pages depuis la v144) — n'a plus
+  besoin de weekly.js du tout pour ça, corrige la cause plutôt que de
+  rajouter une dépendance de plus.

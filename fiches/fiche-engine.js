@@ -91,10 +91,19 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
   function renderFichePieceBadge(){
     const badge = document.getElementById('fichePieceBadge');
     const nameEl = document.getElementById('fichePieceName');
+    const block = badge && badge.closest('.fiche-piece-block');
     if(!badge || typeof KNIGHT_PIECES === 'undefined') return;
     const piece = KNIGHT_PIECES.find(p => p.chapterId === CHAPTER_ID);
     if(!piece || !window.weeklyChapterFraction || !window.miniPieceClipStyle || !window.knightPieceMiniSVG) return;
     const fraction = window.weeklyChapterFraction(CHAPTER_ID);
+    /* Bloc entier masqué tant qu'aucune réponse correcte n'a été
+       donnée cette semaine sur ce chapitre (19/08/2026, demande
+       explicite) : à 0%, ce n'était qu'un nom + un cadre vide — pas
+       encore "gagné", pas la peine de réserver l'espace. `hidden` (pas
+       juste opacity/visibility) pour que l'espace se referme
+       complètement et que les exercices remontent, comme demandé. */
+    if(block) block.hidden = fraction <= 0;
+    if(fraction <= 0) return;
     const clip = window.miniPieceClipStyle(fraction);
     const miniSvg = window.knightPieceMiniSVG(CHAPTER_ID, piece.svg());
     /* width/height:100% explicites sur ce wrapper : sans ça, comme il n'a
@@ -104,9 +113,6 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
        visible sur les pièces au format haut/étroit (ex. le plastron
        d'Analyse), qui touche le texte de la légende en dessous. */
     badge.innerHTML = `<div style="width:100%;height:100%;${clip}">${miniSvg}</div>`;
-    // Nom façon jeu vidéo (11/08/2026, demande explicite), toujours
-    // affiché (même à 0% de révélation) — c'est l'objet à obtenir
-    // cette semaine, pas seulement celui déjà obtenu.
     if(nameEl && piece.name) nameEl.textContent = piece.name;
   }
 
@@ -117,13 +123,16 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     return s.correct ? ' correct' : ' incorrect';
   }
 
-  /* Tutoriel adaptatif (11/08/2026, demande explicite) : l'indice
+  /* Tutoriel adaptatif (11/08/2026, demande explicite ; seuil corrigé
+     le 19/08/2026 — la demande d'origine disait 2, pas 10) : l'indice
      "Cliquer un carré = exercice correspondant" sous la barre
-     disparaît définitivement une fois qu'on a compris — ici, dès
-     qu'on a cliqué 10 carrés en tout, tous chapitres confondus
-     (compteur global, pas par fiche). */
+     disparaît définitivement une fois qu'on a compris — dès 2 clics
+     sur un carré en tout, peu importe le laps de temps entre les deux
+     et peu importe qu'il s'agisse du même carré deux fois ou de deux
+     carrés différents (compteur global, pas par carré ni par
+     chapitre). */
   const EXO_SQUARE_CLICKS_KEY = 'l1maths_exo_square_clicks';
-  const EXO_HINT_DISMISS_THRESHOLD = 10;
+  const EXO_HINT_DISMISS_THRESHOLD = 2;
 
   function loadExoSquareClicks(){
     const n = parseInt(localStorage.getItem(EXO_SQUARE_CLICKS_KEY), 10);
