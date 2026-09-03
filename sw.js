@@ -31,7 +31,7 @@
    montée), soit il retélécharge tout à chaque visite sans jamais
    trouver le cache à jour (des ?v= qui ne correspondent à aucune
    entrée précachée). */
-const VERSION = 143;
+const VERSION = 144;
 const CACHE_NAME = 'l1maths-v' + VERSION;
 
 /* Fichiers versionnés (?v=VERSION dans les balises <link>/<script> de
@@ -39,7 +39,7 @@ const CACHE_NAME = 'l1maths-v' + VERSION;
    ajoutée ci-dessous, pas ici, pour ne pas la dupliquer 30 fois. */
 const VERSIONED_FILES = [
   'style.css',
-  'app.js', 'changelog.js', 'creature-svgs.js', 'creature.js',
+  'app.js', 'chapters.js', 'changelog.js', 'creature-svgs.js', 'creature.js',
   'knight-svgs.js', 'knight.js', 'menu.js', 'mistakes.js', 'music.js',
   'notation.js', 'progression-page.js', 'progression.js', 'pwa.js',
   'revision.js', 'scene.js', 'tooltips.js', 'victory.js', 'weekly.js',

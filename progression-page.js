@@ -12,7 +12,11 @@ function renderProgressionPage(){
   const gridEl = document.getElementById('progressionGrid');
   if(!radarContainer || !gridEl) return;
 
-  const axes = MENU_CHAPTERS.map(ch => {
+  // Chapitres pas encore donnés cette année (active:false, chapters.js)
+  // : absents du radar et de la grille de détail. buildRadarSVG rend
+  // '' en dessous de 3 axes (voir progression.js) — pas de forme
+  // cassée, juste vide tant qu'il n'y a pas assez de chapitres actifs.
+  const axes = MENU_CHAPTERS.filter(ch => ch.active).map(ch => {
     const chapterId = ch.file.replace('.html', '');
     return { label: ch.name, value: chapterMasteryPercent(chapterId), chapterId };
   });

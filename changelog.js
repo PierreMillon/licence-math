@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 144, date: "19/08/2026", desc: "Chapitres pas encore donnés cette année masqués partout, réactivés au fil de l'année" },
   { v: 143, date: "19/08/2026", desc: "Barre « progression totale » retirée du haut de l'accueil, ne reste que la barre hebdomadaire" },
   { v: 142, date: "18/08/2026", desc: "Mode hors-ligne : le site fonctionne même sans réseau après une première visite" },
   { v: 141, date: "18/08/2026", desc: "Bouton « réinitialiser tout le site » ne passe plus sous l'indicateur d'accueil iPhone" },

@@ -13,7 +13,12 @@ function renderMistakesList(){
   const container = document.getElementById('mistakesList');
   if(!container || !window.loadMistakes) return;
 
-  const mistakes = Object.values(window.loadMistakes());
+  // N'affiche que les erreurs des chapitres actifs (chapters.js) : un
+  // chapitre pas encore donné cette année reste invisible même ici.
+  const mistakes = Object.values(window.loadMistakes()).filter(m => {
+    const chapter = MENU_CHAPTERS.find(ch => ch.file === m.chapterId + '.html');
+    return chapter && chapter.active;
+  });
   mistakes.sort((a, b) => a.score - b.score); // le plus négatif (pire) en premier
 
   if(mistakes.length === 0){

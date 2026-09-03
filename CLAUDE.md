@@ -1029,3 +1029,78 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   `weeklyTimeRemainingText()` (weekly.js) pour éviter qu'une future
   session ne "corrige" ce texte vers "lundi" en pensant réparer une
   coquille.
+
+## Chapitres masqués tant que pas encore donnés (19/08/2026, demande explicite, discutée avant de coder)
+
+- Contexte : Pierre redouble sa L1 cette année, donc reprend les cours
+  depuis le début — mais avait pris de l'avance l'année dernière et le
+  site contenait déjà tous les chapitres. Demande : masquer tout ce
+  qui n'est pas encore donné par les profs, débloquer chapitre par
+  chapitre au fil de l'année à la demande. Explicitement "vraiment
+  invisible, peu importe qu'on ait le lien ou pas" — pas juste retiré
+  de la grille, aussi bloqué en accès direct par URL. Discuté avant de
+  coder (Pierre l'a demandé) : confirmé que c'était au niveau du
+  chapitre entier (pas de sous-partie à l'intérieur d'une fiche), et
+  que les fiches masquées doivent rediriger même par lien direct.
+- **Refactor préalable nécessaire** : avant cette demande, la liste des
+  8 chapitres existait en TROIS exemplaires à resynchroniser à la main
+  (`CHAPTERS` dans app.js, `MENU_CHAPTERS` dans menu.js,
+  `CHAPTER_TOTALS` dans weekly.js) — ajouter un simple booléen à un
+  seul de ces trois aurait laissé les deux autres incohérents (ex.
+  chapitre caché de la grille mais toujours compté dans le score
+  hebdo, ou toujours atteignable via le bouton chapitre suivant).
+  Regroupées en une seule source de vérité, nouveau fichier
+  `chapters.js` : `const CHAPTERS = [{id, name, file, total, active}]`.
+  `menu.js` garde le nom `MENU_CHAPTERS` par alias (`const
+  MENU_CHAPTERS = CHAPTERS`) pour ne pas devoir toucher tous les
+  appels existants (mistakes.js, progression-page.js, revision.js).
+- `chapters.js` chargé EN PREMIER dans `<head>`, avant même le CSS,
+  sur les 14 pages du site (11/08/2026 avait déjà établi le principe
+  "toujours tester sous 320px" — même logique ici : ce fichier doit
+  s'exécuter avant que quoi que ce soit puisse s'afficher). Contient
+  aussi la garde d'accès direct, une IIFE qui compare le nom de
+  fichier courant à la liste des chapitres et redirige immédiatement
+  vers l'accueil (`location.replace`) si le chapitre correspondant a
+  `active:false` — zéro flash de contenu, puisque rien n'a encore été
+  peint à ce stade du chargement de la page.
+- **Où le filtre `active` s'applique** (partout où un chapitre est
+  affiché ou compté) : grille de l'accueil (app.js/renderChapters),
+  tiroir de menu (menu.js/buildDrawer), navigation précédent/suivant
+  en bas de fiche (menu.js/renderChapterNav — masquée entièrement si
+  moins de 2 chapitres actifs, pointer vers soi-même n'aurait aucun
+  sens), total de la barre hebdomadaire/combat (weekly.js/
+  CHAPTER_TOTALS, désormais dérivé de CHAPTERS.filter(active) plutôt
+  que codé en dur), liste des erreurs fréquentes (mistakes.js), file
+  de révision ciblée (revision.js), radar + grille de progression.html
+  (progression-page.js + progression.js/overallMasteryPercent).
+- **Où le filtre `active` NE s'applique PAS, volontairement** :
+  `exportProgressPhrase`/`importProgressPhrase`/`applyChapterLevel`
+  (progression.js) continuent d'utiliser `CHAPTER_STATE_KEYS` en
+  entier (les 8 chapitres, jamais filtré) — la phrase encode un nombre
+  FIXE de codes dans un ordre fixe ; la filtrer changerait de forme
+  dès qu'un chapitre est masqué/démasqué et casserait la compatibilité
+  avec une phrase déjà exportée. `performSiteReset` (menu.js) nettoie
+  aussi le state hebdo de TOUS les chapitres, actifs ou non — une
+  réinitialisation complète doit tout effacer, y compris un chapitre
+  actuellement caché.
+- `buildRadarSVG` (progression.js) rendait déjà `''` en dessous de 3
+  axes (protection préexistante, pas ajoutée pour l'occasion) — donc
+  avec un seul chapitre actif (PYTHON, au démarrage), le radar de
+  progression.html est simplement vide plutôt que déformé. Redeviendra
+  normal dès que 3 chapitres ou plus seront actifs.
+- Testé (Playwright) : grille d'accueil et tiroir de menu n'affichent
+  que PYTHON ; les 7 fiches inactives redirigent vers l'accueil en
+  visite directe (testé une par une), zéro erreur ; la fiche PYTHON
+  elle-même reste pleinement accessible et fonctionnelle ; la barre
+  hebdomadaire ne compte que les 43 exercices de PYTHON ; la
+  navigation précédent/suivant est bien vide sur python.html (rien
+  d'autre à proposer) ; radar de progression.html vide comme prévu,
+  grille de détail n'affiche que PYTHON, % de maîtrise globale basé
+  uniquement sur PYTHON (pas de zéros fantômes des 7 chapitres
+  masqués qui feraient chuter artificiellement la moyenne).
+- Pour débloquer un chapitre plus tard : changer uniquement son
+  `active` en `true` dans `chapters.js`, rien d'autre à toucher —
+  c'est tout l'intérêt d'avoir centralisé la liste. La progression
+  déjà éventuellement présente en localStorage pour ce chapitre (si
+  Pierre avait pris de l'avance dessus avant de le masquer) réapparaît
+  intacte, rien n'est jamais supprimé par le masquage lui-même.

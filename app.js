@@ -6,16 +6,8 @@
 
 const STORAGE_KEY = 'l1maths_progress';
 
-const CHAPTERS = [
-  { id: 'logique',       name: 'LOGIQUE',       file: 'fiches/logique.html',       total: 34 },
-  { id: 'calculus',      name: 'CALCULUS',      file: 'fiches/calculus.html',      total: 27 },
-  { id: 'algebre',       name: 'ALGÈBRE',       file: 'fiches/algebre.html',       total: 12 },
-  { id: 'analyse',       name: 'ANALYSE',       file: 'fiches/analyse.html',       total: 21 },
-  { id: 'probabilites',  name: 'PROBABILITÉS',  file: 'fiches/probabilites.html',  total: 23 },
-  { id: 'statistiques',  name: 'STATISTIQUES',  file: 'fiches/statistiques.html',  total: 17 },
-  { id: 'java',          name: 'JAVA',           file: 'fiches/java.html',          total: 52 },
-  { id: 'python',        name: 'PYTHON',         file: 'fiches/python.html',        total: 43 },
-];
+/* CHAPTERS : voir chapters.js (source unique, chargé en premier sur
+   toutes les pages — remplace l'ancienne liste dupliquée ici). */
 
 function loadProgress(){
   try{
@@ -45,7 +37,9 @@ function renderChapters(){
   if(!grid) return;
   const progress = loadProgress();
 
-  grid.innerHTML = CHAPTERS.map(ch => {
+  // Chapitres pas encore donnés cette année (active:false, chapters.js)
+  // : absents de la grille — voir chapters.js pour le détail.
+  grid.innerHTML = CHAPTERS.filter(ch => ch.active).map(ch => {
     const p = progress[ch.id] || { completed: 0, correct: 0 };
     const total = ch.total;
     const pct = total > 0 ? Math.round((p.completed / total) * 100) : 0;
@@ -65,7 +59,7 @@ function renderChapters(){
     }
 
     return `
-      <div class="chapter-card${doneClass}" data-file="${ch.file}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
+      <div class="chapter-card${doneClass}" data-file="${chapterHref(ch.file)}" tabindex="0" role="button" aria-label="Ouvrir ${ch.name}">
         ${pieceHTML}
         <div class="chapter-card__title">
           <span>${ch.name}</span>

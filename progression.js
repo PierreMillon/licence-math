@@ -27,7 +27,13 @@ function chapterMasteryPercent(chapterId){
 window.chapterMasteryPercent = chapterMasteryPercent;
 
 function overallMasteryPercent(){
-  const ids = Object.keys(CHAPTER_STATE_KEYS);
+  // Uniquement les chapitres actifs (chapters.js) : contrairement à
+  // exportProgressPhrase/importProgressPhrase plus bas (qui doivent
+  // rester sur TOUS les chapitres, format de phrase figé — voir leurs
+  // commentaires), ceci est un simple affichage, libre de changer. Sans
+  // ce filtre, chaque chapitre pas encore donné compterait comme un
+  // zéro et ferait chuter artificiellement la moyenne affichée.
+  const ids = CHAPTERS.filter(c => c.active).map(c => c.id);
   if(ids.length === 0) return 0;
   return ids.reduce((sum, id) => sum + chapterMasteryPercent(id), 0) / ids.length;
 }
@@ -249,6 +255,16 @@ function loadSkullPileForExport(){
   return Number.isFinite(n) ? n : 0;
 }
 
+/* CHAPTER_STATE_KEYS ici (et dans importProgressPhrase/
+   applyChapterLevel plus bas) volontairement PAS filtré aux chapitres
+   actifs (19/08/2026, chapters.js) : la phrase encode un nombre FIXE
+   de codes dans un ORDRE fixe. La filtrer changerait de forme (moins
+   de codes) dès qu'un chapitre est masqué, et romprait la compatibilité
+   avec une phrase déjà exportée avant — une vieille phrase ne
+   redeviendrait jamais lisible correctement. Le format doit rester basé
+   sur la liste complète, indépendamment de ce qui est actif à l'instant
+   T. Seul l'AFFICHAGE (overallMasteryPercent, progression-page.js) est
+   filtré, jamais l'encodage. */
 function exportProgressPhrase(){
   const ids = Object.keys(CHAPTER_STATE_KEYS);
   const codes = ids.map(id => Math.round((chapterMasteryPercent(id) / 100) * 15));

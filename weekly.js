@@ -15,10 +15,13 @@
    l'objectif de la semaine suivante, une victoire le fait monter.
    Bornée entre WEEKLY_THRESHOLD_MIN et WEEKLY_THRESHOLD_MAX pour que
    le combat ne devienne jamais ni trivial ni impossible. */
-const CHAPTER_TOTALS = {
-  logique: 34, calculus: 27, algebre: 12, analyse: 21,
-  probabilites: 23, statistiques: 17, java: 52, python: 43,
-};
+/* Dérivé de CHAPTERS (chapters.js, source unique), filtré aux
+   chapitres actifs uniquement (19/08/2026) : un chapitre pas encore
+   donné cette année ne doit pas compter dans le total hebdomadaire —
+   ni gonfler le dénominateur du %, ni faire partie du combat tant
+   qu'il n'est pas débloqué. */
+const CHAPTER_TOTALS = {};
+CHAPTERS.filter(c => c.active).forEach(c => { CHAPTER_TOTALS[c.id] = c.total; });
 const WEEKLY_THRESHOLD_BASE = 0.6;
 const WEEKLY_THRESHOLD_STEP = 0.10;
 const WEEKLY_THRESHOLD_MIN = 0.30;

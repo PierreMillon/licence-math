@@ -17,7 +17,13 @@ let revisionIndex = 0;
 /* typesetMath / confirmModeEnabled : voir menu.js (partagé). */
 
 function buildRevisionQueue(){
-  const mistakes = Object.values(window.loadMistakes());
+  // Uniquement les chapitres actifs (chapters.js, même filtre que
+  // mistakes.js) : pas de session de révision ciblée sur un chapitre
+  // pas encore donné cette année.
+  const mistakes = Object.values(window.loadMistakes()).filter(m => {
+    const ch = MENU_CHAPTERS.find(c => c.file === m.chapterId + '.html');
+    return ch && ch.active;
+  });
   mistakes.sort((a, b) => a.score - b.score); // le pire en premier
   const worst = mistakes.slice(0, REVISION_QUEUE_SIZE);
   return shuffledIndices(worst.length).map(i => worst[i]);
