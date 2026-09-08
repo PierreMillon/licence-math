@@ -1239,6 +1239,58 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## Optimisations issues d'un audit qualité (08/09/2026, feu vert explicite de Pierre)
+
+- Audit demandé par Pierre (licence-math + fiche-de-math-gael) : pas de
+  bug trouvé, mais deux pistes d'optimisation sûres identifiées côté
+  licence-math, appliquées après son "Fait" (feu vert explicite).
+- **`creature-svgs.js` retiré des 8 pages de fiches** (gardé sur
+  index.html) : ses constantes (`BIRD_SVG`, `SKULL_SMALL_SVG`...) ne
+  sont utilisées que dans des chemins de code déjà protégés par
+  `if(!zone) return` / `if(lossesEl)` dans `creature.js`/`weekly.js` —
+  sur une fiche, `#creatureZone`/`#creatureLosses` n'existent pas, donc
+  ces constantes n'étaient jamais lues. Vérifié avant retrait (grep
+  exhaustif de tous les appelants) que `creature.js` lui-même DOIT
+  rester chargé sur les fiches — `fiche-engine.js` appelle
+  `window.decrementLateness()` à la première bonne réponse, donc l'état
+  de l'oiseau doit pouvoir avancer même sans afficher l'oiseau. Seul le
+  fichier de dessins (40 Ko) est concerné, pas la logique d'état.
+- **Le service worker ne précharge plus que le(s) chapitre(s) actif(s)**
+  (`ACTIVE_CHAPTER_IDS`, sw.js) au lieu des 8 systématiquement — les
+  chapitres masqués sont de toute façon bloqués en accès direct par la
+  garde de chapters.js (voir plus haut), les précharger ne servait qu'à
+  gonfler le tout premier téléchargement (mesuré : ~1,4 Mo avant, 59
+  entrées/nettement moins après, avec un seul chapitre actif). Table
+  `CHAPTER_FICHE_FILES` dans sw.js : PAS un `importScripts('chapters.js')`
+  (chapters.js contient une garde qui utilise `window`, absent dans un
+  service worker — planterait l'installation), donc une copie séparée,
+  délibérément commentée comme telle, à tenir synchronisée avec
+  `CHAPTERS.filter(active)` à chaque activation/désactivation de
+  chapitre. **`scripts/check-versions.sh` vérifie maintenant aussi
+  cette synchronisation** (compare `ACTIVE_CHAPTER_IDS` de sw.js aux
+  ids `active: true` de chapters.js) — un oubli lors d'une future
+  activation de chapitre fera échouer le script, comme un `?v=`
+  désynchronisé.
+- Conséquence acceptée, testée et documentée pour ne pas être reprise
+  comme un bug plus tard : un chapitre masqué n'est plus précaché, donc
+  taper son URL directement EN ÉTANT DÉJÀ HORS-LIGNE peut échouer
+  (erreur réseau native au lieu d'un redirect propre vers l'accueil) —
+  alors qu'avant, il était précaché "gratuitement" avec les autres et
+  la redirection fonctionnait même hors-ligne. Accepté car ce chemin
+  n'est de toute façon jamais exposé par l'interface (aucun lien nulle
+  part) : seul un favori/lien tapé à la main y mène, et seulement
+  hors-ligne — un cas marginal contre un vrai gain sur CHAQUE premier
+  chargement. Testé (Playwright) : le chapitre actif fonctionne
+  intégralement hors-ligne (page + score + KaTeX), le cache ne contient
+  plus aucune entrée des chapitres masqués, les 8 fiches se chargent
+  sans erreur console. Note technique : dans cet environnement de dev,
+  ni `context.setOffline()` ni `context.route()` de Playwright
+  n'interceptent de façon fiable les requêtes émises depuis le service
+  worker lui-même (`fetch()` interne au SW) — seule l'inspection
+  directe de `caches.match()`/`caches.keys()` donne un résultat de
+  confiance pour vérifier ce qui est réellement précaché ; à refaire de
+  la même façon si ce point doit être revérifié un jour.
+
 ## Chapitre I d'ALGÈBRE (nombres complexes) rédigé à partir du polycopié (08/09/2026)
 
 - Suite immédiate du chantier CALCULUS ci-dessus, même session. Source :

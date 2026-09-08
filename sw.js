@@ -9,8 +9,15 @@
    Stratégie volontairement simple, cohérente avec le reste du site
    (statique, pas d'API, pas de données à synchroniser) :
    - install  : précharge tout ce qu'il faut pour une utilisation
-     complète hors-ligne (toutes les pages, tout le JS/CSS, KaTeX
-     vendorisé, les icônes).
+     complète hors-ligne (toutes les pages génériques, tout le JS/CSS
+     partagé, KaTeX vendorisé, les icônes) — SAUF les fiches des
+     chapitres pas encore actifs (voir ACTIVE_CHAPTER_IDS ci-dessous) :
+     elles sont de toute façon bloquées en accès direct par la garde
+     de chapters.js (voir CLAUDE.md, "chapitres masqués"), donc
+     injoignables par navigation normale — les précharger ne ferait
+     que gonfler le tout premier téléchargement pour du contenu
+     invisible (audit du 08/09/2026, ~7 chapitres sur 8 concernés
+     actuellement).
    - activate : supprime les anciens caches (versions précédentes du
      site) pour ne jamais accumuler de fichiers obsolètes.
    - fetch    : sert depuis le cache en priorité (cache-first) — plus
@@ -31,8 +38,27 @@
    montée), soit il retélécharge tout à chaque visite sans jamais
    trouver le cache à jour (des ?v= qui ne correspondent à aucune
    entrée précachée). */
-const VERSION = 148;
+const VERSION = 149;
 const CACHE_NAME = 'l1maths-v' + VERSION;
+
+/* Fiche HTML/JS de chaque chapitre — pas un import de chapters.js
+   (un service worker n'a pas de `window`, et la garde d'accès direct
+   de chapters.js plante sans lui) : cette table reste une copie
+   volontairement séparée, à tenir synchronisée avec CHAPTERS
+   (chapters.js) à chaque activation/désactivation de chapitre —
+   vérifié par scripts/check-versions.sh (compare ACTIVE_CHAPTER_IDS
+   ci-dessous à CHAPTERS.filter(active) de chapters.js). */
+const CHAPTER_FICHE_FILES = {
+  logique:      { html: 'fiches/logique.html',      js: 'fiches/logique.js' },
+  calculus:     { html: 'fiches/calculus.html',     js: 'fiches/calculus.js' },
+  algebre:      { html: 'fiches/algebre.html',      js: 'fiches/algebre.js' },
+  analyse:      { html: 'fiches/analyse.html',      js: 'fiches/analyse.js' },
+  probabilites: { html: 'fiches/probabilites.html', js: 'fiches/probabilites.js' },
+  statistiques: { html: 'fiches/statistiques.html', js: 'fiches/statistiques.js' },
+  java:         { html: 'fiches/java.html',         js: 'fiches/java.js' },
+  python:       { html: 'fiches/python.html',       js: 'fiches/python.js' },
+};
+const ACTIVE_CHAPTER_IDS = ['python'];
 
 /* Fichiers versionnés (?v=VERSION dans les balises <link>/<script> de
    chaque page, voir scripts/check-versions.sh) — la query string est
@@ -43,9 +69,8 @@ const VERSIONED_FILES = [
   'knight-svgs.js', 'knight.js', 'menu.js', 'mistakes.js', 'music.js',
   'notation.js', 'progression-page.js', 'progression.js', 'pwa.js',
   'revision.js', 'scene.js', 'tooltips.js', 'victory.js', 'weekly.js',
-  'fiches/algebre.js', 'fiches/analyse.js', 'fiches/calculus.js',
-  'fiches/fiche-engine.js', 'fiches/java.js', 'fiches/logique.js',
-  'fiches/probabilites.js', 'fiches/python.js', 'fiches/statistiques.js',
+  'fiches/fiche-engine.js',
+  ...ACTIVE_CHAPTER_IDS.map(id => CHAPTER_FICHE_FILES[id].js),
 ];
 
 /* Fichiers sans query string de version (pages HTML — l'URL de la
@@ -55,9 +80,7 @@ const VERSIONED_FILES = [
 const STATIC_FILES = [
   './', 'index.html', 'changelog.html', 'mistakes.html', 'notation.html',
   'progression.html', 'revision.html',
-  'fiches/algebre.html', 'fiches/analyse.html', 'fiches/calculus.html',
-  'fiches/java.html', 'fiches/logique.html', 'fiches/probabilites.html',
-  'fiches/python.html', 'fiches/statistiques.html',
+  ...ACTIVE_CHAPTER_IDS.map(id => CHAPTER_FICHE_FILES[id].html),
   'manifest.json',
   'vendor/katex/katex.min.css', 'vendor/katex/katex.min.js',
   'vendor/katex/auto-render.min.js',

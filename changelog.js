@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 149, date: "08/09/2026", desc: "Optimisations suite à un audit : préchargement hors-ligne réduit au chapitre actif, script inutile retiré des fiches" },
   { v: 148, date: "08/09/2026", desc: "Chapitre I d'ALGÈBRE (nombres complexes) réécrit à partir du vrai polycopié, 38 questions" },
   { v: 147, date: "08/09/2026", desc: "§1 de CALCULUS réécrite à partir de la vraie feuille de TD (règles de fractions/puissances/radicaux, quantité conjuguée, puissances fractionnaires)" },
   { v: 146, date: "19/08/2026", desc: "<ul><li>Équipement de la semaine masqué tant qu'aucune réponse correcte n'a été donnée</li><li>Indice « cliquer un carré » disparaît dès 2 clics au lieu de 10</li><li>Musique de fond et % dans le menu corrigés sur réglages/erreurs/historique/progression</li></ul>" },

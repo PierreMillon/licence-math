@@ -29,6 +29,22 @@ if [ "$SW_VERSION" != "$SITE_VERSION" ]; then
   echo "::error file=sw.js::VERSION ($SW_VERSION) désynchronisé de SITE_VERSION ($SITE_VERSION)"
   fail=1
 fi
+
+# sw.js ne précharge que les chapitres actifs (ACTIVE_CHAPTER_IDS,
+# audit du 08/09/2026 — les chapitres masqués sont de toute façon
+# injoignables, les précharger gonflerait le 1er chargement pour rien).
+# Cette liste doit rester synchronisée avec CHAPTERS.filter(active) de
+# chapters.js — sinon un chapitre nouvellement activé resterait non
+# précaché (hors-ligne cassé dessus), ou un chapitre redésactivé
+# resterait précaché pour rien.
+CHAPTERS_ACTIVE=$(grep -oE "id: '[a-z]+'[^}]*active: true" chapters.js | grep -oE "id: '[a-z]+'" | grep -oE "[a-z]+'" | tr -d "'" | sort)
+SW_ACTIVE=$(grep -oE "const ACTIVE_CHAPTER_IDS = \[[^]]*\]" sw.js | grep -oE "'[a-z]+'" | tr -d "'" | sort)
+if [ "$CHAPTERS_ACTIVE" != "$SW_ACTIVE" ]; then
+  echo "::error file=sw.js::ACTIVE_CHAPTER_IDS désynchronisé de CHAPTERS.filter(active) (chapters.js)"
+  echo "  chapters.js (actifs) : $(echo "$CHAPTERS_ACTIVE" | tr '\n' ' ')"
+  echo "  sw.js ACTIVE_CHAPTER_IDS : $(echo "$SW_ACTIVE" | tr '\n' ' ')"
+  fail=1
+fi
 while IFS= read -r -d '' file; do
   # ?v=N sur des fichiers locaux uniquement (pas les CDN externes type Google Fonts)
   mismatches=$(grep -oE '(href|src)="[^"]*\?v=[0-9]+"' "$file" | grep -v "fonts.googleapis" | grep -oE '\?v=[0-9]+' | grep -oE '[0-9]+' | sort -u | grep -v "^${SITE_VERSION}$" || true)
