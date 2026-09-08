@@ -1192,3 +1192,49 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   (chapters.js, chargé sur les 14 pages depuis la v144) — n'a plus
   besoin de weekly.js du tout pour ça, corrige la cause plutôt que de
   rajouter une dépendance de plus.
+
+## Contenu de fiche extrait d'une vraie feuille de TD (08/09/2026, demande explicite)
+
+- Nouvelle année universitaire de Pierre (il redouble sa L1) : au lieu
+  d'écrire du contenu de mémoire, méthode adoptée pour CE genre de
+  demande — aller chercher le vrai sujet de TD (énoncé + corrigé) sur
+  le Drive partagé, l'utiliser comme source, puis écrire le cours et
+  les questions à partir de ce qui y est réellement écrit. Ne PAS
+  recopier le PDF tel quel : la feuille de TD ne donne que des titres
+  de règles ("— Partie conjuguée.", sans la formule) — le texte de
+  cours et les questions sont rédigés à partir de ces titres, en
+  connaissance mathématique standard, pas extraits mot pour mot.
+- Première application : §1 de CALCULUS (« Fractions, coefficients
+  binomiaux, puissances et radicaux »), à partir de « Séance 1_
+  Calculus_2026_2027_coef binomiaux.pdf » (énoncé) et « TD1
+  correction.pdf » (corrigé), dossier `TD1` du Drive de Pierre. Les 16
+  exercices de la feuille ne sont pas repris un par un dans le QCM
+  (ce sont des calculs longs à la main, pas des QCM) — seulement les
+  RÈGLES qu'ils mobilisent, une question de cours par règle (cas
+  général), plus une question de cas particulier pour les points
+  identifiés comme les plus piégeux par Pierre : quantité conjuguée
+  (rationaliser un dénominateur avec des racines), puissances
+  fractionnaires (\(x^{1/n} = \sqrt[n]{x}\)), et le piège de signe de
+  l'exercice 14 de la feuille ("Attention, piège !", \(A^2>0\)
+  n'implique pas \(A>0\)). Résultat : section passée de 3 à 19
+  exercices, total de la fiche 27 → 43 (`chapters.js`, seul endroit à
+  mettre à jour — les autres exercices du fichier, séances 2 à 8,
+  inchangés, juste renumérotés en conséquence).
+- Chapitre CALCULUS reste `active:false` (pas encore donné cette
+  année, voir plus haut) — contenu préparé à l'avance, testé
+  localement en bousculant temporairement `active` à `true` puis
+  remis à `false` avant de livrer (jamais poussé activé : le
+  déblocage reste une décision explicite de Pierre, chapitre par
+  chapitre, au moment annoncé par les profs).
+- Reste à faire, prochaine session sur ce sujet (mentionné par Pierre,
+  pas encore traité) : même traitement pour le chapitre ALGÈBRE à
+  partir de `algebre_lineaire1.pdf` (dossier `Math` du Drive,
+  "Algèbre linéaire 1", L1 mathématiques, Pascal Ortiz, INU
+  Champollion) — un vrai polycopié de cours complet (I. Nombres
+  complexes, II. Polynômes, III. Espaces vectoriels, + annexes
+  binôme de Newton et pivot de Gauss), largement plus long que la
+  feuille de TD de Calculus. Vu la taille, prévoir de le traiter par
+  sous-partie plutôt qu'en un seul passage — au minimum un chapitre
+  (I. Nombres complexes) à la fois, avec au moins une question de
+  cours par paragraphe comme demandé explicitement par Pierre, pas
+  tout le polycopié d'un coup.

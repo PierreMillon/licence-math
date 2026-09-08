@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 147, date: "08/09/2026", desc: "§1 de CALCULUS réécrite à partir de la vraie feuille de TD (règles de fractions/puissances/radicaux, quantité conjuguée, puissances fractionnaires)" },
   { v: 146, date: "19/08/2026", desc: "<ul><li>Équipement de la semaine masqué tant qu'aucune réponse correcte n'a été donnée</li><li>Indice « cliquer un carré » disparaît dès 2 clics au lieu de 10</li><li>Musique de fond et % dans le menu corrigés sur réglages/erreurs/historique/progression</li></ul>" },
   { v: 145, date: "19/08/2026", desc: "Mécanisme de lecture à voix haute des formules (marqueur ⓘ à la première apparition d'un symbole)" },
   { v: 144, date: "19/08/2026", desc: "Chapitres pas encore donnés cette année masqués partout, réactivés au fil de l'année" },
