@@ -1239,6 +1239,41 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## CALCULUS et ALGÈBRE débloqués + nouveau rythme d'ajout de contenu (08/09/2026, demande explicite)
+
+- Pierre a confirmé que les profs ont bien donné les documents déjà
+  utilisés pour rédiger CALCULUS §1 (v147) et ALGÈBRE chapitre I
+  (v148) — les deux chapitres passent donc `active: true` dans
+  `chapters.js` (et `ACTIVE_CHAPTER_IDS` dans `sw.js`, pour rester
+  synchronisé avec le précache hors-ligne, voir plus haut). Avant de
+  livrer, revérifié sur le Drive que les fichiers sources
+  (`algebre_lineaire1.pdf`, « Séance 1_Calculus_2026_2027_coef
+  binomiaux.pdf », « TD1 correction.pdf ») n'avaient pas changé depuis
+  leur traitement — mêmes horodatages, rien à retraiter.
+- **Changement de méthode pour la suite de l'année, demande explicite
+  de Pierre** : jusqu'ici, le contenu d'un chapitre était préparé à
+  partir d'un document qui couvre TOUTE l'année (ex. le polycopié
+  `algebre_lineaire1.pdf`, qui contient déjà les 3 chapitres + 2
+  annexes) — "fonctionnel mais un gros morceau". À partir de
+  maintenant, Pierre fournira les documents AU FUR ET À MESURE, au
+  rythme réel où les profs les donnent (pas plus vite) — donc le
+  contenu des fiches sera étoffé PROGRESSIVEMENT, section par section
+  ou TD par TD, plutôt que par gros blocs préparés à l'avance. Pierre
+  a explicitement anticipé que certains documents déjà fournis
+  pourraient être révisés/remplacés plus tard dans l'année (d'autres
+  non) — réflexe à garder : au moment de traiter un nouveau document
+  pour un chapitre déjà partiellement actif, vérifier s'il s'agit
+  d'un AJOUT (nouvelle section/TD) ou d'une VERSION RÉVISÉE d'un
+  document déjà traité (comparer date de modification Drive + contenu
+  avant de retravailler).
+- Chapitres II (Polynômes) et III (Espaces vectoriels)
+  d'`algebre_lineaire1.pdf` restent non traités pour l'instant, malgré
+  leur présence dans le même PDF déjà entièrement disponible — cohérent
+  avec le nouveau rythme ci-dessus : ne pas les préparer à l'avance
+  seulement parce que le texte source les contient déjà, attendre que
+  Pierre les redemande (probablement quand les profs les donneront
+  réellement, séance par séance).
+
 ## Optimisations issues d'un audit qualité (08/09/2026, feu vert explicite de Pierre)
 
 - Audit demandé par Pierre (licence-math + fiche-de-math-gael) : pas de

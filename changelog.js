@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 150, date: "08/09/2026", desc: "CALCULUS et ALGÈBRE débloqués (donnés par les profs)" },
   { v: 149, date: "08/09/2026", desc: "Optimisations suite à un audit : préchargement hors-ligne réduit au chapitre actif, script inutile retiré des fiches" },
   { v: 148, date: "08/09/2026", desc: "Chapitre I d'ALGÈBRE (nombres complexes) réécrit à partir du vrai polycopié, 38 questions" },
   { v: 147, date: "08/09/2026", desc: "§1 de CALCULUS réécrite à partir de la vraie feuille de TD (règles de fractions/puissances/radicaux, quantité conjuguée, puissances fractionnaires)" },
