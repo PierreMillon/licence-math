@@ -1238,3 +1238,32 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   (I. Nombres complexes) à la fois, avec au moins une question de
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
+
+## Chapitre I d'ALGÈBRE (nombres complexes) rédigé à partir du polycopié (08/09/2026)
+
+- Suite immédiate du chantier CALCULUS ci-dessus, même session. Source :
+  chapitre I ("Nombres complexes") de `algebre_lineaire1.pdf`, et plus
+  précisément sa section 5 « Résultats à connaître, mémento des
+  formules » — choix de s'appuyer sur le mémento plutôt que sur
+  l'exposé détaillé du chapitre, parce qu'il EST déjà le condensé
+  section par section dont a besoin un QCM, alors que le sommaire du
+  chapitre mélange définition et forme algébrique en une seule
+  section. `fiches/algebre.js` passe de 12 à **38 exercices**, de 4 à
+  **6 sections** (mêmes noms que le mémento : formules générales /
+  forme algébrique / conjugaison / module / forme trigo-expo /
+  racines & équations) — au moins une question de cours par
+  paragraphe du mémento, comme demandé explicitement. `chapters.js`
+  (`algebre.total`) et `fiches/algebre.html` (`SCORE : 0/38`) mis à
+  jour en conséquence.
+- Chapitres II (Polynômes) et III (Espaces vectoriels) du même
+  document, plus les annexes (binôme de Newton, pivot de Gauss),
+  **toujours pas traités** — explicitement prévu pour une prochaine
+  session sur ce sujet, un chapitre à la fois comme pour celui-ci, pas
+  demandé de le faire d'un coup.
+- Chapitre ALGÈBRE laissé `active:false` (pas encore donné cette
+  année) — testé localement en bousculant temporairement `active` à
+  `true` (38 exercices/6 sections rendus, KaTeX correct y compris les
+  formules les plus chargées du chapitre — \(\mathbb{C}\), fractions,
+  \(\overline{z}\), \(\varrho e^{i\theta}\) — zéro erreur console
+  imputable au contenu), puis remis à `false` avant de livrer, comme
+  pour CALCULUS.
