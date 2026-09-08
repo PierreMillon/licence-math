@@ -31,7 +31,7 @@ const CHAPTERS = [
   { id: 'probabilites', name: 'PROBABILITÉS',  file: 'probabilites.html', total: 23, active: false },
   { id: 'statistiques', name: 'STATISTIQUES',  file: 'statistiques.html', total: 17, active: false },
   { id: 'java',         name: 'JAVA',          file: 'java.html',         total: 52, active: false },
-  { id: 'python',       name: 'PYTHON',        file: 'python.html',       total: 43, active: true },
+  { id: 'python',       name: 'PYTHON',        file: 'python.html',       total: 43, active: false },
 ];
 
 /* Garde d'accès direct : si la page courante est la fiche d'un

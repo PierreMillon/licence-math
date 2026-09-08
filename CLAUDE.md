@@ -1239,6 +1239,23 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## PYTHON masqué de nouveau (08/09/2026, demande explicite « Cache python »)
+
+- Juste après avoir débloqué CALCULUS/ALGÈBRE (voir juste en dessous),
+  Pierre redemande de masquer PYTHON — `active: false` dans
+  `chapters.js`, retiré d'`ACTIVE_CHAPTER_IDS` (sw.js). Aucune raison
+  donnée, pas demandé — pas la peine de deviner (probablement plus au
+  programme du moment, à débloquer de nouveau sur demande explicite le
+  jour venu). Comme pour tout masquage : la progression déjà faite sur
+  PYTHON reste intacte en localStorage, rien n'est supprimé, elle
+  réapparaîtra telle quelle dès que `active` repasse à `true`.
+  Vérifié (Playwright) : grille et tiroir n'affichent plus que
+  CALCULUS/ALGÈBRE, `fiches/python.html` redirige de nouveau vers
+  l'accueil même en accès direct, navigation précédent/suivant sur
+  calculus.html ne boucle plus qu'entre CALCULUS et ALGÈBRE, et la
+  progression déjà présente pour PYTHON n'est pas effacée par le
+  masquage.
+
 ## CALCULUS et ALGÈBRE débloqués + nouveau rythme d'ajout de contenu (08/09/2026, demande explicite)
 
 - Pierre a confirmé que les profs ont bien donné les documents déjà
