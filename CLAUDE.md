@@ -1239,6 +1239,59 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## ANALYSE étoffée : Suites et Séries numériques (09/09/2026, demande explicite « dossier math analyse y'a 4 feuilles à ajouter et mettre à jour »)
+
+- Nouvelle session (09/09/2026). Demande initiale ambiguë : Pierre
+  parlait d'un dossier `Math/Analyse` sur le Drive — trouvé (créé le
+  jour même), mais VIDE. Signalé à Pierre, qui a répondu juste
+  « Regarde » — les 4 fichiers réels n'étaient pas dans ce dossier
+  mais partagés directement par Gaël (gaelboury@gmail.com, le tuteur
+  de Pierre, déjà croisé comme source d'autres PDF type « Algèbre -
+  Bases PEMDAS »/« Algèbre - Bases small ») : « Analyse - Suites
+  small.pdf », « Analyse - Séries fiche mémo.pdf », « Analyse - Suites
+  récurrence échelle.pdf », « Analyse - Suites récurrence - Pour
+  l'hérédité.pdf ». Recherche par titre (`title contains 'Analyse'`)
+  plutôt que par dossier pour les retrouver. **Réflexe à garder** :
+  quand une recherche par dossier ne donne rien, chercher aussi par
+  titre/mot-clé avant de conclure que le contenu n'existe pas — le
+  dossier mentionné par Pierre n'est pas toujours le bon conteneur.
+- Qualité très inégale des 4 sources : 3 sont des scans manuscrits à
+  l'OCR fortement dégradé (illisibles en l'état, juste utilisés pour
+  confirmer les notions attendues — suites majorées/minorées/bornées,
+  suites adjacentes, point fixe, méthode de l'hérédité). La 4e
+  (« Séries fiche mémo », Université Claude Bernard Lyon 1) est une
+  vraie fiche mémo propre, 17 théorèmes + 2 définitions numérotés sur
+  la convergence des suites et séries — utilisée comme source
+  structurée principale, même logique que le mémento d'ALGÈBRE
+  chapitre I (un théorème numéroté = une question de cours).
+- §8 (SUITES, 11 questions) et §9 (SÉRIES NUMÉRIQUES, 10 questions)
+  ajoutées à `fiches/analyse.js`, qui ne couvrait jusque-là que
+  limites/continuité/dérivation/fonctions usuelles/DL/intégration/
+  primitives (écrit de mémoire, avant la méthode "extraire d'un vrai
+  document" adoptée le 08/09/2026 pour CALCULUS/ALGÈBRE) — total de
+  la fiche 21 → 42 (`chapters.js` + `fiches/analyse.html`, comme
+  d'habitude). Récurrence (la TECHNIQUE de preuve — initialisation/
+  hérédité) déjà couverte dans LOGIQUE §recurrence, vérifié avant
+  d'écrire pour ne pas dupliquer : seuls les théorèmes propres aux
+  suites/séries (convergence monotone, géométrique, gendarmes,
+  suites adjacentes, o/∼, séries géométriques/Riemann/alternées,
+  d'Alembert/Cauchy...) sont repris ici.
+- 2 questions « cas particulier »/piège ajoutées sur les points
+  identifiés comme les plus piégeux dans le mémento lui-même :
+  \\(\\rho=1\\) pour une série géométrique (converge pour une SUITE,
+  diverge pour une SÉRIE — contraste explicite) et \\(L=1\\) dans la
+  règle de d'Alembert (cas indéterminé, exemple des séries de Riemann
+  \\(\\sum 1/n\\) vs \\(\\sum 1/n^2\\)) — même format que les questions
+  de cas particulier de CALCULUS/ALGÈBRE.
+- Chapitre ANALYSE laissé `active:false` (pas encore donné cette
+  année) — testé localement en bousculant temporairement `active` à
+  `true` (42 questions/9 sections rendues, 9 titres de section
+  confirmés dans l'ordre, KaTeX sans erreur y compris les notations
+  \\(o(v_n)\\)/\\(\\sim\\)/\\(\\sqrt[n]{u_n}\\), zéro débordement à
+  320/390px en mode page ET continu, interaction/validation vérifiée
+  sur la question du piège \\(L=1\\)), puis remis à `false` avant de
+  livrer — même méthode que CALCULUS et ALGÈBRE.
+
 ## PYTHON masqué de nouveau (08/09/2026, demande explicite « Cache python »)
 
 - Juste après avoir débloqué CALCULUS/ALGÈBRE (voir juste en dessous),

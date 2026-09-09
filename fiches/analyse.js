@@ -4,7 +4,25 @@
    INU Champollion (limites, continuité, dérivation, fonctions
    usuelles, développements limités, intégration, primitives).
    QCM à 3 réponses, formules en LaTeX typesetées avec KaTeX.
-   ============================================================ */
+
+   §8 (SUITES) et §9 (SÉRIES NUMÉRIQUES) ajoutées le 09/09/2026,
+   demande explicite — sujet absent des §1-7 d'origine (écrites de
+   mémoire, avant l'adoption de la méthode "extraire d'un vrai
+   document", voir CLAUDE.md). Sources : 4 fichiers du dossier Math du
+   Drive, partagés par Gaël (gaelboury@gmail.com, le tuteur de Pierre) :
+   « Analyse - Suites small.pdf » et « Analyse - Suites récurrence
+   échelle.pdf »/« ...Pour l'hérédité.pdf » sont des scans manuscrits
+   à l'OCR très dégradé (illisibles en l'état) — utilisés seulement
+   pour confirmer les notions attendues (suites majorées/minorées/
+   bornées, suites adjacentes, théorème du point fixe), pas comme
+   source de texte. La vraie source structurée est « Analyse - Séries
+   fiche mémo.pdf » (Université Claude Bernard Lyon 1, fiche mémo
+   « Convergence de suites et séries numériques », 17 théorèmes + 2
+   définitions numérotés) — même logique que le mémento d'ALGÈBRE
+   (chapitre I) : un théorème numéroté = une question de cours.
+   Récurrence (la TECHNIQUE de preuve elle-même, initialisation/
+   hérédité) déjà couverte dans LOGIQUE §recurrence — pas dupliquée
+   ici, seuls les théorèmes propres aux suites/séries sont repris. */
 
 const EXERCISES = [
   {
@@ -182,6 +200,189 @@ const EXERCISES = [
     correctIndex: 0,
     explain: 'Si \\(F\\) et \\(G\\) ont la même dérivée \\(f\\) sur \\(I\\), alors \\((F-G)\'=0\\) sur \\(I\\), donc \\(F-G\\) est constante.',
   },
+
+  // ---------- §8 — Suites ----------
+  {
+    id: 'ex22', section: 'suites',
+    statement: 'Une suite monotone est convergente si et seulement si elle est :',
+    options: ['Bornée', 'Positive', 'Définie par récurrence'],
+    correctIndex: 0,
+    explain: 'Une suite croissante et majorée (ou décroissante et minorée) converge ; une suite monotone non bornée diverge, vers \\(+\\infty\\) ou \\(-\\infty\\).',
+  },
+  {
+    id: 'ex23', section: 'suites',
+    statement: 'Une suite croissante et majorée par 5 converge nécessairement :',
+    options: [
+      'Vers une limite \\(\\leq 5\\), pas forcément égale à 5',
+      'Vers exactement 5',
+      'Vers \\(+\\infty\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Piège classique : un majorant n’est pas la limite. \\(u_n = 1 - 1/n\\) est croissante, majorée par 5, mais converge vers 1, pas vers 5.',
+  },
+  {
+    id: 'ex24', section: 'suites',
+    statement: 'Une suite géométrique \\((u_n)\\) de raison \\(\\rho\\) converge si et seulement si :',
+    options: ['\\(|\\rho| < 1\\) ou \\(\\rho = 1\\)', '\\(\\rho > 0\\)', '\\(|\\rho| \\leq 1\\)'],
+    correctIndex: 0,
+    explain: 'Attention au cas \\(\\rho=-1\\) (module 1 mais pas convergent) : il faut \\(|\\rho|<1\\) STRICT, sauf le cas particulier \\(\\rho=1\\) (suite constante).',
+  },
+  {
+    id: 'ex25', section: 'suites',
+    statement: 'Pour une suite géométrique de raison \\(\\rho = -1\\), on peut affirmer que la suite :',
+    options: ['Diverge (elle oscille sans limite)', 'Converge vers 0', 'Converge vers \\(-1\\)'],
+    correctIndex: 0,
+    explain: '\\(u_n = u_0 \\times (-1)^n\\) alterne indéfiniment entre \\(u_0\\) et \\(-u_0\\) sans jamais se stabiliser — cas limite du théorème précédent.',
+  },
+  {
+    id: 'ex26', section: 'suites',
+    statement: 'Si les sous-suites \\((u_{2n})\\) et \\((u_{2n+1})\\) convergent vers deux limites différentes, alors la suite \\((u_n)\\) :',
+    options: ['Diverge', 'Converge vers la moyenne des deux limites', 'Converge vers la plus grande des deux'],
+    correctIndex: 0,
+    explain: 'Une suite convergente a toutes ses sous-suites qui convergent vers SA limite ; deux sous-suites en désaccord empêchent donc toute convergence de la suite entière.',
+  },
+  {
+    id: 'ex27', section: 'suites',
+    statement: 'D’après le théorème des gendarmes (encadrement), si \\(v_n \\leq u_n \\leq w_n\\) à partir d’un certain rang et que \\((v_n)\\), \\((w_n)\\) convergent vers la même limite \\(l\\), alors :',
+    options: ['\\((u_n)\\) converge aussi vers \\(l\\)', '\\((u_n)\\) est nécessairement constante', '\\((u_n)\\) diverge'],
+    correctIndex: 0,
+    explain: '\\((u_n)\\) est coincée entre deux suites qui se resserrent sur \\(l\\) — elle n’a donc pas d’autre choix que de converger vers \\(l\\) elle aussi.',
+  },
+  {
+    id: 'ex28', section: 'suites',
+    statement: 'Deux suites \\((u_n)\\) et \\((v_n)\\) sont dites adjacentes si \\((u_n)\\) est croissante, \\((v_n)\\) est décroissante, et :',
+    options: ['\\(v_n - u_n \\to 0\\)', '\\(u_n = v_n\\) pour tout \\(n\\)', '\\(u_n \\times v_n \\to 1\\)'],
+    correctIndex: 0,
+    explain: 'Sous ces trois conditions, les deux suites convergent vers LA MÊME limite — un outil puissant pour prouver l’existence d’une limite sans la calculer.',
+  },
+  {
+    id: 'ex29', section: 'suites',
+    statement: 'Pour deux suites \\((u_n)\\) et \\((v_n)\\), la notation \\(u_n \\mathop{\\sim}\\limits_{+\\infty} v_n\\) (équivalence) signifie :',
+    options: [
+      '\\(\\lim_{n \\to +\\infty} \\dfrac{u_n}{v_n} = 1\\)',
+      '\\(\\lim_{n \\to +\\infty} \\dfrac{u_n}{v_n} = 0\\)',
+      '\\(u_n = v_n\\) à partir d’un certain rang',
+    ],
+    correctIndex: 0,
+    explain: 'Même définition que pour les fonctions (voir §1) : le rapport des deux suites tend vers 1.',
+  },
+  {
+    id: 'ex30', section: 'suites',
+    statement: 'La notation \\(u_n = o(v_n)\\) (« petit o ») signifie :',
+    options: [
+      '\\(\\lim_{n \\to +\\infty} \\dfrac{u_n}{v_n} = 0\\)',
+      '\\(\\lim_{n \\to +\\infty} \\dfrac{u_n}{v_n} = 1\\)',
+      '\\(u_n \\leq v_n\\) pour tout \\(n\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Ne pas confondre avec \\(\\sim\\) (rapport vers 1) : \\(o(v_n)\\) veut dire que \\(u_n\\) est négligeable devant \\(v_n\\), le rapport tend vers 0.',
+  },
+  {
+    id: 'ex31', section: 'suites',
+    statement: 'Si \\(u_n \\mathop{\\sim}\\limits_{+\\infty} v_n\\), alors \\((u_n)\\) et \\((v_n)\\) :',
+    options: [
+      'Ont la même nature (convergent toutes les deux ou divergent toutes les deux)',
+      'Convergent nécessairement',
+      'Sont égales à partir d’un certain rang',
+    ],
+    correctIndex: 0,
+    explain: 'L’équivalence garantit le même comportement à l’infini, pas l’égalité ni la convergence en elle-même.',
+  },
+  {
+    id: 'ex32', section: 'suites',
+    statement: 'En croissances comparées, à l’infini, l’ordre de domination est :',
+    options: [
+      'Exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
+      'Logarithme \\(\\gg\\) puissance \\(\\gg\\) exponentielle',
+      'Puissance \\(\\gg\\) exponentielle \\(\\gg\\) logarithme',
+    ],
+    correctIndex: 0,
+    explain: 'Quel que soit \\(k>0\\), \\(e^n/n^k \\to +\\infty\\) et \\(n^k/\\ln n \\to +\\infty\\) : l’exponentielle l’emporte toujours sur la puissance, qui l’emporte toujours sur le logarithme.',
+  },
+
+  // ---------- §9 — Séries numériques ----------
+  {
+    id: 'ex33', section: 'series',
+    statement: 'Une série \\(\\sum u_n\\) diverge grossièrement (ou trivialement) si :',
+    options: ['\\(u_n\\) ne tend PAS vers 0', '\\(u_n\\) tend vers 0', '\\(u_n\\) est positive'],
+    correctIndex: 0,
+    explain: 'Premier réflexe avant d’étudier une série : si le terme général ne tend pas vers 0, la série diverge immédiatement.',
+  },
+  {
+    id: 'ex34', section: 'series',
+    statement: 'Si \\(u_n \\to 0\\), peut-on conclure que \\(\\sum u_n\\) converge ?',
+    options: [
+      'Non — contre-exemple : la série harmonique \\(\\sum 1/n\\) diverge pourtant \\(1/n \\to 0\\)',
+      'Oui, toujours',
+      'Seulement si \\(u_n\\) est positive',
+    ],
+    correctIndex: 0,
+    explain: '\\(u_n \\to 0\\) est une condition NÉCESSAIRE mais pas suffisante — c’est le piège le plus classique sur les séries.',
+  },
+  {
+    id: 'ex35', section: 'series',
+    statement: 'La série géométrique \\(\\sum \\rho^n\\) converge si et seulement si :',
+    options: ['\\(|\\rho| < 1\\)', '\\(|\\rho| \\leq 1\\)', '\\(\\rho > 0\\)'],
+    correctIndex: 0,
+    explain: 'Contrairement à la SUITE géométrique (où \\(\\rho=1\\) « convergeait » aussi, vers une constante), pour la SÉRIE \\(\\rho=1\\) donne \\(\\sum 1 = +\\infty\\) : elle diverge. Quand elle converge, la somme vaut \\(\\dfrac{1}{1-\\rho}\\).',
+  },
+  {
+    id: 'ex36', section: 'series',
+    statement: 'La série de Riemann \\(\\sum \\dfrac{1}{n^\\alpha}\\) converge si et seulement si :',
+    options: ['\\(\\alpha > 1\\)', '\\(\\alpha \\geq 0\\)', '\\(\\alpha < 1\\)'],
+    correctIndex: 0,
+    explain: 'Cas particulier \\(\\alpha=1\\) : c’est la série harmonique, qui diverge (tout juste) — la frontière \\(\\alpha=1\\) est du côté de la divergence.',
+  },
+  {
+    id: 'ex37', section: 'series',
+    statement: 'D’après le critère des séries alternées, une série \\(\\sum (-1)^n u_n\\) (avec \\(u_n \\geq 0\\)) converge si :',
+    options: [
+      '\\(u_n \\to 0\\) ET \\((u_n)\\) est décroissante',
+      '\\(u_n \\to 0\\) seulement',
+      '\\((u_n)\\) est décroissante seulement',
+    ],
+    correctIndex: 0,
+    explain: 'Les deux conditions sont nécessaires ENSEMBLE : ni la décroissance seule, ni la limite nulle seule, ne suffisent à garantir la convergence.',
+  },
+  {
+    id: 'ex38', section: 'series',
+    statement: 'Si \\(\\sum |u_n|\\) converge (convergence absolue), alors :',
+    options: ['\\(\\sum u_n\\) converge aussi', '\\(\\sum u_n\\) diverge nécessairement', 'On ne peut rien dire de \\(\\sum u_n\\)'],
+    correctIndex: 0,
+    explain: 'La convergence absolue est plus forte que la convergence simple et l’implique toujours — la réciproque est fausse (ex. série harmonique alternée : converge, mais pas absolument).',
+  },
+  {
+    id: 'ex39', section: 'series',
+    statement: 'D’après la règle de d’Alembert, si \\(\\lim_{n \\to +\\infty} \\left|\\dfrac{u_{n+1}}{u_n}\\right| = L\\) avec \\(L<1\\), alors la série \\(\\sum u_n\\) :',
+    options: ['Converge', 'Diverge grossièrement', 'Ne permet aucune conclusion'],
+    correctIndex: 0,
+    explain: 'Et si \\(L>1\\), la série diverge grossièrement (le terme général ne tend même pas vers 0).',
+  },
+  {
+    id: 'ex40', section: 'series',
+    statement: 'Dans la règle de d’Alembert, si \\(L = 1\\), on peut conclure que la série :',
+    options: [
+      'Rien : le test ne permet aucune conclusion, il faut une autre méthode',
+      'Converge toujours',
+      'Diverge toujours',
+    ],
+    correctIndex: 0,
+    explain: '\\(L=1\\) est le cas indéterminé — les séries de Riemann le montrent : \\(\\sum 1/n\\) (diverge) et \\(\\sum 1/n^2\\) (converge) donnent TOUTES LES DEUX \\(L=1\\), pourtant elles n’ont pas la même nature.',
+  },
+  {
+    id: 'ex41', section: 'series',
+    statement: 'D’après le critère de Cauchy, s’il existe \\(r<1\\) tel que \\(\\sqrt[n]{u_n} < r\\) à partir d’un certain rang, alors \\(\\sum u_n\\) :',
+    options: ['Converge', 'Diverge', 'Diverge grossièrement seulement'],
+    correctIndex: 0,
+    explain: 'Symétrique à d’Alembert, mais avec la racine \\(n\\)-ième au lieu du rapport \\(u_{n+1}/u_n\\) — utile quand \\(u_n\\) contient déjà une puissance \\(n\\)-ième.',
+  },
+  {
+    id: 'ex42', section: 'series',
+    statement: 'Pour deux séries à termes positifs telles que \\(0 \\leq u_n \\leq v_n\\), si \\(\\sum v_n\\) converge, alors :',
+    options: ['\\(\\sum u_n\\) converge aussi', '\\(\\sum u_n\\) diverge', 'On ne peut rien dire de \\(\\sum u_n\\)'],
+    correctIndex: 0,
+    explain: 'Et par contraposée : si \\(\\sum u_n\\) diverge, alors \\(\\sum v_n\\) diverge aussi — un majorant convergent entraîne la convergence du plus petit.',
+  },
 ];
 
 const SECTIONS = [
@@ -212,6 +413,14 @@ const SECTIONS = [
   {
     id: 'primitives', title: '§7 — PRIMITIVES',
     cours: 'Primitive de \\(x^\\alpha\\) (\\(\\alpha \\neq -1\\)) : \\(\\dfrac{x^{\\alpha+1}}{\\alpha+1}\\) ; primitive de \\(1/x\\) : \\(\\ln|x|\\)<br><span class="math">Changement de variable</span> : \\(x=\\varphi(t)\\), \\(dx = \\varphi\'(t)\\,dt\\)<br>Deux primitives d’une même fonction diffèrent d’une constante',
+  },
+  {
+    id: 'suites', title: '§8 — SUITES',
+    cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|<1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature)<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
+  },
+  {
+    id: 'series', title: '§9 — SÉRIES NUMÉRIQUES',
+    cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|<1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha>1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L<1\\) CV, \\(L>1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
   },
 ];
 
