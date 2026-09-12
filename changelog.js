@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 153, date: "12/09/2026", desc: "Contour des pièces d'armure du chevalier reconstruit (fiabilité iPhone)" },
   { v: 152, date: "09/09/2026", desc: "ANALYSE : nouvelles sections Suites et Séries numériques (21 questions)" },
   { v: 151, date: "08/09/2026", desc: "PYTHON masqué" },
   { v: 150, date: "08/09/2026", desc: "CALCULUS et ALGÈBRE débloqués (donnés par les profs)" },
