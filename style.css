@@ -557,38 +557,47 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
      blanc ambiant, invisibles sur le chemisier déjà blanc — vérifié
      à l'écran, plastron/cape/gantelets/jambières disparaissaient
      complètement, seuls casque et bottes ressortaient encore (posés
-     sur cheveux/peau, pas sur le chemisier). L'épée garde son gemme
-     rouge propre (fill="#ff3b3b" en dur dans KNIGHT_EPEE_SVG, non
-     affecté par currentColor). */
+     sur cheveux/peau, pas sur le chemisier). */
   color:#b8bec8;
 }
-.knight-piece-wrap svg{
+/* Contour gris foncé sur chaque pièce (11/08/2026, demande explicite
+   après retour "ça fait un blob, c'est pas clair") : sans lui, des
+   pièces adjacentes de la même couleur gris/argent se fondaient les
+   unes dans les autres, illisibles.
+   Reconstruit le 12/09/2026 (audit préventif, demande explicite) en
+   VRAIES COPIES DOM (comme le contour du dragon, voir plus haut et
+   CLAUDE.md) — c'était encore un filtre `drop-shadow` chaîné 8 fois,
+   exactement la technique déjà identifiée fragile sur Safari/iPhone
+   réel pour le dragon (contour resté invisible à deux reprises, jamais
+   reproduit en simulation) : jamais migrée en même temps que le dragon
+   à l'époque, restée un point aveugle. `renderKnight()` (knight.js)
+   pose maintenant 8 copies `.knight-piece-copy--outline` légèrement
+   décalées (translate, 1px fixe — CSS le mieux supporté qui soit,
+   voir CLAUDE.md) derrière 1 copie `--main` sans décalage. */
+.knight-piece-copy{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.knight-piece-copy svg{
   width:100%;
   height:100%;
   display:block;
-  /* Contour gris foncé sur chaque pièce (11/08/2026, demande explicite
-     après retour "ça fait un blob, c'est pas clair") : sans lui, des
-     pièces adjacentes de la même couleur gris/argent se fondaient les
-     unes dans les autres, illisibles. 4 drop-shadow cardinales + 4
-     diagonales (8 directions) pour couvrir aussi les coins du
-     contour — 4 directions seules laissaient des trous aux angles.
-     drop-shadow (pas de vrai stroke SVG) : s'applique au silhouette
-     entière de la pièce déjà composée, pas à chaque <rect> pris
-     séparément — sinon on aurait une grille de traits internes entre
-     rects adjacents de même couleur, pas juste le contour extérieur.
-     3 variantes testées à l'écran (fichier de test dédié) avant de
-     choisir celle-ci : plus fine que l'épaisse (jugée trop "autocollant"),
-     gris foncé plutôt que noir pur pour rester discrète. */
-  filter:
-    drop-shadow(1px 0 0 #1a1a1a)
-    drop-shadow(-1px 0 0 #1a1a1a)
-    drop-shadow(0 1px 0 #1a1a1a)
-    drop-shadow(0 -1px 0 #1a1a1a)
-    drop-shadow(1px 1px 0 #1a1a1a)
-    drop-shadow(-1px 1px 0 #1a1a1a)
-    drop-shadow(1px -1px 0 #1a1a1a)
-    drop-shadow(-1px -1px 0 #1a1a1a);
 }
+/* Certaines pièces ont des accents de couleur codés en dur en plus du
+   fill="currentColor" de base (or #d4a24c sur casque/cape, gemme rouge
+   #ff3b3b sur l'épée...) — sans cette règle, les 8 copies de contour
+   les dupliqueraient chacune dans leur propre couleur au lieu de
+   tracer un contour gris uni, exactement comme le ferait un vrai
+   drop-shadow (qui ignore la couleur interne, ne suit que le canal
+   alpha de la silhouette entière). `svg *` force donc CHAQUE forme des
+   copies de contour à la couleur de contour, quel que soit son propre
+   fill="..." — la copie --main, elle, garde ses couleurs d'origine. */
+.knight-piece-copy--outline{ color:#1a1a1a; }
+.knight-piece-copy--outline svg *{ fill:currentColor; }
+.knight-piece-copy--main{ color:#b8bec8; }
 .knight-coins{
   display:flex;
   flex-wrap:wrap;
