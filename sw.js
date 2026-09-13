@@ -38,7 +38,7 @@
    montée), soit il retélécharge tout à chaque visite sans jamais
    trouver le cache à jour (des ?v= qui ne correspondent à aucune
    entrée précachée). */
-const VERSION = 152;
+const VERSION = 153;
 const CACHE_NAME = 'l1maths-v' + VERSION;
 
 /* Fiche HTML/JS de chaque chapitre — pas un import de chapters.js
