@@ -6,7 +6,8 @@
    ============================================================ */
 
 const VERSIONS = [
-  { v: 153, date: "09/09/2026", desc: "ANALYSE : 5 nouvelles sections (ensembles/intervalles, densité, inégalités, monotonie, partie entière), extraites du vrai cours de cette année" },
+  { v: 154, date: "14/09/2026", desc: "ANALYSE : 5 nouvelles sections (ensembles/intervalles, densité, inégalités, monotonie, partie entière), extraites du vrai cours de cette année" },
+  { v: 153, date: "13/09/2026", desc: "Liens vers les autres sites (exercices type, fiche) retirés du menu" },
   { v: 152, date: "09/09/2026", desc: "ANALYSE : nouvelles sections Suites et Séries numériques (21 questions)" },
   { v: 151, date: "08/09/2026", desc: "PYTHON masqué" },
   { v: 150, date: "08/09/2026", desc: "CALCULUS et ALGÈBRE débloqués (donnés par les profs)" },
