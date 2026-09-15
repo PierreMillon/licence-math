@@ -1239,6 +1239,50 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## CALCULUS §2 (trinôme) étoffée depuis un vrai TD + rebase sur v153 (15/09/2026)
+
+- Demande explicite, fichiers envoyés en pièce jointe directement dans
+  le chat (pas via Drive cette fois) : « TD_02_Trinôme.pdf » (énoncé,
+  Séance 2, mêmes auteurs M. Leroux/M. Pascaud que Séance 1) et son
+  corrigé. Contrairement à la feuille de Séance 1, celle-ci donne ses
+  « Éléments de cours » sous forme de règles COMPLÈTES, pas seulement
+  des titres — travail plus direct, presque pas de reformulation à
+  partir de connaissance générale nécessaire.
+- §2 passée de 3 à 11 questions : 3 déjà couvertes (discriminant,
+  somme/produit, forme factorisée) laissées telles quelles (mêmes
+  `id` ex20/ex21/ex22, jamais renommées), 6 nouvelles règles ajoutées
+  (carré de réel toujours \(\geq0\)/faux pour \(\mathbb{C}\),
+  \(x^2=y^2\Leftrightarrow x=\pm y\), factoriser/racine évidente AVANT
+  \(\Delta\), forme canonique, définition d'une racine), 2 questions
+  de cas particulier à partir du corrigé (piège \(A^4=B^2\Rightarrow
+  A=\pm B\), TD Exercice 7 ; reconnaissance de \(A^2-B^2\) dans un
+  calcul de \(\Delta\), TD Exercice 11).
+- **Réflexe de numérotation à garder** : les 8 nouvelles questions ont
+  reçu des `id` `ex44`-`ex51` (à la suite du dernier id existant du
+  fichier, 43), PAS `ex23`-`ex30` en décalant tout ce qui suit — décaler
+  les `id` des exercices déjà existants (explog, derivation, trigo...)
+  aurait désynchronisé silencieusement la progression déjà enregistrée
+  par Pierre en localStorage (`l1maths_progress`/mistakes), puisque
+  CALCULUS est actif depuis le 08/09/2026 et peut déjà avoir de vraies
+  réponses stockées. Les nouvelles questions sont insérées dans le
+  tableau juste après ex21 (regroupement visuel avec les autres
+  questions de §2), mais leur `id` n'a aucun rapport avec leur position
+  — seul `section: 'trinome'` compte pour le regroupement à l'affichage
+  (`EXERCISES.filter(e => e.section === sec.id)`, pas l'ordre du
+  tableau). Le numéro affiché "EXERCICE i/N" décale pour les sections
+  suivantes (position dans le tableau), mais ça n'affecte qu'un
+  compteur, jamais une donnée stockée.
+- **Rebase découvert en cours de route** : au moment de shipper,
+  `origin/main` avait déjà avancé à v153 (une AUTRE session Claude,
+  le 13/09/2026, avait retiré les liens vers les autres sites du menu)
+  — mon travail local partait encore de v152. `git stash` du travail
+  en cours, `git merge --ff-only origin/main`, puis `git stash pop`
+  (fusion automatique propre, aucun conflit — v153 ne touchait pas
+  `fiches/calculus.js` ni `chapters.js`) avant de reprendre le ship
+  normalement (version 154, pas 153, déjà prise). Réflexe à généraliser
+  : toujours `git fetch`/comparer avec `origin/main` avant de bumper la
+  version, ce projet évolue aussi via d'autres sessions.
+
 ## ANALYSE étoffée : Suites et Séries numériques (09/09/2026, demande explicite « dossier math analyse y'a 4 feuilles à ajouter et mettre à jour »)
 
 - Nouvelle session (09/09/2026). Demande initiale ambiguë : Pierre
