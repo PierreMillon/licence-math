@@ -108,6 +108,33 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   carte de chapitre (app.js) — mécanisme déjà existant, inchangé, pas
   de nouveau système à construire pour ça.
 
+## Contour des pièces d'armure reconstruit en copies DOM (14-15/09/2026, audit de fiabilité iPhone)
+
+- Trouvé en repassant sur tout le décor à la recherche de code fragile
+  (demande explicite de Pierre : « fiabilité iPhone réel » + « simplifier
+  le code fragile ») : `.knight-piece-wrap svg` était encore sur la
+  technique du `drop-shadow` chaîné 8 fois — exactement celle qui a
+  échoué DEUX fois sur le dragon avant d'être abandonnée le 12/08/2026
+  (voir plus bas). Le correctif du dragon (vraies copies DOM décalées
+  en `transform:translate()`) n'avait jamais été appliqué à l'armure,
+  qui utilise pourtant le même effet de contour.
+- Corrigé de la même façon : `renderKnight` (knight.js) construit
+  maintenant 9 `<div>` superposés par pièce — 8 copies sombres
+  (`.knight-piece-copy--outline`, décalées via
+  `KNIGHT_PIECE_OUTLINE_OFFSETS`) et 1 copie claire non décalée
+  (`.knight-piece-copy--main`) par-dessus. Le filtre CSS est retiré.
+- Piège CSS rencontré : plusieurs pièces ont des couleurs d'accent
+  écrites en dur dans leur SVG (`fill="#d4a24c"` doré, `fill="#000"`)
+  — sans une règle explicite, les 8 copies de contour auraient
+  reproduit ces accents au lieu de tracer une silhouette uniforme.
+  Réglé par `.knight-piece-copy--outline svg *{ fill:currentColor }` :
+  une règle CSS de `fill` l'emporte sur l'attribut de présentation
+  `fill` porté par la balise SVG.
+- Pas vérifiable sur un vrai appareil Apple depuis cet environnement
+  (limite déjà connue et documentée plus bas) — mais le changement
+  supprime par construction la seule technique dont on sait, sur ce
+  projet, qu'elle a déjà échoué sur Safari réel.
+
 ## Fragilité des positions absolues (retenir pour la suite)
 
 - Principe : ne jamais positionner "en dur" (position absolute + un
@@ -1282,6 +1309,28 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   normalement (version 154, pas 153, déjà prise). Réflexe à généraliser
   : toujours `git fetch`/comparer avec `origin/main` avant de bumper la
   version, ce projet évolue aussi via d'autres sessions.
+
+## ANALYSE : 5 sections de plus, extraites du vrai cours de cette année (14-15/09/2026, demande explicite)
+
+- Source : photos du cours manuscrit « COURS ANALYSE Licence 1 »
+  (prof. CHARRON A., pages 1 à 4), envoyées directement par Pierre —
+  pas le Drive cette fois. Même méthode que CALCULUS/ALGÈBRE : une
+  question de cours par notion réellement écrite dans le document, pas
+  du contenu rédigé de mémoire.
+- 5 sections AJOUTÉES à la suite des 9 existantes (§10 à §14 :
+  ensembles/intervalles et relation d'ordre, densité de \(\mathbb{Q}\)
+  et \(\mathbb{R}\setminus\mathbb{Q}\), inégalités, fonctions
+  monotones, partie entière), 13 questions (ids ex43-ex55) — total de
+  la fiche 42 → 55 (`chapters.js` + `fiches/analyse.html`).
+- **Réflexe appliqué (et à garder)** : les sections déjà livrées en
+  v152 (suites, séries) n'ont PAS été réécrites ni renumérotées, juste
+  complétées — une première version de ce travail avait remplacé
+  `fiches/analyse.js` en entier avant de s'apercevoir que `main` avait
+  avancé entre-temps, ce qui aurait effacé §8/§9. Toujours `git fetch`
+  et comparer à `origin/main` AVANT d'écrire, pas au moment de pousser.
+- Chapitre ANALYSE laissé `active:false` (pas encore donné cette
+  année) — testé localement en bousculant `active` à `true`, puis
+  remis à `false` avant de livrer, comme pour CALCULUS et ALGÈBRE.
 
 ## ANALYSE étoffée : Suites et Séries numériques (09/09/2026, demande explicite « dossier math analyse y'a 4 feuilles à ajouter et mettre à jour »)
 
