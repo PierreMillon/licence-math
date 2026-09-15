@@ -1283,6 +1283,28 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   : toujours `git fetch`/comparer avec `origin/main` avant de bumper la
   version, ce projet évolue aussi via d'autres sessions.
 
+## ANALYSE : 5 sections de plus, extraites du vrai cours de cette année (14-15/09/2026, demande explicite)
+
+- Source : photos du cours manuscrit « COURS ANALYSE Licence 1 »
+  (prof. CHARRON A., pages 1 à 4), envoyées directement par Pierre —
+  pas le Drive cette fois. Même méthode que CALCULUS/ALGÈBRE : une
+  question de cours par notion réellement écrite dans le document, pas
+  du contenu rédigé de mémoire.
+- 5 sections AJOUTÉES à la suite des 9 existantes (§10 à §14 :
+  ensembles/intervalles et relation d'ordre, densité de \(\mathbb{Q}\)
+  et \(\mathbb{R}\setminus\mathbb{Q}\), inégalités, fonctions
+  monotones, partie entière), 13 questions (ids ex43-ex55) — total de
+  la fiche 42 → 55 (`chapters.js` + `fiches/analyse.html`).
+- **Réflexe appliqué (et à garder)** : les sections déjà livrées en
+  v152 (suites, séries) n'ont PAS été réécrites ni renumérotées, juste
+  complétées — une première version de ce travail avait remplacé
+  `fiches/analyse.js` en entier avant de s'apercevoir que `main` avait
+  avancé entre-temps, ce qui aurait effacé §8/§9. Toujours `git fetch`
+  et comparer à `origin/main` AVANT d'écrire, pas au moment de pousser.
+- Chapitre ANALYSE laissé `active:false` (pas encore donné cette
+  année) — testé localement en bousculant `active` à `true`, puis
+  remis à `false` avant de livrer, comme pour CALCULUS et ALGÈBRE.
+
 ## ANALYSE étoffée : Suites et Séries numériques (09/09/2026, demande explicite « dossier math analyse y'a 4 feuilles à ajouter et mettre à jour »)
 
 - Nouvelle session (09/09/2026). Demande initiale ambiguë : Pierre
