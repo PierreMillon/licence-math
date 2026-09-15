@@ -108,6 +108,33 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   carte de chapitre (app.js) — mécanisme déjà existant, inchangé, pas
   de nouveau système à construire pour ça.
 
+## Contour des pièces d'armure reconstruit en copies DOM (14-15/09/2026, audit de fiabilité iPhone)
+
+- Trouvé en repassant sur tout le décor à la recherche de code fragile
+  (demande explicite de Pierre : « fiabilité iPhone réel » + « simplifier
+  le code fragile ») : `.knight-piece-wrap svg` était encore sur la
+  technique du `drop-shadow` chaîné 8 fois — exactement celle qui a
+  échoué DEUX fois sur le dragon avant d'être abandonnée le 12/08/2026
+  (voir plus bas). Le correctif du dragon (vraies copies DOM décalées
+  en `transform:translate()`) n'avait jamais été appliqué à l'armure,
+  qui utilise pourtant le même effet de contour.
+- Corrigé de la même façon : `renderKnight` (knight.js) construit
+  maintenant 9 `<div>` superposés par pièce — 8 copies sombres
+  (`.knight-piece-copy--outline`, décalées via
+  `KNIGHT_PIECE_OUTLINE_OFFSETS`) et 1 copie claire non décalée
+  (`.knight-piece-copy--main`) par-dessus. Le filtre CSS est retiré.
+- Piège CSS rencontré : plusieurs pièces ont des couleurs d'accent
+  écrites en dur dans leur SVG (`fill="#d4a24c"` doré, `fill="#000"`)
+  — sans une règle explicite, les 8 copies de contour auraient
+  reproduit ces accents au lieu de tracer une silhouette uniforme.
+  Réglé par `.knight-piece-copy--outline svg *{ fill:currentColor }` :
+  une règle CSS de `fill` l'emporte sur l'attribut de présentation
+  `fill` porté par la balise SVG.
+- Pas vérifiable sur un vrai appareil Apple depuis cet environnement
+  (limite déjà connue et documentée plus bas) — mais le changement
+  supprime par construction la seule technique dont on sait, sur ce
+  projet, qu'elle a déjà échoué sur Safari réel.
+
 ## Fragilité des positions absolues (retenir pour la suite)
 
 - Principe : ne jamais positionner "en dur" (position absolute + un
