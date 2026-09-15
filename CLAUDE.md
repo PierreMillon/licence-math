@@ -1266,6 +1266,37 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## CALCULUS §2 complétée une 2e fois, en AJOUT (15/09/2026) + leçon sur les PR parallèles
+
+- Deux sessions ont travaillé la MÊME section §2 (trinôme) à partir des
+  mêmes deux PDF, en parallèle : l'une a livré sur `main` (v154, 3 → 11
+  questions, voir juste en dessous), l'autre avait une PR ouverte avec
+  sa propre version (3 → 15). **Aucune des deux n'était un sur-ensemble
+  de l'autre** — résolu en gardant la version déjà livrée telle quelle
+  et en n'ajoutant QUE les points qu'elle ne couvrait pas (6 questions,
+  ids ex52-ex57) : changement de variable (\(X=x^3\), \(X=\sqrt x\),
+  \(X=x^2\)) et surtout sa contrainte de signe, racine double
+  (\(\Delta=0\)), somme/produit appliquée à une expression symétrique
+  (\(1/\alpha+1/\beta=S/P\)), réduction de puissance via l'équation
+  vérifiée par une racine. Section à 17 questions, total de la fiche
+  51 → 57. Une ligne ajoutée au `cours` de la section pour le
+  changement de variable (les autres notions y étaient déjà).
+- **Leçon sur les numéros de version quand plusieurs PR sont ouvertes**
+  : `SITE_VERSION` / `sw.js VERSION` / tous les `?v=` sont une ressource
+  GLOBALE — deux PR ouvertes en même temps se disputent le même numéro,
+  et chaque nouveau commit sur `main` relance le conflit. Ça s'est
+  produit DEUX fois de suite sur la même série de PR. Réflexe retenu :
+  empiler les PR les unes sur les autres (chacune part de la
+  précédente, numéros 155/156/157 attribués dans l'ordre) plutôt que de
+  les garder indépendantes sur `main` — plus de collision possible, et
+  les fusions se font dans l'ordre sans nouveau conflit. Si une PR est
+  fusionnée seule, les suivantes restent cohérentes.
+- Corollaire pour le contenu : ne JAMAIS remplacer un fichier de fiche
+  en entier quand le chapitre est déjà actif — travailler en ajout, et
+  ne pas renuméroter les `id` existants (la progression de Pierre est
+  stockée sous ces ids en localStorage). Déjà noté ci-dessous, reconfirmé
+  ici par un cas réel de collision.
+
 ## CALCULUS §2 (trinôme) étoffée depuis un vrai TD + rebase sur v153 (15/09/2026)
 
 - Demande explicite, fichiers envoyés en pièce jointe directement dans
