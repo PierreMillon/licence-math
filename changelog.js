@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 157, date: "15/09/2026", desc: "CALCULUS §2 (trinôme) : changement de variable, racine double, somme/produit appliquée" },
   { v: 156, date: "15/09/2026", desc: "Contour des pièces d'armure du chevalier reconstruit (fiabilité iPhone)" },
   { v: 155, date: "15/09/2026", desc: "ANALYSE : 5 nouvelles sections (ensembles/intervalles, densité, inégalités, monotonie, partie entière)" },
   { v: 154, date: "15/09/2026", desc: "CALCULUS §2 (trinôme du second degré) étoffée, 3 → 11 questions" },

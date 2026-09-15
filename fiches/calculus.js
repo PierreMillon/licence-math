@@ -36,7 +36,21 @@
    particulier ajoutées à partir des techniques du corrigé : le piège
    \\(A^4=B^2 \\Rightarrow A^2=\\pm B\\) (TD Exercice 7) et la
    reconnaissance de \\(A^2-B^2\\) dans le calcul d'un discriminant
-   (TD Exercice 11). */
+   (TD Exercice 11).
+
+   §2 complétée une seconde fois le 15/09/2026 (6 questions de plus,
+   ids ex52-ex57, section à 17 questions) à partir des mêmes deux
+   PDF : le changement de variable (poser \\(X=x^3\\), \\(X=\\sqrt x\\),
+   \\(X=x^2\\)) et surtout sa contrainte de signe — un \\(X\\) négatif
+   est à rejeter quand \\(X=\\sqrt x\\) ou \\(X=x^2\\), et une racine
+   positive en \\(X\\) redonne DEUX valeurs de \\(x\\) ; la condition
+   de racine double (\\(\\Delta=0\\)) ; l'usage de somme/produit sur une
+   expression symétrique (\\(1/\\alpha+1/\\beta = S/P\\)) sans calculer
+   les racines ; et la réduction de puissance via l'équation vérifiée
+   par une racine (\\(\\alpha^2=\\alpha+3\\)). Ces questions viennent en
+   AJOUT du lot précédent, aucun id existant n'a été renuméroté (même
+   réflexe que ci-dessus : CALCULUS est actif, la progression de
+   Pierre est déjà stockée en localStorage sous ces ids). */
 
 const EXERCISES = [
   {
@@ -251,6 +265,60 @@ const EXERCISES = [
     explain: 'Ici \\(A=2(3m+1)\\) et \\(B=2(m+3)\\) : reconnaître cette forme évite un développement long et donne directement \\(\\Delta\\) factorisé, pratique pour trouver quand il s’annule (ex. TD Exercice 11, racine double).',
   },
   {
+    id: 'ex52', section: 'trinome',
+    statement: 'Pour résoudre \\(x^6-25x^3+24=0\\), on pose :',
+    options: ['\\(X=x^3\\)', '\\(X=x^2\\)', '\\(X=x^6\\)'],
+    correctIndex: 0,
+    explain: 'On veut se ramener à un trinôme en \\(X\\) : avec \\(X=x^3\\), \\(x^6=(x^3)^2=X^2\\) et l’équation devient \\(X^2-25X+24=0\\). Le bon changement de variable est toujours celui qui rend l’exposant du milieu égal à 1.',
+  },
+  {
+    id: 'ex53', section: 'trinome',
+    statement: 'Dans \\(x-7\\sqrt x-8=0\\), on pose \\(X=\\sqrt x\\) et on trouve \\(X^2-7X-8=0\\), de racines \\(8\\) et \\(-1\\). Combien de solutions en \\(x\\) ?',
+    options: [
+      'Une seule, \\(x=64\\)',
+      'Deux, \\(x=64\\) et \\(x=1\\)',
+      'Aucune',
+    ],
+    correctIndex: 0,
+    explain: '<b>Piège du changement de variable</b> : \\(X=\\sqrt x\\) est nécessairement \\(\\ge0\\), donc \\(X=-1\\) est à rejeter. Seul \\(X=8\\) donne \\(x=8^2=64\\). Toujours vérifier que la valeur trouvée pour \\(X\\) est compatible avec sa définition.',
+  },
+  {
+    id: 'ex54', section: 'trinome',
+    statement: 'Dans \\(x^4-2x^2-2=0\\), on pose \\(X=x^2\\) et on trouve \\(X=1\\pm\\sqrt3\\). Combien de solutions réelles en \\(x\\) ?',
+    options: [
+      'Deux : \\(x=\\pm\\sqrt{1+\\sqrt3}\\)',
+      'Quatre',
+      'Aucune',
+    ],
+    correctIndex: 0,
+    explain: 'Même piège que la racine carrée : \\(X=x^2\\ge0\\), or \\(1-\\sqrt3<0\\) est à rejeter. Seul \\(X=1+\\sqrt3\\) survit, et il donne DEUX valeurs de \\(x\\) (\\(\\pm\\sqrt X\\)). Chaque racine positive en \\(X\\) donne deux \\(x\\), une racine nulle en donne une, une racine négative aucune.',
+  },
+  {
+    id: 'ex55', section: 'trinome',
+    statement: 'L’équation \\(ax^2+bx+c=0\\) (avec \\(a\\ne0\\)) admet une racine double si et seulement si :',
+    options: ['\\(\\Delta=0\\)', '\\(\\Delta>0\\)', '\\(b=0\\)'],
+    correctIndex: 0,
+    explain: 'La racine double vaut alors \\(-\\dfrac{b}{2a}\\). C’est la condition à poser quand un énoncé demande « pour quelle(s) valeur(s) du paramètre l’équation a-t-elle une racine double ? ».',
+  },
+  {
+    id: 'ex56', section: 'trinome',
+    statement: '\\(\\alpha\\) et \\(\\beta\\) sont les racines de \\(x^2-5x+1=0\\). Que vaut \\(\\dfrac1\\alpha+\\dfrac1\\beta\\) ?',
+    options: ['\\(5\\)', '\\(\\dfrac15\\)', '\\(-5\\)'],
+    correctIndex: 0,
+    explain: 'Sans calculer les racines : \\(\\dfrac1\\alpha+\\dfrac1\\beta=\\dfrac{\\alpha+\\beta}{\\alpha\\beta}=\\dfrac SP\\), avec \\(S=5\\) et \\(P=1\\). Tout ce qui est symétrique en \\(\\alpha,\\beta\\) s’exprime avec \\(S\\) et \\(P\\) — bien plus rapide que de passer par \\(\\sqrt\\Delta\\).',
+  },
+  {
+    id: 'ex57', section: 'trinome',
+    statement: '\\(\\alpha\\) vérifie \\(\\alpha^2=\\alpha+3\\). Pour calculer \\(\\alpha^4\\), le plus rapide est :',
+    options: [
+      'Élever \\(\\alpha^2=\\alpha+3\\) au carré, puis réinjecter \\(\\alpha^2=\\alpha+3\\)',
+      'Calculer la valeur décimale de \\(\\alpha\\) puis sa puissance 4',
+      'Développer \\((\\alpha+3)^4\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\alpha^4=(\\alpha^2)^2=(\\alpha+3)^2=\\alpha^2+6\\alpha+9=(\\alpha+3)+6\\alpha+9=7\\alpha+12\\). L’équation vérifiée par \\(\\alpha\\) sert de règle de réécriture : toute puissance se ramène à une expression de degré 1.',
+  },
+  {
     id: 'ex22', section: 'trinome',
     statement: 'La forme factorisée d’un trinôme ayant deux racines réelles \\(x_1, x_2\\) est :',
     options: ['\\(a(x-x_1)(x-x_2)\\)', '\\(a(x+x_1)(x+x_2)\\)', '\\((x-x_1)(x-x_2)\\)'],
@@ -444,7 +512,7 @@ const SECTIONS = [
   },
   {
     id: 'trinome', title: '§2 — TRINÔME DU SECOND DEGRÉ',
-    cours: 'Un carré de réel est toujours \\(\\geq 0\\) (faux pour \\(\\mathbb{C}\\)) ; \\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br>Avant de calculer \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) ou une racine évidente (\\(\\pm1\\))<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme canonique : \\(a(x-\\alpha)^2+\\beta\\) ; forme factorisée (racines réelles) : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)<br>\\(x_1\\) racine de \\(P\\) \\(\\Leftrightarrow\\) \\(P(x_1)=0\\)',
+    cours: 'Un carré de réel est toujours \\(\\geq 0\\) (faux pour \\(\\mathbb{C}\\)) ; \\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br>Avant de calculer \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) ou une racine évidente (\\(\\pm1\\))<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme canonique : \\(a(x-\\alpha)^2+\\beta\\) ; forme factorisée (racines réelles) : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)<br>\\(x_1\\) racine de \\(P\\) \\(\\Leftrightarrow\\) \\(P(x_1)=0\\)<br><span class="math">Changement de variable</span> : poser \\(X=x^n\\) ou \\(X=\\sqrt x\\) ramène à un trinôme en \\(X\\) — vérifier que chaque \\(X\\) trouvé respecte sa contrainte de signe avant de revenir à \\(x\\)',
   },
   {
     id: 'explog', title: '§3 — EXPONENTIELLE ET LOGARITHME',
