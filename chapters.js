@@ -25,7 +25,7 @@
    seule liste). */
 const CHAPTERS = [
   { id: 'logique',      name: 'LOGIQUE',       file: 'logique.html',      total: 34, active: false },
-  { id: 'calculus',     name: 'CALCULUS',      file: 'calculus.html',     total: 43, active: true },
+  { id: 'calculus',     name: 'CALCULUS',      file: 'calculus.html',     total: 51, active: true },
   { id: 'algebre',      name: 'ALGÈBRE',       file: 'algebre.html',      total: 38, active: true },
   { id: 'analyse',      name: 'ANALYSE',       file: 'analyse.html',      total: 55, active: false },
   { id: 'probabilites', name: 'PROBABILITÉS',  file: 'probabilites.html', total: 23, active: false },

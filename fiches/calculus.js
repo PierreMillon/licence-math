@@ -21,7 +21,22 @@
    fractionnaire, piège du signe sur \\(A^2\\) — TD Exercice 14). Les
    16 exercices du TD ne sont pas repris un par un (ce sont des
    calculs longs, pas des QCM), seulement les règles qu'ils
-   mobilisent. */
+   mobilisent.
+
+   §2 (trinome) étoffée le 15/09/2026 (fichiers envoyés directement par
+   Pierre : « TD_02_Trinôme.pdf » énoncé + « TD_02_corr - trinôme.pdf »
+   corrigé, Séance 2, mêmes auteurs) — passée de 3 à 11 questions.
+   Cette feuille, contrairement à celle de Séance 1, donne ses
+   « Éléments de cours » sous forme de règles complètes (pas seulement
+   des titres) : 3 étaient déjà couvertes (discriminant, somme/produit,
+   forme factorisée), les 6 autres ont été ajoutées telles quelles
+   (carré de réel toujours positif, \\(x^2=y^2\\Leftrightarrow x=\\pm y\\),
+   factoriser/racine évidente AVANT de calculer \\(\\Delta\\), forme
+   canonique, définition d'une racine). Deux questions de cas
+   particulier ajoutées à partir des techniques du corrigé : le piège
+   \\(A^4=B^2 \\Rightarrow A^2=\\pm B\\) (TD Exercice 7) et la
+   reconnaissance de \\(A^2-B^2\\) dans le calcul d'un discriminant
+   (TD Exercice 11). */
 
 const EXERCISES = [
   {
@@ -170,6 +185,70 @@ const EXERCISES = [
     options: ['\\(X^2 - SX + P = 0\\)', '\\(X^2 + SX - P = 0\\)', '\\(X^2 - PX + S = 0\\)'],
     correctIndex: 0,
     explain: '\\((X-x)(X-y) = X^2-(x+y)X+xy = X^2-SX+P\\).',
+  },
+  {
+    id: 'ex44', section: 'trinome',
+    statement: 'Si \\(z\\) est un nombre RÉEL, alors \\(z^2\\) est toujours :',
+    options: ['Positif ou nul', 'Négatif ou nul', 'Non nul'],
+    correctIndex: 0,
+    explain: 'Vrai pour un réel — mais FAUX pour un nombre complexe, où un carré peut être négatif (ex. \\(i^2=-1\\)).',
+  },
+  {
+    id: 'ex45', section: 'trinome',
+    statement: 'Pour \\(x, y \\in \\mathbb{R}\\), l’équation \\(x^2 = y^2\\) équivaut à :',
+    options: ['\\(x=y\\) ou \\(x=-y\\)', '\\(x=y\\) uniquement', '\\(x=|y|\\)'],
+    correctIndex: 0,
+    explain: 'Piège classique : \\(x^2=y^2\\) ne signifie PAS \\(x=y\\) — il ne faut jamais oublier la solution opposée.',
+  },
+  {
+    id: 'ex46', section: 'trinome',
+    statement: 'Pour résoudre \\((x-1)^4=(x^2-4x+1)^2\\), la première étape consiste à utiliser :',
+    options: [
+      '\\(A^2=B^2 \\Leftrightarrow A=B\\) ou \\(A=-B\\)',
+      'Le développement direct des deux puissances 4',
+      'Une division des deux membres par \\((x-1)^2\\)',
+    ],
+    correctIndex: 0,
+    explain: 'En posant \\(A=(x-1)^2\\) et \\(B=x^2-4x+1\\), l’équation \\(A^2=B^2\\) se ramène à deux équations plus simples, \\(A=B\\) et \\(A=-B\\), sans jamais développer la puissance 4.',
+  },
+  {
+    id: 'ex47', section: 'trinome',
+    statement: 'Avant de calculer le discriminant d’une équation comme \\(2x^2+5x=0\\) (terme constant nul), il vaut mieux :',
+    options: ['Factoriser par \\(x\\) directement', 'Calculer \\(\\Delta\\) normalement', 'Diviser les deux membres par \\(x\\)'],
+    correctIndex: 0,
+    explain: 'Diviser par \\(x\\) est dangereux (on perd la solution \\(x=0\\)) ; factoriser par \\(x\\) donne immédiatement \\(x(2x+5)=0\\), donc \\(x=0\\) ou \\(x=-5/2\\), sans discriminant.',
+  },
+  {
+    id: 'ex48', section: 'trinome',
+    statement: 'Pour un polynôme à coefficients entiers, il est utile de toujours tester en premier si :',
+    options: ['\\(1\\) ou \\(-1\\) sont racines', '\\(0\\) est racine', 'Le polynôme est pair'],
+    correctIndex: 0,
+    explain: 'Remplacer \\(x\\) par \\(1\\) ou \\(-1\\) est le calcul le plus rapide possible — souvent une racine évidente qui permet de factoriser le polynôme et de baisser son degré.',
+  },
+  {
+    id: 'ex49', section: 'trinome',
+    statement: 'Un nombre \\(x_1\\) est racine d’un polynôme \\(P\\) si et seulement si :',
+    options: ['\\(P(x_1) = 0\\)', '\\(P\'(x_1) = 0\\)', '\\(P(x_1) = x_1\\)'],
+    correctIndex: 0,
+    explain: 'C’est la définition même d’une racine : le polynôme s’annule en ce point.',
+  },
+  {
+    id: 'ex50', section: 'trinome',
+    statement: 'Mettre un trinôme \\(ax^2+bx+c\\) sous forme CANONIQUE consiste à l’écrire sous la forme :',
+    options: ['\\(a(x-\\alpha)^2 + \\beta\\)', '\\(a(x-x_1)(x-x_2)\\)', '\\(ax^2+bx+c\\)'],
+    correctIndex: 0,
+    explain: 'À ne pas confondre avec la forme FACTORISÉE (\\(a(x-x_1)(x-x_2)\\), qui suppose des racines réelles) : la forme canonique fait apparaître un carré parfait, elle existe toujours et permet de lire directement le sommet de la parabole.',
+  },
+  {
+    id: 'ex51', section: 'trinome',
+    statement: 'Pour calculer \\(\\Delta=(2(3m+1))^2-4(m+3)^2\\), reconnaître l’identité \\(A^2-B^2=(A-B)(A+B)\\) permet de :',
+    options: [
+      'Factoriser \\(\\Delta\\) directement sans le développer',
+      'Résoudre l’équation sans jamais calculer \\(\\Delta\\)',
+      'Éviter tout calcul de discriminant',
+    ],
+    correctIndex: 0,
+    explain: 'Ici \\(A=2(3m+1)\\) et \\(B=2(m+3)\\) : reconnaître cette forme évite un développement long et donne directement \\(\\Delta\\) factorisé, pratique pour trouver quand il s’annule (ex. TD Exercice 11, racine double).',
   },
   {
     id: 'ex22', section: 'trinome',
@@ -365,7 +444,7 @@ const SECTIONS = [
   },
   {
     id: 'trinome', title: '§2 — TRINÔME DU SECOND DEGRÉ',
-    cours: '<span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme factorisée : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)',
+    cours: 'Un carré de réel est toujours \\(\\geq 0\\) (faux pour \\(\\mathbb{C}\\)) ; \\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br>Avant de calculer \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) ou une racine évidente (\\(\\pm1\\))<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme canonique : \\(a(x-\\alpha)^2+\\beta\\) ; forme factorisée (racines réelles) : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)<br>\\(x_1\\) racine de \\(P\\) \\(\\Leftrightarrow\\) \\(P(x_1)=0\\)',
   },
   {
     id: 'explog', title: '§3 — EXPONENTIELLE ET LOGARITHME',
