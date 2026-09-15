@@ -9,6 +9,15 @@
    plus bas) et sur les fiches (pièce miniature en bas de page).
    ============================================================ */
 
+/* Contour des pièces d'équipement en copies DOM décalées, pas en
+   filtre CSS (audit préventif du 12/09/2026, voir style.css et
+   CLAUDE.md) — mêmes 8 décalages cardinaux/diagonaux que le contour
+   du dragon (scene.js/renderWeekDragon), en pixels fixes (le contour
+   d'origine, en drop-shadow, était lui aussi à 1px fixe, jamais rendu
+   proportionnel — ce portage ne change donc rien au rendu visuel,
+   seulement la technique sous-jacente). */
+const KNIGHT_PIECE_OUTLINE_OFFSETS = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]];
+
 /* Ordre z (10/08/2026, corrigé) : le bouclier et l'épée sont tenus
    devant le corps, à bout de bras — ils doivent donc passer AU-DESSUS
    du plastron et des gantelets, sinon ces deux pièces (larges et
@@ -168,7 +177,12 @@ function renderKnight(){
     const rot = KNIGHT_HELD_ROTATION[p.chapterId];
     const rotStyle = rot ? `transform:rotate(${rot.deg}deg);transform-origin:${rot.origin};` : '';
     const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};${rotStyle}`;
-    return `<div class="knight-piece-wrap" style="${pos}">${miniSvg}</div>`;
+    let copiesHTML = '';
+    for(const [dx, dy] of KNIGHT_PIECE_OUTLINE_OFFSETS){
+      copiesHTML += `<div class="knight-piece-copy knight-piece-copy--outline" style="transform:translate(${dx}px, ${dy}px)">${miniSvg}</div>`;
+    }
+    copiesHTML += `<div class="knight-piece-copy knight-piece-copy--main">${miniSvg}</div>`;
+    return `<div class="knight-piece-wrap" style="${pos}">${copiesHTML}</div>`;
   }).join('');
   figure.innerHTML = piecesHTML;
 }
