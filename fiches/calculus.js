@@ -8,23 +8,6 @@
    (sommes, systèmes linéaires), M. Leroux / M. Pascaud, INU
    Champollion. QCM à 3 réponses, formules LaTeX (KaTeX).
 
-   §2 (trinome) étoffée le 14/09/2026 de la même façon, à partir de la
-   feuille de Séance 2 (« Trinôme du second degré ») et de son corrigé,
-   fournis directement par Pierre : 3 → 15 questions. Une question par
-   point des « Éléments de cours » de la feuille (carré d'un réel vs
-   complexe, \\(x^2=y^2\\), discriminant, factorisation/racines
-   évidentes avant tout calcul, forme canonique, forme factorisée,
-   somme-produit, définition d'une racine), plus les pièges que le
-   corrigé met en évidence : changement de variable et signe imposé à
-   \\(X\\) (\\(X=\\sqrt x\\ge0\\) exercice 8b, \\(X=x^2\\ge0\\)
-   exercice 8e — c'est là que se perdent les solutions), condition de
-   racine double (exercice 11), usage de \\(S\\) et \\(P\\) pour une
-   expression symétrique sans calculer les racines (exercice 6), et
-   réécriture des puissances via l'équation vérifiée par la racine
-   (exercices 12 et 16). Comme pour §1, les 16 exercices de la feuille
-   ne sont pas repris un par un (ce sont des calculs à la main, pas des
-   QCM) : seules les règles et les pièges qu'ils mobilisent le sont.
-
    §1 (algebrique) réécrite le 08/09/2026 à partir de la vraie feuille
    de TD de Séance 1 (« Fractions, coefficients binomiaux, puissances
    et radicaux ») et de son corrigé — récupérés sur le Drive partagé,
@@ -38,7 +21,36 @@
    fractionnaire, piège du signe sur \\(A^2\\) — TD Exercice 14). Les
    16 exercices du TD ne sont pas repris un par un (ce sont des
    calculs longs, pas des QCM), seulement les règles qu'ils
-   mobilisent. */
+   mobilisent.
+
+   §2 (trinome) étoffée le 15/09/2026 (fichiers envoyés directement par
+   Pierre : « TD_02_Trinôme.pdf » énoncé + « TD_02_corr - trinôme.pdf »
+   corrigé, Séance 2, mêmes auteurs) — passée de 3 à 11 questions.
+   Cette feuille, contrairement à celle de Séance 1, donne ses
+   « Éléments de cours » sous forme de règles complètes (pas seulement
+   des titres) : 3 étaient déjà couvertes (discriminant, somme/produit,
+   forme factorisée), les 6 autres ont été ajoutées telles quelles
+   (carré de réel toujours positif, \\(x^2=y^2\\Leftrightarrow x=\\pm y\\),
+   factoriser/racine évidente AVANT de calculer \\(\\Delta\\), forme
+   canonique, définition d'une racine). Deux questions de cas
+   particulier ajoutées à partir des techniques du corrigé : le piège
+   \\(A^4=B^2 \\Rightarrow A^2=\\pm B\\) (TD Exercice 7) et la
+   reconnaissance de \\(A^2-B^2\\) dans le calcul d'un discriminant
+   (TD Exercice 11).
+
+   §2 complétée une seconde fois le 15/09/2026 (6 questions de plus,
+   ids ex52-ex57, section à 17 questions) à partir des mêmes deux
+   PDF : le changement de variable (poser \\(X=x^3\\), \\(X=\\sqrt x\\),
+   \\(X=x^2\\)) et surtout sa contrainte de signe — un \\(X\\) négatif
+   est à rejeter quand \\(X=\\sqrt x\\) ou \\(X=x^2\\), et une racine
+   positive en \\(X\\) redonne DEUX valeurs de \\(x\\) ; la condition
+   de racine double (\\(\\Delta=0\\)) ; l'usage de somme/produit sur une
+   expression symétrique (\\(1/\\alpha+1/\\beta = S/P\\)) sans calculer
+   les racines ; et la réduction de puissance via l'équation vérifiée
+   par une racine (\\(\\alpha^2=\\alpha+3\\)). Ces questions viennent en
+   AJOUT du lot précédent, aucun id existant n'a été renuméroté (même
+   réflexe que ci-dessus : CALCULUS est actif, la progression de
+   Pierre est déjà stockée en localStorage sous ces ids). */
 
 const EXERCISES = [
   {
@@ -189,79 +201,78 @@ const EXERCISES = [
     explain: '\\((X-x)(X-y) = X^2-(x+y)X+xy = X^2-SX+P\\).',
   },
   {
-    id: 'ex22', section: 'trinome',
-    statement: 'La forme factorisée d’un trinôme ayant deux racines réelles \\(x_1, x_2\\) est :',
-    options: ['\\(a(x-x_1)(x-x_2)\\)', '\\(a(x+x_1)(x+x_2)\\)', '\\((x-x_1)(x-x_2)\\)'],
+    id: 'ex44', section: 'trinome',
+    statement: 'Si \\(z\\) est un nombre RÉEL, alors \\(z^2\\) est toujours :',
+    options: ['Positif ou nul', 'Négatif ou nul', 'Non nul'],
     correctIndex: 0,
-    explain: 'Le coefficient dominant \\(a\\) doit rester devant le produit des deux facteurs, sinon le développement ne redonne pas le bon trinôme.',
+    explain: 'Vrai pour un réel — mais FAUX pour un nombre complexe, où un carré peut être négatif (ex. \\(i^2=-1\\)).',
   },
   {
-    id: 'ex23', section: 'trinome',
-    statement: 'L’affirmation « un carré est toujours positif » est valable :',
+    id: 'ex45', section: 'trinome',
+    statement: 'Pour \\(x, y \\in \\mathbb{R}\\), l’équation \\(x^2 = y^2\\) équivaut à :',
+    options: ['\\(x=y\\) ou \\(x=-y\\)', '\\(x=y\\) uniquement', '\\(x=|y|\\)'],
+    correctIndex: 0,
+    explain: 'Piège classique : \\(x^2=y^2\\) ne signifie PAS \\(x=y\\) — il ne faut jamais oublier la solution opposée.',
+  },
+  {
+    id: 'ex46', section: 'trinome',
+    statement: 'Pour résoudre \\((x-1)^4=(x^2-4x+1)^2\\), la première étape consiste à utiliser :',
     options: [
-      'Pour les réels, mais pas pour les nombres complexes',
-      'Pour tous les nombres, réels comme complexes',
-      'Uniquement pour les entiers',
+      '\\(A^2=B^2 \\Leftrightarrow A=B\\) ou \\(A=-B\\)',
+      'Le développement direct des deux puissances 4',
+      'Une division des deux membres par \\((x-1)^2\\)',
     ],
     correctIndex: 0,
-    explain: 'Sur \\(\\mathbb{R}\\), \\(x^2\\ge0\\) toujours. Dans \\(\\mathbb{C}\\) c’est faux : \\(i^2=-1\\). C’est exactement ce qui permet à une équation sans solution réelle (\\(\\Delta<0\\)) d’en avoir dans \\(\\mathbb{C}\\).',
+    explain: 'En posant \\(A=(x-1)^2\\) et \\(B=x^2-4x+1\\), l’équation \\(A^2=B^2\\) se ramène à deux équations plus simples, \\(A=B\\) et \\(A=-B\\), sans jamais développer la puissance 4.',
   },
   {
-    id: 'ex24', section: 'trinome',
-    statement: '\\(x^2=y^2\\) équivaut à :',
-    options: ['\\(x=\\pm y\\)', '\\(x=y\\)', '\\(x=-y\\)'],
+    id: 'ex47', section: 'trinome',
+    statement: 'Avant de calculer le discriminant d’une équation comme \\(2x^2+5x=0\\) (terme constant nul), il vaut mieux :',
+    options: ['Factoriser par \\(x\\) directement', 'Calculer \\(\\Delta\\) normalement', 'Diviser les deux membres par \\(x\\)'],
     correctIndex: 0,
-    explain: 'Les deux signes sont possibles : \\(x^2-y^2=(x-y)(x+y)=0\\) donne \\(x=y\\) OU \\(x=-y\\). Ne garder qu’un seul des deux est l’oubli classique.',
+    explain: 'Diviser par \\(x\\) est dangereux (on perd la solution \\(x=0\\)) ; factoriser par \\(x\\) donne immédiatement \\(x(2x+5)=0\\), donc \\(x=0\\) ou \\(x=-5/2\\), sans discriminant.',
   },
   {
-    id: 'ex25', section: 'trinome',
-    statement: 'Pour résoudre \\(2x^2+5x=0\\), le réflexe avant tout calcul de discriminant est :',
+    id: 'ex48', section: 'trinome',
+    statement: 'Pour un polynôme à coefficients entiers, il est utile de toujours tester en premier si :',
+    options: ['\\(1\\) ou \\(-1\\) sont racines', '\\(0\\) est racine', 'Le polynôme est pair'],
+    correctIndex: 0,
+    explain: 'Remplacer \\(x\\) par \\(1\\) ou \\(-1\\) est le calcul le plus rapide possible — souvent une racine évidente qui permet de factoriser le polynôme et de baisser son degré.',
+  },
+  {
+    id: 'ex49', section: 'trinome',
+    statement: 'Un nombre \\(x_1\\) est racine d’un polynôme \\(P\\) si et seulement si :',
+    options: ['\\(P(x_1) = 0\\)', '\\(P\'(x_1) = 0\\)', '\\(P(x_1) = x_1\\)'],
+    correctIndex: 0,
+    explain: 'C’est la définition même d’une racine : le polynôme s’annule en ce point.',
+  },
+  {
+    id: 'ex50', section: 'trinome',
+    statement: 'Mettre un trinôme \\(ax^2+bx+c\\) sous forme CANONIQUE consiste à l’écrire sous la forme :',
+    options: ['\\(a(x-\\alpha)^2 + \\beta\\)', '\\(a(x-x_1)(x-x_2)\\)', '\\(ax^2+bx+c\\)'],
+    correctIndex: 0,
+    explain: 'À ne pas confondre avec la forme FACTORISÉE (\\(a(x-x_1)(x-x_2)\\), qui suppose des racines réelles) : la forme canonique fait apparaître un carré parfait, elle existe toujours et permet de lire directement le sommet de la parabole.',
+  },
+  {
+    id: 'ex51', section: 'trinome',
+    statement: 'Pour calculer \\(\\Delta=(2(3m+1))^2-4(m+3)^2\\), reconnaître l’identité \\(A^2-B^2=(A-B)(A+B)\\) permet de :',
     options: [
-      'Factoriser par \\(x\\)',
-      'Calculer \\(\\Delta=b^2-4ac\\)',
-      'Passer par la forme canonique',
+      'Factoriser \\(\\Delta\\) directement sans le développer',
+      'Résoudre l’équation sans jamais calculer \\(\\Delta\\)',
+      'Éviter tout calcul de discriminant',
     ],
     correctIndex: 0,
-    explain: '\\(2x^2+5x=x(2x+5)\\) donne immédiatement \\(x=0\\) ou \\(x=-\\dfrac52\\). Le discriminant marcherait aussi, mais c’est plus long pour rien : chercher une factorisation évidente d’abord.',
+    explain: 'Ici \\(A=2(3m+1)\\) et \\(B=2(m+3)\\) : reconnaître cette forme évite un développement long et donne directement \\(\\Delta\\) factorisé, pratique pour trouver quand il s’annule (ex. TD Exercice 11, racine double).',
   },
   {
-    id: 'ex26', section: 'trinome',
-    statement: 'La forme canonique de \\(2x^2-12x+25\\) est :',
-    options: [
-      '\\(2(x-3)^2+7\\)',
-      '\\(2(x-6)^2+25\\)',
-      '\\((x-3)^2+7\\)',
-    ],
-    correctIndex: 0,
-    explain: 'On factorise d’abord par \\(a=2\\) les termes en \\(x\\) : \\(2(x^2-6x)+25=2[(x-3)^2-9]+25=2(x-3)^2+7\\). Oublier de ressortir le \\(a\\) du carré est l’erreur habituelle.',
-  },
-  {
-    id: 'ex27', section: 'trinome',
-    statement: 'Avant de calculer \\(\\Delta\\) pour \\(6x^2-x-5\\), tester les racines évidentes \\(\\pm1\\) donne :',
-    options: [
-      '\\(x=1\\) est racine, car \\(6-1-5=0\\)',
-      'Aucune des deux n’est racine',
-      '\\(x=-1\\) est racine, car \\(6+1-5=0\\)',
-    ],
-    correctIndex: 0,
-    explain: 'Une racine trouvée à vue évite tout le calcul : l’autre s’en déduit par le produit des racines (\\(x_1x_2=c/a=-5/6\\), donc \\(x_2=-5/6\\)).',
-  },
-  {
-    id: 'ex28', section: 'trinome',
-    statement: '\\(x_1\\) est racine d’un polynôme \\(P\\) si et seulement si :',
-    options: ['\\(P(x_1)=0\\)', '\\(P’(x_1)=0\\)', '\\(P(x_1)=x_1\\)'],
-    correctIndex: 0,
-    explain: 'C’est la définition. Conséquence utile : \\(P\\) se factorise alors par \\((x-x_1)\\).',
-  },
-  {
-    id: 'ex29', section: 'trinome',
+    id: 'ex52', section: 'trinome',
     statement: 'Pour résoudre \\(x^6-25x^3+24=0\\), on pose :',
     options: ['\\(X=x^3\\)', '\\(X=x^2\\)', '\\(X=x^6\\)'],
     correctIndex: 0,
     explain: 'On veut se ramener à un trinôme en \\(X\\) : avec \\(X=x^3\\), \\(x^6=(x^3)^2=X^2\\) et l’équation devient \\(X^2-25X+24=0\\). Le bon changement de variable est toujours celui qui rend l’exposant du milieu égal à 1.',
   },
   {
-    id: 'ex30', section: 'trinome',
+    id: 'ex53', section: 'trinome',
     statement: 'Dans \\(x-7\\sqrt x-8=0\\), on pose \\(X=\\sqrt x\\) et on trouve \\(X^2-7X-8=0\\), de racines \\(8\\) et \\(-1\\). Combien de solutions en \\(x\\) ?',
     options: [
       'Une seule, \\(x=64\\)',
@@ -272,7 +283,7 @@ const EXERCISES = [
     explain: '<b>Piège du changement de variable</b> : \\(X=\\sqrt x\\) est nécessairement \\(\\ge0\\), donc \\(X=-1\\) est à rejeter. Seul \\(X=8\\) donne \\(x=8^2=64\\). Toujours vérifier que la valeur trouvée pour \\(X\\) est compatible avec sa définition.',
   },
   {
-    id: 'ex31', section: 'trinome',
+    id: 'ex54', section: 'trinome',
     statement: 'Dans \\(x^4-2x^2-2=0\\), on pose \\(X=x^2\\) et on trouve \\(X=1\\pm\\sqrt3\\). Combien de solutions réelles en \\(x\\) ?',
     options: [
       'Deux : \\(x=\\pm\\sqrt{1+\\sqrt3}\\)',
@@ -283,21 +294,21 @@ const EXERCISES = [
     explain: 'Même piège que la racine carrée : \\(X=x^2\\ge0\\), or \\(1-\\sqrt3<0\\) est à rejeter. Seul \\(X=1+\\sqrt3\\) survit, et il donne DEUX valeurs de \\(x\\) (\\(\\pm\\sqrt X\\)). Chaque racine positive en \\(X\\) donne deux \\(x\\), une racine nulle en donne une, une racine négative aucune.',
   },
   {
-    id: 'ex32', section: 'trinome',
+    id: 'ex55', section: 'trinome',
     statement: 'L’équation \\(ax^2+bx+c=0\\) (avec \\(a\\ne0\\)) admet une racine double si et seulement si :',
     options: ['\\(\\Delta=0\\)', '\\(\\Delta>0\\)', '\\(b=0\\)'],
     correctIndex: 0,
     explain: 'La racine double vaut alors \\(-\\dfrac{b}{2a}\\). C’est la condition à poser quand un énoncé demande « pour quelle(s) valeur(s) du paramètre l’équation a-t-elle une racine double ? ».',
   },
   {
-    id: 'ex33', section: 'trinome',
+    id: 'ex56', section: 'trinome',
     statement: '\\(\\alpha\\) et \\(\\beta\\) sont les racines de \\(x^2-5x+1=0\\). Que vaut \\(\\dfrac1\\alpha+\\dfrac1\\beta\\) ?',
     options: ['\\(5\\)', '\\(\\dfrac15\\)', '\\(-5\\)'],
     correctIndex: 0,
     explain: 'Sans calculer les racines : \\(\\dfrac1\\alpha+\\dfrac1\\beta=\\dfrac{\\alpha+\\beta}{\\alpha\\beta}=\\dfrac SP\\), avec \\(S=5\\) et \\(P=1\\). Tout ce qui est symétrique en \\(\\alpha,\\beta\\) s’exprime avec \\(S\\) et \\(P\\) — bien plus rapide que de passer par \\(\\sqrt\\Delta\\).',
   },
   {
-    id: 'ex34', section: 'trinome',
+    id: 'ex57', section: 'trinome',
     statement: '\\(\\alpha\\) vérifie \\(\\alpha^2=\\alpha+3\\). Pour calculer \\(\\alpha^4\\), le plus rapide est :',
     options: [
       'Élever \\(\\alpha^2=\\alpha+3\\) au carré, puis réinjecter \\(\\alpha^2=\\alpha+3\\)',
@@ -308,28 +319,35 @@ const EXERCISES = [
     explain: '\\(\\alpha^4=(\\alpha^2)^2=(\\alpha+3)^2=\\alpha^2+6\\alpha+9=(\\alpha+3)+6\\alpha+9=7\\alpha+12\\). L’équation vérifiée par \\(\\alpha\\) sert de règle de réécriture : toute puissance se ramène à une expression de degré 1.',
   },
   {
-    id: 'ex35', section: 'explog',
+    id: 'ex22', section: 'trinome',
+    statement: 'La forme factorisée d’un trinôme ayant deux racines réelles \\(x_1, x_2\\) est :',
+    options: ['\\(a(x-x_1)(x-x_2)\\)', '\\(a(x+x_1)(x+x_2)\\)', '\\((x-x_1)(x-x_2)\\)'],
+    correctIndex: 0,
+    explain: 'Le coefficient dominant \\(a\\) doit rester devant le produit des deux facteurs, sinon le développement ne redonne pas le bon trinôme.',
+  },
+  {
+    id: 'ex23', section: 'explog',
     statement: '\\(\\ln x\\) est défini :',
     options: ['Seulement pour \\(x > 0\\)', 'Pour tout \\(x \\in \\mathbb{R}\\)', 'Seulement pour \\(x \\geq 0\\)'],
     correctIndex: 0,
     explain: 'Le logarithme est la fonction réciproque de l’exponentielle, qui ne prend que des valeurs strictement positives.',
   },
   {
-    id: 'ex36', section: 'explog',
+    id: 'ex24', section: 'explog',
     statement: '\\(\\ln(ab)\\) est égal à :',
     options: ['\\(\\ln a + \\ln b\\)', '\\(\\ln a \\times \\ln b\\)', '\\(\\ln(a+b)\\)'],
     correctIndex: 0,
     explain: 'Le logarithme transforme les produits en sommes — c’est sa propriété caractéristique.',
   },
   {
-    id: 'ex37', section: 'explog',
+    id: 'ex25', section: 'explog',
     statement: '\\(e^{x+y}\\) est égal à :',
     options: ['\\(e^x \\times e^y\\)', '\\(e^x + e^y\\)', '\\(e^{xy}\\)'],
     correctIndex: 0,
     explain: 'L’exponentielle transforme les sommes en produits — propriété inverse de celle du logarithme.',
   },
   {
-    id: 'ex38', section: 'derivation',
+    id: 'ex26', section: 'derivation',
     statement: 'La dérivée de \\(fg\\) est :',
     options: ['\\(f\'g + fg\'\\)', '\\(f\'g\'\\)', '\\(f\' + g\'\\)'],
     correctIndex: 0,
@@ -341,7 +359,7 @@ const EXERCISES = [
     explainUv: 'Règle du produit : chaque facteur est dérivé à tour de rôle, l’autre restant inchangé.',
   },
   {
-    id: 'ex39', section: 'derivation',
+    id: 'ex27', section: 'derivation',
     statement: 'La dérivée de \\(\\dfrac{f}{g}\\) est :',
     options: ['\\(\\dfrac{f\'g - fg\'}{g^2}\\)', '\\(\\dfrac{f\'g + fg\'}{g^2}\\)', '\\(\\dfrac{f\'}{g\'}\\)'],
     correctIndex: 0,
@@ -351,7 +369,7 @@ const EXERCISES = [
     explainUv: 'Règle du quotient : numérateur dérivé fois \\(v\\), moins \\(u\\) fois dénominateur dérivé, le tout sur \\(v^2\\).',
   },
   {
-    id: 'ex40', section: 'derivation',
+    id: 'ex28', section: 'derivation',
     statement: 'La dérivée de \\((f \\circ g)(x)\\) est :',
     options: ['\\(g\'(x) \\times f\'[g(x)]\\)', '\\(f\'(x) \\times g\'(x)\\)', '\\(f\'[g(x)]\\)'],
     correctIndex: 0,
@@ -361,42 +379,42 @@ const EXERCISES = [
     explainUv: 'On dérive de l’intérieur vers l’extérieur : d’abord \\(v\\), puis \\(u\\) évaluée en \\(v(x)\\).',
   },
   {
-    id: 'ex41', section: 'trigo',
+    id: 'ex29', section: 'trigo',
     statement: '\\(\\cos^2 x + \\sin^2 x\\) est toujours égal à :',
     options: ['\\(1\\)', '\\(0\\)', '\\(2\\)'],
     correctIndex: 0,
     explain: 'C’est le théorème de Pythagore appliqué au cercle trigonométrique de rayon 1.',
   },
   {
-    id: 'ex42', section: 'trigo',
+    id: 'ex30', section: 'trigo',
     statement: 'La fonction cosinus est :',
     options: ['Paire', 'Impaire', 'Ni paire ni impaire'],
     correctIndex: 0,
     explain: '\\(\\cos(-x) = \\cos(x)\\) : la courbe est symétrique par rapport à l’axe des ordonnées.',
   },
   {
-    id: 'ex43', section: 'trigo',
+    id: 'ex31', section: 'trigo',
     statement: 'La fonction tangente est périodique, de période :',
     options: ['\\(\\pi\\)', '\\(2\\pi\\)', '\\(\\pi/2\\)'],
     correctIndex: 0,
     explain: '\\(\\tan(x+\\pi) = \\dfrac{-\\sin x}{-\\cos x} = \\tan x\\) : les deux signes s’annulent, la période est deux fois plus courte que celle de \\(\\sin\\)/\\(\\cos\\).',
   },
   {
-    id: 'ex44', section: 'sommes',
+    id: 'ex32', section: 'sommes',
     statement: '\\(\\displaystyle\\sum_{k=1}^{n} k\\) est égal à :',
     options: ['\\(\\dfrac{n(n+1)}{2}\\)', '\\(\\dfrac{n(n-1)}{2}\\)', '\\(n^2\\)'],
     correctIndex: 0,
     explain: 'C’est la somme des \\(n\\) premiers entiers (formule de Gauss) : on additionne les termes deux par deux (premier+dernier, etc.).',
   },
   {
-    id: 'ex45', section: 'sommes',
+    id: 'ex33', section: 'sommes',
     statement: '\\(\\displaystyle\\sum_{k=1}^{n} k^2\\) est égal à :',
     options: ['\\(\\dfrac{n(n+1)(2n+1)}{6}\\)', '\\(\\dfrac{n^2(n+1)}{2}\\)', '\\(\\dfrac{n(n+1)}{2}\\)'],
     correctIndex: 0,
     explain: 'Formule à connaître par cœur, différente de celle de \\(\\sum k\\) (attention à ne pas les confondre).',
   },
   {
-    id: 'ex46', section: 'sommes',
+    id: 'ex34', section: 'sommes',
     statement: 'D’après la formule du binôme, \\((a+b)^n\\) se développe en :',
     options: [
       '\\(\\displaystyle\\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}\\)',
@@ -407,28 +425,28 @@ const EXERCISES = [
     explain: 'Chaque terme combine une puissance de \\(a\\), une puissance de \\(b\\) (dont les exposants totalisent \\(n\\)), pondérée par le coefficient binomial.',
   },
   {
-    id: 'ex47', section: 'factorisation',
+    id: 'ex35', section: 'factorisation',
     statement: '\\(a^3 - b^3\\) se factorise en :',
     options: ['\\((a-b)(a^2+ab+b^2)\\)', '\\((a-b)(a^2-ab+b^2)\\)', '\\((a+b)(a^2-ab+b^2)\\)'],
     correctIndex: 0,
     explain: 'Attention au signe central : c’est \\(+ab\\) (pas \\(-ab\\)) dans le second facteur pour \\(a^3-b^3\\).',
   },
   {
-    id: 'ex48', section: 'factorisation',
+    id: 'ex36', section: 'factorisation',
     statement: '\\((a+b)^3\\) développé donne :',
     options: ['\\(a^3+3a^2b+3ab^2+b^3\\)', '\\(a^3+b^3\\)', '\\(a^3+3ab^2+b^3\\)'],
     correctIndex: 0,
     explain: 'Les coefficients \\(1,3,3,1\\) correspondent à la ligne \\(n=3\\) du triangle de Pascal.',
   },
   {
-    id: 'ex49', section: 'factorisation',
+    id: 'ex37', section: 'factorisation',
     statement: '\\(a^n - b^n\\) admet toujours pour facteur :',
     options: ['\\((a-b)\\)', '\\((a+b)\\)', '\\((a^2-b^2)\\)'],
     correctIndex: 0,
     explain: '\\((a-b)\\) divise toujours \\(a^n-b^n\\), quel que soit \\(n\\) — c’est l’identité remarquable générale.',
   },
   {
-    id: 'ex50', section: 'primitives',
+    id: 'ex38', section: 'primitives',
     statement: 'La formule d’intégration par parties s’écrit :',
     options: [
       '\\(\\int u\'v = uv - \\int uv\'\\)',
@@ -439,21 +457,21 @@ const EXERCISES = [
     explain: 'On intègre \\(u\'\\) en \\(u\\), et il reste à soustraire l’intégrale de \\(u\\) fois la dérivée de \\(v\\).',
   },
   {
-    id: 'ex51', section: 'primitives',
+    id: 'ex39', section: 'primitives',
     statement: 'Une primitive de \\(e^x\\) est :',
     options: ['\\(e^x\\)', '\\(xe^x\\)', '\\(e^x/x\\)'],
     correctIndex: 0,
     explain: 'La fonction exponentielle est sa propre dérivée, donc aussi sa propre primitive.',
   },
   {
-    id: 'ex52', section: 'primitives',
+    id: 'ex40', section: 'primitives',
     statement: 'Une primitive de \\(\\dfrac{1}{x}\\) sur \\(]0, +\\infty[\\) est :',
     options: ['\\(\\ln x\\)', '\\(\\dfrac{1}{x^2}\\)', '\\(-\\dfrac{1}{x^2}\\)'],
     correctIndex: 0,
     explain: 'Par définition, la dérivée de \\(\\ln x\\) est \\(1/x\\) sur \\(]0,+\\infty[\\) : c’est la primitive de référence.',
   },
   {
-    id: 'ex53', section: 'systemes',
+    id: 'ex41', section: 'systemes',
     statement: 'Un système linéaire peut avoir :',
     options: [
       'Une solution unique, aucune, ou une infinité',
@@ -464,7 +482,7 @@ const EXERCISES = [
     explain: 'Selon son rang, un système peut être déterminé (une solution), incompatible (aucune), ou indéterminé (infinité de solutions).',
   },
   {
-    id: 'ex54', section: 'systemes',
+    id: 'ex42', section: 'systemes',
     statement: 'Pour résoudre un système linéaire, une méthode standard consiste à :',
     options: [
       'Combiner les équations pour éliminer des inconnues (pivot de Gauss)',
@@ -475,7 +493,7 @@ const EXERCISES = [
     explain: 'On combine linéairement les équations entre elles pour éliminer une inconnue à la fois, jusqu’à isoler chaque variable.',
   },
   {
-    id: 'ex55', section: 'systemes',
+    id: 'ex43', section: 'systemes',
     statement: 'Quand un système dépend d’un paramètre \\(m\\), on :',
     options: [
       'Discute suivant les valeurs de \\(m\\)',
@@ -494,7 +512,7 @@ const SECTIONS = [
   },
   {
     id: 'trinome', title: '§2 — TRINÔME DU SECOND DEGRÉ',
-    cours: 'Un carré de RÉEL est toujours positif — faux dans \\(\\mathbb{C}\\) (\\(i^2=-1\\))<br>\\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 racine double (\\(-\\frac{b}{2a}\\)), \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Avant tout \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) et les racines évidentes \\(\\pm1\\)<br><span class="math">Forme canonique</span> : \\(a\\left(x+\\frac{b}{2a}\\right)^2-\\frac{\\Delta}{4a}\\) — factoriser par \\(a\\) AVANT de compléter le carré<br>Forme factorisée : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\) — tout ce qui est symétrique en \\(x,y\\) s’exprime avec \\(S\\) et \\(P\\)<br>\\(x_1\\) racine de \\(P \\Leftrightarrow P(x_1)=0\\), et \\(P\\) se factorise par \\((x-x_1)\\)<br><span class="math">Changement de variable</span> (\\(X=x^2\\), \\(x^3\\), \\(\\sqrt x\\)...) : toujours vérifier le signe imposé à \\(X\\) avant de revenir à \\(x\\)',
+    cours: 'Un carré de réel est toujours \\(\\geq 0\\) (faux pour \\(\\mathbb{C}\\)) ; \\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br>Avant de calculer \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) ou une racine évidente (\\(\\pm1\\))<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme canonique : \\(a(x-\\alpha)^2+\\beta\\) ; forme factorisée (racines réelles) : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)<br>\\(x_1\\) racine de \\(P\\) \\(\\Leftrightarrow\\) \\(P(x_1)=0\\)<br><span class="math">Changement de variable</span> : poser \\(X=x^n\\) ou \\(X=\\sqrt x\\) ramène à un trinôme en \\(X\\) — vérifier que chaque \\(X\\) trouvé respecte sa contrainte de signe avant de revenir à \\(x\\)',
   },
   {
     id: 'explog', title: '§3 — EXPONENTIELLE ET LOGARITHME',

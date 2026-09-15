@@ -22,7 +22,17 @@
    (chapitre I) : un théorème numéroté = une question de cours.
    Récurrence (la TECHNIQUE de preuve elle-même, initialisation/
    hérédité) déjà couverte dans LOGIQUE §recurrence — pas dupliquée
-   ici, seuls les théorèmes propres aux suites/séries sont repris. */
+   ici, seuls les théorèmes propres aux suites/séries sont repris.
+
+   §10-§14 ajoutées le 09/09/2026 : ensembles de nombres et intervalles
+   de R, densité de Q/des irrationnels, modification des inégalités,
+   composition avec une application monotone, fonction partie entière
+   — extraites du vrai cours papier de cette année (4 photos, dossier
+   Math > Analyse du Drive, « COURS ANALYSE Licence 1 », L1 mathéma-
+   tique INU Champollion, prof CHARRON A., pages 1-4). Chapitre laissé
+   masqué (chapters.js, active:false) : contenu qui prend de l'avance
+   sur ce qui a été donné cette année, même logique que pour les
+   autres chapitres construits par anticipation. */
 
 const EXERCISES = [
   {
@@ -383,6 +393,129 @@ const EXERCISES = [
     correctIndex: 0,
     explain: 'Et par contraposée : si \\(\\sum u_n\\) diverge, alors \\(\\sum v_n\\) diverge aussi — un majorant convergent entraîne la convergence du plus petit.',
   },
+  {
+    id: 'ex43', section: 'ensembles-ordre',
+    statement: 'Lequel des ensembles suivants n’est <b>pas</b> un intervalle de \\(\\mathbb{R}\\) ?',
+    options: ['\\(\\mathbb{R}^*\\)', '\\([0;1]\\)', '\\(]-\\infty;3[\\)'],
+    correctIndex: 0,
+    explain: '\\(\\mathbb{R}^*=\\mathbb{R}\\setminus\\{0\\}\\) : on a \\(-1\\) et \\(1\\) dans \\(\\mathbb{R}^*\\) avec \\(-1\\le 0\\le 1\\), mais \\(0\\notin\\mathbb{R}^*\\) — la définition d’intervalle échoue.',
+  },
+  {
+    id: 'ex44', section: 'ensembles-ordre',
+    statement: 'Quelle chaîne d’inclusions est correcte ?',
+    options: [
+      '\\(\\mathbb{N}\\subset\\mathbb{Z}\\subset\\mathbb{Q}\\subset\\mathbb{R}\\)',
+      '\\(\\mathbb{Q}\\subset\\mathbb{Z}\\subset\\mathbb{N}\\subset\\mathbb{R}\\)',
+      '\\(\\mathbb{R}\\subset\\mathbb{Q}\\subset\\mathbb{Z}\\subset\\mathbb{N}\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Chaque ensemble contient le précédent, dans cet ordre : \\(\\mathbb{N}\\subset\\mathbb{Z}\\subset\\mathbb{D}\\subset\\mathbb{Q}\\subset\\mathbb{R}\\subset\\mathbb{C}\\).',
+  },
+  {
+    id: 'ex45', section: 'ensembles-ordre',
+    statement: 'Pour \\((n;m)\\in\\mathbb{N}^2\\), la notation \\([\\![n;m]\\!]\\) désigne :',
+    options: [
+      'L’ensemble des entiers naturels \\(k\\) tels que \\(n\\le k\\le m\\)',
+      'L’intervalle réel \\([n;m]\\) (tous les réels entre \\(n\\) et \\(m\\))',
+      'Le nombre \\(m-n+1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Notation spécifique à un intervalle d’entiers (double crochets) — à ne pas confondre avec l’intervalle réel \\([n;m]\\), qui contient en plus tous les réels intermédiaires.',
+  },
+  {
+    id: 'ex46', section: 'ensembles-ordre',
+    statement: '\\(]a;+\\infty[\\) est l’ensemble des réels \\(x\\) tels que :',
+    options: ['\\(x>a\\)', '\\(x\\ge a\\)', '\\(x<a\\)'],
+    correctIndex: 0,
+    explain: 'Crochet ouvert en \\(a\\) donc \\(a\\) est exclu ; \\(+\\infty\\) n’est jamais une valeur atteinte donc le crochet de ce côté est toujours ouvert par convention.',
+  },
+  {
+    id: 'ex47', section: 'densite',
+    statement: 'Entre deux réels distincts \\(x<y\\), on peut toujours trouver :',
+    options: [
+      'Un rationnel ET un irrationnel',
+      'Un rationnel seulement (les irrationnels sont trop rares)',
+      'Rien si \\(y-x\\) est très petit',
+    ],
+    correctIndex: 0,
+    explain: 'Densité de \\(\\mathbb{Q}\\) dans \\(\\mathbb{R}\\) et densité des irrationnels dans \\(\\mathbb{R}\\) : ces deux propriétés valent quel que soit l’écart entre \\(x\\) et \\(y\\), même infime.',
+  },
+  {
+    id: 'ex48', section: 'densite',
+    statement: 'Entre deux rationnels distincts, existe-t-il toujours un irrationnel entre les deux ?',
+    options: ['Oui, toujours', 'Seulement s’ils sont entiers', 'Non, jamais'],
+    correctIndex: 0,
+    explain: 'La densité des irrationnels dans \\(\\mathbb{R}\\) s’applique aussi entre deux rationnels : si \\(0\\le x<y\\) sont rationnels, il existe un irrationnel \\(r\\) tel que \\(x<r<y\\).',
+  },
+  {
+    id: 'ex49', section: 'inegalites',
+    statement: 'Pour montrer \\(A\\le B\\), le réflexe de base du cours est de :',
+    options: [
+      'Étudier le signe de \\(A-B\\)',
+      'Diviser les deux membres par un nombre quelconque',
+      'Toujours isoler l’inconnue en premier, quoi qu’il arrive',
+    ],
+    correctIndex: 0,
+    explain: '\\(A\\le B \\Leftrightarrow A-B\\le 0\\) : dans tout exercice qui manipule des inégalités, cette équivalence doit faire partie du réflexe de départ.',
+  },
+  {
+    id: 'ex50', section: 'inegalites',
+    statement: 'Pour \\((a;b)\\in(\\mathbb{R}^*)^2\\), \\(a<b\\) entraîne-t-il toujours \\(\\dfrac{1}{a}>\\dfrac{1}{b}\\) ?',
+    options: [
+      'Non — faux en général (ex. \\(a=-1<b=1\\), pourtant \\(\\frac1a=-1<1=\\frac1b\\))',
+      'Oui, toujours, car la fonction inverse est strictement décroissante',
+      'Oui, mais seulement si \\(a\\) et \\(b\\) sont irrationnels',
+    ],
+    correctIndex: 0,
+    explain: 'Piège classique : la fonction inverse EST strictement décroissante sur \\(\\mathbb{R}_+^*\\) et sur \\(\\mathbb{R}_-^*\\) séparément, mais \\(\\mathbb{R}^*\\) n’est <b>pas</b> un intervalle — l’implication ne tient que si \\(a\\) et \\(b\\) sont de même signe.',
+  },
+  {
+    id: 'ex51', section: 'inegalites',
+    statement: 'Si \\(a,b,c,d\\) sont des réels strictement positifs avec \\(a<b\\) et \\(c<d\\), alors \\(\\dfrac{a}{c}<\\dfrac{b}{d}\\) équivaut à :',
+    options: ['\\(a\\,d<b\\,c\\)', '\\(a\\,c<b\\,d\\)', '\\(a+c<b+d\\)'],
+    correctIndex: 0,
+    explain: 'Comparaison de deux fractions positives par produit en croix : \\(\\dfrac{a}{c}<\\dfrac{b}{d} \\Leftrightarrow a\\,d<b\\,c\\) (rien à voir avec la somme \\(a+c<b+d\\), qui est une propriété séparée).',
+  },
+  {
+    id: 'ex52', section: 'monotones',
+    statement: '\\(f\\) est strictement croissante sur un intervalle \\(I\\), \\((a;b)\\in I^2\\). Quel est le lien entre \\(a<b\\) et \\(f(a)<f(b)\\) ?',
+    options: [
+      'Ce sont deux assertions équivalentes',
+      '\\(a<b\\) implique \\(f(a)<f(b)\\), mais pas la réciproque',
+      'Aucun lien en général',
+    ],
+    correctIndex: 0,
+    explain: 'Grâce au caractère STRICT de la monotonie, c’est une équivalence : ça permet de « faire passer » une fonction de chaque côté d’une inégalité sans perdre d’information.',
+  },
+  {
+    id: 'ex53', section: 'monotones',
+    statement: '\\(f\\) est seulement croissante (pas nécessairement strictement) sur \\(I\\), \\((a;b)\\in I^2\\) avec \\(a<b\\). Que peut-on affirmer ?',
+    options: [
+      '\\(f(a)\\le f(b)\\) (implication simple, pas d’équivalence)',
+      '\\(f(a)<f(b)\\) (équivalence)',
+      'Rien du tout',
+    ],
+    correctIndex: 0,
+    explain: 'Sans le caractère strict, on perd l’équivalence : une fonction croissante non stricte peut être constante sur tout un intervalle, donc \\(a<b\\) n’empêche pas \\(f(a)=f(b)\\).',
+  },
+  {
+    id: 'ex54', section: 'partie-entiere',
+    statement: 'Quelle est la définition de la fonction partie entière \\(E(x)\\) ?',
+    options: [
+      'Pour tout \\(x\\) réel, l’unique entier \\(n\\) tel que \\(n\\le x<n+1\\)',
+      'Le plus proche entier de \\(x\\), par arrondi',
+      'La partie décimale retirée en tronquant vers zéro',
+    ],
+    correctIndex: 0,
+    explain: 'Attention : pour \\(x\\) négatif, ce n’est <b>pas</b> la même chose que « tronquer vers zéro ». Par exemple \\(E(-1{,}5)=-2\\), pas \\(-1\\).',
+  },
+  {
+    id: 'ex55', section: 'partie-entiere',
+    statement: 'Pour \\(a<b\\) réels, que dit la propriété de croissance de la partie entière ?',
+    options: ['\\(E(a)\\le E(b)\\)', '\\(E(a)<E(b)\\)', '\\(E(a)\\ge E(b)\\)'],
+    correctIndex: 0,
+    explain: '\\(E\\) est croissante sur \\(\\mathbb{R}\\), mais pas strictement — c’est une fonction en escalier, constante sur chaque intervalle \\([n;n+1[\\).',
+  },
 ];
 
 const SECTIONS = [
@@ -421,6 +554,26 @@ const SECTIONS = [
   {
     id: 'series', title: '§9 — SÉRIES NUMÉRIQUES',
     cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|<1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha>1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L<1\\) CV, \\(L>1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
+  },
+  {
+    id: 'ensembles-ordre', title: '§10 — ENSEMBLES DE NOMBRES ET INTERVALLES DE R',
+    cours: 'Intervalle de \\(\\mathbb{R}\\) : \\(I\\subset\\mathbb{R}\\) tel que pour tous \\(x,y\\in I\\) avec \\(x\\le y\\), tout \\(z\\in\\mathbb{R}\\) avec \\(x\\le z\\le y\\) est aussi dans \\(I\\).<br>Formes possibles : \\(\\emptyset\\), \\(\\mathbb{R}\\), \\([a;b]\\), \\([a;b[\\), \\(]a;b]\\), \\(]a;b[\\), \\([a;+\\infty[\\), \\(]a;+\\infty[\\), \\(]-\\infty;a]\\), \\(]-\\infty;a[\\).<br>\\(\\emptyset\\subset\\mathbb{N}\\subset\\mathbb{Z}\\subset\\mathbb{D}\\subset\\mathbb{Q}\\subset\\mathbb{R}\\subset\\mathbb{C}\\)<br>\\([\\![n;m]\\!] = \\{k\\in\\mathbb{N}\\;;\\;n\\le k\\le m\\}\\) pour \\((n;m)\\in\\mathbb{N}^2\\)',
+  },
+  {
+    id: 'densite', title: '§11 — DENSITÉ DE Q ET DES IRRATIONNELS DANS R',
+    cours: 'Densité de \\(\\mathbb{Q}\\) : si \\(0\\le x<y\\) réels, il existe \\(q\\in\\mathbb{Q}\\) tel que \\(x<q<y\\).<br>Densité des irrationnels : si \\(0\\le x<y\\) rationnels (ou réels), il existe un irrationnel \\(r\\) tel que \\(x<r<y\\).<br>Entre deux réels distincts, on trouve donc toujours à la fois un rationnel et un irrationnel.',
+  },
+  {
+    id: 'inegalites', title: '§12 — MODIFIER ET COMBINER DES INÉGALITÉS',
+    cours: 'Réflexe de base : \\(A\\le B \\Leftrightarrow A-B\\le 0\\) — comparer une différence à \\(0\\) plutôt que manipuler l’inégalité brute.<br>\\(a<b\\) et \\(c<d\\) \\(\\Rightarrow\\) \\(a+c<b+d\\) (les inégalités s’additionnent).<br>Pour \\(a,b,c,d>0\\) : \\(\\dfrac{a}{c}<\\dfrac{b}{d} \\Leftrightarrow a\\,d<b\\,c\\).<br><b>Piège</b> : \\(a<b \\Rightarrow \\dfrac{1}{a}>\\dfrac{1}{b}\\) est FAUSSE en général sur \\((\\mathbb{R}^*)^2\\) (ex. \\(a=-1<b=1\\), pourtant \\(1/a=-1<1=1/b\\)) — vraie seulement si \\(a\\) et \\(b\\) sont de même signe, car \\(\\mathbb{R}^*\\) n’est pas un intervalle.',
+  },
+  {
+    id: 'monotones', title: '§13 — COMPOSITION AVEC UNE APPLICATION MONOTONE',
+    cours: '\\(f\\) strictement croissante sur \\(I\\), \\((a;b)\\in I^2\\) \\(\\Rightarrow\\) \\(a<b \\Leftrightarrow f(a)<f(b)\\) (équivalence).<br>\\(f\\) strictement décroissante sur \\(I\\) \\(\\Rightarrow\\) \\(a<b \\Leftrightarrow f(a)>f(b)\\).<br>\\(f\\) seulement croissante (non stricte) \\(\\Rightarrow\\) \\(a<b \\Rightarrow f(a)\\le f(b)\\) (implication seule, pas d’équivalence).<br>Ces équivalences/implications restent valables avec «\\(\\le\\)», «\\(<\\)» et «\\(\\ge\\)».',
+  },
+  {
+    id: 'partie-entiere', title: '§14 — LA FONCTION « PARTIE ENTIÈRE »',
+    cours: 'Définition : pour tout \\(x\\in\\mathbb{R}\\), il existe un unique \\(n\\in\\mathbb{Z}\\) tel que \\(n\\le x<n+1\\) ; cet entier s’appelle la partie entière de \\(x\\), notée \\(E(x)\\) ou \\([x]\\).<br>Conséquence : pour \\(a<b\\), \\(E(a)\\le E(b)\\) (croissante, mais pas strictement — fonction en escalier).<br>Attention : \\(E(x)\\ne\\) troncature vers zéro pour \\(x<0\\) (ex. \\(E(-1{,}5)=-2\\)).',
   },
 ];
 
