@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 155, date: "15/09/2026", desc: "ANALYSE : 5 nouvelles sections (ensembles/intervalles, densité, inégalités, monotonie, partie entière)" },
   { v: 154, date: "15/09/2026", desc: "CALCULUS §2 (trinôme du second degré) étoffée, 3 → 11 questions" },
   { v: 153, date: "13/09/2026", desc: "Liens vers les autres sites (exercices type, fiche) retirés du menu" },
   { v: 152, date: "09/09/2026", desc: "ANALYSE : nouvelles sections Suites et Séries numériques (21 questions)" },
