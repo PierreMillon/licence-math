@@ -1239,6 +1239,67 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## Explication de la mauvaise réponse choisie, pas juste la bonne (21/09/2026, demande explicite)
+
+- Demande (formulation garbled mais claire sur le fond) : « il faut
+  expliquer pourquoi les réponses fausses sont fausses si on les
+  choisit, qu'on comprenne et ne recommence pas » — le feedback
+  d'erreur existant (`ex.explain`, fiche-engine.js) justifiait déjà la
+  BONNE réponse en général, mais jamais pourquoi le choix PRÉCIS fait
+  par l'élève était faux (ex. confondre la règle du produit et celle
+  du quotient sur les puissances — deux erreurs différentes, une seule
+  explication générique pour les deux).
+- Nouveau champ optionnel par exercice, `wrongExplain` : objet indexé
+  par la position d'ORIGINE de l'option dans `options` (même index que
+  `correctIndex`, PAS l'ordre mélangé à l'affichage — voir
+  `shuffledIndices`, fiche-engine.js) donnant une explication courte et
+  SPÉCIFIQUE à ce choix précis. `wrongAnswerExplainLine()` (nouvelle
+  fonction, fiche-engine.js) l'utilise à la place de `explain` si elle
+  existe pour l'option choisie, sinon retombe sur `explain` comme
+  avant — rétro-compatible, aucun exercice existant cassé. Branchée
+  aux deux endroits qui affichaient déjà un `explainLine` : la réponse
+  en direct (`applyFeedback`) ET le rendu au retour sur une fiche déjà
+  répondue (`restoreState`, qui connaît `selectedIndex` grâce au state
+  déjà sauvegardé). Convention documentée en tête de fiche-engine.js
+  (même endroit que la convention `symbol-read` du 19/08/2026).
+- Variante u/v (dérivation, calculus.js, 3 exercices) : `wrongExplainUv`
+  séparé, repris par `applyNotationPreference` comme les autres champs
+  Uv — texte identique au fond, juste reformulé avec u/v au lieu de f/g.
+- **Contenu rédigé pour les deux chapitres ACTIFS en entier** (pas un
+  chantier "engine only" laissé vide) : les 51 exercices de CALCULUS et
+  les 38 d'ALGÈBRE ont chacun une explication par option fausse (2 par
+  exercice, questions à 3 réponses) — 178 explications au total, une
+  par erreur/confusion représentée par chaque distracteur (erreur de
+  signe, règle confondue avec une autre, cas particulier oublié...),
+  jamais une reformulation générique du type "ce n'est pas la bonne
+  réponse". Les autres chapitres (`active:false`) n'ont pas encore ce
+  contenu — `explain` générique reste affiché pour eux en attendant,
+  comportement inchangé, à compléter chapitre par chapitre au moment
+  de leur activation (même méthode que le reste du contenu).
+- **Un cas particulier noté explicitement en tête d'algebre.js** :
+  ALGÈBRE ex12 (« \\(\\text{Re}(kz)\\) pour \\(k\\) réel ») a une option
+  fausse, \\(\\text{Re}(k)\\times\\text{Re}(z)\\), qui coïncide
+  NUMÉRIQUEMENT avec la bonne réponse dans ce cas précis (puisque
+  \\(k\\) est réel, \\(\\text{Re}(k)=k\\)) — remarqué en écrivant le
+  wrongExplain, pas une nouveauté introduite par ce chantier (l'énoncé
+  existant depuis le 08/09/2026 a ce défaut latent). Plutôt que
+  d'affirmer une contre-vérité mathématique ("cette option est
+  fausse"), le texte explique en quoi cette formulation induit en
+  erreur (elle suggère à tort une règle générale valable même pour un
+  \\(k\\) complexe, ce qui serait faux) sans jamais dire que la valeur
+  numérique obtenue est incorrecte ici. Pas retouché plus loin (changer
+  `options`/`correctIndex` d'un exercice déjà actif est plus risqué
+  pour la progression déjà enregistrée que documenter la nuance) — à
+  signaler à Pierre si l'occasion se présente.
+- Testé (Playwright) : réponse en direct sur une option fausse précise
+  → explication spécifique affichée (vérifié KaTeX inclus, ex. avec
+  une formule dans le texte de l'explication) ; réponse correcte →
+  toujours "✓ BRAVO !" sans changement ; retour sur une fiche déjà
+  répondue (rechargement de page) → `restoreState` affiche la même
+  explication spécifique via `selectedIndex` sauvegardé ; fallback
+  vérifié directement sur un exercice sans `wrongExplain` (donne bien
+  `explain`) ; zéro débordement à 320/390px ; zéro erreur console.
+
 ## Barre hebdomadaire pas remise à zéro le lundi (21/09/2026, bug signalé capture à l'appui)
 
 - Signalé (capture à l'appui) : barre hebdomadaire encore à 56%, cartes

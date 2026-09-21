@@ -11,6 +11,30 @@ const PROGRESS_KEY = 'l1maths_progress';
 /* typesetMath : voir menu.js (partagé, chargé avant ce fichier sur
    toute fiche). */
 
+/* ---------- convention : wrongExplain, la mauvaise réponse choisie
+   (21/09/2026, demande explicite « expliquer pourquoi les réponses
+   fausses sont fausses si on les choisit, qu'on comprenne et ne
+   recommence pas ») ----------
+   Un exercice peut porter, en plus de `explain` (qui justifie la
+   bonne réponse en général), un objet `wrongExplain` indexé par la
+   position d'ORIGINE de chaque option fausse dans le tableau
+   `options` (même index que `correctIndex`, PAS l'ordre d'affichage
+   mélangé à chaque rendu — voir shuffledIndices) :
+
+     options: ['bonne réponse', 'erreur A', 'erreur B'],
+     correctIndex: 0,
+     explain: '...',
+     wrongExplain: { 1: 'pourquoi l\'erreur A est fausse', 2: 'pourquoi l\'erreur B est fausse' },
+
+   Voir wrongAnswerExplainLine ci-dessous : si l'option choisie n'a pas
+   d'entrée dans wrongExplain, on retombe sur `explain` (comportement
+   inchangé pour tout exercice pas encore retrofit — chantier fait
+   chapitre par chapitre, comme le reste du contenu, pas rétroactif en
+   un coup sur toute la base). Pour les exercices à variante u/v
+   (statementUv/optionsUv/explainUv — dérivation, calculus.js), la
+   variante correspondante est `wrongExplainUv`, reprise par
+   applyNotationPreference comme les autres champs Uv. */
+
 /* ---------- convention : lecture à voix haute d'un symbole (19/08/2026,
    demande explicite) ----------
    Quand une formule \(...\) introduit un symbole mathématique pour la
@@ -50,8 +74,24 @@ function applyNotationPreference(exercises){
       statement: ex.statementUv,
       options: ex.optionsUv || ex.options,
       explain: ex.explainUv || ex.explain,
+      wrongExplain: ex.wrongExplainUv || ex.wrongExplain,
     });
   });
+}
+
+/* Explication de la mauvaise réponse (21/09/2026, demande explicite
+   « expliquer pourquoi les réponses fausses sont fausses si on les
+   choisit, qu'on comprenne et ne recommence pas ») : si l'exercice a
+   une entrée wrongExplain pour CETTE option précise (indexée sur la
+   position d'origine dans `options`, avant mélange à l'affichage —
+   voir shuffledIndices), on l'affiche à la place du `explain`
+   générique (qui ne fait que justifier la bonne réponse). Retombe sur
+   `explain` si l'exercice n'a pas encore ce contenu (rétro-compatible,
+   voir calculus.js/algebre.js pour la convention complète). */
+function wrongAnswerExplainLine(ex, selectedIndex){
+  const specific = ex.wrongExplain && typeof selectedIndex === 'number' ? ex.wrongExplain[selectedIndex] : null;
+  const text = specific || ex.explain;
+  return text ? `<br>→ ${text}` : '';
 }
 
 function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
@@ -339,7 +379,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
     if(isCorrect){
       feedbackEl.textContent = '✓ BRAVO !';
     }else{
-      const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+      const explainLine = wrongAnswerExplainLine(ex, selectedIndex);
       feedbackEl.innerHTML = `✗ INCORRECT — réponse attendue : ${ex.options[ex.correctIndex]}${explainLine}`;
       typesetMath(feedbackEl);
     }
@@ -400,7 +440,7 @@ function initFiche({ STATE_KEY, CHAPTER_ID, EXERCISES, SECTIONS }){
         if(s.correct){
           feedbackEl.textContent = '✓ BRAVO ! (déjà validé)';
         }else{
-          const explainLine = ex.explain ? `<br>→ ${ex.explain}` : '';
+          const explainLine = wrongAnswerExplainLine(ex, s.selectedIndex);
           feedbackEl.innerHTML = `✗ INCORRECT (déjà tenté — vous pouvez réessayer)${explainLine}`;
           typesetMath(feedbackEl);
         }

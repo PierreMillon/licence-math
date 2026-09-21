@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 157, date: "21/09/2026", desc: "QCM CALCULUS/ALGÈBRE : chaque mauvaise réponse explique pourquoi CE choix précis est faux" },
   { v: 156, date: "21/09/2026", desc: "Barre hebdomadaire : la remise à zéro du lundi se déclenche aussi en revenant sur l'appli, pas juste au rechargement" },
   { v: 155, date: "21/09/2026", desc: "Écran de victoire/défaite : équipement enfin visible sur le chevalier, épée tenue dans la main droite" },
   { v: 154, date: "15/09/2026", desc: "CALCULUS §2 (trinôme du second degré) étoffée, 3 → 11 questions" },
