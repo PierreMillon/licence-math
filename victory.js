@@ -81,6 +81,7 @@ function syncBattleOutcome(){
   const result = localStorage.getItem(LAST_BATTLE_RESULT_KEY);
   if(battle) battle.hidden = (result === 'victory' || result === 'defeat');
 }
+window.syncBattleOutcome = syncBattleOutcome;
 
 function dismissBattleOutcome(){
   localStorage.removeItem(LAST_BATTLE_RESULT_KEY);

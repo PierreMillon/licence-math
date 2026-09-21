@@ -83,6 +83,7 @@ function renderChapters(){
     });
   });
 }
+window.renderChapters = renderChapters;
 
 const FOOTER_MESSAGES = [
   "L'infini existe, paraît-il. C'est déjà plus que ce qu'on espérait pour ce semestre.",

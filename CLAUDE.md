@@ -1239,6 +1239,50 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## Barre hebdomadaire pas remise à zéro le lundi (21/09/2026, bug signalé capture à l'appui)
+
+- Signalé (capture à l'appui) : barre hebdomadaire encore à 56%, cartes
+  CALCULUS (20/51) et ALGÈBRE (30/38) inchangées, alors qu'on est
+  lundi. Les deux chiffres par carte sont en réalité la progression
+  VIE ENTIÈRE (jamais remise à zéro par design, voir plus haut "État
+  hebdo vs état vie entière") — pas un bug. La vraie anomalie est
+  uniquement la barre hebdomadaire (56%, devrait être 0%).
+- Cause trouvée en lisant weekly.js : `ensureWeekCurrent()` (le check
+  "est-on encore dans la même semaine calendaire que la dernière fois
+  vue") ne tournait QUE sur `DOMContentLoaded`, comme tous les rendus
+  qui en dépendent (`renderWeeklyScore` ici, mais aussi `renderKnight`/
+  `renderWeekDragon`/`syncBattleOutcome`/`renderChapters` ailleurs). Si
+  l'appli reste ouverte sans être rechargée à cheval sur le passage de
+  minuit lundi (cas normal en PWA "ajoutée à l'écran d'accueil", faite
+  pour rester ouverte), rien ne redéclenche jamais ce check tant que la
+  page n'est pas complètement rechargée — même symptôme de fond que le
+  bug déjà rencontré et corrigé sur `mistakes.js` (liste des erreurs
+  figée sur un onglet resté en arrière-plan), pas reconnu comme le même
+  problème avant de relire ce fichier.
+- Corrigé en reprenant EXACTEMENT la même technique que `mistakes.js` :
+  nouvelle fonction `refreshWeeklyState()` (weekly.js), qui regroupe
+  `ensureWeekCurrent`/`ensureSundayOutcomeShown`/`renderWeeklyScore`
+  PLUS les rendus dépendants d'autres fichiers (`renderChapters` sur
+  app.js, `renderKnight`/`alignKnightFeet` sur knight.js/scene.js,
+  `renderWeekDragon` sur scene.js, `syncBattleOutcome` sur victory.js —
+  chacun exposé sur `window` pour l'occasion, appelé derrière une
+  vérification d'existence donc sans effet sur les pages qui ne les
+  chargent pas). Appelée sur `DOMContentLoaded` comme avant, MAIS
+  aussi sur `pageshow` (retour arrière/bfcache) et `visibilitychange`
+  dès que l'onglet redevient visible (PWA rouverte sans avoir jamais
+  été fermée) — donc réévaluée à chaque fois qu'on revient sur la page,
+  pas seulement au tout premier chargement.
+- Testé (Playwright) : seedé un `l1maths_weekly_meta` de la semaine
+  PRÉCÉDENTE avec une vraie progression hebdo (calculus/algebre à
+  100%), forcé l'affichage de la barre à une valeur périmée (56%/77%)
+  SANS recharger la page, puis déclenché `visibilitychange`/`pageshow`
+  synthétiques — confirmé que `weekStart` se met à jour, que la
+  progression hebdo est bien vidée, que la barre revient à 0%, et que
+  l'écran de victoire (déclenché par la vraie résolution du combat de
+  la semaine précédente, 100% > seuil) s'affiche correctement sans
+  rechargement. Zéro débordement à 320/390px, zéro erreur console
+  imputable au correctif.
+
 ## Écran de victoire/défaite : équipement invisible + épée mal placée (21/09/2026, bug signalé capture à l'appui)
 
 - Signalé sur l'écran "VICTOIRE !" (capture à l'appui) : "les

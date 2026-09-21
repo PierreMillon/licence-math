@@ -170,6 +170,7 @@ function renderWeekDragon(){
   const mainSvgEl = el.querySelector('.dragon-copy--main svg');
   el.style.bottom = (groundLineHeightPx(strip) - groundOffsetPx(mainSvgEl, heightPx)) + 'px';
 }
+window.renderWeekDragon = renderWeekDragon;
 
 document.addEventListener('DOMContentLoaded', () => {
   renderKnightGirl();

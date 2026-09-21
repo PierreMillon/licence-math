@@ -286,8 +286,37 @@ function renderWeeklyScore(){
   if(lossesEl) lossesEl.innerHTML = iconRow(score.losses, SKULL_SMALL_SVG, ICON_CAP);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function refreshWeeklyState(){
   ensureWeekCurrent();
-  ensureSundayOutcomeShown(); // avant victory.js (chargé après, même événement)
+  ensureSundayOutcomeShown();
   renderWeeklyScore();
+  // Rendus qui dépendent des mêmes données mais vivent dans d'autres
+  // fichiers (scène de combat, page d'accueil) : gardés derrière des
+  // vérifications d'existence, absents sans effet sur les pages qui ne
+  // les chargent pas (fiches, mes erreurs, progression...).
+  if(window.renderChapters) window.renderChapters();
+  if(window.renderKnight) window.renderKnight();
+  if(window.renderWeekDragon) window.renderWeekDragon();
+  if(window.alignKnightFeet) window.alignKnightFeet();
+  if(window.syncBattleOutcome) window.syncBattleOutcome();
+}
+window.refreshWeeklyState = refreshWeeklyState;
+
+document.addEventListener('DOMContentLoaded', refreshWeeklyState);
+
+/* Bug signalé (21/09/2026, capture à l'appui) : "ça a pas remis à
+   zéro alors qu'on est lundi" — le check du lundi (ensureWeekCurrent)
+   ne tournait QUE sur DOMContentLoaded, donc jamais réévalué si la
+   page reste ouverte sans être rechargée (PWA en mode "ajouté à
+   l'écran d'accueil", laissée ouverte toute la nuit/le week-end).
+   Même classe de bug déjà rencontrée et corrigée sur mistakes.js
+   (voir son commentaire) : pageshow couvre le retour arrière du
+   navigateur / la restauration bfcache, visibilitychange couvre
+   l'onglet resté en arrière-plan qui revient au premier plan (ou la
+   PWA qu'on rouvre sans qu'elle ait jamais été fermée) — dans les
+   deux cas, sans rechargement complet, DOMContentLoaded ne se
+   redéclenche jamais. */
+window.addEventListener('pageshow', refreshWeeklyState);
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden) refreshWeeklyState();
 });
