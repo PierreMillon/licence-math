@@ -143,14 +143,17 @@ const KNIGHT_HELD_ROTATION = {
    partielle sur le corps. Résout à la racine le problème des cheveux
    qui dépassaient du casque pendant sa révélation progressive (plus
    de révélation du tout à gérer ici, juste un oui/non). */
-function renderKnight(){
-  const zone = document.getElementById('knightZone');
-  const figure = document.getElementById('knightFigure');
-  if(!zone || !figure) return;
-  if(window.ensureWeekCurrent) window.ensureWeekCurrent();
-
+/* Extrait de renderKnight() le 21/09/2026 pour être réutilisable par
+   la scène de victoire/défaite (victory.js) — avant ce refactor,
+   `renderVictoryScene()`/`renderDefeatScene()` n'affichaient qu'une
+   silhouette nue, jamais l'équipement (bug signalé, capture à
+   l'appui : "les équipements sont pas visibles sur le chevalier"). Ne
+   fait QUE construire le HTML des pièces, ne touche à aucun élément
+   du DOM — c'est à l'appelant de l'assigner à la bonne `.knight-
+   figure`. */
+function knightPiecesOverlayHTML(){
   const sorted = KNIGHT_PIECES.slice().sort((a, b) => a.z - b.z);
-  const piecesHTML = sorted.map(p => {
+  return sorted.map(p => {
     const spot = KNIGHT_GIRL_OVERLAY[p.chapterId];
     if(!spot) return '';
     const fraction = window.weeklyChapterFraction ? window.weeklyChapterFraction(p.chapterId) : 0;
@@ -170,7 +173,36 @@ function renderKnight(){
     const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:${p.z};${rotStyle}`;
     return `<div class="knight-piece-wrap" style="${pos}">${miniSvg}</div>`;
   }).join('');
-  figure.innerHTML = piecesHTML;
+}
+window.knightPiecesOverlayHTML = knightPiecesOverlayHTML;
+
+/* Épée-trophée de la scène de victoire (21/09/2026, demande explicite
+   "l'épée doit être dans la main droite") : toujours visible, PAS liée
+   à la progression du chapitre PYTHON — contrairement à la vraie pièce
+   d'équipement python (KNIGHT_EPEE_SVG, KNIGHT_PIECES), c'est un
+   élément narratif fixe ("le chevalier a vaincu le dragon avec son
+   épée"), qui doit rester affiché même si PYTHON est masqué ou pas
+   encore à 100% cette semaine. Réutilise l'emplacement/la rotation de
+   la pièce python pour rester cohérente ("dans la main droite" au même
+   endroit que le reste du site), avec SWORD_SVG (knight-svgs.js, objet
+   dédié, pas KNIGHT_EPEE_SVG) et une classe dédiée plutôt que
+   `.knight-piece-wrap` (couleur blanche, pas gris/argent — c'est une
+   épée brandie, pas de l'armure portée). */
+function knightTrophySwordHTML(){
+  const spot = KNIGHT_GIRL_OVERLAY.python;
+  const rot = KNIGHT_HELD_ROTATION.python;
+  const rotStyle = rot ? `transform:rotate(${rot.deg}deg);transform-origin:${rot.origin};` : '';
+  const pos = `position:absolute;left:${spot.left}%;top:${spot.top}%;width:${spot.width}%;height:${spot.height}%;z-index:6;${rotStyle}`;
+  return `<div class="victory-sword-held" style="${pos}">${SWORD_SVG}</div>`;
+}
+window.knightTrophySwordHTML = knightTrophySwordHTML;
+
+function renderKnight(){
+  const zone = document.getElementById('knightZone');
+  const figure = document.getElementById('knightFigure');
+  if(!zone || !figure) return;
+  if(window.ensureWeekCurrent) window.ensureWeekCurrent();
+  figure.innerHTML = knightPiecesOverlayHTML();
 }
 window.renderKnight = renderKnight;
 

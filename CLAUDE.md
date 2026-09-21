@@ -1239,6 +1239,54 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   cours par paragraphe comme demandé explicitement par Pierre, pas
   tout le polycopié d'un coup.
 
+## Écran de victoire/défaite : équipement invisible + épée mal placée (21/09/2026, bug signalé capture à l'appui)
+
+- Signalé sur l'écran "VICTOIRE !" (capture à l'appui) : "les
+  équipements sont pas visibles sur le chevalier et l'épée doit être
+  dans la main droite". Deux causes distinctes trouvées en lisant
+  victory.js/knight.js :
+  1. `renderVictoryScene()`/`renderDefeatScene()` écrivaient juste
+     `KNIGHT_GIRL_SVG` (silhouette nue) dans `#victoryKnight`/
+     `#defeatKnight` — jamais l'équipement. La scène de combat
+     habituelle (`#knightZone`) sépare depuis toujours la silhouette
+     de base (`.knight-girl`) de la surimpression des pièces
+     (`.knight-figure`, remplie par `renderKnight()`/knight.js), mais
+     les scènes de victoire/défaite n'avaient jamais cette 2e couche.
+  2. L'épée de la scène de victoire (`#victorySword`, SWORD_SVG) était
+     un élément à part, positionné en CSS PRÈS DU DRAGON (`.victory-
+     sword{left:38%}`, proche de `.victory-dragon{left:34%}`) pour
+     représenter "l'épée plantée sur le dragon vaincu" — mais une fois
+     pivotée (58deg) elle traversait visuellement tout le buste du
+     chevalier, donnant l'impression trompeuse d'une épée mal tenue.
+- Corrigé en donnant à `#victoryKnight`/`#defeatKnight` la MÊME
+  structure imbriquée que `#knightZone` (`.knight-girl` + `.knight-
+  figure`, index.html) et en extrayant de `renderKnight()` une
+  fonction réutilisable `knightPiecesOverlayHTML()` (knight.js) qui
+  construit le HTML des pièces sans toucher au DOM — appelée
+  maintenant aussi par victory.js pour remplir `#victoryKnightFigure`/
+  `#defeatKnightFigure`. Retiré `#victorySword` : à la place, une
+  nouvelle fonction `knightTrophySwordHTML()` place une épée-trophée
+  (SWORD_SVG, PAS KNIGHT_EPEE_SVG — objet narratif fixe, pas une pièce
+  d'équipement) exactement à l'emplacement/la rotation déjà utilisés
+  pour la pièce d'équipement PYTHON (`KNIGHT_GIRL_OVERLAY.python`/
+  `KNIGHT_HELD_ROTATION.python`) — cohérent avec "la main droite"
+  utilisée partout ailleurs sur le site, et TOUJOURS visible (pas liée
+  à la progression du chapitre PYTHON, actuellement masqué).
+- Épée-trophée en couleur blanche (`--fg`, nouvelle classe `.victory-
+  sword-held`) plutôt que gris/argent (`.knight-piece-wrap`, réservée
+  aux vraies pièces d'armure) — c'est une lame brandie, pas du métal
+  porté sur le corps.
+- Défaite : équipement affiché aussi (même correctif), MAIS pas
+  d'épée-trophée — le chevalier est au sol, terrassé, ça n'aurait pas
+  de sens narratif qu'il brandisse encore son épée.
+- Testé (Playwright, captures) : avec CALCULUS à 100% hebdo, les
+  gantelets apparaissent bien sur le chevalier de victoire (avant :
+  silhouette nue) ; l'épée-trophée est visible dans la main droite,
+  au même endroit que la pièce python sur la scène de combat normale ;
+  scène de défaite affiche aussi l'équipement, sans épée ; bouton
+  CONTINUER (dismiss) toujours fonctionnel après la restructuration du
+  DOM ; zéro débordement à 320/390px.
+
 ## CALCULUS §2 (trinôme) étoffée depuis un vrai TD + rebase sur v153 (15/09/2026)
 
 - Demande explicite, fichiers envoyés en pièce jointe directement dans

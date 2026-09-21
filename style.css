@@ -767,29 +767,42 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   height:auto;
   color:var(--fg-dim);
 }
+/* Chevalier + équipement de la scène de victoire (21/09/2026, bug
+   signalé capture à l'appui : "les équipements sont pas visibles sur
+   le chevalier") : `#victoryKnight` reprend exactement la même
+   structure imbriquée que `#knightZone` de la scène de combat
+   habituelle (`.knight-girl` = silhouette de base, `.knight-figure` =
+   surimpression des pièces, positions en % — voir knight.js/
+   renderVictoryKnight) — avant ce correctif, `renderVictoryScene()`
+   n'écrivait que la silhouette nue, jamais l'équipement. Hauteur fixe
+   posée ICI (au lieu de sur le `svg` comme avant) : `.knight-girl`
+   (règle partagée avec la scène de combat) a besoin d'un `height:100%`
+   sur son propre parent pour se dimensionner. */
 .victory-knight{
   position:absolute;
   left:70%;
   bottom:0;
   transform:translateX(-50%);
-}
-.victory-knight svg{
-  display:block;
   height:150px;
-  width:auto;
-  image-rendering:pixelated;
 }
-.victory-sword{
-  position:absolute;
-  left:38%;
-  bottom:38px;
-  transform:translateX(-50%) rotate(58deg);
-}
-.victory-sword svg{
-  display:block;
-  width:50px;
-  height:auto;
+/* Épée-trophée tenue dans la main droite (21/09/2026, demande
+   explicite — remplace l'ancienne épée "plantée sur le dragon",
+   `.victory-sword` positionnée en dehors du chevalier, qui donnait
+   l'impression trompeuse d'une épée mal tenue en travers du buste).
+   Réutilise exactement l'emplacement/la rotation de la pièce
+   d'équipement PYTHON (KNIGHT_GIRL_OVERLAY.python/KNIGHT_HELD_
+   ROTATION.python, knight.js) pour rester cohérente avec le reste du
+   site — mais visible en permanence, indépendamment de la progression
+   du chapitre PYTHON (élément narratif de la scène, pas une pièce
+   d'équipement débloquée). Couleur blanche (pas gris/argent comme les
+   pièces d'armure) : c'est une épée brandie, pas du métal porté. */
+.victory-sword-held{
   color:var(--fg);
+}
+.victory-sword-held svg{
+  width:100%;
+  height:100%;
+  display:block;
 }
 .victory-caption{
   font-family:var(--font-subtitle);
@@ -850,18 +863,18 @@ body.page-changelog .scroll-top-btn.at-top .scroll-top-icon{
   color:var(--fg);
   transform:scaleX(-1);
 }
+/* Même correctif que `.victory-knight` ci-dessus (structure imbriquée
+   knight-girl/knight-figure) : le chevalier vaincu affiche aussi son
+   équipement réel, la défaite hebdomadaire ne fait pas disparaître la
+   progression déjà acquise. Pas d'épée-trophée ici (contrairement à
+   la victoire) : le chevalier est au sol, terrassé. */
 .defeat-knight{
   position:absolute;
   left:76%;
   bottom:2px;
   transform:translateX(-50%) rotate(88deg);
   opacity:.6;
-}
-.defeat-knight svg{
-  display:block;
   height:130px;
-  width:auto;
-  image-rendering:pixelated;
 }
 .defeat-caption{
   font-family:var(--font-subtitle);
