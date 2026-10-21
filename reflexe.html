@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<script src="chapters.js?v=159"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>RÉFLEXE // SYNTHÈSE L1 MATHS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=159">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/auto-render.min.js"></script>
+<style>
+  .reflex-page{ max-width:560px; width:100%; margin:38px auto 0; }
+  .reflex-page__title{
+    font-family:var(--font-title);
+    font-size:1.6rem;
+    letter-spacing:.05rem;
+    margin-bottom:10px;
+  }
+  .reflex-page__intro{
+    font-size:.95rem;
+    color:var(--fg-dim);
+    line-height:1.5;
+    margin-bottom:16px;
+  }
+  .reflex-start{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .reflex-start label{
+    font-family:var(--font-subtitle);
+    font-size:.8rem;
+    color:var(--fg-dim);
+  }
+  .reflex-start select{
+    background:var(--bg);
+    color:var(--fg);
+    border:1px solid var(--fg-dim);
+    padding:8px 10px;
+    font-size:1rem;
+    width:100%;
+    max-width:100%;
+  }
+  .reflex-best{
+    font-size:.85rem;
+    color:var(--fg-dim);
+    min-height:1.2em;
+  }
+  .reflex-progress-line{
+    font-family:var(--font-subtitle);
+    font-size:.8rem;
+    color:var(--fg-dim);
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .reflex-timer{
+    font-family:var(--font-title);
+    color:var(--fg);
+    letter-spacing:.05rem;
+  }
+  .reflex-next-btn{ margin-top:14px; }
+  .reflex-done{
+    text-align:center;
+    padding:30px 10px;
+    border:1px dashed var(--fg-dim);
+  }
+  .reflex-done__time{
+    font-family:var(--font-title);
+    font-size:2.2rem;
+    letter-spacing:.05rem;
+  }
+  .reflex-done__detail{
+    font-size:.9rem;
+    color:var(--fg-dim);
+    margin-top:8px;
+  }
+  .reflex-done__record{
+    font-family:var(--font-subtitle);
+    font-size:.85rem;
+    color:var(--fg);
+    margin-top:10px;
+    letter-spacing:.05rem;
+  }
+  .reflex-done button{ margin-top:18px; }
+</style>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="L1 Maths">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+</head>
+<body class="page-reflexe">
+<a href="index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
+<div class="crt">
+
+  <main class="reflex-page">
+    <h1 class="reflex-page__title">RÉFLEXE</h1>
+    <p class="reflex-page__intro">Questions de méthode tirées des TD, chronométrées — pas pour apprendre, pour aller vite sur ce que tu sais déjà faire. Répondre ici met à jour la fiche d'origine et « mes erreurs fréquentes » comme si tu répondais sur place.</p>
+    <div id="reflexApp"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-reveal" id="footerReveal">
+      <div class="pixel-rule">════════════════════════════════════════════════</div>
+      <div>RÉFLEXE</div>
+    </div>
+  </footer>
+
+</div>
+<script src="menu.js?v=159"></script>
+<script src="pwa.js?v=159"></script>
+<script src="tooltips.js?v=159"></script>
+<script src="weekly.js?v=159"></script>
+<script src="music.js?v=159"></script>
+<script src="progression.js?v=159"></script>
+<script src="reflexe-data.js?v=159"></script>
+<script src="reflexe.js?v=159"></script>
+<script data-goatcounter="https://mathprogramme.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

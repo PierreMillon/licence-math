@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 159, date: "21/10/2026", desc: "Nouvelle page RÉFLEXE dans le menu : session chronométrée de questions de méthode tirées des TD, record personnel conservé" },
   { v: 158, date: "21/10/2026", desc: "<ul><li>LOGIQUE, ANALYSE et PYTHON débloqués</li><li>ANALYSE : nouvelles sections Intervalles, Partie entière/valeur absolue, Croissances comparées, Méthodes d'inéquations + synthèse (36 questions)</li><li>ALGÈBRE : nouvelle section Polynômes (12 questions)</li><li>LOGIQUE : nouvelle section PGCD/PPCM (8 questions)</li><li>PYTHON : nouvelle section Boucles imbriquées (6 questions)</li></ul>" },
   { v: 157, date: "21/09/2026", desc: "QCM CALCULUS/ALGÈBRE : chaque mauvaise réponse explique pourquoi CE choix précis est faux" },
   { v: 156, date: "21/09/2026", desc: "Barre hebdomadaire : la remise à zéro du lundi se déclenche aussi en revenant sur l'appli, pas juste au rechargement" },

@@ -1769,3 +1769,86 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   5 chapitres actifs, réponse (fausse puis correcte) vérifiée sur un
   nouvel exercice d'ANALYSE et un nouvel exercice d'ALGÈBRE —
   `wrongExplain`/`explain` corrects dans les deux cas.
+
+## Nouvelle page RÉFLEXE : session chronométrée (21/10/2026, demande explicite)
+
+- Suite immédiate de la compilation ci-dessus, même journée : retour
+  de Pierre sur sa copie de contrôle d'ALGÈBRE (bonne compréhension,
+  trop lent) — demande une page à part dans le menu, « les réflexes
+  qui viennent des TD », chronométrée. Pas de mode de ce type avant
+  (`revision.html`/« révision ciblée » existait déjà mais rejoue les
+  pires scores, pas chronométré, et n'est pas dans le tiroir de menu
+  — accessible seulement depuis mistakes.html/progression.html).
+- **Contrainte d'architecture retrouvée (déjà documentée, menu.js/
+  progression.js)** : chaque `fiches/*.js` déclare `const EXERCISES`/
+  `const SECTIONS` en haut de fichier — deux fiches ne peuvent JAMAIS
+  être chargées sur la même page (collision de nom), donc une page
+  transverse multi-chapitres ne peut pas charger les fichiers des
+  chapitres directement. `revision.js` contourne déjà ça en
+  travaillant sur un instantané séparé (`l1maths_mistakes`, rempli au
+  fil des vraies erreurs) plutôt que sur les données vivantes — repris
+  à l'identique ici, en substituant la source : **`reflexe-data.js`**
+  (nouveau fichier), un pool `REFLEX_EXERCISES` figé, COPIE (pas
+  référence vivante) d'exercices déjà présents dans les fiches, avec
+  un `chapterId` ajouté à chacun.
+- **Sélection du pool** (« qui viennent des TD » pris au pied de la
+  lettre, pas toutes les questions actives du site) : seulement les
+  sections dont la source documentée est un vrai TD/corrigé/exercice
+  de tableau — PAS les sections cours/mémento (même si elles aussi
+  demandent de bien connaître une règle, ce n'est pas le même usage) :
+  CALCULUS §1 algébrique (19) + §2 trinome (11), ANALYSE §4
+  méthodes-inéquations (8) + §5 synthèse (6), ALGÈBRE §7 polynomes
+  (12), LOGIQUE §I.6 arithmétique PGCD/PPCM (8). Total 64 questions,
+  PYTHON absent du pool (aucune section de ce chapitre n'est
+  TD-sourcée à ce jour). Extraction faite via un script Node (`vm`
+  sandbox chargeant chaque fiches/*.js avec `initFiche` neutralisé en
+  no-op, pour capturer `EXERCISES` sans dépendre du DOM) plutôt qu'une
+  recopie manuelle — zéro risque de coquille de transcription sur les
+  64 objets (statements/options/LaTeX/wrongExplain).
+- Session : 12 questions tirées au hasard du pool filtré (ou moins si
+  le chapitre choisi en a moins — ex. LOGIQUE seul, 8 disponibles),
+  sélecteur de chapitre (« tous » ou un chapitre actif précis) sur
+  l'écran de départ. Chronomètre en minutes:secondes, affiché en
+  direct (mis à jour toutes les 500ms) à côté de « Question i/N »
+  pendant toute la session.
+- Répondre ici écrit le résultat dans la MÊME couche de state que la
+  fiche d'origine (`writeExerciseResult`/`recordMistake`/
+  `improveMistake`, menu.js/progression.js — même mécanisme que
+  revision.js) : une bonne réponse en réflexe compte aussi pour la
+  progression normale du chapitre. `wrongExplain` (explication de la
+  mauvaise réponse précise) fonctionne aussi ici — petite fonction
+  dédiée recopiée depuis `wrongAnswerExplainLine` (fiche-engine.js,
+  3 lignes) plutôt que de charger tout fiche-engine.js (560 lignes,
+  `initFiche`/`applyNotationPreference` inutiles sur cette page).
+- **Record personnel** (`l1maths_reflex_best`, clé par
+  chapitre+taille de session) : un temps ne devient record QUE sur une
+  session sans aucune erreur — sinon le chronomètre entraînerait à
+  répondre vite au hasard plutôt qu'à être rapide sur un réflexe déjà
+  maîtrisé, à l'opposé du but recherché par Pierre. Affiché sur l'écran
+  de départ avant de relancer une session sur la même sélection.
+- Lien « RÉFLEXE CHRONOMÉTRÉ » ajouté au tiroir de menu (`buildDrawer`,
+  menu.js), juste avant « MES ERREURS FRÉQUENTES » — demande explicite
+  « page à part dans le menu », contrairement à révision ciblée qui
+  n'y a jamais été.
+- `reflexe.html`/`reflexe.js`/`reflexe-data.js` ajoutés au précache du
+  service worker (`sw.js`, STATIC_FILES/VERSIONED_FILES) pour rester
+  utilisables hors-ligne comme le reste du site. Ship en tant que
+  version séparée (v159) de la compilation de contenu ci-dessus (v158)
+  — fonctionnalité distincte, livrée dans la foulée le même jour.
+- **Limite d'accès reprécisée par Pierre** : les « discussions Claude »
+  dont il parlait sont dans l'app Claude sur son iPhone, pas sur le
+  web — mais ça ne change rien à la limite déjà documentée plus haut :
+  aucun outil de cette session ne donne accès à l'historique de
+  conversation de l'app mobile claude.ai, peu importe l'appareil que
+  Pierre utilise pour y accéder lui-même. Pas traité cette session —
+  Pierre devra exporter/partager le contenu utile directement si
+  besoin.
+- Testé (Playwright, 320/390px) : lien du tiroir de menu présent,
+  sélecteur de chapitre liste bien tous les chapitres actifs ayant du
+  contenu réflexe, session complète de 12 questions (bonnes et
+  mauvaises réponses, feedback `wrongExplain` avec KaTeX compris) sans
+  erreur console ni débordement, chronomètre qui avance bien en direct
+  pendant la session, écran de fin correct (temps/score/moyenne),
+  session sans aucune erreur enregistrée comme record et affichée au
+  prochain passage sur la même sélection, filtre par chapitre single
+  (LOGIQUE, pool réduit à 8) fonctionnel.

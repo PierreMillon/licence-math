@@ -38,7 +38,7 @@
    montée), soit il retélécharge tout à chaque visite sans jamais
    trouver le cache à jour (des ?v= qui ne correspondent à aucune
    entrée précachée). */
-const VERSION = 158;
+const VERSION = 159;
 const CACHE_NAME = 'l1maths-v' + VERSION;
 
 /* Fiche HTML/JS de chaque chapitre — pas un import de chapters.js
@@ -68,6 +68,7 @@ const VERSIONED_FILES = [
   'app.js', 'chapters.js', 'changelog.js', 'creature-svgs.js', 'creature.js',
   'knight-svgs.js', 'knight.js', 'menu.js', 'mistakes.js', 'music.js',
   'notation.js', 'progression-page.js', 'progression.js', 'pwa.js',
+  'reflexe-data.js', 'reflexe.js',
   'revision.js', 'scene.js', 'tooltips.js', 'victory.js', 'weekly.js',
   'fiches/fiche-engine.js',
   ...ACTIVE_CHAPTER_IDS.map(id => CHAPTER_FICHE_FILES[id].js),
@@ -79,7 +80,7 @@ const VERSIONED_FILES = [
    ces trois n'est versionné avec le reste du site). */
 const STATIC_FILES = [
   './', 'index.html', 'changelog.html', 'mistakes.html', 'notation.html',
-  'progression.html', 'revision.html',
+  'progression.html', 'reflexe.html', 'revision.html',
   ...ACTIVE_CHAPTER_IDS.map(id => CHAPTER_FICHE_FILES[id].html),
   'manifest.json',
   'vendor/katex/katex.min.css', 'vendor/katex/katex.min.js',
