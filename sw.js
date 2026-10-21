@@ -38,7 +38,7 @@
    montée), soit il retélécharge tout à chaque visite sans jamais
    trouver le cache à jour (des ?v= qui ne correspondent à aucune
    entrée précachée). */
-const VERSION = 157;
+const VERSION = 158;
 const CACHE_NAME = 'l1maths-v' + VERSION;
 
 /* Fiche HTML/JS de chaque chapitre — pas un import de chapters.js
@@ -58,7 +58,7 @@ const CHAPTER_FICHE_FILES = {
   java:         { html: 'fiches/java.html',         js: 'fiches/java.js' },
   python:       { html: 'fiches/python.html',       js: 'fiches/python.js' },
 };
-const ACTIVE_CHAPTER_IDS = ['calculus', 'algebre'];
+const ACTIVE_CHAPTER_IDS = ['logique', 'calculus', 'algebre', 'analyse', 'python'];
 
 /* Fichiers versionnés (?v=VERSION dans les balises <link>/<script> de
    chaque page, voir scripts/check-versions.sh) — la query string est

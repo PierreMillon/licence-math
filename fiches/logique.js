@@ -6,6 +6,20 @@
    (L1 INU Champollion) : 6 chapitres (raisonnement,
    ensembles, fonctions/applications, injections/surjections/
    bijections, image directe/réciproque, relations d'équivalence).
+
+   §I.6 (PGCD, PPCM) ajoutée le 21/10/2026, demande explicite. Source :
+   « Formules à réviser (L1 Maths) - avec ensembles » (note Google Doc
+   rédigée par Pierre lui-même le 12/10/2026, probablement une synthèse
+   issue d'une conversation Claude antérieure) — PAS le document officiel
+   « raisonnement_ensembles.pdf » (vérifié : ce document ne couvre pas
+   le PGCD/PPCM/Bézout/Gauss du tout, uniquement la relation « divise »
+   de base en §I.1). Une seconde source existe (« Algèbre - Bases
+   small.pdf », Gaël) mais c'est un scan à l'OCR trop dégradé pour
+   servir de texte (même limite que d'autres PDF de Gaël déjà notée
+   ailleurs dans ce fichier/CLAUDE.md). Contenu mathématique standard
+   et classique (arithmétique de base), pas de risque de contresens
+   malgré l'absence de source officielle confirmée — à ajuster si un
+   vrai document de cours sur ce sujet est identifié plus tard.
    ============================================================ */
 
 const EXERCISES = [
@@ -64,6 +78,94 @@ const EXERCISES = [
     options: ["P(0) ET P(1)", "Seulement P(0)", "P(0), P(1) et P(2)"],
     correctIndex: 0,
     explain: "Le cours précise que la récurrence à deux pas nécessite d'initialiser sur les deux premières valeurs P(0) et P(1), sinon l'hérédité ne s'amorce pas correctement (exemple des suites un+2=un+1+un).",
+  },
+  {
+    id: "ex35", section: "arithmetique",
+    statement: "Pour deux entiers \\(a,b\\), le produit \\(\\text{pgcd}(a,b)\\times\\text{ppcm}(a,b)\\) est égal à :",
+    options: ["\\(a\\times b\\)", "\\(a+b\\)", "\\(\\max(a,b)\\)"],
+    correctIndex: 0,
+    explain: "Identité fondamentale reliant les deux notions : le produit du plus grand diviseur commun et du plus petit multiple commun redonne toujours le produit des deux nombres de départ.",
+    wrongExplain: {
+      1: "Cette identité relie un PRODUIT (pgcd×ppcm) à un produit (a×b), pas à une somme — ce n'est pas la bonne opération.",
+      2: "\\(\\max(a,b)\\) ne fait intervenir qu'un des deux nombres, jamais leur relation de divisibilité mutuelle — ce n'est pas lié au pgcd ou au ppcm.",
+    },
+  },
+  {
+    id: "ex36", section: "arithmetique",
+    statement: "Le \\(\\text{pgcd}(a,b)\\) (plus grand commun diviseur) est, par définition :",
+    options: ["Le plus grand entier qui divise à la fois \\(a\\) et \\(b\\)", "Le plus petit entier qui divise à la fois \\(a\\) et \\(b\\)", "Le plus grand entier parmi \\(a\\) et \\(b\\)"],
+    correctIndex: 0,
+    explain: "C'est la définition même : parmi tous les diviseurs COMMUNS à \\(a\\) et \\(b\\), on prend le plus grand.",
+    wrongExplain: {
+      1: "Le plus PETIT diviseur commun à deux entiers est toujours 1 — ce n'est pas une notion utile, contrairement au plus GRAND.",
+      2: "Cette option confond « le plus grand des deux nombres » avec « le plus grand DIVISEUR COMMUN » — ce sont deux notions totalement différentes.",
+    },
+  },
+  {
+    id: "ex37", section: "arithmetique",
+    statement: "Le \\(\\text{ppcm}(a,b)\\) (plus petit commun multiple) est, par définition :",
+    options: ["Le plus petit entier qui est multiple à la fois de \\(a\\) et de \\(b\\)", "Le plus grand entier qui est multiple à la fois de \\(a\\) et de \\(b\\)", "Le produit \\(a\\times b\\) toujours"],
+    correctIndex: 0,
+    explain: "Parmi tous les multiples COMMUNS à \\(a\\) et \\(b\\) (il y en a une infinité), on prend le plus PETIT strictement positif.",
+    wrongExplain: {
+      1: "Il n'existe pas de plus GRAND multiple commun : les multiples communs sont en nombre infini (on peut toujours en trouver un plus grand) — seul le plus PETIT a un sens.",
+      2: "\\(a\\times b\\) n'est le ppcm que lorsque \\(a\\) et \\(b\\) sont premiers entre eux (pgcd=1) — en général \\(\\text{ppcm}(a,b)=\\dfrac{a\\times b}{\\text{pgcd}(a,b)}\\), pas simplement \\(a\\times b\\).",
+    },
+  },
+  {
+    id: "ex38", section: "arithmetique",
+    statement: "Pour rendre une fraction \\(\\dfrac{a}{b}\\) irréductible, on divise le numérateur et le dénominateur par :",
+    options: ["Leur pgcd", "Leur ppcm", "Un nombre premier quelconque"],
+    correctIndex: 0,
+    explain: "Diviser par le pgcd élimine TOUS les facteurs communs d'un coup — le résultat n'a alors plus aucun diviseur commun avec le dénominateur, c'est la définition d'une fraction irréductible.",
+    wrongExplain: {
+      1: "Le ppcm est généralement bien plus grand que \\(a\\) et \\(b\\) eux-mêmes — diviser par le ppcm donnerait des résultats non entiers dans la plupart des cas.",
+      2: "Un nombre premier quelconque pourrait ne diviser ni \\(a\\) ni \\(b\\) — il faut spécifiquement LEUR plus grand diviseur commun, pas un nombre choisi au hasard.",
+    },
+  },
+  {
+    id: "ex39", section: "arithmetique",
+    statement: "L'algorithme d'Euclide pour calculer \\(\\text{pgcd}(a,b)\\) repose sur l'identité : si \\(a=bq+r\\), alors :",
+    options: ["\\(\\text{pgcd}(a,b)=\\text{pgcd}(b,r)\\)", "\\(\\text{pgcd}(a,b)=\\text{pgcd}(a,r)\\)", "\\(\\text{pgcd}(a,b)=q\\)"],
+    correctIndex: 0,
+    explain: "On remplace la paire \\((a,b)\\) par la paire \\((b,r)\\) (plus petite), qui a le MÊME pgcd — en répétant, le reste finit par s'annuler, et le pgcd est le dernier reste non nul.",
+    wrongExplain: {
+      1: "C'est \\(b\\) (pas \\(a\\)) qui doit rester dans la nouvelle paire avec \\(r\\) — garder \\(a\\) ne fait pas progresser l'algorithme vers des nombres plus petits.",
+      2: "Le quotient \\(q\\) n'a aucune raison d'être le pgcd — c'est le RESTE \\(r\\) de la division, pas le quotient, qui intervient dans la relation de récurrence.",
+    },
+  },
+  {
+    id: "ex40", section: "arithmetique",
+    statement: "D'après le théorème de Bézout, pour deux entiers \\(a,b\\), il existe toujours des entiers \\(u,v\\) tels que :",
+    options: ["\\(au+bv=\\text{pgcd}(a,b)\\)", "\\(au+bv=0\\)", "\\(au+bv=\\text{ppcm}(a,b)\\)"],
+    correctIndex: 0,
+    explain: "Le théorème de Bézout garantit qu'une combinaison linéaire entière de \\(a\\) et \\(b\\) peut toujours atteindre exactement leur pgcd.",
+    wrongExplain: {
+      1: "\\(au+bv=0\\) a toujours une solution triviale (\\(u=v=0\\)), mais ce n'est pas ce qu'affirme Bézout — Bézout garantit d'atteindre le PGCD, pas zéro.",
+      2: "Le ppcm est plus grand que le pgcd (sauf cas particulier) et n'est pas la quantité garantie par Bézout — c'est bien le pgcd qui est atteint.",
+    },
+  },
+  {
+    id: "ex41", section: "arithmetique",
+    statement: "Le théorème de Gauss énonce : si \\(a\\) divise \\(b\\times c\\) et que \\(\\text{pgcd}(a,b)=1\\), alors :",
+    options: ["\\(a\\) divise \\(c\\)", "\\(a\\) divise \\(b\\)", "\\(a=1\\) nécessairement"],
+    correctIndex: 0,
+    explain: "Puisque \\(a\\) n'a aucun facteur commun avec \\(b\\) (ils sont premiers entre eux), tout ce que \\(a\\) « apporte » dans le produit \\(b\\times c\\) doit venir de \\(c\\) — donc \\(a\\) divise \\(c\\).",
+    wrongExplain: {
+      1: "C'est précisément l'hypothèse \\(\\text{pgcd}(a,b)=1\\) qui EXCLUT que \\(a\\) divise \\(b\\) (sauf trivialement) — la conclusion porte sur \\(c\\), pas sur \\(b\\).",
+      2: "Rien n'impose \\(a=1\\) : par exemple \\(a=5,b=3,c=10\\) vérifient les hypothèses (\\(5\\mid30\\), \\(\\text{pgcd}(5,3)=1\\)) avec \\(a=5\\neq1\\), et bien \\(5\\mid10\\).",
+    },
+  },
+  {
+    id: "ex42", section: "arithmetique",
+    statement: "Deux entiers \\(a,b\\) sont dits « premiers entre eux » si et seulement si :",
+    options: ["\\(\\text{pgcd}(a,b)=1\\)", "\\(a\\) et \\(b\\) sont tous deux des nombres premiers", "\\(\\text{ppcm}(a,b)=a\\times b\\) seulement"],
+    correctIndex: 0,
+    explain: "« Premiers entre eux » signifie qu'ils n'ont AUCUN diviseur commun autre que 1 — \\(a\\) et \\(b\\) eux-mêmes n'ont pas besoin d'être des nombres premiers (ex. 8 et 9 sont premiers entre eux, mais ni 8 ni 9 n'est premier).",
+    wrongExplain: {
+      1: "« Premiers ENTRE EUX » ne signifie pas que chacun est individuellement un nombre premier — ex. 8 et 9 sont premiers entre eux (pgcd=1) sans que 8 ou 9 soit un nombre premier.",
+      2: "Cette égalité \\(\\text{ppcm}(a,b)=a\\times b\\) est en fait une CONSÉQUENCE de \\(\\text{pgcd}(a,b)=1\\), pas une définition indépendante — c'est circulaire de la poser comme condition seule.",
+    },
   },
   {
     id: "ex9", section: "egalite-definir",
@@ -269,6 +371,10 @@ const SECTIONS = [
   {
     id: "recurrence", title: "§I.5 — LA RÉCURRENCE",
     cours: "<span class=\"math\">Récurrence simple</span> pour montrer \\(\\forall n\\geq n_0, \\mathcal{P}(n)\\) : initialisation \\(\\mathcal{P}(n_0)\\) vraie ; hérédité \\(\\mathcal{P}(n)\\Rightarrow\\mathcal{P}(n+1)\\) pour \\(n\\geq n_0\\) quelconque.<br><span class=\"math\">Récurrence à deux pas</span> : initialisation sur \\(\\mathcal{P}(n_0)\\) ET \\(\\mathcal{P}(n_0+1)\\) ; hérédité \\(\\mathcal{P}(n)\\text{ et }\\mathcal{P}(n+1)\\Rightarrow\\mathcal{P}(n+2)\\) (utile pour les suites du type \\(u_{n+2}=u_{n+1}+u_n\\)).<br><span class=\"math\">Récurrence forte</span> : l'hérédité utilise TOUTES les valeurs \\(\\mathcal{P}(0),\\ldots,\\mathcal{P}(n)\\) pour prouver \\(\\mathcal{P}(n+1)\\), pas seulement le rang précédent.<br>Récurrence limitée : même principe restreint à une plage finie \\(n_0,\\ldots,N\\).<br>Erreur classique (paradoxe des crayons de couleur) : oublier de vérifier que l'hérédité est valable aussi pour les tout premiers rangs, pas seulement à partir d'un certain rang.<br><span class=\"cours-crosslink\">↔ En code : une récurrence qui construit \\(\\mathcal{P}(n+1)\\) à partir de \\(\\mathcal{P}(n)\\), c'est une boucle qui met à jour un accumulateur à chaque tour, voir <a href=\"python.html\">le chapitre Python, §4 — Boucle for</a>.</span>",
+  },
+  {
+    id: "arithmetique", title: "§I.6 — ARITHMÉTIQUE : PGCD, PPCM",
+    cours: "\\(\\text{pgcd}(a,b)\\) : le plus grand diviseur commun à \\(a\\) et \\(b\\) ; \\(\\text{ppcm}(a,b)\\) : le plus petit multiple commun<br>\\(\\text{pgcd}(a,b)\\times\\text{ppcm}(a,b)=a\\times b\\)<br>Fraction irréductible : diviser numérateur et dénominateur par leur pgcd<br><span class=\"math\">Algorithme d'Euclide</span> : \\(a=bq+r \\Rightarrow \\text{pgcd}(a,b)=\\text{pgcd}(b,r)\\), jusqu'à un reste nul (le pgcd est le dernier reste non nul)<br><span class=\"math\">Bézout</span> : \\(\\exists u,v\\in\\mathbb{Z}, au+bv=\\text{pgcd}(a,b)\\)<br><span class=\"math\">Gauss</span> : \\(a\\mid bc\\) et \\(\\text{pgcd}(a,b)=1 \\Rightarrow a\\mid c\\)<br>\\(a,b\\) <span class=\"math\">premiers entre eux</span> \\(\\Leftrightarrow \\text{pgcd}(a,b)=1\\) (ne veut pas dire que \\(a\\) ou \\(b\\) sont premiers)",
   },
   {
     id: "egalite-definir", title: "§II.1 — ÉGALITÉ ET DÉFINITION D'UN ENSEMBLE",

@@ -1621,3 +1621,151 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   \(\overline{z}\), \(\varrho e^{i\theta}\) — zéro erreur console
   imputable au contenu), puis remis à `false` avant de livrer, comme
   pour CALCULUS.
+
+## Grosse compilation autonome : LOGIQUE/ANALYSE/PYTHON débloqués + contenu étoffé (21/10/2026, demande explicite, faite de nuit en autonomie)
+
+- Demande d'origine (vocal, retranscrit approximativement) : les cours
+  de CALCULUS/ALGÈBRE/ANALYSE/PYTHON/LOGIQUE ont tous avancé depuis la
+  rentrée — compiler tous les exercices/TD/bonnes pratiques/cours
+  disponibles (Drive ET « discussions Claude »), savoir où en est
+  chaque cours exactement, et refaire les fiches avec des questions
+  VRAIMENT ciblées sur les micro-détails à connaître par cœur, plus
+  des questions de méthode/bonnes pratiques tirées des TD — en
+  autonomie pendant la nuit, pour un retour le lendemain matin.
+- **Limite d'accès signalée, importante pour la suite** : « les
+  discussions Claude » dont parle Pierre sont des conversations
+  ouvertes sur claude.ai (web), PAS accessibles depuis cette session
+  (aucun outil de lecture de l'historique claude.ai d'un autre compte/
+  conversation). Tout le contenu de cette session a donc été construit
+  uniquement à partir du Drive (PDF de cours/TD/corrections, photos
+  prises en classe, et la propre note Google Doc de Pierre « Formules
+  à réviser (L1 Maths) — avec ensembles » utilisée comme proxy pour
+  LOGIQUE §PGCD en l'absence de tout autre document couvrant ce point).
+  Si Pierre veut que le contenu de ces discussions claude.ai soit
+  intégré un jour, il faudra qu'il en partage un lien/export — à ne
+  pas supposer déjà fait.
+- Clarifications obtenues avant de lancer le travail (questions posées
+  explicitement, comme demandé) : les 14 photos/1 capture uploadées le
+  jour même sont bien du contenu de cours/TD à exploiter ; profondeur
+  ANALYSE/LOGIQUE = aussi exhaustif que possible, même méthode que
+  CALCULUS/ALGÈBRE (une question par règle/théorème + pièges tirés des
+  TD/corrections), sans point d'arrêt artificiel.
+- Précisions arrivées en cours de route (messages suivants de Pierre,
+  pas prévues au départ) :
+  - PYTHON ne se limite pas à la réactivation telle quelle : le cours
+    couvre maintenant aussi les boucles imbriquées (en plus de while
+    et des fonctions, déjà couverts) — contenu à ajouter, pas juste
+    débloquer.
+  - Questions à rendre **particulièrement détaillées** ("qu'il n'y ait
+    rien qui m'échappe"), et terminer chaque bloc de sections par une
+    petite **synthèse/compilation** de questions plus complexes qui
+    COMBINENT plusieurs techniques déjà vues — nouvelle convention de
+    contenu, appliquée pour l'instant seulement au nouveau bloc
+    préliminaire d'ANALYSE (`synthese-prelim`, 6 questions) : pas une
+    reprise rétroactive des sections déjà existantes, juste le
+    standard à suivre pour tout nouveau contenu à partir de maintenant.
+  - Pierre a partagé sa copie réelle du premier contrôle d'ALGÈBRE
+    linéaire 1 (9,75/20, annotation du correcteur : « Très bien dans
+    l'ensemble. Ce qu'il manque : de la rapidité certainement et de la
+    confiance... ») — bonne compréhension/rédaction, mais trop LENT.
+    Objectif qu'il a formulé : remplir un contrôle "comme on remplit
+    son nom et prénom", par réflexe. Pas une demande de fonctionnalité
+    précise (pas de mode chronométré demandé) — gardé comme contexte
+    qui VALIDE le format QCM micro-questions déjà en place (entraîner
+    le réflexe plutôt que la seule compréhension) ; à proposer
+    explicitement à Pierre si l'occasion se présente, pas construit
+    sans qu'il le demande.
+  - Pierre a précisé que son cours le plus difficile est l'ANALYSE
+    (pas l'ALGÈBRE comme dit d'abord, autocorrigé) — cohérent avec le
+    traitement déjà en cours (bloc de 5 nouvelles sections + synthèse,
+    le plus gros ajout de la nuit).
+- **`fiches/analyse.js`** : 5 nouvelles sections insérées AVANT les 9
+  sections existantes (renumérotées §1→§6 … §9→§14, texte seulement,
+  aucun id/exercice déplacé) — §1 Intervalles/inégalités, §2 Partie
+  entière/valeur absolue, §3 Croissances comparées, §4 Méthodes
+  d'inéquations (tirées des corrigés de TD1/TD2/CC1), §5 synthèse
+  (compilation combinée, cf. ci-dessus). Sources Drive : cours
+  « cours analyse L1 p1-9 12 10 26 moodle.pdf » (A. CHARRON), TD1 et
+  TD2 avec corrections, épreuve CC1 + sa correction. 36 nouveaux
+  exercices (`ex43`-`ex84`, ids continuant après le dernier existant —
+  jamais les ids existants, pour ne pas désynchroniser la progression
+  déjà enregistrée). Total : 42 → **84 exercices**, 9 → **14
+  sections**. `chapters.js`/`fiches/analyse.html` mis à jour
+  (`total:84`), `active: true`.
+- **`fiches/algebre.js`** : nouvelle section « §7 — POLYNÔMES
+  (CHAPITRE II) », sourcée depuis 9 photos de tableau prises par
+  Pierre en cours le jour même (pas de PDF cette fois) — équation
+  fonctionnelle à racines infinies, substitution (X+3)P(X)=XP(X+1),
+  formules de Viète degré 3, calcul de \(a^3+b^3+c^3\) par deux
+  méthodes, division euclidienne en un point, construction d'un
+  polynôme à 100 racines, cos n'est pas un polynôme (racines
+  infinies). 12 nouveaux exercices (`ex39`-`ex50`). Total : 38 → **50
+  exercices**, 6 → **7 sections**. Chapitres II/III du polycopié
+  restent pour le reste non traités (cf. note plus haut, inchangée) —
+  seule la partie Polynômes vue en photo ce jour a été ajoutée.
+- **`fiches/logique.js`** : nouvelle section « §I.6 — ARITHMÉTIQUE :
+  PGCD, PPCM » (pgcd×ppcm=a×b, algorithme d'Euclide, Bézout, Gauss,
+  fraction irréductible, définition "premiers entre eux") — **sourcée
+  depuis la propre note Drive de Pierre** (le PDF officiel
+  `raisonnement_ensembles.pdf` a été vérifié par recherche de texte et
+  NE couvre PAS ce sujet du tout ; le PDF de Gaël sur le même thème
+  s'est révélé être un scan OCR illisible, écarté). 8 nouveaux
+  exercices (`ex35`-`ex42`). Les 34 exercices déjà présents ont été
+  revérifiés fidèles au sommaire officiel (aucune réécriture
+  nécessaire, juste réactivation + cet ajout). Total : 34 → **42
+  exercices**, 19 → **21 sections**, `active: true`.
+- **`fiches/python.js`** : nouvelle section « §7 — BOUCLES
+  IMBRIQUÉES » (nombre d'itérations = produit pas somme, ordre
+  d'exécution, accumulateur non réinitialisé entre tours de boucle
+  externe, indentation qui détermine le placement d'un print,
+  `break` ne sort que de la boucle interne, technique `range(i+1,n)`
+  pour les paires uniques i<j) — déclenchée par la précision de Pierre
+  sur l'étendue réelle du cours. 6 nouveaux exercices (`ex44`-`ex49`).
+  Total : 43 → **49 exercices**, 8 → **9 sections**, `active: true`.
+- Les 36+12+8+6 = 62 nouveaux exercices de ce chantier ont tous
+  `wrongExplain` (convention du 21/09/2026, v157) — PAS de retrofit
+  rétroactif des exercices déjà existants dans ANALYSE/LOGIQUE (scope
+  trop large pour cette nuit, à faire une autre fois sur demande
+  explicite si besoin, même logique que les autres retrofits partiels
+  du projet).
+- `chapters.js` : `logique`/`analyse`/`python` passés à `active:true`
+  (en plus d'ALGÈBRE/CALCULUS déjà actifs) — les 5 chapitres donnés à
+  ce jour sont donc tous visibles. `sw.js` (`ACTIVE_CHAPTER_IDS`) mis à
+  jour en même temps, comme toujours (vérifié par
+  `scripts/check-versions.sh`).
+- **Bug CSS trouvé et corrigé en ajoutant le contenu ANALYSE** : une
+  nouvelle formule inline assez longue (la chaîne d'inclusions
+  \(N\subset Z\subset D\subset Q\subset R\subset C\)) a fait déborder
+  la page de 9px à 320px au lieu de se faire envelopper par
+  `wrapOverflowingMath()`. Cause : `.qcm-options label` (l'item flex
+  RÉEL de `.qcm-options{display:flex;flex-direction:column}`) n'avait
+  pas `min-width:0` — seul son `span` enfant l'avait, insuffisant.
+  Même classe de bug que `.crt > *` (voir plus haut, "Fragilité des
+  positions absolues"/`min-width:auto`), juste à un niveau différent
+  de l'arbre. Corrigé par la règle générale `min-width:0` sur `.qcm-
+  options label` (`style.css`) plutôt qu'au cas par cas — vérifié :
+  débordement 9px → 0, formule bien enveloppée dans `.math-scroll`.
+- **Faux positif investigué et écarté** : un débordement de 18px sur
+  LOGIQUE en mode continu à 320px, visible seulement lors du TOUT
+  PREMIER rendu KaTeX-lourd de la page dans un contexte de navigateur
+  neuf (42 exercices rendus d'un coup en continu, contre 6 par page en
+  mode paginé) — confirmé par un test isolé qu'il disparaît tout seul
+  dès que `document.fonts.ready` se résout (mécanisme déjà existant,
+  `typesetMath()`/menu.js, qui rejoue `wrapOverflowingMath` une
+  seconde fois après ce signal). Dans cet environnement de dev,
+  Google Fonts est bloqué par la politique réseau du bac à sable —
+  donc `document.fonts.ready` met plusieurs secondes à se résoudre
+  (timeout réseau) avant que le deuxième passage ne corrige
+  l'affichage, artefact qui n'a aucune raison de se produire en
+  production avec un vrai réseau (succès ou repli rapide sur la police
+  de secours). Pas un vrai bug, pas de correctif nécessaire — à
+  retenir si le même symptôme ressort un jour sur ce type de contenu
+  très chargé en mode continu, pour ne pas le re-diagnostiquer depuis
+  zéro.
+- Testé (Playwright, 320/390px × paginé/continu, les 5 chapitres) :
+  zéro débordement réel une fois le point ci-dessus pris en compte,
+  zéro erreur console imputable au contenu, scores/compteurs de
+  carrés corrects sur les 4 fiches modifiées, accueil affiche bien les
+  5 chapitres actifs, réponse (fausse puis correcte) vérifiée sur un
+  nouvel exercice d'ANALYSE et un nouvel exercice d'ALGÈBRE —
+  `wrongExplain`/`explain` corrects dans les deux cas.

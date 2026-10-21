@@ -238,6 +238,79 @@ const EXERCISES = [
     correctIndex: 0,
     explain: "break sort immédiatement de la boucle, sans attendre que la condition d'arrêt naturelle soit atteinte.",
   },
+  // ---------- §7 — Boucles imbriquées ----------
+  {
+    id: "ex44", section: "boucles-imbriquees",
+    statement: "<code>for i in range(2):<br>&nbsp;&nbsp;for j in range(3):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(i, j)</code><br>Combien de lignes ce code affiche-t-il au total ?",
+    options: ["6 (2×3)", "5 (2+3)", "3"],
+    correctIndex: 0,
+    explain: "Chaque tour de la boucle EXTÉRIEURE (i, 2 valeurs) relance ENTIÈREMENT la boucle INTÉRIEURE (j, 3 valeurs) : le nombre total de tours est le PRODUIT des deux, pas la somme.",
+    wrongExplain: {
+      1: "Imbriquer deux boucles ne les exécute pas l'une APRÈS l'autre (ce qui donnerait une somme) — la boucle intérieure est répétée ENTIÈREMENT à CHAQUE tour de la boucle extérieure, d'où un produit.",
+      2: "3 ne compte que les tours d'UNE SEULE exécution de la boucle intérieure — elle est relancée 2 fois (une par valeur de i), donc 2×3=6 au total.",
+    },
+  },
+  {
+    id: "ex45", section: "boucles-imbriquees",
+    statement: "<code>for i in range(3):<br>&nbsp;&nbsp;for j in range(2):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(i, j)</code><br>Quelle paire (i, j) est affichée en PREMIER, et laquelle en DERNIER ?",
+    options: ["(0, 0) en premier, (2, 1) en dernier", "(0, 0) en premier, (1, 2) en dernier", "(2, 1) en premier, (0, 0) en dernier"],
+    correctIndex: 0,
+    explain: "i commence à 0 et j aussi : la première paire est (0,0). La boucle extérieure s'arrête à i=2 et la boucle intérieure à j=1 (range(2) exclut 2) : la toute dernière paire affichée est donc (2,1).",
+    wrongExplain: {
+      1: "j ne peut jamais valoir 2 : range(2) ne génère que 0 et 1 (2 exclu) — cette paire ne peut pas apparaître.",
+      2: "La boucle EXTÉRIEURE (i) part toujours en premier avec sa plus petite valeur — la dernière paire affichée est (2,1), pas la première.",
+    },
+  },
+  {
+    id: "ex46", section: "boucles-imbriquees",
+    statement: "<code>total = 0<br>for i in range(1, 3):<br>&nbsp;&nbsp;for j in range(1, 4):<br>&nbsp;&nbsp;&nbsp;&nbsp;total = total + i * j<br>print(total)</code><br>Que vaut <code>total</code> affiché à la fin ?",
+    options: ["18", "6", "12"],
+    correctIndex: 0,
+    explain: "Pour i=1 : j=1,2,3 → produits 1,2,3 (somme 6). Pour i=2 : produits 2,4,6 (somme 12). Total cumulé sur les DEUX tours de i : 6+12=18 — l'accumulateur total n'est jamais remis à zéro entre les tours de la boucle extérieure.",
+    wrongExplain: {
+      1: "6 n'est que la contribution du PREMIER tour de la boucle extérieure (i=1) — il faut aussi ajouter celle du second tour (i=2), qui vaut 12.",
+      2: "12 n'est que la contribution du SECOND tour de la boucle extérieure (i=2) — l'accumulateur garde la trace du premier tour aussi, il ne repart pas de zéro.",
+    },
+  },
+  {
+    id: "ex47", section: "boucles-imbriquees",
+    statement: "<code>for i in range(3):<br>&nbsp;&nbsp;for j in range(3):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"*\", end=\"\")<br>&nbsp;&nbsp;print()</code><br>(le <code>print()</code> final est indenté sous <code>i</code>, pas sous <code>j</code>)<br>Que produit ce code ?",
+    options: ["Un carré de 3×3 étoiles (3 lignes de 3 étoiles)", "Une seule ligne de 9 étoiles", "9 lignes d'une seule étoile chacune"],
+    correctIndex: 0,
+    explain: "L'indentation détermine l'imbrication : <code>print(\"*\", end=\"\")</code> est dans la boucle j (3 étoiles par ligne, sans saut de ligne), tandis que <code>print()</code> (saut de ligne seul) n'est que dans la boucle i — il s'exécute une fois PAR LIGNE, à la fin de chaque tour de j.",
+    wrongExplain: {
+      1: "Si le print() final était aussi dans la boucle j, on obtiendrait bien une seule ligne continue — mais son indentation le place seulement dans la boucle i, donc un saut de ligne est inséré après chaque groupe de 3 étoiles.",
+      2: "Une étoile par ligne correspondrait à un print(\"*\") SANS end=\"\" — ici end=\"\" empêche justement le saut de ligne à chaque étoile, elles s'accumulent sur la même ligne jusqu'au print() final de chaque tour de i.",
+    },
+  },
+  {
+    id: "ex48", section: "boucles-imbriquees",
+    statement: "Dans une boucle <code>for</code> imbriquée dans une autre, l'instruction <code>break</code> placée dans la boucle INTÉRIEURE interrompt :",
+    options: ["Seulement la boucle intérieure — la boucle extérieure continue normalement", "Les deux boucles à la fois", "Seulement la boucle extérieure"],
+    correctIndex: 0,
+    explain: "break n'agit que sur la boucle la PLUS PROCHE qui l'englobe — pour sortir aussi de la boucle extérieure, il faut une autre technique (ex. un indicateur booléen, ou une fonction avec return).",
+    wrongExplain: {
+      1: "break ne sort que d'UN SEUL niveau de boucle (le plus proche) — il ne propage pas son effet aux boucles englobantes.",
+      2: "C'est l'inverse : break agit sur la boucle INTÉRIEURE (celle où il est écrit), pas sur la boucle extérieure qui l'englobe.",
+    },
+  },
+  {
+    id: "ex49", section: "boucles-imbriquees",
+    statement: "Pour parcourir tous les couples (i, j) avec <code>0 ≤ i &lt; j &lt; n</code> (chaque paire une seule fois), quelle structure est correcte ?",
+    options: [
+      "<code>for i in range(n):<br>&nbsp;&nbsp;for j in range(i+1, n):</code>",
+      "<code>for i in range(n):<br>&nbsp;&nbsp;for j in range(n):</code>",
+      "<code>for i in range(n):<br>&nbsp;&nbsp;for j in range(0, i):</code>",
+    ],
+    correctIndex: 0,
+    explain: "Faire démarrer j à i+1 (pas à 0) garantit i&lt;j ET évite de retraiter deux fois la même paire (une fois (i,j), une fois (j,i)) — astuce classique pour parcourir des paires distinctes sans répétition.",
+    wrongExplain: {
+      1: "Cette version parcourt TOUTES les paires (i,j), y compris celles où i≥j ou i=j — elle ne respecte pas la condition i&lt;j demandée.",
+      2: "Cette version donne j&lt;i (l'inverse de ce qui est demandé) — elle parcourt les couples où j est plus petit que i, pas l'inverse.",
+    },
+  },
+
+  // ---------- §8 — Fonctions ----------
   {
     id: "ex33", section: "fonctions-py",
     statement: "<code>from math import pi<br>def aire_disque(r):<br>&nbsp;&nbsp;return pi * r**2<br>print(aire_disque(10))</code><br>Que s'affiche-t-il (approximativement) ?",
@@ -343,11 +416,15 @@ const SECTIONS = [
     cours: "<code>while condition:</code> répète le bloc indenté tant que la condition vaut <code>True</code>, testée avant chaque tour<br>Contrairement à <code>for</code>, le nombre d'itérations n'est pas connu à l'avance : on utilise <code>while</code> quand l'arrêt dépend d'un calcul fait pendant la boucle<br>Risque de <span class=\"math\">boucle infinie</span> : si la condition ne devient jamais fausse (variable de contrôle jamais mise à jour dans le corps), le programme ne s'arrête pas<br>Toute boucle <code>for i in range(...)</code> peut se réécrire en <code>while</code> avec un compteur initialisé puis incrémenté manuellement à chaque tour<br><code>break</code> interrompt immédiatement la boucle (for ou while) en cours, avant que la condition ne redevienne fausse",
   },
   {
-    id: "fonctions-py", title: "§7 — FONCTIONS",
+    id: "boucles-imbriquees", title: "§7 — BOUCLES IMBRIQUÉES",
+    cours: "Une boucle <span class=\"math\">imbriquée</span> (boucle dans une boucle) relance ENTIÈREMENT la boucle intérieure à CHAQUE tour de la boucle extérieure : le nombre total de tours est le PRODUIT du nombre de tours de chacune, pas leur somme<br>L'indentation seule détermine quelle instruction appartient à quelle boucle — une instruction mal indentée (ex. un <code>print()</code> de saut de ligne) change complètement le résultat<br>Un accumulateur déclaré AVANT les deux boucles n'est remis à zéro qu'une seule fois, pas à chaque tour de la boucle extérieure<br><code>break</code> dans une boucle intérieure n'interrompt QUE cette boucle intérieure, jamais la boucle extérieure qui l'englobe<br>Pour parcourir des paires (i, j) avec i &lt; j sans répétition, faire démarrer la boucle intérieure à <code>i+1</code> (pas à 0)",
+  },
+  {
+    id: "fonctions-py", title: "§8 — FONCTIONS",
     cours: "<code>def nom(param1, param2):</code> définit une fonction ; le corps indenté s'exécute uniquement lors de l'appel <code>nom(a, b)</code><br><code>return valeur</code> termine la fonction et renvoie le résultat à l'appelant ; le code après un <code>return</code> exécuté n'est jamais atteint<br>Une fonction <span class=\"math\">sans instruction return</span> renvoie implicitement <code>None</code>, même si elle affiche quelque chose avec <code>print</code><br>Paramètre avec <span class=\"math\">valeur par défaut</span> <code>def f(x, n=2):</code> : n prend 2 si l'appelant ne le précise pas, sinon la valeur fournie<br>Une variable définie à l'intérieur d'une fonction est <span class=\"math\">locale</span> : elle n'existe pas en dehors de la fonction, même après son exécution",
   },
   {
-    id: "chaines", title: "§8 — CHAÎNES DE CARACTÈRES",
+    id: "chaines", title: "§9 — CHAÎNES DE CARACTÈRES",
     cours: "Une <span class=\"math\">chaîne</span> <code>str</code> se comporte comme une liste de caractères en lecture : <code>s[0]</code> premier caractère, <code>len(s)</code> nombre de caractères, <code>s[a:b]</code> sous-chaîne<br><code>+</code> concatène deux chaînes (pas d'addition numérique) ; <code>s * 3</code> répète la chaîne 3 fois<br><code>'motif' in s</code> teste si le motif apparaît dans s (booléen) ; ne renvoie pas une position<br>Une chaîne est <span class=\"math\">immutable</span> : <code>s[0] = 'A'</code> lève une erreur, il faut construire une nouvelle chaîne<br>Méthodes courantes : <code>s.upper()</code>/<code>s.lower()</code> (renvoient une nouvelle chaîne, ne modifient pas s), <code>s.split(' ')</code> découpe en liste de mots",
   },
 ];

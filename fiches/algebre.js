@@ -1,10 +1,11 @@
 /* ============================================================
    L1 MATHS — SYNTHÈSE — fiches/algebre.js
-   Fiche ALGÈBRE — Nombres complexes.
-   Source : « Algèbre linéaire 1 », L1 mathématiques, INU Champollion,
-   Pascal Ortiz — chapitre I (Nombres complexes), section 5 « Résultats
-   à connaître, mémento des formules » (fichier algebre_lineaire1.pdf,
-   dossier Math du Drive de Pierre). QCM à 3 réponses, LaTeX (KaTeX).
+   Fiche ALGÈBRE — Nombres complexes (chapitre I) + Polynômes
+   (chapitre II, §7).
+   Source chapitre I : « Algèbre linéaire 1 », L1 mathématiques, INU
+   Champollion, Pascal Ortiz — section 5 « Résultats à connaître,
+   mémento des formules » (fichier algebre_lineaire1.pdf, dossier Math
+   du Drive de Pierre). QCM à 3 réponses, LaTeX (KaTeX).
 
    Réécrite le 08/09/2026 (demande explicite : au moins une question
    de cours par paragraphe du mémento) à partir du mémento lui-même
@@ -14,9 +15,26 @@
    mémento (formules générales / forme algébrique / conjugaison /
    module / forme trigo-expo / racines & équations), pas comme le
    sommaire du chapitre (qui mélange définition et forme algébrique
-   en une seule section 1). Chapitre II (Polynômes) et III (Espaces
-   vectoriels) du même document : pas encore traités, à faire dans une
-   prochaine session sur ce sujet (voir CLAUDE.md).
+   en une seule section 1).
+
+   §7 POLYNÔMES ajoutée le 21/10/2026 (demande explicite — chapitre II
+   du même document, resté non traité jusque-là, voir CLAUDE.md). Pas
+   de PDF de cours cette fois : source = 9 photos de tableau prises par
+   Pierre en TD/CM le 21/10/2026 (transcrites intégralement), couvrant
+   une équation fonctionnelle sur un polynôme ((X+3)P(X)=XP(X+1),
+   raisonnement par l'absurde sur une infinité de racines), les
+   relations de Viète (degré 3, calcul de \\(a^3+b^3+c^3\\) par deux
+   méthodes), une division euclidienne évaluée en une racine
+   irrationnelle, la construction d'un polynôme de degré imposé
+   s'annulant sur 100 entiers donnés (produit de \\(X-k\\), élevé au
+   carré pour doubler le degré sans changer les racines), et la preuve
+   que cos n'est pas un polynôme (même argument des racines infinies).
+   Même technique de fond répétée partout : un polynôme non nul a un
+   nombre de racines borné par son degré — en avoir une infinité est
+   la contradiction qui fait marcher tous ces raisonnements par
+   l'absurde. Chapitre III (Espaces vectoriels) du même document
+   algebre_lineaire1.pdf : toujours pas traité, à faire sur demande
+   explicite (voir CLAUDE.md).
 
    wrongExplain (21/09/2026, voir calculus.js pour la convention
    complète) : ex12 mérite une note — pour \\(k\\) réel, \\(\\text{Re}(k)=k\\),
@@ -489,6 +507,180 @@ const EXERCISES = [
       2: 'Le rayon du cercle vaut \\(1\\) (module de chaque racine), pas \\(n\\) — c’est le NOMBRE de points qui vaut \\(n\\), pas le rayon.',
     },
   },
+
+  // ---------- §7 — Polynômes (chapitre II) ----------
+  {
+    id: 'ex39', section: 'polynomes',
+    statement: 'Si un polynôme \\(Q\\in\\mathbb{R}[X]\\) (ou \\(\\mathbb{C}[X]\\)) admet une INFINITÉ de racines, alors :',
+    options: ['\\(Q=0\\) (le polynôme nul)', '\\(Q\\) est de degré infini', '\\(Q\\) a nécessairement un degré pair'],
+    correctIndex: 0,
+    explain: 'Un polynôme non nul de degré \\(n\\) a AU PLUS \\(n\\) racines — en avoir une infinité est donc impossible sauf si \\(Q\\) est le polynôme nul. C’est l’argument clé pour montrer qu’une fonction comme cos n’est pas polynomiale, ou qu’un facteur \\(Q\\) dans une équation fonctionnelle est constant.',
+    wrongExplain: {
+      1: 'Un polynôme a toujours un degré FINI par définition — « degré infini » n’a pas de sens pour un polynôme.',
+      2: 'Rien n’impose une parité particulière — la seule conclusion valable est que \\(Q\\) est le polynôme NUL.',
+    },
+  },
+  {
+    id: 'ex40', section: 'polynomes',
+    statement: 'Pour résoudre \\((X+3)P(X)=XP(X+1)\\), en remplaçant \\(X\\) par \\(0\\), \\(-1\\) puis \\(-2\\) dans l’équation, on montre que :',
+    options: [
+      '\\(-2,-1,0\\) sont tous racines de \\(P\\)',
+      '\\(P\\) est de degré 3 exactement',
+      '\\(P\\) n’a aucune racine réelle',
+    ],
+    correctIndex: 0,
+    explain: 'Évaluer l’équation fonctionnelle en des points bien choisis (ici 0, -1, -2, qui annulent un des deux membres) révèle directement des racines de \\(P\\) sans connaître son expression.',
+    wrongExplain: {
+      1: 'Le degré exact de \\(P\\) n’est pas encore connu à ce stade — il dépend aussi du facteur \\(Q\\) restant, qui pourrait être de degré 0 ou plus.',
+      2: 'C’est l’inverse : on vient justement de MONTRER que \\(P\\) a (au moins) trois racines réelles, \\(-2,-1,0\\).',
+    },
+  },
+  {
+    id: 'ex41', section: 'polynomes',
+    statement: 'Après avoir factorisé \\(P(X)=X(X+1)(X+2)Q(X)\\) et substitué dans l’équation, on obtient \\(Q(X)=Q(X+1)\\) pour tout \\(X\\). Pourquoi cela force-t-il \\(Q\\) à être constant ?',
+    options: [
+      'Si \\(Q\\) avait une racine \\(\\alpha\\), alors \\(\\alpha,\\alpha+1,\\alpha+2,\\ldots\\) seraient TOUTES racines de \\(Q\\) (infinité de racines, donc \\(Q=0\\)) — contradiction avec \\(Q\\neq0\\), donc \\(Q\\) non constant est impossible',
+      'Parce que toute égalité de polynômes impose automatiquement une constante',
+      'Parce que \\(Q(X)=Q(X+1)\\) signifie que \\(Q\\) est un polynôme de degré 1',
+    ],
+    correctIndex: 0,
+    explain: 'Raisonnement par l’absurde : si \\(Q\\) a une racine \\(\\alpha\\), l’égalité \\(Q(X)=Q(X+1)\\) propage cette racine à \\(\\alpha+1,\\alpha+2,\\ldots\\) à l’infini — impossible pour un polynôme non nul.',
+    wrongExplain: {
+      1: 'Cette affirmation est beaucoup trop générale et fausse — ce n’est pas l’égalité en elle-même qui impose une constante, c’est l’argument spécifique des racines qui s’accumulent à l’infini.',
+      2: '\\(Q(X)=Q(X+1)\\) pour tout \\(X\\) est en fait incompatible avec un polynôme de degré 1 non constant (ex. \\(Q(X)=X\\) donnerait \\(X\\neq X+1\\)) — cette équation force au contraire la constance.',
+    },
+  },
+  {
+    id: 'ex42', section: 'polynomes',
+    statement: 'Pour \\(P=X^3-\\sigma_1X^2+\\sigma_2X-\\sigma_3\\) ayant pour racines \\(a,b,c\\), les relations de Viète donnent :',
+    options: [
+      '\\(\\sigma_1=a+b+c\\), \\(\\sigma_2=ab+bc+ca\\), \\(\\sigma_3=abc\\)',
+      '\\(\\sigma_1=abc\\), \\(\\sigma_2=a+b+c\\), \\(\\sigma_3=ab+bc+ca\\)',
+      '\\(\\sigma_1=a+b+c\\), \\(\\sigma_2=abc\\), \\(\\sigma_3=ab+bc+ca\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Obtenu en développant \\((X-a)(X-b)(X-c)\\) et en identifiant les coefficients : la somme des racines, la somme des produits deux à deux, puis le produit des trois.',
+    wrongExplain: {
+      1: 'Les trois quantités sont permutées par rapport à la bonne correspondance — \\(\\sigma_1\\) est la somme (pas le produit), \\(\\sigma_3\\) est le produit (pas la somme des produits deux à deux).',
+      2: '\\(\\sigma_2\\) et \\(\\sigma_3\\) sont échangés : \\(\\sigma_2\\) est la somme des produits DEUX À DEUX, \\(\\sigma_3\\) est le produit des TROIS.',
+    },
+  },
+  {
+    id: 'ex43', section: 'polynomes',
+    statement: 'Pour \\(P=X^3-X+1\\) (racines \\(a,b,c\\)), en identifiant terme à terme avec \\(X^3-\\sigma_1X^2+\\sigma_2X-\\sigma_3\\), on trouve :',
+    options: [
+      '\\(\\sigma_1=a+b+c=0\\) et \\(\\sigma_2=ab+bc+ca=-1\\)',
+      '\\(\\sigma_1=1\\) et \\(\\sigma_2=-1\\)',
+      '\\(\\sigma_1=0\\) et \\(\\sigma_2=1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le coefficient en \\(X^2\\) de \\(P\\) est \\(0\\), donc \\(-\\sigma_1=0\\Rightarrow\\sigma_1=0\\) ; le coefficient en \\(X\\) est \\(-1\\), donc \\(\\sigma_2=-1\\) directement (pas de signe à changer, contrairement à \\(\\sigma_1\\) et \\(\\sigma_3\\)).',
+    wrongExplain: {
+      1: '\\(\\sigma_1\\) est l’opposé du coefficient en \\(X^2\\), qui vaut \\(0\\) ici — pas \\(1\\) — et \\(\\sigma_2\\) EST le coefficient en \\(X\\) directement.',
+      2: '\\(\\sigma_1\\) est bien \\(0\\), mais \\(\\sigma_2\\) est le coefficient en \\(X\\) lui-même (\\(-1\\)), pas son opposé — il ne faut changer de signe que pour \\(\\sigma_1\\) et \\(\\sigma_3\\), pas pour \\(\\sigma_2\\).',
+    },
+  },
+  {
+    id: 'ex44', section: 'polynomes',
+    statement: 'Avec \\(\\sigma_1=a+b+c=0\\), la formule \\((a+b+c)^3=a^3+b^3+c^3+3(ab+bc+ca)(a+b+c)-3abc\\) permet de calculer \\(a^3+b^3+c^3\\) en :',
+    options: [
+      'Remarquant que \\(\\sigma_1^3=0\\) annule le terme croisé (qui contient \\(\\sigma_1\\) en facteur), ne laissant que \\(a^3+b^3+c^3-3\\sigma_3=0\\)',
+      'Calculant directement \\(a^3,b^3,c^3\\) séparément sans utiliser Viète',
+      'Divisant toute l’équation par \\(\\sigma_1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Puisque \\(\\sigma_1=0\\), le terme \\(3\\sigma_2\\sigma_1\\) s’annule automatiquement — il ne reste que \\(0=a^3+b^3+c^3-3\\sigma_3\\), d’où \\(a^3+b^3+c^3=3\\sigma_3=3abc\\).',
+    wrongExplain: {
+      1: 'Sans les racines explicites de \\(P=X^3-X+1\\) (qui ne sont pas simples à calculer), impossible de calculer \\(a^3,b^3,c^3\\) séparément — c’est justement l’intérêt de la méthode par les sommes symétriques.',
+      2: 'Diviser par \\(\\sigma_1=0\\) est une opération interdite (division par zéro) — ce n’est pas la bonne manipulation.',
+    },
+  },
+  {
+    id: 'ex45', section: 'polynomes',
+    statement: 'Deuxième méthode (plus directe) : puisque \\(a\\) est racine de \\(P=X^3-X+1\\), on a \\(a^3-a+1=0\\), donc :',
+    options: [
+      '\\(a^3=a-1\\), et de même \\(b^3=b-1\\), \\(c^3=c-1\\)',
+      '\\(a^3=1-a\\) seulement pour la racine \\(a\\), pas pour \\(b,c\\)',
+      '\\(a=1\\) nécessairement',
+    ],
+    correctIndex: 0,
+    explain: 'Toute racine \\(r\\) de \\(P\\) vérifie \\(P(r)=0\\), donc \\(r^3-r+1=0\\Rightarrow r^3=r-1\\) — cette relation est vraie pour CHAQUE racine (a, b, et c), ce qui donne directement \\(a^3+b^3+c^3=(a+b+c)-3=-3\\) sans passer par Viète.',
+    wrongExplain: {
+      1: '\\(a,b,c\\) sont TOUTES des racines du MÊME polynôme \\(P\\), donc elles vérifient TOUTES la même relation \\(r^3=r-1\\) — ce n’est pas spécifique à \\(a\\).',
+      2: 'Rien n’impose \\(a=1\\) : \\(P(1)=1-1+1=1\\neq0\\), donc \\(1\\) n’est même pas racine de \\(P\\) !',
+    },
+  },
+  {
+    id: 'ex46', section: 'polynomes',
+    statement: 'Si \\(A=BQ+R\\) (division euclidienne) et que \\(\\alpha\\) est une racine de \\(B\\), alors :',
+    options: ['\\(A(\\alpha)=R(\\alpha)\\) (le terme \\(B(\\alpha)Q(\\alpha)\\) s’annule)', '\\(A(\\alpha)=Q(\\alpha)\\)', '\\(A(\\alpha)=0\\) nécessairement'],
+    correctIndex: 0,
+    explain: 'En évaluant l’identité \\(A=BQ+R\\) en \\(X=\\alpha\\) avec \\(B(\\alpha)=0\\), le terme \\(B(\\alpha)Q(\\alpha)\\) s’annule : il ne reste que \\(A(\\alpha)=R(\\alpha)\\) — un raccourci qui évite de calculer \\(A(\\alpha)\\) directement si \\(\\alpha\\) est compliqué (ex. irrationnel).',
+    wrongExplain: {
+      1: '\\(Q(\\alpha)\\) n’intervient plus du tout une fois que \\(B(\\alpha)=0\\) a annulé le terme qui le contenait — ce n’est pas lui qui reste.',
+      2: 'Rien n’impose que \\(A(\\alpha)=0\\) : \\(\\alpha\\) est racine de \\(B\\), pas forcément de \\(A\\) — \\(A(\\alpha)\\) vaut \\(R(\\alpha)\\), qui peut être non nul.',
+    },
+  },
+  {
+    id: 'ex47', section: 'polynomes',
+    statement: 'Pour construire un polynôme \\(A\\) qui s’annule exactement sur les entiers \\(1,2,\\ldots,100\\), on pose :',
+    options: [
+      '\\(A(X)=\\displaystyle\\prod_{k=1}^{100}(X-k)\\)',
+      '\\(A(X)=\\displaystyle\\sum_{k=1}^{100}(X-k)\\)',
+      '\\(A(X)=(X-1)+(X-100)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Un PRODUIT de facteurs \\((X-k)\\) s’annule dès que \\(X\\) égale l’une des racines \\(k\\) — c’est la clé de la construction : chaque facteur « verrouille » un zéro supplémentaire.',
+    wrongExplain: {
+      1: 'Une SOMME ne s’annule pas pour chaque \\(k\\) individuellement — il faudrait que TOUS les termes s’annulent simultanément, ce qui n’arrive qu’en un seul point au mieux, pas en 100.',
+      2: 'Cette expression ne s’annule qu’en deux points au plus — elle ne capture pas les 98 autres racines requises.',
+    },
+  },
+  {
+    id: 'ex48', section: 'polynomes',
+    statement: 'Pourquoi poser \\(P=42+A(X)^2\\) (plutôt que \\(42+A(X)\\)) permet-il d’obtenir un polynôme de degré 200 tout en gardant la valeur 42 aux mêmes 100 points ?',
+    options: [
+      '\\(A^2\\) a pour racines EXACTEMENT les mêmes que \\(A\\) (chaque facteur est juste mis au carré) mais un degré doublé (\\(100\\to200\\))',
+      'Élever au carré change les racines de \\(A\\)',
+      '\\(A^2\\) et \\(A\\) ont le même degré',
+    ],
+    correctIndex: 0,
+    explain: '\\(A^2=\\prod(X-k)^2\\) s’annule exactement aux mêmes 100 entiers que \\(A\\) (chaque racine est juste « doublée » en multiplicité, mais reste une racine), tandis que son degré double : \\(100\\to200\\) — exactement ce qu’il fallait pour atteindre le degré visé.',
+    wrongExplain: {
+      1: 'Les racines de \\(A^2\\) sont EXACTEMENT celles de \\(A\\) (un facteur \\((X-k)^2\\) s’annule encore en \\(X=k\\)) — élever au carré ne change pas l’ENSEMBLE des racines, seulement leur multiplicité.',
+      2: 'Le degré d’un produit de facteurs au carré est le DOUBLE de celui du produit simple — \\(\\deg(A^2)=2\\deg(A)=200\\neq100=\\deg(A)\\).',
+    },
+  },
+  {
+    id: 'ex49', section: 'polynomes',
+    statement: 'Pour montrer que la fonction cosinus n’est pas (la restriction à \\(\\mathbb{R}\\) d’)un polynôme, l’argument clé est que :',
+    options: [
+      '\\(\\cos\\) s’annule en une INFINITÉ de points (\\(\\pi/2+k\\pi\\), \\(k\\in\\mathbb{Z}\\)), ce qui est impossible pour un polynôme non nul',
+      '\\(\\cos\\) n’est jamais nul',
+      '\\(\\cos\\) n’est pas continue',
+    ],
+    correctIndex: 0,
+    explain: 'Même argument que pour l’équation fonctionnelle : un polynôme non nul n’a qu’un nombre FINI de racines (au plus son degré) — \\(\\cos\\) en a une infinité, donc aucun polynôme ne peut coïncider avec \\(\\cos\\) sur \\(\\mathbb{R}\\) tout entier.',
+    wrongExplain: {
+      1: '\\(\\cos\\) s’annule bel et bien, et même une infinité de fois (\\(\\pi/2,3\\pi/2,\\ldots\\)) — c’est justement CE fait qui est exploité dans la preuve.',
+      2: '\\(\\cos\\) est au contraire une fonction parfaitement continue (et même \\(C^\\infty\\)) — la continuité n’est pas en cause dans cet argument.',
+    },
+  },
+  {
+    id: 'ex50', section: 'polynomes',
+    statement: 'Si un polynôme \\(R\\) vérifie \\(R(n)=R(n+1)\\) seulement pour \\(n\\in\\{0,1,\\ldots,50\\}\\) (un nombre FINI de valeurs), peut-on conclure que \\(R\\) est constant sur \\(\\mathbb{R}\\) comme dans l’exercice du cours ?',
+    options: [
+      'Non : l’argument des racines infinies exige une INFINITÉ de valeurs de \\(n\\), pas seulement 51 — avec un nombre fini, \\(R\\) non constant reste possible',
+      'Oui, le même raisonnement s’applique à l’identique',
+      'Oui, car 51 valeurs suffisent toujours pour un polynôme',
+    ],
+    correctIndex: 0,
+    explain: 'Le raisonnement du cours fonctionne parce que l’équation fonctionnelle vaut pour une vraie infinité de valeurs, engendrant une infinité de racines pour le polynôme \\(Q(X)-Q(X+1)\\). Avec seulement 51 égalités, ce polynôme a au plus 51 racines, ce qui est parfaitement compatible avec un polynôme non nul de degré \\(\\geq51\\) — aucune contradiction, donc aucune conclusion de constance.',
+    wrongExplain: {
+      1: 'La distinction FINI/INFINI est exactement ce qui change tout : avec une infinité d’égalités le raisonnement par l’absurde fonctionne, avec un nombre fini il s’effondre — ce n’est pas la même situation.',
+      2: 'Le nombre de valeurs nécessaires dépend du degré du polynôme en jeu, qui n’est pas borné a priori — 51 n’est pas un seuil magique garantissant quoi que ce soit.',
+    },
+  },
 ];
 
 const SECTIONS = [
@@ -515,6 +707,10 @@ const SECTIONS = [
   {
     id: 'equations', title: '§6 — RACINES CARRÉES, ÉQUATION DU 2ND DEGRÉ, RACINES nes',
     cours: '\\(z \\neq 0\\) \\(\\Rightarrow\\) 2 <span class="math">racines carrées</span> opposées ; méthode algébrique : poser \\(Z=x+iy\\), identifier, ajouter \\(x^2+y^2=|z|\\)<br>\\(az^2+bz+c=0\\) : \\(\\Delta = b^2-4ac\\) \\(\\Rightarrow\\) \\(z = \\dfrac{-b \\pm \\delta}{2a}\\) où \\(\\delta^2=\\Delta\\) — toujours au moins une solution dans \\(\\mathbb{C}\\)<br>\\(Z^n = z\\) (\\(z\\neq0\\)) \\(\\Rightarrow\\) exactement \\(n\\) solutions ; racines \\(n\\)-ièmes de l’unité \\(U_n\\) : \\(z_k=e^{2ik\\pi/n}\\), polygone régulier',
+  },
+  {
+    id: 'polynomes', title: '§7 — POLYNÔMES (CHAPITRE II)',
+    cours: '<span class="math">Racines infinies</span> : un polynôme non nul a un nombre de racines borné par son degré — en avoir une infinité impose \\(Q=0\\) (argument clé, réutilisé plusieurs fois)<br>Équation fonctionnelle sur un polynôme : évaluer en des points bien choisis révèle des racines ; factoriser par ces racines connues, puis réappliquer l’argument « racines infinies » au facteur restant<br><span class="math">Relations de Viète</span> (degré 3, racines \\(a,b,c\\)) : \\(P=X^3-\\sigma_1X^2+\\sigma_2X-\\sigma_3\\) avec \\(\\sigma_1=a+b+c\\), \\(\\sigma_2=ab+bc+ca\\), \\(\\sigma_3=abc\\) — identification coefficient par coefficient<br>Si \\(a\\) est racine de \\(P\\), réinjecter directement \\(P(a)=0\\) est souvent plus rapide que Viète<br><span class="math">Division euclidienne</span> \\(A=BQ+R\\) : évaluer en une racine \\(\\alpha\\) de \\(B\\) donne directement \\(A(\\alpha)=R(\\alpha)\\)<br>Construire un polynôme qui s’annule sur des points donnés : un PRODUIT de \\((X-k)\\) ; l’élever au carré double le degré sans changer l’ensemble des racines',
   },
 ];
 

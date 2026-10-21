@@ -1295,6 +1295,12 @@ code{
   gap:8px;
   align-items:flex-start;
   font-size:1.1rem;
+  min-width:0; /* label est l'item flex réel de .qcm-options — le span
+    enfant avait déjà min-width:0, mais pas lui ; sans ça une formule
+    inline assez longue (ex. une longue chaîne de ⊂) peut floorer le
+    label (et toute la page) au lieu de se faire envelopper par
+    wrapOverflowingMath (21/10/2026, trouvé via l'ajout de contenu
+    ANALYSE — même classe de bug que .crt > *, voir CLAUDE.md). */
 }
 .qcm-options label span{
   min-width:0;
