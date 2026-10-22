@@ -15,35 +15,35 @@
 const EXERCISES = [
   {
     id: "ex1", section: "poo",
-    statement: "En POO, qu'appelle-t-on un <b>attribut</b> d'un objet ?",
+    statement: "En POO, qu'appelle-t-on un &lt;b&gt;attribut&lt;/b&gt; d'un objet ?",
     options: ["Une variable qui caractérise l'objet", "Une fonction qui s'applique à l'objet", "Le nom de la classe"],
     correctIndex: 0,
     explain: "Un attribut est une variable propre à l'objet (par exemple faction, puissance, niveau de vie pour un objet Tank) ; une fonction qui s'applique à l'objet est une méthode.",
   },
   {
     id: "ex2", section: "poo",
-    statement: "Que désigne l'<b>instanciation</b> ?",
+    statement: "Que désigne l'&lt;b&gt;instanciation&lt;/b&gt; ?",
     options: ["La création d'un nouvel objet à partir d'une classe", "La suppression d'un objet", "La déclaration d'une méthode"],
     correctIndex: 0,
     explain: "Une classe peut être instanciée en autant d'objets que nécessaire ; chaque objet créé est une instance de la classe.",
   },
   {
     id: "ex3", section: "poo",
-    statement: "L'<b>encapsulation</b> permet à un objet de...",
+    statement: "L'&lt;b&gt;encapsulation&lt;/b&gt; permet à un objet de...",
     options: ["Masquer son fonctionnement interne et proposer d'y accéder via ses méthodes", "Hériter automatiquement d'une autre classe", "Se dupliquer en plusieurs instances"],
     correctIndex: 0,
     explain: "C'est un des 3 piliers de la POO : le fonctionnement interne de l'objet est masqué, on y accède à travers les méthodes qu'il propose.",
   },
   {
     id: "ex4", section: "poo",
-    statement: "L'<b>héritage</b> permet à une classe fille de...",
+    statement: "L'&lt;b&gt;héritage&lt;/b&gt; permet à une classe fille de...",
     options: ["Hériter des attributs et méthodes de sa classe mère, tout en pouvant les redéfinir", "Devenir automatiquement une interface", "Empêcher toute instanciation"],
     correctIndex: 0,
     explain: "Les classes filles héritent (ou dérivent) de leur classe mère, et peuvent surcharger certains comportements hérités.",
   },
   {
     id: "ex5", section: "poo",
-    statement: "Le <b>polymorphisme</b> permet à une méthode de...",
+    statement: "Le &lt;b&gt;polymorphisme&lt;/b&gt; permet à une méthode de...",
     options: ["Définir des comportements différents selon l'objet ou les paramètres avec lesquels elle est appelée", "Ne jamais changer de comportement", "Devenir un attribut"],
     correctIndex: 0,
     explain: "Exemple du cours : un fantassin et un grenadier n'« attaquent » pas de la même manière — même nom de méthode, comportements différents selon l'objet appelant.",
@@ -123,7 +123,7 @@ const EXERCISES = [
     statement: "<code>for (int i = 0; i &lt; 3; i++) { System.out.println(i); }</code><br>Combien de fois println s'exécute-t-il ?",
     options: ["3 fois", "2 fois", "4 fois"],
     correctIndex: 0,
-    explain: "i vaut successivement 0, 1, 2 (3 tours), puis la condition i<3 devient fausse pour i=3 : la boucle s'arrête.",
+    explain: "i vaut successivement 0, 1, 2 (3 tours), puis la condition i&lt;3 devient fausse pour i=3 : la boucle s'arrête.",
   },
   {
     id: "ex17", section: "tableaux-java",
@@ -267,7 +267,7 @@ const EXERCISES = [
   },
   {
     id: "ex37", section: "interfaces-java",
-    statement: "Que peut contenir une <b>interface</b> Java ?",
+    statement: "Que peut contenir une &lt;b&gt;interface&lt;/b&gt; Java ?",
     options: ["Uniquement des signatures de méthodes (méthodes abstraites), sans code", "Des attributs et du code complet comme une classe normale", "Uniquement des constantes numériques"],
     correctIndex: 0,
     explain: "Une interface déclare des méthodes (visibilité, type, nom, paramètres) mais ne fournit pas leur code ; elle ne peut donc pas être instanciée, seulement implémentée.",
@@ -295,7 +295,7 @@ const EXERCISES = [
   },
   {
     id: "ex41", section: "exceptions-java",
-    statement: "Qu'est-ce qu'une <b>exception</b> en Java ?",
+    statement: "Qu'est-ce qu'une &lt;b&gt;exception&lt;/b&gt; en Java ?",
     options: ["Un objet qui représente une erreur survenue pendant l'exécution, levé au lieu de faire planter le programme", "Un simple message affiché dans la console qui n'arrête jamais le programme", "Un type de boucle qui s'arrête automatiquement en cas d'erreur"],
     correctIndex: 0,
     explain: "Au lieu de crasher directement, le programme lève (déclenche) un objet exception, qui peut ensuite être capturé et traité par un gestionnaire.",
@@ -316,7 +316,7 @@ const EXERCISES = [
   },
   {
     id: "ex44", section: "exceptions-java",
-    statement: "Une <b>exception personnalisée</b> doit dériver de quelle classe ?",
+    statement: "Une &lt;b&gt;exception personnalisée&lt;/b&gt; doit dériver de quelle classe ?",
     options: ["<code>java.lang.Exception</code> (directement ou indirectement)", "<code>java.lang.Object</code> uniquement, comme n'importe quelle classe", "Aucune : une exception personnalisée est une interface"],
     correctIndex: 0,
     explain: "Toutes les exceptions Java dérivent de java.lang.Exception ; une exception personnalisée en hérite pour bénéficier du même mécanisme de levée/capture.",
@@ -330,7 +330,7 @@ const EXERCISES = [
   },
   {
     id: "ex46", section: "exceptions-java",
-    statement: "Que représente la <b>stack trace</b> d'une exception ?",
+    statement: "Que représente la &lt;b&gt;stack trace&lt;/b&gt; d'une exception ?",
     options: ["La pile des méthodes appelées, depuis main jusqu'à celle où l'exception a été levée, utile pour déboguer", "La liste des variables locales au moment du crash", "Le nombre de fois où l'exception a été levée pendant l'exécution"],
     correctIndex: 0,
     explain: "Elle retrace le chemin d'appel des méthodes jusqu'au point où l'exception a été levée, ce qui aide à localiser l'origine du problème.",

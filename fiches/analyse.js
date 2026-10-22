@@ -95,8 +95,8 @@ const EXERCISES = [
   },
   {
     id: 'ex46', section: 'intervalles-inegalites',
-    statement: 'Si \\(f\\) est strictement croissante sur un intervalle \\(I\\) et \\(a,b \\in I\\), alors \\(a<b\\) équivaut à :',
-    options: ['\\(f(a)<f(b)\\)', '\\(f(a)>f(b)\\)', '\\(f(a)=f(b)\\)'],
+    statement: 'Si \\(f\\) est strictement croissante sur un intervalle \\(I\\) et \\(a,b \\in I\\), alors \\(a&lt;b\\) équivaut à :',
+    options: ['\\(f(a)&lt;f(b)\\)', '\\(f(a)&gt;f(b)\\)', '\\(f(a)=f(b)\\)'],
     correctIndex: 0,
     explain: 'Composer une inégalité stricte par une fonction strictement croissante CONSERVE son sens — c’est une équivalence, pas seulement une implication.',
     wrongExplain: {
@@ -106,25 +106,25 @@ const EXERCISES = [
   },
   {
     id: 'ex47', section: 'intervalles-inegalites',
-    statement: 'Si \\(f\\) est strictement décroissante sur \\(I\\) et \\(a,b \\in I\\), alors \\(a<b\\) équivaut à :',
-    options: ['\\(f(a)>f(b)\\)', '\\(f(a)<f(b)\\)', '\\(f(a) \\leq f(b)\\)'],
+    statement: 'Si \\(f\\) est strictement décroissante sur \\(I\\) et \\(a,b \\in I\\), alors \\(a&lt;b\\) équivaut à :',
+    options: ['\\(f(a)&gt;f(b)\\)', '\\(f(a)&lt;f(b)\\)', '\\(f(a) \\leq f(b)\\)'],
     correctIndex: 0,
     explain: 'Une fonction strictement décroissante INVERSE le sens de l’inégalité stricte.',
     wrongExplain: {
       1: 'C’est le cas d’une fonction CROISSANTE — une fonction décroissante inverse le sens, elle ne le conserve pas.',
-      2: 'L’inégalité large ne traduit pas la stricte décroissance : avec \\(a<b\\) strict et \\(f\\) strictement décroissante, on obtient \\(f(a)>f(b)\\) strict aussi.',
+      2: 'L’inégalité large ne traduit pas la stricte décroissance : avec \\(a&lt;b\\) strict et \\(f\\) strictement décroissante, on obtient \\(f(a)&gt;f(b)\\) strict aussi.',
     },
   },
   {
     id: 'ex48', section: 'intervalles-inegalites',
-    statement: 'Pour \\(a,b \\in \\mathbb{R}^*\\), peut-on toujours déduire \\(a<b \\Rightarrow \\dfrac{1}{a}>\\dfrac{1}{b}\\) (fonction inverse strictement décroissante) ?',
+    statement: 'Pour \\(a,b \\in \\mathbb{R}^*\\), peut-on toujours déduire \\(a&lt;b \\Rightarrow \\dfrac{1}{a}&gt;\\dfrac{1}{b}\\) (fonction inverse strictement décroissante) ?',
     options: [
       'Non : \\(\\mathbb{R}^*\\) n’est PAS un intervalle, la règle ne s’applique que si \\(a,b\\) sont de même signe',
       'Oui, toujours, car l’inverse est strictement décroissante sur \\(\\mathbb{R}^*\\)',
       'Non, car l’inverse n’est pas monotone sur \\(\\mathbb{R}^*\\)',
     ],
     correctIndex: 0,
-    explain: 'Piège classique : \\(-2<3\\) mais \\(-1/2<1/3\\) (pas \\(>\\)) — la règle de composition par une fonction monotone exige un INTERVALLE, et \\(\\mathbb{R}^*=\\mathbb{R}\\setminus\\{0\\}\\) n’en est pas un (il « saute » 0).',
+    explain: 'Piège classique : \\(-2&lt;3\\) mais \\(-1/2&lt;1/3\\) (pas \\(&gt;\\)) — la règle de composition par une fonction monotone exige un INTERVALLE, et \\(\\mathbb{R}^*=\\mathbb{R}\\setminus\\{0\\}\\) n’en est pas un (il « saute » 0).',
     wrongExplain: {
       1: 'C’est faux dès que \\(a\\) et \\(b\\) sont de signes opposés (ex. \\(a=-2,b=3\\)) : la fonction inverse est bien décroissante SUR CHAQUE intervalle \\(\\mathbb{R}_-^*\\) et \\(\\mathbb{R}_+^*\\) séparément, mais \\(\\mathbb{R}^*\\) tout entier n’est pas un intervalle.',
       2: 'L’inverse EST monotone (strictement décroissante) sur chacun des deux intervalles \\(\\mathbb{R}_-^*\\) et \\(\\mathbb{R}_+^*\\) — le problème n’est pas l’absence de monotonie, mais le fait que \\(\\mathbb{R}^*\\) n’est pas un intervalle unique.',
@@ -132,14 +132,14 @@ const EXERCISES = [
   },
   {
     id: 'ex49', section: 'intervalles-inegalites',
-    statement: 'Pour \\(a,b\\geq0\\) et \\(c,d>0\\), le produit en croix donne :',
+    statement: 'Pour \\(a,b\\geq0\\) et \\(c,d&gt;0\\), le produit en croix donne :',
     options: [
-      '\\(\\dfrac{a}{c}<\\dfrac{b}{d} \\Leftrightarrow ad<bc\\)',
-      '\\(\\dfrac{a}{c}<\\dfrac{b}{d} \\Leftrightarrow ac<bd\\)',
-      '\\(\\dfrac{a}{c}<\\dfrac{b}{d} \\Leftrightarrow a<b\\) et \\(c<d\\)',
+      '\\(\\dfrac{a}{c}&lt;\\dfrac{b}{d} \\Leftrightarrow ad&lt;bc\\)',
+      '\\(\\dfrac{a}{c}&lt;\\dfrac{b}{d} \\Leftrightarrow ac&lt;bd\\)',
+      '\\(\\dfrac{a}{c}&lt;\\dfrac{b}{d} \\Leftrightarrow a&lt;b\\) et \\(c&lt;d\\)',
     ],
     correctIndex: 0,
-    explain: 'Le produit en croix compare le produit du numérateur de gauche par le dénominateur de droite, et inversement — valide ici car \\(c,d>0\\) (multiplier par des quantités positives conserve le sens).',
+    explain: 'Le produit en croix compare le produit du numérateur de gauche par le dénominateur de droite, et inversement — valide ici car \\(c,d&gt;0\\) (multiplier par des quantités positives conserve le sens).',
     wrongExplain: {
       1: 'Ce n’est pas le produit EN CROIX : cette expression multiplie les numérateurs entre eux et les dénominateurs entre eux, ce qui ne correspond à aucune règle de comparaison de fractions.',
       2: 'Cette option confond deux conditions séparées sur \\(a,b\\) et sur \\(c,d\\) avec la comparaison du quotient global, qui est une opération différente.',
@@ -147,8 +147,8 @@ const EXERCISES = [
   },
   {
     id: 'ex50', section: 'intervalles-inegalites',
-    statement: 'Pour \\(a,b\\geq0\\), \\(a<b\\) équivaut à :',
-    options: ['\\(\\sqrt{a}<\\sqrt{b}\\)', '\\(\\sqrt{a}>\\sqrt{b}\\)', '\\(a^2<b^2\\) seulement si \\(a,b\\leq0\\)'],
+    statement: 'Pour \\(a,b\\geq0\\), \\(a&lt;b\\) équivaut à :',
+    options: ['\\(\\sqrt{a}&lt;\\sqrt{b}\\)', '\\(\\sqrt{a}&gt;\\sqrt{b}\\)', '\\(a^2&lt;b^2\\) seulement si \\(a,b\\leq0\\)'],
     correctIndex: 0,
     explain: 'La fonction racine carrée est strictement croissante sur \\(\\mathbb{R}_+\\) (un intervalle) : composer par elle conserve le sens de l’inégalité.',
     wrongExplain: {
@@ -162,14 +162,14 @@ const EXERCISES = [
     id: 'ex51', section: 'partie-entiere-valeur-absolue',
     statement: 'D’après le théorème du cours, pour tout réel \\(x\\), la partie entière \\(E(x)\\) est :',
     options: [
-      'L’unique entier \\(n\\) tel que \\(n \\leq x < n+1\\)',
+      'L’unique entier \\(n\\) tel que \\(n \\leq x &lt; n+1\\)',
       'L’entier le plus proche de \\(x\\)',
       'Le nombre de chiffres avant la virgule de \\(x\\)',
     ],
     correctIndex: 0,
     explain: 'C’est la définition exacte (et l’existence/unicité est un théorème du cours) — ne pas confondre avec un arrondi.',
     wrongExplain: {
-      1: 'L’arrondi au plus proche peut dépasser \\(x\\) (ex. arrondir \\(2.7\\) donne \\(3>2.7\\)) — la partie entière, elle, est toujours \\(\\leq x\\), jamais au-dessus.',
+      1: 'L’arrondi au plus proche peut dépasser \\(x\\) (ex. arrondir \\(2.7\\) donne \\(3&gt;2.7\\)) — la partie entière, elle, est toujours \\(\\leq x\\), jamais au-dessus.',
       2: 'Cette description ne fonctionne même pas pour des nombres négatifs ou non-entiers (ex. \\(E(0.5)\\)) — ce n’est pas la définition mathématique.',
     },
   },
@@ -178,7 +178,7 @@ const EXERCISES = [
     statement: 'La fonction partie entière \\(E\\) est, selon le cours :',
     options: ['Croissante sur \\(\\mathbb{R}\\)', 'Strictement croissante sur \\(\\mathbb{R}\\)', 'Décroissante sur \\(\\mathbb{R}\\)'],
     correctIndex: 0,
-    explain: '\\(E\\) est croissante (large) mais PAS strictement : \\(E(0.2)=E(0.8)=0\\) alors que \\(0.2<0.8\\).',
+    explain: '\\(E\\) est croissante (large) mais PAS strictement : \\(E(0.2)=E(0.8)=0\\) alors que \\(0.2&lt;0.8\\).',
     wrongExplain: {
       1: 'Elle n’est pas STRICTEMENT croissante : deux réels différents dans le même intervalle \\([n,n+1[\\) ont la même partie entière (ex. \\(E(0.2)=E(0.8)=0\\)).',
       2: '\\(E\\) ne redescend jamais quand \\(x\\) augmente — c’est une fonction croissante (en escalier), pas décroissante.',
@@ -189,7 +189,7 @@ const EXERCISES = [
     statement: 'Que vaut \\(E(-0.5)\\) ?',
     options: ['\\(-1\\)', '\\(0\\)', '\\(-0.5\\)'],
     correctIndex: 0,
-    explain: '\\(E(-0.5)\\) est l’unique entier \\(n\\) tel que \\(n\\leq-0.5<n+1\\) : c’est \\(n=-1\\) (car \\(-1\\leq-0.5<0\\)), PAS \\(0\\) — piège classique pour les réels négatifs non entiers.',
+    explain: '\\(E(-0.5)\\) est l’unique entier \\(n\\) tel que \\(n\\leq-0.5&lt;n+1\\) : c’est \\(n=-1\\) (car \\(-1\\leq-0.5&lt;0\\)), PAS \\(0\\) — piège classique pour les réels négatifs non entiers.',
     wrongExplain: {
       1: 'Piège classique : \\(0\\leq-0.5\\) est FAUX, donc \\(0\\) ne convient pas — la partie entière « tronque vers le bas », pas vers 0 (différent d’une troncature informatique).',
       2: 'La partie entière est toujours un ENTIER, par définition — \\(-0.5\\) lui-même ne peut pas être la réponse.',
@@ -203,7 +203,7 @@ const EXERCISES = [
     explain: 'Formule utile en calcul algébrique : la racine carrée d’un carré redonne la valeur absolue, pas le nombre lui-même (qui pourrait être négatif).',
     wrongExplain: {
       1: '\\(x^2\\) n’est pas égal à \\(|x|\\) en général (ex. \\(x=3\\) : \\(x^2=9\\neq3=|x|\\)) — confondre les deux est une erreur fréquente.',
-      2: '\\(-x\\) ne vaut \\(|x|\\) que si \\(x\\leq0\\) — pour \\(x>0\\), \\(|x|=x\\), pas \\(-x\\).',
+      2: '\\(-x\\) ne vaut \\(|x|\\) que si \\(x\\leq0\\) — pour \\(x&gt;0\\), \\(|x|=x\\), pas \\(-x\\).',
     },
   },
   {
@@ -213,18 +213,18 @@ const EXERCISES = [
     correctIndex: 0,
     explain: 'La valeur absolue est multiplicative : \\(|\\lambda x|=|\\lambda||x|\\) — cas particulier \\(\\lambda=-1\\) : \\(|-x|=|x|\\).',
     wrongExplain: {
-      1: 'Si \\(\\lambda<0\\), \\(\\lambda|x|\\) serait négatif alors qu’une valeur absolue est toujours \\(\\geq0\\) — il faut \\(|\\lambda|\\), pas \\(\\lambda\\) lui-même.',
+      1: 'Si \\(\\lambda&lt;0\\), \\(\\lambda|x|\\) serait négatif alors qu’une valeur absolue est toujours \\(\\geq0\\) — il faut \\(|\\lambda|\\), pas \\(\\lambda\\) lui-même.',
       2: '\\(|\\lambda+x|\\) est la valeur absolue d’une SOMME, pas d’un produit \\(\\lambda x\\) — ce sont deux expressions différentes.',
     },
   },
   {
     id: 'ex56', section: 'partie-entiere-valeur-absolue',
     statement: 'Pour tout \\(x \\in \\mathbb{R}\\), laquelle de ces affirmations est toujours vraie ?',
-    options: ['\\(|x| \\geq x\\)', '\\(|x| = x\\)', '\\(|x| < x\\)'],
+    options: ['\\(|x| \\geq x\\)', '\\(|x| = x\\)', '\\(|x| &lt; x\\)'],
     correctIndex: 0,
-    explain: 'Si \\(x\\geq0\\), \\(|x|=x\\) ; si \\(x<0\\), \\(|x|=-x>x\\). Dans les deux cas \\(|x|\\geq x\\), avec égalité seulement si \\(x\\geq0\\).',
+    explain: 'Si \\(x\\geq0\\), \\(|x|=x\\) ; si \\(x&lt;0\\), \\(|x|=-x&gt;x\\). Dans les deux cas \\(|x|\\geq x\\), avec égalité seulement si \\(x\\geq0\\).',
     wrongExplain: {
-      1: 'Ce n’est vrai que si \\(x\\geq0\\) — pour \\(x<0\\) (ex. \\(x=-3\\)), \\(|x|=3\\neq-3=x\\).',
+      1: 'Ce n’est vrai que si \\(x\\geq0\\) — pour \\(x&lt;0\\) (ex. \\(x=-3\\)), \\(|x|=3\\neq-3=x\\).',
       2: '\\(|x|\\) ne peut jamais être STRICTEMENT inférieur à \\(x\\) — au pire ils sont égaux (si \\(x\\geq0\\)).',
     },
   },
@@ -252,13 +252,13 @@ const EXERCISES = [
   },
   {
     id: 'ex59', section: 'partie-entiere-valeur-absolue',
-    statement: 'Pour \\(R>0\\), l’inéquation \\(|u|>R\\) équivaut à :',
-    options: ['\\(u>R\\) ou \\(u<-R\\)', '\\(-R<u<R\\)', '\\(u>R\\) et \\(u<-R\\)'],
+    statement: 'Pour \\(R&gt;0\\), l’inéquation \\(|u|&gt;R\\) équivaut à :',
+    options: ['\\(u&gt;R\\) ou \\(u&lt;-R\\)', '\\(-R&lt;u&lt;R\\)', '\\(u&gt;R\\) et \\(u&lt;-R\\)'],
     correctIndex: 0,
     explain: '« Au-delà de R dans un sens ou dans l’autre » se traduit par un OU (réunion de deux demi-droites), pas par un ET.',
     wrongExplain: {
-      1: 'C’est la solution de \\(|u|<R\\) (strictement À L’INTÉRIEUR de l’intervalle), l’inégalité opposée à celle posée ici.',
-      2: 'Aucun nombre ne peut vérifier \\(u>R\\) ET \\(u<-R\\) simultanément (puisque \\(R>0\\)) — ce serait l’ensemble vide, pas la bonne réponse.',
+      1: 'C’est la solution de \\(|u|&lt;R\\) (strictement À L’INTÉRIEUR de l’intervalle), l’inégalité opposée à celle posée ici.',
+      2: 'Aucun nombre ne peut vérifier \\(u&gt;R\\) ET \\(u&lt;-R\\) simultanément (puisque \\(R&gt;0\\)) — ce serait l’ensemble vide, pas la bonne réponse.',
     },
   },
   {
@@ -335,7 +335,7 @@ const EXERCISES = [
   },
   {
     id: 'ex66', section: 'croissances-comparees',
-    statement: 'Pour \\(a>0\\) et \\(x\\in\\mathbb{R}\\), on définit (et on note) \\(a^x\\) par :',
+    statement: 'Pour \\(a&gt;0\\) et \\(x\\in\\mathbb{R}\\), on définit (et on note) \\(a^x\\) par :',
     options: ['\\(e^{x\\ln a}\\)', '\\(x^a\\)', '\\(e^{a\\ln x}\\)'],
     correctIndex: 0,
     explain: 'Cette définition permet d’étudier \\(a^x\\) (exposant réel quelconque) à l’aide des propriétés déjà connues de la fonction exponentielle usuelle.',
@@ -346,13 +346,13 @@ const EXERCISES = [
   },
   {
     id: 'ex67', section: 'croissances-comparees',
-    statement: 'Pour \\(a>1\\), \\(\\lim_{x\\to+\\infty}a^x\\) et \\(\\lim_{x\\to-\\infty}a^x\\) valent respectivement :',
+    statement: 'Pour \\(a&gt;1\\), \\(\\lim_{x\\to+\\infty}a^x\\) et \\(\\lim_{x\\to-\\infty}a^x\\) valent respectivement :',
     options: ['\\(+\\infty\\) et \\(0\\)', '\\(0\\) et \\(+\\infty\\)', '\\(+\\infty\\) et \\(+\\infty\\)'],
     correctIndex: 0,
-    explain: 'Pour une base \\(a>1\\), \\(a^x=e^{x\\ln a}\\) avec \\(\\ln a>0\\) : on retrouve exactement le comportement de l’exponentielle usuelle (croissante, tend vers \\(+\\infty\\) puis \\(0\\)).',
+    explain: 'Pour une base \\(a&gt;1\\), \\(a^x=e^{x\\ln a}\\) avec \\(\\ln a&gt;0\\) : on retrouve exactement le comportement de l’exponentielle usuelle (croissante, tend vers \\(+\\infty\\) puis \\(0\\)).',
     wrongExplain: {
-      1: 'C’est le comportement pour \\(0<a<1\\) (base entre 0 et 1), pas pour \\(a>1\\) — ne pas confondre les deux cas, qui sont inversés l’un de l’autre.',
-      2: '\\(a^x\\) ne peut pas tendre vers \\(+\\infty\\) des DEUX côtés — en \\(-\\infty\\), avec \\(a>1\\), \\(a^x\\) tend au contraire vers \\(0\\).',
+      1: 'C’est le comportement pour \\(0&lt;a&lt;1\\) (base entre 0 et 1), pas pour \\(a&gt;1\\) — ne pas confondre les deux cas, qui sont inversés l’un de l’autre.',
+      2: '\\(a^x\\) ne peut pas tendre vers \\(+\\infty\\) des DEUX côtés — en \\(-\\infty\\), avec \\(a&gt;1\\), \\(a^x\\) tend au contraire vers \\(0\\).',
     },
   },
   {
@@ -368,25 +368,25 @@ const EXERCISES = [
   },
   {
     id: 'ex69', section: 'croissances-comparees',
-    statement: 'Pour la fonction puissance \\(f:x\\mapsto x^\\alpha\\) sur \\(\\mathbb{R}_+^*\\), si \\(\\alpha<0\\) alors \\(f\\) est :',
+    statement: 'Pour la fonction puissance \\(f:x\\mapsto x^\\alpha\\) sur \\(\\mathbb{R}_+^*\\), si \\(\\alpha&lt;0\\) alors \\(f\\) est :',
     options: ['Strictement décroissante', 'Strictement croissante', 'Constante'],
     correctIndex: 0,
-    explain: '\\(f\'(x)=\\alpha x^{\\alpha-1}\\) est alors strictement négative (car \\(\\alpha<0\\) et \\(x^{\\alpha-1}>0\\)) : \\(f\\) décroît strictement.',
+    explain: '\\(f\'(x)=\\alpha x^{\\alpha-1}\\) est alors strictement négative (car \\(\\alpha&lt;0\\) et \\(x^{\\alpha-1}&gt;0\\)) : \\(f\\) décroît strictement.',
     wrongExplain: {
-      1: 'C’est le cas \\(\\alpha>0\\) qui donne une fonction strictement croissante — pour \\(\\alpha<0\\), le signe de la dérivée s’inverse.',
-      2: 'C’est le cas particulier \\(\\alpha=0\\) (fonction constante égale à 1) — ici \\(\\alpha<0\\), la fonction varie bel et bien, elle décroît.',
+      1: 'C’est le cas \\(\\alpha&gt;0\\) qui donne une fonction strictement croissante — pour \\(\\alpha&lt;0\\), le signe de la dérivée s’inverse.',
+      2: 'C’est le cas particulier \\(\\alpha=0\\) (fonction constante égale à 1) — ici \\(\\alpha&lt;0\\), la fonction varie bel et bien, elle décroît.',
     },
   },
   {
     id: 'ex70', section: 'croissances-comparees',
     statement: 'Où est l’erreur dans ce « calcul » : \\(-1=(-1)^1=\\big((-1)^2\\big)^{1/2}=1^{1/2}=1\\) ?',
     options: [
-      'La règle \\((a^m)^n=a^{mn}\\) avec des exposants réels n’est valable que pour \\(a>0\\) : appliquer une puissance \\(1/2\\) à une expression issue d’une base négative n’est pas légitime',
+      'La règle \\((a^m)^n=a^{mn}\\) avec des exposants réels n’est valable que pour \\(a&gt;0\\) : appliquer une puissance \\(1/2\\) à une expression issue d’une base négative n’est pas légitime',
       'Il n’y a aucune erreur, \\(-1=1\\) est correct ici',
       'L’erreur est que \\((-1)^2\\) ne vaut pas 1',
     ],
     correctIndex: 0,
-    explain: 'La fonction puissance réelle \\(x\\mapsto x^\\alpha\\) n’est définie que pour \\(x>0\\) : appliquer \\((a^m)^n=a^{mn}\\) en partant d’une base négative comme \\(-1\\) est invalide, l’identité ne généralise pas aux exposants réels avec base négative.',
+    explain: 'La fonction puissance réelle \\(x\\mapsto x^\\alpha\\) n’est définie que pour \\(x&gt;0\\) : appliquer \\((a^m)^n=a^{mn}\\) en partant d’une base négative comme \\(-1\\) est invalide, l’identité ne généralise pas aux exposants réels avec base négative.',
     wrongExplain: {
       1: 'Le résultat \\(-1=1\\) est évidemment faux (ce sont deux nombres distincts) — il y a bien une erreur de raisonnement quelque part dans la chaîne d’égalités.',
       2: '\\((-1)^2=1\\) est parfaitement correct (c’est juste une puissance ENTIÈRE, toujours valable) — l’erreur se situe plus loin, en traitant cette expression comme une puissance réelle \\((\\cdots)^{1/2}\\).',
@@ -403,7 +403,7 @@ const EXERCISES = [
       'Remplacer \\(x\\) par \\(0\\) pour deviner le signe général',
     ],
     correctIndex: 0,
-    explain: 'Un trinôme du second degré se signe grâce à ses racines (quand \\(\\Delta>0\\)) : signe de \\(a\\) à l’extérieur des racines, signe opposé entre les racines.',
+    explain: 'Un trinôme du second degré se signe grâce à ses racines (quand \\(\\Delta&gt;0\\)) : signe de \\(a\\) à l’extérieur des racines, signe opposé entre les racines.',
     wrongExplain: {
       1: '« Isoler \\(x\\) » ne fonctionne que pour des inégalités AFFINES (degré 1) — dès qu’il y a un \\(x^2\\), cette méthode ne s’applique plus directement.',
       2: 'Remplacer par une seule valeur ne donne le signe qu’EN CE POINT, pas sur tout \\(\\mathbb{R}\\) — un trinôme change de signe aux racines.',
@@ -411,7 +411,7 @@ const EXERCISES = [
   },
   {
     id: 'ex72', section: 'methodes-inequations',
-    statement: 'Pour résoudre \\(\\dfrac{2}{x^2-4x+3}>1\\) (TD), la bonne méthode est de :',
+    statement: 'Pour résoudre \\(\\dfrac{2}{x^2-4x+3}&gt;1\\) (TD), la bonne méthode est de :',
     options: [
       'Tout ramener d’un côté et étudier le signe de \\(\\dfrac{2-(x^2-4x+3)}{x^2-4x+3}\\)',
       'Multiplier directement les deux membres par \\(x^2-4x+3\\)',
@@ -426,14 +426,14 @@ const EXERCISES = [
   },
   {
     id: 'ex73', section: 'methodes-inequations',
-    statement: 'Pour résoudre \\(\\sqrt{x^2-1}<2-x\\) (TD), avant d’élever au carré, il faut d’abord vérifier que :',
+    statement: 'Pour résoudre \\(\\sqrt{x^2-1}&lt;2-x\\) (TD), avant d’élever au carré, il faut d’abord vérifier que :',
     options: [
       'Le membre de droite \\(2-x\\) est positif (sinon l’inégalité n’a aucune solution, une racine carrée étant toujours \\(\\geq0\\))',
       'Le membre de gauche est positif',
       '\\(x\\) est un entier',
     ],
     correctIndex: 0,
-    explain: 'Une racine carrée est toujours \\(\\geq0\\) : si \\(2-x<0\\), l’inégalité \\(\\sqrt{\\cdots}<2-x\\) est automatiquement fausse. Ce n’est qu’après avoir vérifié \\(2-x>0\\) qu’on peut élever au carré en toute sécurité (les deux membres étant alors positifs).',
+    explain: 'Une racine carrée est toujours \\(\\geq0\\) : si \\(2-x&lt;0\\), l’inégalité \\(\\sqrt{\\cdots}&lt;2-x\\) est automatiquement fausse. Ce n’est qu’après avoir vérifié \\(2-x&gt;0\\) qu’on peut élever au carré en toute sécurité (les deux membres étant alors positifs).',
     wrongExplain: {
       1: 'Le membre de gauche \\(\\sqrt{x^2-1}\\) est TOUJOURS positif ou nul par définition de la racine carrée — ce n’est pas lui qu’il faut vérifier, c’est le membre de droite.',
       2: 'Rien n’impose que \\(x\\) soit entier dans cette inéquation — la condition à vérifier porte sur le SIGNE du second membre, pas sur la nature de \\(x\\).',
@@ -441,7 +441,7 @@ const EXERCISES = [
   },
   {
     id: 'ex74', section: 'methodes-inequations',
-    statement: 'Pour l’inéquation \\((E)\\) : \\(|x^2-4|-|3x|<0\\), pourquoi peut-on affirmer que \\(x\\) est solution si et seulement si \\(-x\\) l’est aussi ?',
+    statement: 'Pour l’inéquation \\((E)\\) : \\(|x^2-4|-|3x|&lt;0\\), pourquoi peut-on affirmer que \\(x\\) est solution si et seulement si \\(-x\\) l’est aussi ?',
     options: [
       'Parce que \\(|(-x)^2-4|=|x^2-4|\\) et \\(|3(-x)|=|3x|\\) : l’expression ne change pas en remplaçant \\(x\\) par \\(-x\\)',
       'Parce que toute inéquation a une solution symétrique par définition',
@@ -471,14 +471,14 @@ const EXERCISES = [
   },
   {
     id: 'ex76', section: 'methodes-inequations',
-    statement: 'Pour encadrer \\(\\dfrac{2x+3y}{x+y}\\) avec \\(x,y>0\\) (TD), la technique consiste à réécrire l’expression sous la forme :',
+    statement: 'Pour encadrer \\(\\dfrac{2x+3y}{x+y}\\) avec \\(x,y&gt;0\\) (TD), la technique consiste à réécrire l’expression sous la forme :',
     options: [
       '\\(2+\\dfrac{y}{x+y}\\), où le second terme est toujours strictement entre 0 et 1',
       '\\(\\dfrac{2x}{x+y}+\\dfrac{3y}{x+y}\\) sans aller plus loin',
       'Une constante unique, l’expression ne dépend pas de \\(x,y\\)',
     ],
     correctIndex: 0,
-    explain: 'Réécrire en « constante + reste compris entre 0 et 1 » est une technique puissante : ici \\(\\frac{2x+3y}{x+y}=\\frac{2(x+y)+y}{x+y}=2+\\frac{y}{x+y}\\), et \\(0<\\frac{y}{x+y}<1\\) car \\(0<y<x+y\\) (\\(x,y>0\\)).',
+    explain: 'Réécrire en « constante + reste compris entre 0 et 1 » est une technique puissante : ici \\(\\frac{2x+3y}{x+y}=\\frac{2(x+y)+y}{x+y}=2+\\frac{y}{x+y}\\), et \\(0&lt;\\frac{y}{x+y}&lt;1\\) car \\(0&lt;y&lt;x+y\\) (\\(x,y&gt;0\\)).',
     wrongExplain: {
       1: 'Cette décomposition est correcte mais inachevée : il faut continuer à simplifier (regrouper) pour obtenir une forme « constante + terme borné entre 0 et 1 » exploitable, sinon l’encadrement n’est pas direct.',
       2: 'L’expression dépend bien de \\(x\\) et \\(y\\) (ex. elle vaut \\(2.5\\) si \\(x=y\\), mais tend vers \\(2\\) si \\(y\\ll x\\)) — ce n’est pas une constante fixe.',
@@ -488,14 +488,14 @@ const EXERCISES = [
     id: 'ex77', section: 'methodes-inequations',
     statement: 'La fonction \\(t\\mapsto 1/t\\) est strictement décroissante sur \\(\\mathbb{R}_-^*\\) et sur \\(\\mathbb{R}_+^*\\) séparément. Peut-on en déduire qu’elle est décroissante sur \\(\\mathbb{R}^*\\) tout entier ?',
     options: [
-      'Non : on peut avoir \\(a<0<b\\) avec \\(1/a<0<1/b\\), ce qui n’a rien de décroissant globalement',
+      'Non : on peut avoir \\(a&lt;0&lt;b\\) avec \\(1/a&lt;0&lt;1/b\\), ce qui n’a rien de décroissant globalement',
       'Oui, la décroissance sur chaque morceau implique la décroissance globale',
       'Oui, car \\(\\mathbb{R}^*\\) est un intervalle',
     ],
     correctIndex: 0,
-    explain: 'Exemple du TD : \\(a=-1,b=1\\) donnent \\(a<b\\) mais \\(1/a=-1<1=1/b\\) (pas \\(1/a>1/b\\)) — la monotonie « par morceaux » ne se recolle pas quand l’ensemble de départ n’est pas un intervalle.',
+    explain: 'Exemple du TD : \\(a=-1,b=1\\) donnent \\(a&lt;b\\) mais \\(1/a=-1&lt;1=1/b\\) (pas \\(1/a&gt;1/b\\)) — la monotonie « par morceaux » ne se recolle pas quand l’ensemble de départ n’est pas un intervalle.',
     wrongExplain: {
-      1: 'La décroissance sur CHAQUE intervalle séparé ne garantit rien sur le comportement GLOBAL quand on compare un élément de chaque morceau — c’est exactement le piège illustré par le contre-exemple \\(a<0<b\\).',
+      1: 'La décroissance sur CHAQUE intervalle séparé ne garantit rien sur le comportement GLOBAL quand on compare un élément de chaque morceau — c’est exactement le piège illustré par le contre-exemple \\(a&lt;0&lt;b\\).',
       2: '\\(\\mathbb{R}^*=\\mathbb{R}\\setminus\\{0\\}\\) n’est PAS un intervalle (il « saute » 0) — c’est précisément pour cette raison que la règle de composition par une fonction monotone ne s’applique pas directement dessus.',
     },
   },
@@ -518,10 +518,10 @@ const EXERCISES = [
   // ---------- §5 — Synthèse (questions combinées, difficulté croissante) ----------
   {
     id: 'ex79', section: 'synthese-prelim',
-    statement: 'Soit \\(x>0\\). En utilisant \\(x-1<E(x)\\leq x\\), que vaut \\(\\lim_{x\\to+\\infty}\\dfrac{E(x)}{x}\\) ?',
+    statement: 'Soit \\(x&gt;0\\). En utilisant \\(x-1&lt;E(x)\\leq x\\), que vaut \\(\\lim_{x\\to+\\infty}\\dfrac{E(x)}{x}\\) ?',
     options: ['\\(1\\)', '\\(0\\)', '\\(+\\infty\\)'],
     correctIndex: 0,
-    explain: 'Diviser l’encadrement par \\(x>0\\) donne \\(1-\\frac{1}{x}<\\frac{E(x)}{x}\\leq1\\) ; les deux bornes tendent vers \\(1\\), donc par le théorème des gendarmes \\(E(x)/x\\to1\\) — la partie entière « colle » à \\(x\\) de plus en plus précisément en proportion.',
+    explain: 'Diviser l’encadrement par \\(x&gt;0\\) donne \\(1-\\frac{1}{x}&lt;\\frac{E(x)}{x}\\leq1\\) ; les deux bornes tendent vers \\(1\\), donc par le théorème des gendarmes \\(E(x)/x\\to1\\) — la partie entière « colle » à \\(x\\) de plus en plus précisément en proportion.',
     wrongExplain: {
       1: 'La partie entière reste très proche de \\(x\\) lui-même (à moins de 1 d’écart), donc leur RAPPORT tend vers 1, pas vers 0 — ce serait le cas si l’écart grandissait proportionnellement à \\(x\\), ce qui n’est pas le cas ici.',
       2: 'Le rapport \\(E(x)/x\\) est toujours encadré entre deux quantités qui tendent vers 1, donc il ne peut pas diverger vers l’infini — l’encadrement l’en empêche.',
@@ -551,9 +551,9 @@ const EXERCISES = [
   },
   {
     id: 'ex82', section: 'synthese-prelim',
-    statement: 'Pourquoi l’équivalence \\(x<y \\Leftrightarrow x^2<y^2\\) est-elle FAUSSE si \\(x\\) et \\(y\\) peuvent être négatifs ?',
+    statement: 'Pourquoi l’équivalence \\(x&lt;y \\Leftrightarrow x^2&lt;y^2\\) est-elle FAUSSE si \\(x\\) et \\(y\\) peuvent être négatifs ?',
     options: [
-      'Parce que \\(x\\mapsto x^2\\) n’est monotone que sur \\(\\mathbb{R}_+\\) (ou sur \\(\\mathbb{R}_-\\)) séparément, pas sur \\(\\mathbb{R}\\) entier — contre-exemple \\(x=-3<y=1\\) mais \\(x^2=9>1=y^2\\)',
+      'Parce que \\(x\\mapsto x^2\\) n’est monotone que sur \\(\\mathbb{R}_+\\) (ou sur \\(\\mathbb{R}_-\\)) séparément, pas sur \\(\\mathbb{R}\\) entier — contre-exemple \\(x=-3&lt;y=1\\) mais \\(x^2=9&gt;1=y^2\\)',
       'Parce que le carré d’un réel négatif n’existe pas',
       'Parce que cette équivalence est en fait toujours vraie',
     ],
@@ -581,7 +581,7 @@ const EXERCISES = [
   },
   {
     id: 'ex84', section: 'synthese-prelim',
-    statement: 'Pour \\(\\alpha>0\\) fixé, sachant que \\(E(x)/x\\to1\\) en \\(+\\infty\\) et que \\(t\\mapsto t^\\alpha\\) est continue en \\(1\\), que vaut \\(\\lim_{x\\to+\\infty}\\left(\\dfrac{E(x)}{x}\\right)^\\alpha\\) ?',
+    statement: 'Pour \\(\\alpha&gt;0\\) fixé, sachant que \\(E(x)/x\\to1\\) en \\(+\\infty\\) et que \\(t\\mapsto t^\\alpha\\) est continue en \\(1\\), que vaut \\(\\lim_{x\\to+\\infty}\\left(\\dfrac{E(x)}{x}\\right)^\\alpha\\) ?',
     options: ['\\(1\\)', '\\(0\\)', '\\(\\alpha\\)'],
     correctIndex: 0,
     explain: 'Composer une limite (ici \\(E(x)/x\\to1\\)) par une fonction continue au point limite (ici \\(t\\mapsto t^\\alpha\\) continue en \\(1\\)) donne la limite de la fonction composée : \\(1^\\alpha=1\\).',
@@ -595,7 +595,7 @@ const EXERCISES = [
   {
     id: 'ex1', section: 'limites',
     statement: 'Si \\(f(x) \\geq 0\\) près de \\(a\\) et \\(\\lim_{x \\to a} f(x) = l\\) existe, alors :',
-    options: ['\\(l \\geq 0\\)', '\\(l > 0\\)', '\\(l = 0\\)'],
+    options: ['\\(l \\geq 0\\)', '\\(l &gt; 0\\)', '\\(l = 0\\)'],
     correctIndex: 0,
     explain: 'Le passage à la limite ne conserve que les inégalités larges : par exemple \\(f(x)=x^2 \\geq 0\\) près de 0, mais sa limite en 0 est \\(0\\), pas strictement positive.',
   },
@@ -619,7 +619,7 @@ const EXERCISES = [
   },
   {
     id: 'ex4', section: 'continuite',
-    statement: 'D’après le théorème des valeurs intermédiaires, si \\(f\\) est continue sur \\([a,b]\\) et \\(f(a)f(b) < 0\\), alors :',
+    statement: 'D’après le théorème des valeurs intermédiaires, si \\(f\\) est continue sur \\([a,b]\\) et \\(f(a)f(b) &lt; 0\\), alors :',
     options: [
       'Il existe \\(c \\in ]a,b[\\) tel que \\(f(c) = 0\\)',
       '\\(f\\) est croissante sur \\([a,b]\\)',
@@ -790,9 +790,9 @@ const EXERCISES = [
   {
     id: 'ex24', section: 'suites',
     statement: 'Une suite géométrique \\((u_n)\\) de raison \\(\\rho\\) converge si et seulement si :',
-    options: ['\\(|\\rho| < 1\\) ou \\(\\rho = 1\\)', '\\(\\rho > 0\\)', '\\(|\\rho| \\leq 1\\)'],
+    options: ['\\(|\\rho| &lt; 1\\) ou \\(\\rho = 1\\)', '\\(\\rho &gt; 0\\)', '\\(|\\rho| \\leq 1\\)'],
     correctIndex: 0,
-    explain: 'Attention au cas \\(\\rho=-1\\) (module 1 mais pas convergent) : il faut \\(|\\rho|<1\\) STRICT, sauf le cas particulier \\(\\rho=1\\) (suite constante).',
+    explain: 'Attention au cas \\(\\rho=-1\\) (module 1 mais pas convergent) : il faut \\(|\\rho|&lt;1\\) STRICT, sauf le cas particulier \\(\\rho=1\\) (suite constante).',
   },
   {
     id: 'ex25', section: 'suites',
@@ -864,7 +864,7 @@ const EXERCISES = [
       'Puissance \\(\\gg\\) exponentielle \\(\\gg\\) logarithme',
     ],
     correctIndex: 0,
-    explain: 'Quel que soit \\(k>0\\), \\(e^n/n^k \\to +\\infty\\) et \\(n^k/\\ln n \\to +\\infty\\) : l’exponentielle l’emporte toujours sur la puissance, qui l’emporte toujours sur le logarithme.',
+    explain: 'Quel que soit \\(k&gt;0\\), \\(e^n/n^k \\to +\\infty\\) et \\(n^k/\\ln n \\to +\\infty\\) : l’exponentielle l’emporte toujours sur la puissance, qui l’emporte toujours sur le logarithme.',
   },
 
   // ---------- §9 — Séries numériques ----------
@@ -889,14 +889,14 @@ const EXERCISES = [
   {
     id: 'ex35', section: 'series',
     statement: 'La série géométrique \\(\\sum \\rho^n\\) converge si et seulement si :',
-    options: ['\\(|\\rho| < 1\\)', '\\(|\\rho| \\leq 1\\)', '\\(\\rho > 0\\)'],
+    options: ['\\(|\\rho| &lt; 1\\)', '\\(|\\rho| \\leq 1\\)', '\\(\\rho &gt; 0\\)'],
     correctIndex: 0,
     explain: 'Contrairement à la SUITE géométrique (où \\(\\rho=1\\) « convergeait » aussi, vers une constante), pour la SÉRIE \\(\\rho=1\\) donne \\(\\sum 1 = +\\infty\\) : elle diverge. Quand elle converge, la somme vaut \\(\\dfrac{1}{1-\\rho}\\).',
   },
   {
     id: 'ex36', section: 'series',
     statement: 'La série de Riemann \\(\\sum \\dfrac{1}{n^\\alpha}\\) converge si et seulement si :',
-    options: ['\\(\\alpha > 1\\)', '\\(\\alpha \\geq 0\\)', '\\(\\alpha < 1\\)'],
+    options: ['\\(\\alpha &gt; 1\\)', '\\(\\alpha \\geq 0\\)', '\\(\\alpha &lt; 1\\)'],
     correctIndex: 0,
     explain: 'Cas particulier \\(\\alpha=1\\) : c’est la série harmonique, qui diverge (tout juste) — la frontière \\(\\alpha=1\\) est du côté de la divergence.',
   },
@@ -920,10 +920,10 @@ const EXERCISES = [
   },
   {
     id: 'ex39', section: 'series',
-    statement: 'D’après la règle de d’Alembert, si \\(\\lim_{n \\to +\\infty} \\left|\\dfrac{u_{n+1}}{u_n}\\right| = L\\) avec \\(L<1\\), alors la série \\(\\sum u_n\\) :',
+    statement: 'D’après la règle de d’Alembert, si \\(\\lim_{n \\to +\\infty} \\left|\\dfrac{u_{n+1}}{u_n}\\right| = L\\) avec \\(L&lt;1\\), alors la série \\(\\sum u_n\\) :',
     options: ['Converge', 'Diverge grossièrement', 'Ne permet aucune conclusion'],
     correctIndex: 0,
-    explain: 'Et si \\(L>1\\), la série diverge grossièrement (le terme général ne tend même pas vers 0).',
+    explain: 'Et si \\(L&gt;1\\), la série diverge grossièrement (le terme général ne tend même pas vers 0).',
   },
   {
     id: 'ex40', section: 'series',
@@ -938,7 +938,7 @@ const EXERCISES = [
   },
   {
     id: 'ex41', section: 'series',
-    statement: 'D’après le critère de Cauchy, s’il existe \\(r<1\\) tel que \\(\\sqrt[n]{u_n} < r\\) à partir d’un certain rang, alors \\(\\sum u_n\\) :',
+    statement: 'D’après le critère de Cauchy, s’il existe \\(r&lt;1\\) tel que \\(\\sqrt[n]{u_n} &lt; r\\) à partir d’un certain rang, alors \\(\\sum u_n\\) :',
     options: ['Converge', 'Diverge', 'Diverge grossièrement seulement'],
     correctIndex: 0,
     explain: 'Symétrique à d’Alembert, mais avec la racine \\(n\\)-ième au lieu du rapport \\(u_{n+1}/u_n\\) — utile quand \\(u_n\\) contient déjà une puissance \\(n\\)-ième.',
@@ -955,19 +955,19 @@ const EXERCISES = [
 const SECTIONS = [
   {
     id: 'intervalles-inegalites', title: '§1 — INTERVALLES, INÉGALITÉS',
-    cours: 'Intervalle de \\(\\mathbb{R}\\) : entre deux éléments de \\(I\\), tout réel intermédiaire est aussi dans \\(I\\)<br>\\(\\mathbb{N}\\subset\\mathbb{Z}\\subset\\mathbb{D}\\subset\\mathbb{Q}\\subset\\mathbb{R}\\subset\\mathbb{C}\\)<br>\\(A\\leq B \\Leftrightarrow A-B\\leq0\\) : réflexe de base, à privilégier sur « isoler \\(x\\) » (qui ne marche qu’en degré 1)<br>Produit en croix (\\(a,b\\geq0\\), \\(c,d>0\\)) : \\(\\dfrac{a}{c}<\\dfrac{b}{d}\\Leftrightarrow ad<bc\\)<br><span class="math">Composition avec une fonction monotone</span> sur un intervalle \\(I\\) : \\(f\\) strictement croissante \\(\\Rightarrow a<b\\Leftrightarrow f(a)<f(b)\\) ; \\(f\\) strictement décroissante \\(\\Rightarrow a<b\\Leftrightarrow f(a)>f(b)\\)<br>Piège : \\(\\mathbb{R}^*\\) n’est PAS un intervalle — la règle de composition par une fonction monotone (ex. l’inverse) ne s’y applique pas globalement',
+    cours: 'Intervalle de \\(\\mathbb{R}\\) : entre deux éléments de \\(I\\), tout réel intermédiaire est aussi dans \\(I\\)<br>\\(\\mathbb{N}\\subset\\mathbb{Z}\\subset\\mathbb{D}\\subset\\mathbb{Q}\\subset\\mathbb{R}\\subset\\mathbb{C}\\)<br>\\(A\\leq B \\Leftrightarrow A-B\\leq0\\) : réflexe de base, à privilégier sur « isoler \\(x\\) » (qui ne marche qu’en degré 1)<br>Produit en croix (\\(a,b\\geq0\\), \\(c,d&gt;0\\)) : \\(\\dfrac{a}{c}&lt;\\dfrac{b}{d}\\Leftrightarrow ad&lt;bc\\)<br><span class="math">Composition avec une fonction monotone</span> sur un intervalle \\(I\\) : \\(f\\) strictement croissante \\(\\Rightarrow a&lt;b\\Leftrightarrow f(a)&lt;f(b)\\) ; \\(f\\) strictement décroissante \\(\\Rightarrow a&lt;b\\Leftrightarrow f(a)&gt;f(b)\\)<br>Piège : \\(\\mathbb{R}^*\\) n’est PAS un intervalle — la règle de composition par une fonction monotone (ex. l’inverse) ne s’y applique pas globalement',
   },
   {
     id: 'partie-entiere-valeur-absolue', title: '§2 — PARTIE ENTIÈRE ET VALEUR ABSOLUE',
-    cours: '<span class="math">Partie entière</span> \\(E(x)\\) : unique entier \\(n\\) tel que \\(n\\leq x<n+1\\) ; fonction croissante (pas strictement) sur \\(\\mathbb{R}\\)<br>\\(E(x)+E(y)\\leq E(x+y)\\leq E(x)+E(y)+1\\) (pas toujours égal, ex. \\(E(0.6)+E(0.7)=0\\neq E(1.3)=1\\)) ; pour \\(x,y>0\\) : \\(E(x)E(y)\\leq E(xy)\\)<br><span class="math">Valeur absolue</span> \\(|x|=\\sqrt{x^2}\\) ; \\(|\\lambda x|=|\\lambda||x|\\) ; \\(|x|\\geq x\\) toujours<br><span class="math">Inégalité triangulaire</span> \\(|x+y|\\leq|x|+|y|\\) (égalité \\(\\Leftrightarrow xy\\geq0\\)) ; deuxième inégalité triangulaire \\(\\big||x|-|y|\\big|\\leq|x+y|\\)<br>\\(|u|>R\\) (\\(R>0\\)) \\(\\Leftrightarrow u>R\\) ou \\(u<-R\\) ; \\(|x-a|\\leq\\varepsilon\\) : \\(a\\) est une approximation de \\(x\\) « à \\(\\varepsilon\\) près »',
+    cours: '<span class="math">Partie entière</span> \\(E(x)\\) : unique entier \\(n\\) tel que \\(n\\leq x&lt;n+1\\) ; fonction croissante (pas strictement) sur \\(\\mathbb{R}\\)<br>\\(E(x)+E(y)\\leq E(x+y)\\leq E(x)+E(y)+1\\) (pas toujours égal, ex. \\(E(0.6)+E(0.7)=0\\neq E(1.3)=1\\)) ; pour \\(x,y&gt;0\\) : \\(E(x)E(y)\\leq E(xy)\\)<br><span class="math">Valeur absolue</span> \\(|x|=\\sqrt{x^2}\\) ; \\(|\\lambda x|=|\\lambda||x|\\) ; \\(|x|\\geq x\\) toujours<br><span class="math">Inégalité triangulaire</span> \\(|x+y|\\leq|x|+|y|\\) (égalité \\(\\Leftrightarrow xy\\geq0\\)) ; deuxième inégalité triangulaire \\(\\big||x|-|y|\\big|\\leq|x+y|\\)<br>\\(|u|&gt;R\\) (\\(R&gt;0\\)) \\(\\Leftrightarrow u&gt;R\\) ou \\(u&lt;-R\\) ; \\(|x-a|\\leq\\varepsilon\\) : \\(a\\) est une approximation de \\(x\\) « à \\(\\varepsilon\\) près »',
   },
   {
     id: 'croissances-comparees', title: '§3 — CROISSANCES COMPARÉES, PUISSANCES RÉELLES',
-    cours: '\\(\\lim_{x\\to-\\infty}e^x=0\\), \\(\\lim_{x\\to+\\infty}e^x=+\\infty\\)<br><span class="math">Croissances comparées</span> : \\(\\forall n, x^ne^{-x}\\to0\\) et \\(\\dfrac{\\ln x}{x^n}\\to0\\) en \\(+\\infty\\) ; \\(x^n\\ln x\\to0\\) en \\(0^+\\)<br>Mnémonique (en \\(+\\infty\\)) : \\((\\ln x)^\\beta \\ll x^\\gamma \\ll e^x\\) — l’exponentielle l’emporte toujours sur toute puissance, qui l’emporte toujours sur le logarithme<br>\\(\\log(x)=\\dfrac{\\ln x}{\\ln10}\\) (logarithme décimal)<br><span class="math">Exposant réel</span> : \\(a^x=e^{x\\ln a}\\) (\\(a>0\\)) ; \\(x^\\alpha=e^{\\alpha\\ln x}\\) (\\(x>0\\)), dérivable sur \\(\\mathbb{R}_+^*\\) avec \\((x^\\alpha)\'=\\alpha x^{\\alpha-1}\\), croissante si \\(\\alpha>0\\), décroissante si \\(\\alpha<0\\)<br>Piège : ces définitions supposent une base \\(>0\\) — les identités de puissances ne se généralisent pas à une base négative',
+    cours: '\\(\\lim_{x\\to-\\infty}e^x=0\\), \\(\\lim_{x\\to+\\infty}e^x=+\\infty\\)<br><span class="math">Croissances comparées</span> : \\(\\forall n, x^ne^{-x}\\to0\\) et \\(\\dfrac{\\ln x}{x^n}\\to0\\) en \\(+\\infty\\) ; \\(x^n\\ln x\\to0\\) en \\(0^+\\)<br>Mnémonique (en \\(+\\infty\\)) : \\((\\ln x)^\\beta \\ll x^\\gamma \\ll e^x\\) — l’exponentielle l’emporte toujours sur toute puissance, qui l’emporte toujours sur le logarithme<br>\\(\\log(x)=\\dfrac{\\ln x}{\\ln10}\\) (logarithme décimal)<br><span class="math">Exposant réel</span> : \\(a^x=e^{x\\ln a}\\) (\\(a&gt;0\\)) ; \\(x^\\alpha=e^{\\alpha\\ln x}\\) (\\(x&gt;0\\)), dérivable sur \\(\\mathbb{R}_+^*\\) avec \\((x^\\alpha)\'=\\alpha x^{\\alpha-1}\\), croissante si \\(\\alpha&gt;0\\), décroissante si \\(\\alpha&lt;0\\)<br>Piège : ces définitions supposent une base \\(&gt;0\\) — les identités de puissances ne se généralisent pas à une base négative',
   },
   {
     id: 'methodes-inequations', title: '§4 — MÉTHODES : RÉSOUDRE DES INÉQUATIONS',
-    cours: 'Trinôme \\(ax^2+bx+c\\) : signe de \\(a\\) à l’extérieur des racines (si \\(\\Delta>0\\)), signe opposé entre elles<br>Fraction rationnelle : TOUT ramener d’un côté, étudier le signe du quotient par un tableau — ne jamais multiplier par un dénominateur de signe inconnu<br>Inéquation avec racine carrée (\\(\\sqrt{\\cdots}<g(x)\\)) : vérifier D’ABORD que \\(g(x)>0\\) (sinon aucune solution), SEULEMENT ENSUITE élever au carré<br>Symétrie \\(x\\leftrightarrow-x\\) : si l’inéquation ne contient que des termes PAIRS en \\(x\\) (carrés, valeurs absolues), son ensemble de solutions est symétrique par rapport à 0<br>Encadrer une différence/un produit : toujours repasser par l’encadrement de chaque terme SÉPARÉMENT (attention au changement de signe qui inverse l’ordre des bornes)<br>Réécrire une fraction en « constante + reste borné entre 0 et 1 » pour l’encadrer facilement',
+    cours: 'Trinôme \\(ax^2+bx+c\\) : signe de \\(a\\) à l’extérieur des racines (si \\(\\Delta&gt;0\\)), signe opposé entre elles<br>Fraction rationnelle : TOUT ramener d’un côté, étudier le signe du quotient par un tableau — ne jamais multiplier par un dénominateur de signe inconnu<br>Inéquation avec racine carrée (\\(\\sqrt{\\cdots}&lt;g(x)\\)) : vérifier D’ABORD que \\(g(x)&gt;0\\) (sinon aucune solution), SEULEMENT ENSUITE élever au carré<br>Symétrie \\(x\\leftrightarrow-x\\) : si l’inéquation ne contient que des termes PAIRS en \\(x\\) (carrés, valeurs absolues), son ensemble de solutions est symétrique par rapport à 0<br>Encadrer une différence/un produit : toujours repasser par l’encadrement de chaque terme SÉPARÉMENT (attention au changement de signe qui inverse l’ordre des bornes)<br>Réécrire une fraction en « constante + reste borné entre 0 et 1 » pour l’encadrer facilement',
   },
   {
     id: 'synthese-prelim', title: '§5 — SYNTHÈSE : QUESTIONS COMBINÉES',
@@ -975,7 +975,7 @@ const SECTIONS = [
   },
   {
     id: 'limites', title: '§6 — LIMITES',
-    cours: '\\(\\lim_{x \\to a} f(x) = l\\) : \\(\\forall \\varepsilon>0, \\exists \\alpha>0, |x-a|<\\alpha \\Rightarrow |f(x)-l|<\\varepsilon\\)<br>Limite finie en \\(a\\) \\(\\Rightarrow\\) \\(f\\) localement bornée<br><span class="math">Théorème des gendarmes</span> (encadrement)<br>\\(f \\mathop{\\sim}\\limits_{a} g \\Leftrightarrow \\lim_{x \\to a} f/g = 1\\), et alors mêmes limites',
+    cours: '\\(\\lim_{x \\to a} f(x) = l\\) : \\(\\forall \\varepsilon&gt;0, \\exists \\alpha&gt;0, |x-a|&lt;\\alpha \\Rightarrow |f(x)-l|&lt;\\varepsilon\\)<br>Limite finie en \\(a\\) \\(\\Rightarrow\\) \\(f\\) localement bornée<br><span class="math">Théorème des gendarmes</span> (encadrement)<br>\\(f \\mathop{\\sim}\\limits_{a} g \\Leftrightarrow \\lim_{x \\to a} f/g = 1\\), et alors mêmes limites',
   },
   {
     id: 'continuite', title: '§7 — CONTINUITÉ',
@@ -1003,11 +1003,11 @@ const SECTIONS = [
   },
   {
     id: 'suites', title: '§13 — SUITES',
-    cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|<1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature)<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
+    cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|&lt;1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature)<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
   },
   {
     id: 'series', title: '§14 — SÉRIES NUMÉRIQUES',
-    cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|<1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha>1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L<1\\) CV, \\(L>1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
+    cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|&lt;1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha&gt;1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L&lt;1\\) CV, \\(L&gt;1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
   },
 ];
 

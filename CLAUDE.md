@@ -1852,3 +1852,91 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   session sans aucune erreur enregistrée comme record et affichée au
   prochain passage sur la même sélection, filtre par chapitre single
   (LOGIQUE, pool réduit à 8) fonctionnel.
+
+## Formules affichées en texte brut : deux bugs distincts trouvés et corrigés (22/10/2026, signalés capture à l'appui)
+
+- Signalé par Pierre le lendemain de la compilation ANALYSE/LOGIQUE/
+  PYTHON (captures à l'appui, plusieurs messages) : des QCM affichaient
+  du LaTeX brut (`\(...\)` jamais transformé en formule) à la place
+  d'une formule rendue, parfois avec des options carrément absentes ou
+  dans le désordre. Deux causes DISTINCTES trouvées, aucun rapport
+  entre elles — les deux corrigées, et un script de vérification créé
+  pour ne plus jamais les rater en silence.
+- **Bug 1 (le plus large, 194 occurrences sur 8 fichiers) : `<`/`>`
+  bruts utilisés comme signes mathématiques (ex. "ad<bc") dans un
+  texte inséré via `innerHTML`.** Le PARSEUR HTML voit ce texte AVANT
+  que KaTeX n'existe — un `<` suivi d'une lettre plausible (`<b`,
+  `<n`...) est pris pour le début d'une balise, qui peut avaler tout
+  le texte jusqu'au PROCHAIN `>` trouvé n'importe où plus loin (y
+  compris un `<br>` ou un `<span>` entier), rendant silencieusement
+  illisible une partie du texte — jamais d'erreur console, rien à
+  repérer sans lire le rendu final à l'œil. Trouvé d'abord sur
+  ANALYSE (nouvellement ajouté la veille), puis confirmé bien plus
+  ancien/large en élargissant la recherche : CALCULUS (16 occurrences,
+  contenu depuis v147/v154), JAVA (37, contenu jamais encore activé)
+  — ALGÈBRE/LOGIQUE/PROBABILITÉS/STATISTIQUES n'en avaient aucune
+  (déjà écrites avec `\leq`/`\geq`/`\Leftrightarrow`, jamais de
+  comparaison stricte en brut). PYTHON : 0 une fois les `<code>`
+  légitimes exclus (ses nombreux `<`/`>` de comparaison Python, ex.
+  `i < n`, sont du texte normal hors tout délimiteur KaTeX — mais
+  AURAIENT eu exactement le même problème de parsing HTML si jamais
+  laissés bruts, corrigés par prudence/cohérence au passage).
+- **Corrigé par la règle générale, pas au cas par cas** : tout `<`/`>`
+  utilisé comme signe (pas comme vraie balise HTML) doit être écrit
+  `&lt;`/`&gt;` — une entité HTML se décode en caractère littéral
+  APRÈS le parsing HTML, dans le nœud de texte, donc ni le parseur
+  HTML ni KaTeX (qui lit ensuite ce texte déjà décodé) ne sont jamais
+  perturbés. Script Node ponctuel (pas conservé, un seul usage) :
+  protège d'abord les VRAIES balises déjà utilisées dans le contenu
+  (`<br>`, `<span class="...">`, `<code>`, `<a href="...">`, les
+  quatre seules trouvées dans les 8 fichiers de fiches — vérifié par
+  recherche exhaustive avant d'écrire le script) derrière un
+  placeholder, échappe TOUT `<`/`>` restant, puis restaure les
+  balises protégées. Validé avant d'écrire sur les vrais fichiers :
+  testé sur une copie, comptes d'exercices/sections inchangés après
+  coup, contenu `<code>`/`<a>` intact, formules de comparaison
+  Python bien transformées en `&lt;=`/`&lt;` (toujours du texte
+  normal à l'écran, pas une entrée KaTeX). `reflexe-data.js`
+  (copie figée d'exercices, voir plus haut) regénéré après coup
+  depuis les fichiers sources désormais corrigés — sa propre note
+  d'en-tête prévenait déjà qu'une correction en amont ne se répercute
+  pas automatiquement, exactement ce cas de figure.
+- **Bug 2 (séparé, trouvé en vérifiant le 1er sur PYTHON) :
+  `fiches/python.html` et `fiches/java.html` ne chargeaient JAMAIS
+  KaTeX** (ni `katex.min.css`, ni `katex.min.js`, ni
+  `auto-render.min.js`) — ces deux chapitres n'ayant historiquement
+  aucune formule mathématique (programmation pure), personne n'avait
+  jamais eu besoin d'ajouter ces balises à l'origine. Resté invisible
+  jusqu'à l'ajout, la veille, d'un renvoi `.cours-crosslink` PYTHON→
+  LOGIQUE contenant une vraie formule (`\(\mathcal{P}(n)\Rightarrow
+  \mathcal{P}(n+1)\)`, "l'esprit d'une récurrence") — restée en texte
+  brut, sans AUCUNE erreur console (`window.katex`/
+  `window.renderMathInElement` simplement jamais définis, pas une
+  erreur de chargement visible). Corrigé en ajoutant le même bloc de
+  3 balises que toutes les autres fiches (déjà présentes sur les 6
+  autres) à python.html ET java.html (ce dernier n'a encore aucune
+  formule, mais corrigé par cohérence/prévention — `scripts/check-
+  content-escaping.js` l'aurait laissé passer tel quel puisqu'il
+  vérifie "KaTeX chargé SI au moins une formule existe", pas l'inverse).
+- **Nouveau script `scripts/check-content-escaping.js`** (demande
+  explicite de Pierre, "corrige partout à l'avenir" compris comme
+  "empêche que ça revienne", pas juste "corrige ce qui est visible
+  aujourd'hui") : vérifie les deux bugs ci-dessus sur l'ensemble des
+  fiches à chaque lancement — zéro `<`/`>` brut hors balise connue
+  dans le contenu (`const EXERCISES` et au-delà, pas les commentaires
+  d'en-tête), et KaTeX chargé sur toute fiche dont le JS contient au
+  moins un délimiteur `\(`/`\[`. Sort en erreur (exit 1) si l'un des
+  deux échoue, comme `scripts/check-versions.sh` — réflexe à prendre
+  : lancer les deux avant de shipper tout contenu touchant une fiche.
+  Pas encore appelé automatiquement par check-versions.sh (scripts
+  séparés, responsabilités différentes) — à enchaîner manuellement
+  pour l'instant, fusion éventuelle si ça s'avère oublié trop souvent.
+- Testé (Playwright, 320/390px, paginé/continu, les 8 chapitres y
+  compris les inactifs) après correction : zéro texte `\(`/`\)` brut
+  visible nulle part, zéro élément `.katex-error`, `window.katex`
+  bien défini sur python.html/java.html désormais, le renvoi croisé
+  PYTHON→LOGIQUE s'affiche correctement en formule rendue, zéro
+  régression de débordement par rapport à l'état d'avant (le seul
+  18px résiduel observé une fois sur LOGIQUE en continu à 320px est
+  l'artefact de timing déjà documenté la veille, pas un nouveau
+  problème).

@@ -101,12 +101,12 @@ const EXERCISES = [
   },
   {
     id: 'ex5', section: 'algebrique',
-    statement: 'Le coefficient binomial \\(\\binom{n}{p}\\) pour \\(p > n\\) vaut :',
+    statement: 'Le coefficient binomial \\(\\binom{n}{p}\\) pour \\(p &gt; n\\) vaut :',
     options: ['\\(0\\)', '\\(1\\)', '\\(n!\\)'],
     correctIndex: 0,
     explain: 'On ne peut pas choisir plus d’éléments \\(p\\) qu’il n’y en a \\(n\\) dans l’ensemble : par convention, le coefficient vaut \\(0\\).',
     wrongExplain: {
-      1: 'On confond peut-être avec \\(\\binom{n}{0}=1\\) (choisir 0 élément) — mais ici \\(p>n\\), il est impossible de choisir plus d’éléments qu’il n’y en a, le résultat est \\(0\\), pas \\(1\\).',
+      1: 'On confond peut-être avec \\(\\binom{n}{0}=1\\) (choisir 0 élément) — mais ici \\(p&gt;n\\), il est impossible de choisir plus d’éléments qu’il n’y en a, le résultat est \\(0\\), pas \\(1\\).',
       2: '\\(n!\\) correspondrait plutôt à \\(\\binom{n}{n}\\) ou à un dénombrement complet, pas à un choix impossible.',
     },
   },
@@ -161,7 +161,7 @@ const EXERCISES = [
     correctIndex: 0,
     explain: 'Par convention (cohérente avec \\(a^{n-n}=a^n/a^n=1\\)), tout nombre non nul à la puissance 0 vaut 1.',
     wrongExplain: {
-      1: '\\(a^0\\) ne vaut jamais \\(0\\) (pour \\(a\\neq0\\)) — c’est \\(0^n\\) (avec \\(n>0\\)) qui vaut \\(0\\), pas l’inverse.',
+      1: '\\(a^0\\) ne vaut jamais \\(0\\) (pour \\(a\\neq0\\)) — c’est \\(0^n\\) (avec \\(n&gt;0\\)) qui vaut \\(0\\), pas l’inverse.',
       2: 'C’est \\(a^1\\) qui vaut \\(a\\) — l’exposant \\(0\\) « annule » toute la puissance, il ne la laisse pas inchangée.',
     },
   },
@@ -181,9 +181,9 @@ const EXERCISES = [
     statement: '\\(\\sqrt{x^2}\\) est égal à :',
     options: ['\\(|x|\\)', '\\(x\\)', '\\(x^2\\)'],
     correctIndex: 0,
-    explain: 'La racine carrée est toujours positive ; si \\(x<0\\), \\(\\sqrt{x^2}=-x=|x|\\), pas \\(x\\) — cas particulier de la règle précédente.',
+    explain: 'La racine carrée est toujours positive ; si \\(x&lt;0\\), \\(\\sqrt{x^2}=-x=|x|\\), pas \\(x\\) — cas particulier de la règle précédente.',
     wrongExplain: {
-      1: 'Faux si \\(x<0\\) : par exemple \\(\\sqrt{(-3)^2}=\\sqrt{9}=3\\), pas \\(-3\\) — la racine carrée ne peut jamais rendre un résultat négatif.',
+      1: 'Faux si \\(x&lt;0\\) : par exemple \\(\\sqrt{(-3)^2}=\\sqrt{9}=3\\), pas \\(-3\\) — la racine carrée ne peut jamais rendre un résultat négatif.',
       2: 'Cela reviendrait à ne pas appliquer la racine carrée du tout : \\(\\sqrt{x^2}\\) n’est pas \\(x^2\\), sauf cas particulier.',
     },
   },
@@ -266,13 +266,13 @@ const EXERCISES = [
   },
   {
     id: 'ex20', section: 'trinome',
-    statement: 'Si \\(\\Delta < 0\\), l’équation \\(ax^2+bx+c=0\\) admet, dans \\(\\mathbb{R}\\) :',
+    statement: 'Si \\(\\Delta &lt; 0\\), l’équation \\(ax^2+bx+c=0\\) admet, dans \\(\\mathbb{R}\\) :',
     options: ['Aucune solution', 'Une solution', 'Deux solutions'],
     correctIndex: 0,
-    explain: 'La forme canonique fait apparaître \\(\\left(x+\\frac{b}{2a}\\right)^2 = \\frac{\\Delta}{4a^2}\\) ; si \\(\\Delta<0\\), le membre de droite est négatif, impossible pour un carré réel.',
+    explain: 'La forme canonique fait apparaître \\(\\left(x+\\frac{b}{2a}\\right)^2 = \\frac{\\Delta}{4a^2}\\) ; si \\(\\Delta&lt;0\\), le membre de droite est négatif, impossible pour un carré réel.',
     wrongExplain: {
-      1: 'Une solution unique correspond à \\(\\Delta=0\\) (racine double), pas à \\(\\Delta<0\\).',
-      2: 'Deux solutions correspondent à \\(\\Delta>0\\), pas à \\(\\Delta<0\\) — ici le carré du membre de droite serait négatif, ce qui est impossible.',
+      1: 'Une solution unique correspond à \\(\\Delta=0\\) (racine double), pas à \\(\\Delta&lt;0\\).',
+      2: 'Deux solutions correspondent à \\(\\Delta&gt;0\\), pas à \\(\\Delta&lt;0\\) — ici le carré du membre de droite serait négatif, ce qui est impossible.',
     },
   },
   {
@@ -396,12 +396,12 @@ const EXERCISES = [
   {
     id: 'ex23', section: 'explog',
     statement: '\\(\\ln x\\) est défini :',
-    options: ['Seulement pour \\(x > 0\\)', 'Pour tout \\(x \\in \\mathbb{R}\\)', 'Seulement pour \\(x \\geq 0\\)'],
+    options: ['Seulement pour \\(x &gt; 0\\)', 'Pour tout \\(x \\in \\mathbb{R}\\)', 'Seulement pour \\(x \\geq 0\\)'],
     correctIndex: 0,
     explain: 'Le logarithme est la fonction réciproque de l’exponentielle, qui ne prend que des valeurs strictement positives.',
     wrongExplain: {
       1: 'Le logarithme n’est pas défini pour \\(x\\leq0\\) : l’exponentielle (sa fonction réciproque) ne prend jamais de valeurs négatives ou nulles.',
-      2: '\\(\\ln 0\\) n’existe pas (tend vers \\(-\\infty\\)) : le domaine de définition est \\(x>0\\), strictement, \\(0\\) exclu.',
+      2: '\\(\\ln 0\\) n’existe pas (tend vers \\(-\\infty\\)) : le domaine de définition est \\(x&gt;0\\), strictement, \\(0\\) exclu.',
     },
   },
   {
@@ -672,15 +672,15 @@ const EXERCISES = [
 const SECTIONS = [
   {
     id: 'algebrique', title: '§1 — FRACTIONS, COEFF. BINOMIAUX, PUISSANCES, RADICAUX',
-    cours: 'Fraction : jamais diviser par 0. Somme : mettre au même dénominateur (le plus petit commun). Égalité \\(\\dfrac{a}{b}=\\dfrac{c}{d} \\Leftrightarrow ad=bc\\) (produit en croix). Quotient de deux fractions : \\(\\dfrac{a/b}{c/d} = \\dfrac{ad}{bc}\\)<br>Coefficient binomial : \\(\\binom{n}{p} = \\dfrac{n!}{p!(n-p)!}\\) si \\(0 \\leq p \\leq n\\), \\(=0\\) si \\(p>n\\)<br>Puissances entières : \\(a^m a^n=a^{m+n}\\), \\((a^m)^n=a^{mn}\\), \\((a/b)^n=a^n/b^n\\), \\(a^{-n}=1/a^n\\), \\(a^0=1\\) (\\(a\\neq0\\))<br>Racine carrée : toujours \\(\\geq 0\\), \\(\\sqrt{x^2}=|x|\\), \\(\\sqrt{ab}=\\sqrt{a}\\sqrt{b}\\) (\\(a,b\\geq0\\)). <span class="math">Quantité conjuguée</span> de \\(\\sqrt{a}+\\sqrt{b}\\) : \\(\\sqrt{a}-\\sqrt{b}\\) (leur produit vaut \\(a-b\\), sans racine) — sert à rendre rationnel un dénominateur<br>Puissances fractionnaires : \\(x^{1/n}=\\sqrt[n]{x}\\) (racine \\(n\\)-ième) ; les mêmes règles de puissances s’appliquent avec des exposants fractionnaires',
+    cours: 'Fraction : jamais diviser par 0. Somme : mettre au même dénominateur (le plus petit commun). Égalité \\(\\dfrac{a}{b}=\\dfrac{c}{d} \\Leftrightarrow ad=bc\\) (produit en croix). Quotient de deux fractions : \\(\\dfrac{a/b}{c/d} = \\dfrac{ad}{bc}\\)<br>Coefficient binomial : \\(\\binom{n}{p} = \\dfrac{n!}{p!(n-p)!}\\) si \\(0 \\leq p \\leq n\\), \\(=0\\) si \\(p&gt;n\\)<br>Puissances entières : \\(a^m a^n=a^{m+n}\\), \\((a^m)^n=a^{mn}\\), \\((a/b)^n=a^n/b^n\\), \\(a^{-n}=1/a^n\\), \\(a^0=1\\) (\\(a\\neq0\\))<br>Racine carrée : toujours \\(\\geq 0\\), \\(\\sqrt{x^2}=|x|\\), \\(\\sqrt{ab}=\\sqrt{a}\\sqrt{b}\\) (\\(a,b\\geq0\\)). <span class="math">Quantité conjuguée</span> de \\(\\sqrt{a}+\\sqrt{b}\\) : \\(\\sqrt{a}-\\sqrt{b}\\) (leur produit vaut \\(a-b\\), sans racine) — sert à rendre rationnel un dénominateur<br>Puissances fractionnaires : \\(x^{1/n}=\\sqrt[n]{x}\\) (racine \\(n\\)-ième) ; les mêmes règles de puissances s’appliquent avec des exposants fractionnaires',
   },
   {
     id: 'trinome', title: '§2 — TRINÔME DU SECOND DEGRÉ',
-    cours: 'Un carré de réel est toujours \\(\\geq 0\\) (faux pour \\(\\mathbb{C}\\)) ; \\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br>Avant de calculer \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) ou une racine évidente (\\(\\pm1\\))<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta>0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta<0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme canonique : \\(a(x-\\alpha)^2+\\beta\\) ; forme factorisée (racines réelles) : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)<br>\\(x_1\\) racine de \\(P\\) \\(\\Leftrightarrow\\) \\(P(x_1)=0\\)',
+    cours: 'Un carré de réel est toujours \\(\\geq 0\\) (faux pour \\(\\mathbb{C}\\)) ; \\(x^2=y^2 \\Leftrightarrow x=\\pm y\\)<br>Avant de calculer \\(\\Delta\\) : chercher une factorisation évidente (par \\(x\\)...) ou une racine évidente (\\(\\pm1\\))<br><span class="math">Discriminant</span> \\(\\Delta\\) : \\(\\Delta&gt;0 \\to\\) 2 solutions, \\(\\Delta=0 \\to\\) 1 solution, \\(\\Delta&lt;0 \\to\\) aucune (dans \\(\\mathbb{R}\\))<br>Forme canonique : \\(a(x-\\alpha)^2+\\beta\\) ; forme factorisée (racines réelles) : \\(a(x-x_1)(x-x_2)\\)<br>\\(x, y\\) racines de \\(X^2-SX+P=0 \\Leftrightarrow x+y=S\\) et \\(xy=P\\)<br>\\(x_1\\) racine de \\(P\\) \\(\\Leftrightarrow\\) \\(P(x_1)=0\\)',
   },
   {
     id: 'explog', title: '§3 — EXPONENTIELLE ET LOGARITHME',
-    cours: '\\(\\ln x\\) défini seulement pour \\(x>0\\), \\(\\ln 1 = 0\\), \\(\\ln e = 1\\)<br>\\(\\ln(ab)=\\ln a+\\ln b\\), \\(\\ln(a/b)=\\ln a-\\ln b\\), \\(\\ln(a^r)=r\\ln a\\)<br>\\(e^{x+y}=e^x e^y\\), et \\(a = \\ln b \\Leftrightarrow e^a = b\\)',
+    cours: '\\(\\ln x\\) défini seulement pour \\(x&gt;0\\), \\(\\ln 1 = 0\\), \\(\\ln e = 1\\)<br>\\(\\ln(ab)=\\ln a+\\ln b\\), \\(\\ln(a/b)=\\ln a-\\ln b\\), \\(\\ln(a^r)=r\\ln a\\)<br>\\(e^{x+y}=e^x e^y\\), et \\(a = \\ln b \\Leftrightarrow e^a = b\\)',
   },
   {
     id: 'derivation', title: '§4 — DÉRIVATION',

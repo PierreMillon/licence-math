@@ -344,7 +344,7 @@ const EXERCISES = [
     statement: "<code>def f(x):<br>&nbsp;&nbsp;if x &gt; 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;return 'positif'<br>&nbsp;&nbsp;return 'non positif'<br>print(f(5))</code><br>Que s'affiche-t-il ?",
     options: ["<code>positif</code>", "<code>non positif</code>", "Les deux lignes s'affichent"],
     correctIndex: 0,
-    explain: "Dès qu'un return est exécuté (ici dans le if, car 5>0), la fonction s'arrête immédiatement : la ligne return 'non positif' n'est jamais atteinte.",
+    explain: "Dès qu'un return est exécuté (ici dans le if, car 5&gt;0), la fonction s'arrête immédiatement : la ligne return 'non positif' n'est jamais atteinte.",
   },
   {
     id: "ex38", section: "chaines",

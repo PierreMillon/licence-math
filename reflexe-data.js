@@ -116,7 +116,7 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex5",
     "section": "algebrique",
-    "statement": "Le coefficient binomial \\(\\binom{n}{p}\\) pour \\(p > n\\) vaut :",
+    "statement": "Le coefficient binomial \\(\\binom{n}{p}\\) pour \\(p &gt; n\\) vaut :",
     "options": [
       "\\(0\\)",
       "\\(1\\)",
@@ -125,7 +125,7 @@ const REFLEX_EXERCISES = [
     "correctIndex": 0,
     "explain": "On ne peut pas choisir plus d’éléments \\(p\\) qu’il n’y en a \\(n\\) dans l’ensemble : par convention, le coefficient vaut \\(0\\).",
     "wrongExplain": {
-      "1": "On confond peut-être avec \\(\\binom{n}{0}=1\\) (choisir 0 élément) — mais ici \\(p>n\\), il est impossible de choisir plus d’éléments qu’il n’y en a, le résultat est \\(0\\), pas \\(1\\).",
+      "1": "On confond peut-être avec \\(\\binom{n}{0}=1\\) (choisir 0 élément) — mais ici \\(p&gt;n\\), il est impossible de choisir plus d’éléments qu’il n’y en a, le résultat est \\(0\\), pas \\(1\\).",
       "2": "\\(n!\\) correspondrait plutôt à \\(\\binom{n}{n}\\) ou à un dénombrement complet, pas à un choix impossible."
     },
     "chapterId": "calculus"
@@ -210,7 +210,7 @@ const REFLEX_EXERCISES = [
     "correctIndex": 0,
     "explain": "Par convention (cohérente avec \\(a^{n-n}=a^n/a^n=1\\)), tout nombre non nul à la puissance 0 vaut 1.",
     "wrongExplain": {
-      "1": "\\(a^0\\) ne vaut jamais \\(0\\) (pour \\(a\\neq0\\)) — c’est \\(0^n\\) (avec \\(n>0\\)) qui vaut \\(0\\), pas l’inverse.",
+      "1": "\\(a^0\\) ne vaut jamais \\(0\\) (pour \\(a\\neq0\\)) — c’est \\(0^n\\) (avec \\(n&gt;0\\)) qui vaut \\(0\\), pas l’inverse.",
       "2": "C’est \\(a^1\\) qui vaut \\(a\\) — l’exposant \\(0\\) « annule » toute la puissance, il ne la laisse pas inchangée."
     },
     "chapterId": "calculus"
@@ -242,9 +242,9 @@ const REFLEX_EXERCISES = [
       "\\(x^2\\)"
     ],
     "correctIndex": 0,
-    "explain": "La racine carrée est toujours positive ; si \\(x<0\\), \\(\\sqrt{x^2}=-x=|x|\\), pas \\(x\\) — cas particulier de la règle précédente.",
+    "explain": "La racine carrée est toujours positive ; si \\(x&lt;0\\), \\(\\sqrt{x^2}=-x=|x|\\), pas \\(x\\) — cas particulier de la règle précédente.",
     "wrongExplain": {
-      "1": "Faux si \\(x<0\\) : par exemple \\(\\sqrt{(-3)^2}=\\sqrt{9}=3\\), pas \\(-3\\) — la racine carrée ne peut jamais rendre un résultat négatif.",
+      "1": "Faux si \\(x&lt;0\\) : par exemple \\(\\sqrt{(-3)^2}=\\sqrt{9}=3\\), pas \\(-3\\) — la racine carrée ne peut jamais rendre un résultat négatif.",
       "2": "Cela reviendrait à ne pas appliquer la racine carrée du tout : \\(\\sqrt{x^2}\\) n’est pas \\(x^2\\), sauf cas particulier."
     },
     "chapterId": "calculus"
@@ -371,17 +371,17 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex20",
     "section": "trinome",
-    "statement": "Si \\(\\Delta < 0\\), l’équation \\(ax^2+bx+c=0\\) admet, dans \\(\\mathbb{R}\\) :",
+    "statement": "Si \\(\\Delta &lt; 0\\), l’équation \\(ax^2+bx+c=0\\) admet, dans \\(\\mathbb{R}\\) :",
     "options": [
       "Aucune solution",
       "Une solution",
       "Deux solutions"
     ],
     "correctIndex": 0,
-    "explain": "La forme canonique fait apparaître \\(\\left(x+\\frac{b}{2a}\\right)^2 = \\frac{\\Delta}{4a^2}\\) ; si \\(\\Delta<0\\), le membre de droite est négatif, impossible pour un carré réel.",
+    "explain": "La forme canonique fait apparaître \\(\\left(x+\\frac{b}{2a}\\right)^2 = \\frac{\\Delta}{4a^2}\\) ; si \\(\\Delta&lt;0\\), le membre de droite est négatif, impossible pour un carré réel.",
     "wrongExplain": {
-      "1": "Une solution unique correspond à \\(\\Delta=0\\) (racine double), pas à \\(\\Delta<0\\).",
-      "2": "Deux solutions correspondent à \\(\\Delta>0\\), pas à \\(\\Delta<0\\) — ici le carré du membre de droite serait négatif, ce qui est impossible."
+      "1": "Une solution unique correspond à \\(\\Delta=0\\) (racine double), pas à \\(\\Delta&lt;0\\).",
+      "2": "Deux solutions correspondent à \\(\\Delta&gt;0\\), pas à \\(\\Delta&lt;0\\) — ici le carré du membre de droite serait négatif, ce qui est impossible."
     },
     "chapterId": "calculus"
   },
@@ -565,7 +565,7 @@ const REFLEX_EXERCISES = [
       "Remplacer \\(x\\) par \\(0\\) pour deviner le signe général"
     ],
     "correctIndex": 0,
-    "explain": "Un trinôme du second degré se signe grâce à ses racines (quand \\(\\Delta>0\\)) : signe de \\(a\\) à l’extérieur des racines, signe opposé entre les racines.",
+    "explain": "Un trinôme du second degré se signe grâce à ses racines (quand \\(\\Delta&gt;0\\)) : signe de \\(a\\) à l’extérieur des racines, signe opposé entre les racines.",
     "wrongExplain": {
       "1": "« Isoler \\(x\\) » ne fonctionne que pour des inégalités AFFINES (degré 1) — dès qu’il y a un \\(x^2\\), cette méthode ne s’applique plus directement.",
       "2": "Remplacer par une seule valeur ne donne le signe qu’EN CE POINT, pas sur tout \\(\\mathbb{R}\\) — un trinôme change de signe aux racines."
@@ -575,7 +575,7 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex72",
     "section": "methodes-inequations",
-    "statement": "Pour résoudre \\(\\dfrac{2}{x^2-4x+3}>1\\) (TD), la bonne méthode est de :",
+    "statement": "Pour résoudre \\(\\dfrac{2}{x^2-4x+3}&gt;1\\) (TD), la bonne méthode est de :",
     "options": [
       "Tout ramener d’un côté et étudier le signe de \\(\\dfrac{2-(x^2-4x+3)}{x^2-4x+3}\\)",
       "Multiplier directement les deux membres par \\(x^2-4x+3\\)",
@@ -592,14 +592,14 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex73",
     "section": "methodes-inequations",
-    "statement": "Pour résoudre \\(\\sqrt{x^2-1}<2-x\\) (TD), avant d’élever au carré, il faut d’abord vérifier que :",
+    "statement": "Pour résoudre \\(\\sqrt{x^2-1}&lt;2-x\\) (TD), avant d’élever au carré, il faut d’abord vérifier que :",
     "options": [
       "Le membre de droite \\(2-x\\) est positif (sinon l’inégalité n’a aucune solution, une racine carrée étant toujours \\(\\geq0\\))",
       "Le membre de gauche est positif",
       "\\(x\\) est un entier"
     ],
     "correctIndex": 0,
-    "explain": "Une racine carrée est toujours \\(\\geq0\\) : si \\(2-x<0\\), l’inégalité \\(\\sqrt{\\cdots}<2-x\\) est automatiquement fausse. Ce n’est qu’après avoir vérifié \\(2-x>0\\) qu’on peut élever au carré en toute sécurité (les deux membres étant alors positifs).",
+    "explain": "Une racine carrée est toujours \\(\\geq0\\) : si \\(2-x&lt;0\\), l’inégalité \\(\\sqrt{\\cdots}&lt;2-x\\) est automatiquement fausse. Ce n’est qu’après avoir vérifié \\(2-x&gt;0\\) qu’on peut élever au carré en toute sécurité (les deux membres étant alors positifs).",
     "wrongExplain": {
       "1": "Le membre de gauche \\(\\sqrt{x^2-1}\\) est TOUJOURS positif ou nul par définition de la racine carrée — ce n’est pas lui qu’il faut vérifier, c’est le membre de droite.",
       "2": "Rien n’impose que \\(x\\) soit entier dans cette inéquation — la condition à vérifier porte sur le SIGNE du second membre, pas sur la nature de \\(x\\)."
@@ -609,7 +609,7 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex74",
     "section": "methodes-inequations",
-    "statement": "Pour l’inéquation \\((E)\\) : \\(|x^2-4|-|3x|<0\\), pourquoi peut-on affirmer que \\(x\\) est solution si et seulement si \\(-x\\) l’est aussi ?",
+    "statement": "Pour l’inéquation \\((E)\\) : \\(|x^2-4|-|3x|&lt;0\\), pourquoi peut-on affirmer que \\(x\\) est solution si et seulement si \\(-x\\) l’est aussi ?",
     "options": [
       "Parce que \\(|(-x)^2-4|=|x^2-4|\\) et \\(|3(-x)|=|3x|\\) : l’expression ne change pas en remplaçant \\(x\\) par \\(-x\\)",
       "Parce que toute inéquation a une solution symétrique par définition",
@@ -643,14 +643,14 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex76",
     "section": "methodes-inequations",
-    "statement": "Pour encadrer \\(\\dfrac{2x+3y}{x+y}\\) avec \\(x,y>0\\) (TD), la technique consiste à réécrire l’expression sous la forme :",
+    "statement": "Pour encadrer \\(\\dfrac{2x+3y}{x+y}\\) avec \\(x,y&gt;0\\) (TD), la technique consiste à réécrire l’expression sous la forme :",
     "options": [
       "\\(2+\\dfrac{y}{x+y}\\), où le second terme est toujours strictement entre 0 et 1",
       "\\(\\dfrac{2x}{x+y}+\\dfrac{3y}{x+y}\\) sans aller plus loin",
       "Une constante unique, l’expression ne dépend pas de \\(x,y\\)"
     ],
     "correctIndex": 0,
-    "explain": "Réécrire en « constante + reste compris entre 0 et 1 » est une technique puissante : ici \\(\\frac{2x+3y}{x+y}=\\frac{2(x+y)+y}{x+y}=2+\\frac{y}{x+y}\\), et \\(0<\\frac{y}{x+y}<1\\) car \\(0<y<x+y\\) (\\(x,y>0\\)).",
+    "explain": "Réécrire en « constante + reste compris entre 0 et 1 » est une technique puissante : ici \\(\\frac{2x+3y}{x+y}=\\frac{2(x+y)+y}{x+y}=2+\\frac{y}{x+y}\\), et \\(0&lt;\\frac{y}{x+y}&lt;1\\) car \\(0&lt;y&lt;x+y\\) (\\(x,y&gt;0\\)).",
     "wrongExplain": {
       "1": "Cette décomposition est correcte mais inachevée : il faut continuer à simplifier (regrouper) pour obtenir une forme « constante + terme borné entre 0 et 1 » exploitable, sinon l’encadrement n’est pas direct.",
       "2": "L’expression dépend bien de \\(x\\) et \\(y\\) (ex. elle vaut \\(2.5\\) si \\(x=y\\), mais tend vers \\(2\\) si \\(y\\ll x\\)) — ce n’est pas une constante fixe."
@@ -662,14 +662,14 @@ const REFLEX_EXERCISES = [
     "section": "methodes-inequations",
     "statement": "La fonction \\(t\\mapsto 1/t\\) est strictement décroissante sur \\(\\mathbb{R}_-^*\\) et sur \\(\\mathbb{R}_+^*\\) séparément. Peut-on en déduire qu’elle est décroissante sur \\(\\mathbb{R}^*\\) tout entier ?",
     "options": [
-      "Non : on peut avoir \\(a<0<b\\) avec \\(1/a<0<1/b\\), ce qui n’a rien de décroissant globalement",
+      "Non : on peut avoir \\(a&lt;0&lt;b\\) avec \\(1/a&lt;0&lt;1/b\\), ce qui n’a rien de décroissant globalement",
       "Oui, la décroissance sur chaque morceau implique la décroissance globale",
       "Oui, car \\(\\mathbb{R}^*\\) est un intervalle"
     ],
     "correctIndex": 0,
-    "explain": "Exemple du TD : \\(a=-1,b=1\\) donnent \\(a<b\\) mais \\(1/a=-1<1=1/b\\) (pas \\(1/a>1/b\\)) — la monotonie « par morceaux » ne se recolle pas quand l’ensemble de départ n’est pas un intervalle.",
+    "explain": "Exemple du TD : \\(a=-1,b=1\\) donnent \\(a&lt;b\\) mais \\(1/a=-1&lt;1=1/b\\) (pas \\(1/a&gt;1/b\\)) — la monotonie « par morceaux » ne se recolle pas quand l’ensemble de départ n’est pas un intervalle.",
     "wrongExplain": {
-      "1": "La décroissance sur CHAQUE intervalle séparé ne garantit rien sur le comportement GLOBAL quand on compare un élément de chaque morceau — c’est exactement le piège illustré par le contre-exemple \\(a<0<b\\).",
+      "1": "La décroissance sur CHAQUE intervalle séparé ne garantit rien sur le comportement GLOBAL quand on compare un élément de chaque morceau — c’est exactement le piège illustré par le contre-exemple \\(a&lt;0&lt;b\\).",
       "2": "\\(\\mathbb{R}^*=\\mathbb{R}\\setminus\\{0\\}\\) n’est PAS un intervalle (il « saute » 0) — c’est précisément pour cette raison que la règle de composition par une fonction monotone ne s’applique pas directement dessus."
     },
     "chapterId": "analyse"
@@ -694,14 +694,14 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex79",
     "section": "synthese-prelim",
-    "statement": "Soit \\(x>0\\). En utilisant \\(x-1<E(x)\\leq x\\), que vaut \\(\\lim_{x\\to+\\infty}\\dfrac{E(x)}{x}\\) ?",
+    "statement": "Soit \\(x&gt;0\\). En utilisant \\(x-1&lt;E(x)\\leq x\\), que vaut \\(\\lim_{x\\to+\\infty}\\dfrac{E(x)}{x}\\) ?",
     "options": [
       "\\(1\\)",
       "\\(0\\)",
       "\\(+\\infty\\)"
     ],
     "correctIndex": 0,
-    "explain": "Diviser l’encadrement par \\(x>0\\) donne \\(1-\\frac{1}{x}<\\frac{E(x)}{x}\\leq1\\) ; les deux bornes tendent vers \\(1\\), donc par le théorème des gendarmes \\(E(x)/x\\to1\\) — la partie entière « colle » à \\(x\\) de plus en plus précisément en proportion.",
+    "explain": "Diviser l’encadrement par \\(x&gt;0\\) donne \\(1-\\frac{1}{x}&lt;\\frac{E(x)}{x}\\leq1\\) ; les deux bornes tendent vers \\(1\\), donc par le théorème des gendarmes \\(E(x)/x\\to1\\) — la partie entière « colle » à \\(x\\) de plus en plus précisément en proportion.",
     "wrongExplain": {
       "1": "La partie entière reste très proche de \\(x\\) lui-même (à moins de 1 d’écart), donc leur RAPPORT tend vers 1, pas vers 0 — ce serait le cas si l’écart grandissait proportionnellement à \\(x\\), ce qui n’est pas le cas ici.",
       "2": "Le rapport \\(E(x)/x\\) est toujours encadré entre deux quantités qui tendent vers 1, donc il ne peut pas diverger vers l’infini — l’encadrement l’en empêche."
@@ -745,9 +745,9 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex82",
     "section": "synthese-prelim",
-    "statement": "Pourquoi l’équivalence \\(x<y \\Leftrightarrow x^2<y^2\\) est-elle FAUSSE si \\(x\\) et \\(y\\) peuvent être négatifs ?",
+    "statement": "Pourquoi l’équivalence \\(x&lt;y \\Leftrightarrow x^2&lt;y^2\\) est-elle FAUSSE si \\(x\\) et \\(y\\) peuvent être négatifs ?",
     "options": [
-      "Parce que \\(x\\mapsto x^2\\) n’est monotone que sur \\(\\mathbb{R}_+\\) (ou sur \\(\\mathbb{R}_-\\)) séparément, pas sur \\(\\mathbb{R}\\) entier — contre-exemple \\(x=-3<y=1\\) mais \\(x^2=9>1=y^2\\)",
+      "Parce que \\(x\\mapsto x^2\\) n’est monotone que sur \\(\\mathbb{R}_+\\) (ou sur \\(\\mathbb{R}_-\\)) séparément, pas sur \\(\\mathbb{R}\\) entier — contre-exemple \\(x=-3&lt;y=1\\) mais \\(x^2=9&gt;1=y^2\\)",
       "Parce que le carré d’un réel négatif n’existe pas",
       "Parce que cette équivalence est en fait toujours vraie"
     ],
@@ -779,7 +779,7 @@ const REFLEX_EXERCISES = [
   {
     "id": "ex84",
     "section": "synthese-prelim",
-    "statement": "Pour \\(\\alpha>0\\) fixé, sachant que \\(E(x)/x\\to1\\) en \\(+\\infty\\) et que \\(t\\mapsto t^\\alpha\\) est continue en \\(1\\), que vaut \\(\\lim_{x\\to+\\infty}\\left(\\dfrac{E(x)}{x}\\right)^\\alpha\\) ?",
+    "statement": "Pour \\(\\alpha&gt;0\\) fixé, sachant que \\(E(x)/x\\to1\\) en \\(+\\infty\\) et que \\(t\\mapsto t^\\alpha\\) est continue en \\(1\\), que vaut \\(\\lim_{x\\to+\\infty}\\left(\\dfrac{E(x)}{x}\\right)^\\alpha\\) ?",
     "options": [
       "\\(1\\)",
       "\\(0\\)",
