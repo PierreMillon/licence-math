@@ -1940,3 +1940,55 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   18px résiduel observé une fois sur LOGIQUE en continu à 320px est
   l'artefact de timing déjà documenté la veille, pas un nouveau
   problème).
+
+## Titres de cours collés à leur liste de formules (04/11/2026, signalé capture à l'appui)
+
+- Signalé par Pierre (capture à l'appui, LOGIQUE §III.2 « Fonctions
+  remarquables ») : des formules qui débordent avec des virgules, des
+  titres « pas pile poil à la ligne au-dessus des formules ». Pas un
+  bug CSS — le contenu lui-même empilait plusieurs notions nommées
+  (« affine, polynomiale, homographique, polynôme du second degré »)
+  dans UNE seule phrase à virgules sur une seule ligne de `cours`, au
+  lieu d'une ligne par notion. Une des formules de la liste
+  (`a_0+a_1x+\cdots+a_nx^n`) est assez large pour se faire envelopper
+  dans `.math-scroll` (comportement normal, voir plus haut) — mais
+  comme le label du notion SUIVANTE ("polynomiale") était collé juste
+  avant cette boîte sans retour à la ligne, il se retrouvait associé
+  visuellement à la formule précédente plutôt qu'à la sienne.
+- **Pas un correctif CSS généralisable** (contrairement à la plupart
+  des bugs de ce fichier) : chaque section `cours` est rédigée à la
+  main, donc chaque liste à virgules de ce type doit être repérée et
+  réécrite une par une. Repéré par un script Playwright qui rend
+  chaque section en mode continu et signale tout `.math-scroll` dont
+  le voisin DOM immédiat (avant ou après, hors `<br>`) contient du
+  texte non trivial — ~30 occurrences trouvées sur les 5 chapitres
+  actifs, mais la plupart sont des formules suivies de LEUR PROPRE
+  explication (ex. « (graphe symétrique...) » juste après sa formule
+  — motif déjà établi et correct, pas une liste à virgules). Seules 3
+  correspondaient vraiment au symptôme signalé (plusieurs notions
+  nommées différentes empilées dans UNE phrase) : LOGIQUE
+  `fonctions-remarquables` (le cas signalé), ANALYSE `usuelles`
+  (arccos/arcsin/arctan, même motif), ALGÈBRE `general` (« Somme
+  géométrique, binôme de Newton » — label orphelin sans sa propre
+  balise `<span class="math">`, corrigé en l'enveloppant plutôt qu'en
+  réécrivant le contenu). Les ~27 autres occurrences laissées telles
+  quelles : réécrire du contenu qui fonctionne déjà pour un symptôme
+  qu'il ne présente pas serait un risque sans bénéfice.
+- Corrigé en donnant à CHAQUE notion nommée sa propre balise
+  `<span class="math">Nom</span>` suivie directement de sa formule,
+  puis un `<br>` avant la notion suivante — un bloc par notion, jamais
+  plusieurs notions par ligne. Repris de ce que faisaient déjà
+  correctement « Identité »/« Paire »/« impaire » dans la même
+  section (badge + formule), juste étendu à TOUTES les notions au
+  lieu de seulement certaines.
+- Testé (Playwright, 320/390px, les 3 sections touchées) : chaque
+  notion sur sa propre ligne avec son badge directement collé à sa
+  formule, zéro débordement, zéro erreur console, comptes d'exercices/
+  sections inchangés sur les 3 fichiers (logique 42/21, analyse
+  84/14, algèbre 50/7) — confirmé que seul le texte `cours` a changé,
+  aucun `id`/exercice touché.
+- **Demande en attente, pas encore traitée** : Pierre a aussi signalé
+  "on a avancé dans chaque matière" (formulation imprécise, probablement
+  vocal) — besoin de lui demander explicitement QUELS chapitres ont
+  avancé et avec quel contenu/document avant de toucher à quoi que ce
+  soit, pas assez d'information pour agir seul sur ce point.

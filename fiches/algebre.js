@@ -686,7 +686,7 @@ const EXERCISES = [
 const SECTIONS = [
   {
     id: 'general', title: '§1 — FORMULES GÉNÉRALES DANS ℂ',
-    cours: '\\(i^2=-1\\) ; pour \\(r\\geq0\\) réel, \\(-r=(i\\sqrt{r})^2\\) (tout négatif devient un carré complexe)<br>Somme géométrique, <span class="math">binôme de Newton</span> \\((a+b)^n=\\sum\\binom{n}{k}a^kb^{n-k}\\), \\(a^n-b^n=(a-b)(\\cdots)\\) : mêmes formules que dans \\(\\mathbb{R}\\)<br>Nouveau dans \\(\\mathbb{C}\\) : \\(a^2+b^2=(a+ib)(a-ib)\\)',
+    cours: '\\(i^2=-1\\) ; pour \\(r\\geq0\\) réel, \\(-r=(i\\sqrt{r})^2\\) (tout négatif devient un carré complexe)<br><span class="math">Somme géométrique, binôme de Newton</span> \\((a+b)^n=\\sum\\binom{n}{k}a^kb^{n-k}\\), \\(a^n-b^n=(a-b)(\\cdots)\\) : mêmes formules que dans \\(\\mathbb{R}\\)<br>Nouveau dans \\(\\mathbb{C}\\) : \\(a^2+b^2=(a+ib)(a-ib)\\)',
   },
   {
     id: 'forme_algebrique', title: '§2 — FORME ALGÉBRIQUE',

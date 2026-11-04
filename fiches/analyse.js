@@ -987,7 +987,7 @@ const SECTIONS = [
   },
   {
     id: 'usuelles', title: '§9 — FONCTIONS USUELLES (ARCCOS, ARCSIN, ARCTAN)',
-    cours: '\\(\\arccos : [-1,1] \\to [0,\\pi]\\), \\(\\arcsin : [-1,1] \\to [-\\pi/2,\\pi/2]\\), \\(\\arctan : \\mathbb{R} \\to \\ ]-\\pi/2,\\pi/2[\\)<br>\\(\\arccos x + \\arcsin x = \\pi/2\\)<br>\\((\\arctan)\'(x) = \\dfrac{1}{1+x^2}\\)',
+    cours: '<span class="math">Arccos</span> \\(\\arccos : [-1,1] \\to [0,\\pi]\\)<br><span class="math">Arcsin</span> \\(\\arcsin : [-1,1] \\to [-\\pi/2,\\pi/2]\\)<br><span class="math">Arctan</span> \\(\\arctan : \\mathbb{R} \\to \\ ]-\\pi/2,\\pi/2[\\)<br>\\(\\arccos x + \\arcsin x = \\pi/2\\)<br>\\((\\arctan)\'(x) = \\dfrac{1}{1+x^2}\\)',
   },
   {
     id: 'dl', title: '§10 — DÉVELOPPEMENTS LIMITÉS',
