@@ -27,7 +27,7 @@ const CHAPTERS = [
   { id: 'logique',      name: 'LOGIQUE',       file: 'logique.html',      total: 42, active: true },
   { id: 'calculus',     name: 'CALCULUS',      file: 'calculus.html',     total: 51, active: true },
   { id: 'algebre',      name: 'ALGÈBRE',       file: 'algebre.html',      total: 50, active: true },
-  { id: 'analyse',      name: 'ANALYSE',       file: 'analyse.html',      total: 84, active: true },
+  { id: 'analyse',      name: 'ANALYSE',       file: 'analyse.html',      total: 103, active: true },
   { id: 'probabilites', name: 'PROBABILITÉS',  file: 'probabilites.html', total: 23, active: false },
   { id: 'statistiques', name: 'STATISTIQUES',  file: 'statistiques.html', total: 17, active: false },
   { id: 'java',         name: 'JAVA',          file: 'java.html',         total: 52, active: false },
