@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 162, date: "04/11/2026", desc: "ANALYSE : nouvelle section Suites du cours de Charron (définitions, limite, théorèmes), 19 questions" },
   { v: 161, date: "04/11/2026", desc: "Titres de cours mal alignés avec leur formule sur LOGIQUE/ANALYSE/ALGÈBRE (listes de formules collées à la suite) : corrigé, une ligne par notion" },
   { v: 160, date: "22/10/2026", desc: "<ul><li>Corrigé : des formules avec un signe &lt;/&gt; s'affichaient en texte brut au lieu d'être rendues (cassait aussi la mise en page autour)</li><li>Corrigé : KaTeX manquait sur PYTHON/JAVA, une formule y restait toujours en texte brut</li></ul>" },
   { v: 159, date: "21/10/2026", desc: "Nouvelle page RÉFLEXE dans le menu : session chronométrée de questions de méthode tirées des TD, record personnel conservé" },

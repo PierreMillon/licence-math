@@ -591,6 +591,293 @@ const EXERCISES = [
     },
   },
 
+  // ---------- §13 — Suites : définitions du cours (Charron, partie 3) ----------
+  {
+    id: 'ex85', section: 'suites-cours',
+    statement: 'Une suite \\((u_n)\\) est bornée. Quelle écriture le traduit exactement (propriété I-1 du cours) ?',
+    options: [
+      '\\(\\exists A&gt;0,\\ \\forall n\\in\\mathbb{N},\\ |u_n|\\leq A\\)',
+      '\\(\\forall A&gt;0,\\ \\exists n\\in\\mathbb{N},\\ |u_n|\\leq A\\)',
+      '\\(\\forall n\\in\\mathbb{N},\\ \\exists A&gt;0,\\ |u_n|\\leq A\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le \\(A\\) est choisi EN PREMIER, une fois pour toutes, et doit convenir pour TOUS les \\(n\\) : on choisit la taille de la boîte avant d’y ranger les termes.',
+    wrongExplain: {
+      1: 'Ici le « il existe \\(n\\) » ne demande qu’UN seul terme petit : \\(u_n=n\\) la vérifie (avec \\(u_0=0\\)) alors qu’elle n’est pas bornée.',
+      2: 'Quand \\(n\\) est choisi d’abord, on peut prendre \\(A=|u_n|+1\\) : c’est vrai pour TOUTE suite, bornée ou non. Le \\(A\\) doit passer avant le \\(n\\).',
+    },
+  },
+  {
+    id: 'ex86', section: 'suites-cours',
+    statement: 'Définition (II-1) : \\((u_n)\\) tend vers \\(\\ell\\) lorsque :',
+    options: [
+      '\\(\\forall\\varepsilon&gt;0,\\ \\exists n_0,\\ \\forall n\\geq n_0,\\ |u_n-\\ell|\\leq\\varepsilon\\)',
+      '\\(\\exists\\varepsilon&gt;0,\\ \\forall n_0,\\ \\exists n\\geq n_0,\\ |u_n-\\ell|\\leq\\varepsilon\\)',
+      '\\(\\forall\\varepsilon&gt;0,\\ \\exists n_0,\\ \\exists n\\geq n_0,\\ |u_n-\\ell|\\leq\\varepsilon\\)',
+    ],
+    correctIndex: 0,
+    explain: 'L’adversaire annonce une précision \\(\\varepsilon\\) aussi petite qu’il veut, tu réponds par un rang \\(n_0\\), et à partir de ce rang TOUS les termes restent dans la bande.',
+    wrongExplain: {
+      1: 'Cette phrase dit seulement qu’une infinité de termes tombent dans une bande fixée : \\((-1)^n\\) la vérifie avec \\(\\ell=1\\), \\(\\varepsilon=1\\) sans converger.',
+      2: 'Un seul terme dans la bande après \\(n_0\\) ne suffit pas : il faut \\(\\forall n\\geq n_0\\), c’est-à-dire tous les termes à partir de ce rang.',
+    },
+  },
+  {
+    id: 'ex87', section: 'suites-cours',
+    statement: 'Pour démontrer que \\((u_n)\\) converge vers \\(\\ell\\) avec la définition, on commence la rédaction par :',
+    options: [
+      '« Soit \\(\\varepsilon&gt;0\\). Cherchons \\(n_0\\) tel que \\(n\\geq n_0\\Rightarrow|u_n-\\ell|\\leq\\varepsilon\\). »',
+      '« Prenons \\(\\varepsilon=0{,}001\\). Cherchons \\(n_0\\) tel que \\(n\\geq n_0\\Rightarrow|u_n-\\ell|\\leq\\varepsilon\\). »',
+      '« Soit \\(n_0\\in\\mathbb{N}\\). Cherchons \\(\\varepsilon\\) tel que \\(n\\geq n_0\\Rightarrow|u_n-\\ell|\\leq\\varepsilon\\). »',
+    ],
+    correctIndex: 0,
+    explain: 'La définition commence par « pour tout \\(\\varepsilon\\) » : on prend un \\(\\varepsilon&gt;0\\) QUELCONQUE, sans lui donner de valeur, puis on exprime \\(n_0\\) en fonction de \\(\\varepsilon\\).',
+    wrongExplain: {
+      1: 'Avec une seule valeur de \\(\\varepsilon\\), tu ne prouves que cette précision-là. Il faut un \\(\\varepsilon\\) quelconque pour couvrir toutes les précisions.',
+      2: 'Les quantificateurs sont à l’envers : c’est \\(\\varepsilon\\) qui est donné d’abord, et \\(n_0\\) qui dépend de lui.',
+    },
+  },
+  {
+    id: 'ex88', section: 'suites-cours',
+    statement: 'Dans ton cours (définition I-3), une suite « stationnaire » est une suite :',
+    options: [
+      'Constante : \\(u_{n+1}=u_n\\) pour tout \\(n\\)',
+      'Convergente',
+      'Monotone',
+    ],
+    correctIndex: 0,
+    explain: 'Le cours dit « stationnaire (ou constante) » pour \\(\\forall n,\\ u_{n+1}=u_n\\). L’idée « à partir d’un certain rang » est introduite à part (définitions I-4, pour le sens de variation).',
+    wrongExplain: {
+      1: 'Convergente et stationnaire sont deux notions différentes : \\(1/n\\) converge sans jamais être constante.',
+      2: 'Une suite monotone peut changer à chaque terme (\\(u_n=n\\)) ; stationnaire est bien plus fort : tous les termes sont égaux.',
+    },
+  },
+  {
+    id: 'ex89', section: 'suites-cours',
+    statement: 'D’après la propriété II-1, \\((u_n)\\) converge vers \\(\\ell\\) si et seulement si :',
+    options: [
+      '\\(\\lim\\limits_{n\\to+\\infty}|u_n-\\ell|=0\\)',
+      '\\(\\lim\\limits_{n\\to+\\infty}|u_n|=|\\ell|\\) seulement',
+      '\\(\\lim\\limits_{n\\to+\\infty}(u_n-\\ell)=1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La distance entre \\(u_n\\) et \\(\\ell\\) tend vers 0 : c’est la définition avec \\(\\varepsilon\\) réécrite en limite.',
+    wrongExplain: {
+      1: 'Réciproque fausse : \\((-1)^n\\) vérifie \\(|u_n|\\to1\\) sans converger. La valeur absolue perd le signe, donc la limite elle-même.',
+      2: 'La distance doit tendre vers 0, pas vers 1 : si \\(u_n-\\ell\\to1\\), alors \\(u_n\\) tend vers \\(\\ell+1\\), pas vers \\(\\ell\\).',
+    },
+  },
+  {
+    id: 'ex90', section: 'suites-cours',
+    statement: 'Application II-2 : pour \\(u_n=\\dfrac{(-1)^n}{n}\\) (\\(n\\geq1\\)) et \\(\\varepsilon&gt;0\\) donné, quel rang \\(n_0\\) convient pour montrer que \\(u_n\\to0\\) ?',
+    options: [
+      '\\(n_0\\geq\\dfrac{1}{\\varepsilon}\\)',
+      '\\(n_0\\geq\\varepsilon\\)',
+      '\\(n_0=1\\) quel que soit \\(\\varepsilon\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|u_n|=\\dfrac{1}{n}\\leq\\dfrac{1}{n_0}\\leq\\varepsilon\\) dès que \\(n_0\\geq\\dfrac{1}{\\varepsilon}\\) : plus \\(\\varepsilon\\) est petit, plus le rang est grand.',
+    wrongExplain: {
+      1: 'Pour \\(\\varepsilon\\) petit, ce rang serait petit, alors que la précision demandée est plus exigeante : \\(n_0\\) doit AUGMENTER quand \\(\\varepsilon\\) diminue.',
+      2: 'Avec \\(n_0=1\\), le terme \\(u_1=-1\\) est loin de 0 : un rang fixe ne peut pas convenir à toutes les précisions \\(\\varepsilon\\).',
+    },
+  },
+  {
+    id: 'ex91', section: 'suites-cours',
+    statement: 'Propriété II-2 : si \\(u_n\\to\\ell_1\\) et \\(u_n\\to\\ell_2\\), alors :',
+    options: [
+      '\\(\\ell_1=\\ell_2\\) (la limite est unique)',
+      '\\(\\ell_1\\leq\\ell_2\\) seulement',
+      '\\(\\ell_1\\) et \\(\\ell_2\\) peuvent différer si la suite n’est pas monotone',
+    ],
+    correctIndex: 0,
+    explain: 'Une suite qui converge n’a qu’une seule limite : à partir d’un certain rang elle serait dans deux bandes disjointes sinon.',
+    wrongExplain: {
+      1: 'L’unicité donne l’égalité, pas une simple inégalité : \\(\\ell_1\\leq\\ell_2\\) laisserait croire qu’il peut y avoir deux limites.',
+      2: 'La monotonie n’intervient pas : la limite est unique pour toute suite convergente, monotone ou pas.',
+    },
+  },
+  {
+    id: 'ex92', section: 'suites-cours',
+    statement: 'Si \\((u_n)\\) est bornée et \\((v_n)\\) converge vers 0, alors \\((u_nv_n)\\) :',
+    options: [
+      'Converge vers 0',
+      'Converge vers \\(\\ell\\times0\\) seulement si \\((u_n)\\) converge aussi',
+      'Peut diverger',
+    ],
+    correctIndex: 0,
+    explain: 'Bornée × tend vers 0 donne 0 : \\(|u_nv_n|\\leq A|v_n|\\to0\\). Aucun besoin que \\((u_n)\\) converge (ex. \\((-1)^n/n\\)).',
+    wrongExplain: {
+      1: 'Le théorème du cours est plus fort : il suffit que \\((u_n)\\) soit bornée, même si elle oscille comme \\((-1)^n\\).',
+      2: 'Une suite bornée multipliée par une suite qui tend vers 0 ne peut pas diverger : le produit est majoré en valeur absolue par \\(A|v_n|\\to0\\).',
+    },
+  },
+  {
+    id: 'ex93', section: 'suites-cours',
+    statement: 'Si \\(u_n\\to0\\) (avec \\(u_n\\neq0\\)), que dit le cours sur \\(\\dfrac{1}{u_n}\\) ?',
+    options: [
+      'Elle diverge (vers \\(\\pm\\infty\\), ou sans limite)',
+      'Elle converge vers 1',
+      'Elle tend toujours vers \\(+\\infty\\)',
+    ],
+    correctIndex: 0,
+    explain: 'L’inverse d’une suite qui tend vers 0 devient énorme en valeur absolue, donc ne converge pas. Le signe décide s’il part vers \\(+\\infty\\), \\(-\\infty\\) ou oscille.',
+    wrongExplain: {
+      1: 'Aucun rapport : pour \\(u_n=1/n\\), \\(1/u_n=n\\) tend vers \\(+\\infty\\), pas vers 1.',
+      2: 'Seulement si \\(u_n&gt;0\\). Pour \\(u_n=(-1)^n/n\\), \\(1/u_n=(-1)^nn\\) n’a pas de limite.',
+    },
+  },
+  {
+    id: 'ex94', section: 'suites-cours',
+    statement: 'D’après le cours (II-6), que dire de \\((x^n)\\) pour \\(x=-2\\) ?',
+    options: [
+      'Elle n’a pas de limite',
+      'Elle tend vers \\(-\\infty\\)',
+      'Elle tend vers \\(+\\infty\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\((-2)^n\\) alterne de signe tout en grossissant en valeur absolue : elle n’a ni limite finie ni limite infinie. Pour \\(x&lt;-1\\), « \\(\\lim x^n\\) n’existe pas ».',
+    wrongExplain: {
+      1: 'Les termes de rang pair sont positifs (\\(4, 16,\\dots\\)) : la suite ne peut pas tendre vers \\(-\\infty\\).',
+      2: 'Les termes de rang impair sont négatifs (\\(-2,-8,\\dots\\)) : la suite ne peut pas tendre vers \\(+\\infty\\).',
+    },
+  },
+  {
+    id: 'ex95', section: 'suites-cours',
+    statement: 'Théorème II-4 : \\((u_n)\\) converge et \\(u_n&gt;0\\) pour tout \\(n\\). On peut conclure que sa limite \\(\\ell\\) vérifie :',
+    options: [
+      '\\(\\ell\\geq0\\) (inégalité large)',
+      '\\(\\ell&gt;0\\) (inégalité stricte)',
+      '\\(\\ell=0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le passage à la limite transforme une inégalité stricte en inégalité LARGE : \\(u_n=1/n&gt;0\\) mais \\(\\ell=0\\).',
+    wrongExplain: {
+      1: 'Contre-exemple : \\(u_n=1/n\\) est strictement positive et converge vers 0, pas vers un nombre strictement positif.',
+      2: 'La limite peut très bien être positive : \\(u_n=1+1/n\\) converge vers 1. Seule la borne \\(\\ell\\geq0\\) est garantie.',
+    },
+  },
+  {
+    id: 'ex96', section: 'suites-cours',
+    statement: 'Application II-6 : pour calculer \\(\\lim\\dfrac{\\sin n}{n}\\), la bonne méthode est :',
+    options: [
+      'Gendarmes : \\(-\\dfrac{1}{n}\\leq\\dfrac{\\sin n}{n}\\leq\\dfrac{1}{n}\\), donc limite 0',
+      '\\(\\sin n\\) oscille, donc la suite n’a pas de limite',
+      '« Ça ressemble à \\(\\dfrac{\\sin x}{x}\\to1\\) », donc la limite est 1',
+    ],
+    correctIndex: 0,
+    explain: 'On encadre par deux suites de limite 0 (ou on utilise bornée × tend vers 0) : \\(|\\sin n|\\leq1\\) donne l’encadrement.',
+    wrongExplain: {
+      1: 'Le numérateur oscille, mais il est borné et le dénominateur grandit : le quotient est étouffé vers 0.',
+      2: '\\(\\dfrac{\\sin x}{x}\\to1\\) concerne \\(x\\to0\\), pas \\(n\\to+\\infty\\). Ici \\(n\\) devient grand, pas petit.',
+    },
+  },
+  {
+    id: 'ex97', section: 'suites-cours',
+    statement: 'Théorème II-7 (limite monotone, admis) : laquelle de ces suites converge forcément ?',
+    options: [
+      'Une suite croissante et majorée',
+      'Une suite croissante et minorée',
+      'Une suite décroissante et majorée',
+    ],
+    correctIndex: 0,
+    explain: 'Croissante + majorée : elle monte mais est freinée par un plafond, donc converge. Décroissante + minorée : elle descend mais est arrêtée par un plancher.',
+    wrongExplain: {
+      1: 'Une suite croissante est déjà minorée par \\(u_0\\) : cette condition n’apporte rien. \\(u_n=n\\) est croissante, minorée, et diverge.',
+      2: 'Une suite décroissante est déjà majorée par \\(u_0\\) : \\(u_n=-n\\) est décroissante, majorée, et diverge.',
+    },
+  },
+  {
+    id: 'ex98', section: 'suites-cours',
+    statement: 'Théorème II-3 (point fixe) : \\(f\\) est continue, \\(u_{n+1}=f(u_n)\\) et \\(u_n\\to\\ell\\). Pour \\(u_{n+1}=\\sqrt{u_n+2}\\) avec \\(u_0=0\\), on trouve \\(\\ell^2=\\ell+2\\), donc \\(\\ell=2\\) ou \\(\\ell=-1\\). On retient :',
+    options: [
+      '\\(\\ell=2\\), car tous les \\(u_n\\) sont \\(\\geq0\\), donc \\(\\ell\\geq0\\)',
+      '\\(\\ell=-1\\), car c’est la plus petite des deux',
+      '\\(\\ell=2\\) ou \\(\\ell=-1\\) : on ne peut pas trancher',
+    ],
+    correctIndex: 0,
+    explain: 'Le point fixe donne les candidats (\\(f(\\ell)=\\ell\\)), le passage à la limite dans \\(u_n\\geq0\\) élimine \\(-1\\) : on combine II-3 et II-4.',
+    wrongExplain: {
+      1: 'La racine carrée est toujours positive, donc tous les \\(u_n\\) sont \\(\\geq0\\) et la limite ne peut pas être \\(-1\\).',
+      2: 'On peut trancher : la limite d’une suite de termes \\(\\geq0\\) est \\(\\geq0\\) (théorème II-4), ce qui écarte \\(-1\\).',
+    },
+  },
+  {
+    id: 'ex99', section: 'suites-cours',
+    statement: 'Théorème II-8 : \\((u_n)\\) croissante, \\((v_n)\\) décroissante, \\(u_n-v_n\\to0\\). Elles convergent vers la même limite \\(\\ell\\), et pour tout \\(n\\) :',
+    options: [
+      '\\(u_n\\leq\\ell\\leq v_n\\)',
+      '\\(v_n\\leq\\ell\\leq u_n\\)',
+      '\\(\\ell=\\dfrac{u_n+v_n}{2}\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\((u_n)\\) monte vers \\(\\ell\\) par le bas, \\((v_n)\\) descend vers \\(\\ell\\) par le haut : \\(\\ell\\) est coincée entre elles, ce qui donne un encadrement de la limite.',
+    wrongExplain: {
+      1: 'Les rôles sont inversés : la suite croissante reste en dessous de sa limite, la décroissante au-dessus.',
+      2: 'Le milieu \\(\\dfrac{u_n+v_n}{2}\\) n’est qu’une approximation de \\(\\ell\\), pas sa valeur exacte.',
+    },
+  },
+  {
+    id: 'ex100', section: 'suites-cours',
+    statement: 'Application II-4 : pour prouver que \\(u_n=(-1)^n\\) diverge, on utilise (théorème III-1) :',
+    options: [
+      'Deux suites extraites de limites différentes : \\(u_{2n}\\to1\\) et \\(u_{2n+1}\\to-1\\)',
+      'Le fait qu’elle est bornée',
+      'Le fait qu’elle n’est pas croissante',
+    ],
+    correctIndex: 0,
+    explain: 'Si \\((u_n)\\) convergeait vers \\(\\ell\\), toutes ses extraites tendraient vers \\(\\ell\\). Deux extraites en désaccord (\\(1\\neq-1\\)) interdisent la convergence.',
+    wrongExplain: {
+      1: 'Être bornée n’empêche pas de diverger, ni de converger : ça ne permet de conclure ni dans un sens ni dans l’autre.',
+      2: 'Une suite non monotone peut converger (\\((-1)^n/n\\)) : ne pas être croissante ne prouve rien.',
+    },
+  },
+  {
+    id: 'ex101', section: 'suites-cours',
+    statement: 'Remarque III-1 : pour une extractrice \\(\\sigma\\) strictement croissante de \\(\\mathbb{N}\\) dans \\(\\mathbb{N}\\), on a toujours :',
+    options: [
+      '\\(\\sigma(n)\\geq n\\)',
+      '\\(\\sigma(n)\\leq n\\)',
+      '\\(\\sigma(n)=n\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Par récurrence : \\(\\sigma(0)\\geq0\\), et \\(\\sigma(n+1)&gt;\\sigma(n)\\geq n\\), donc \\(\\sigma(n+1)\\geq n+1\\). On saute des indices, on n’en revient jamais en arrière.',
+    wrongExplain: {
+      1: 'Une extraction saute des termes (\\(\\sigma(n)=2n\\) pour les rangs pairs) : l’indice d’origine est plus grand ou égal, jamais plus petit.',
+      2: 'Seule l’identité vérifie \\(\\sigma(n)=n\\) : en général (\\(\\sigma(n)=2n\\), \\(2n+1\\), …) on a \\(\\sigma(n)\\geq n\\) avec des sauts.',
+    },
+  },
+  {
+    id: 'ex102', section: 'suites-cours',
+    statement: 'Théorème II-2 : \\(u_n\\to\\ell\\) et \\(f\\) continue en \\(\\ell\\) donne \\(f(u_n)\\to f(\\ell)\\). Avec \\(u_n=1-\\dfrac{1}{n}\\) (\\(n\\geq2\\)), \\(\\ell=1\\) et \\(f=E\\) (partie entière), on observe :',
+    options: [
+      '\\(E(u_n)=0\\) pour tout \\(n\\), alors que \\(E(1)=1\\) : \\(E\\) n’est pas continue en 1',
+      '\\(E(u_n)\\to E(1)=1\\), comme prévu par le théorème',
+      '\\(E(u_n)\\) n’est pas définie',
+    ],
+    correctIndex: 0,
+    explain: 'Le théorème exige la continuité en \\(\\ell\\). La partie entière saute en 1, donc \\(E(u_n)\\to0\\) mais \\(E(1)=1\\) : l’hypothèse sert vraiment.',
+    wrongExplain: {
+      1: 'Le théorème ne s’applique que si \\(f\\) est continue en \\(\\ell\\). \\(E\\) ne l’est pas en 1 (elle passe de 0 à 1) : la conclusion tombe.',
+      2: 'La partie entière est définie pour tout réel ; ici \\(0\\leq u_n&lt;1\\), donc \\(E(u_n)=0\\) sans problème.',
+    },
+  },
+  {
+    id: 'ex103', section: 'suites-cours',
+    statement: 'Quelle affirmation est vraie ? (démontrée dans l’exercice 2 du TD 4)',
+    options: [
+      'Toute suite convergente est bornée, mais une suite bornée n’est pas forcément convergente (ex. \\((-1)^n\\))',
+      'Une suite est bornée si et seulement si elle converge',
+      'Toute suite convergente est monotone',
+    ],
+    correctIndex: 0,
+    explain: 'Preuve du sens direct : avec \\(\\varepsilon=1\\), tous les termes après un rang \\(n_0\\) sont dans \\([\\ell-1,\\ell+1]\\), et il reste un nombre fini de termes avant \\(n_0\\) : on prend le maximum des valeurs absolues.',
+    wrongExplain: {
+      1: 'Faux dans le sens bornée ⇒ convergente : \\((-1)^n\\) est bornée par 1 mais ne converge pas.',
+      2: 'Faux : \\((-1)^n/n\\) converge vers 0 sans être monotone (ses signes alternent).',
+    },
+  },
+
   // ---------- §6 — Limites ----------
   {
     id: 'ex1', section: 'limites',
@@ -1002,11 +1289,15 @@ const SECTIONS = [
     cours: 'Primitive de \\(x^\\alpha\\) (\\(\\alpha \\neq -1\\)) : \\(\\dfrac{x^{\\alpha+1}}{\\alpha+1}\\) ; primitive de \\(1/x\\) : \\(\\ln|x|\\)<br><span class="math">Changement de variable</span> : \\(x=\\varphi(t)\\), \\(dx = \\varphi\'(t)\\,dt\\)<br>Deux primitives d’une même fonction diffèrent d’une constante',
   },
   {
-    id: 'suites', title: '§13 — SUITES',
+    id: 'suites-cours', title: '§13 — SUITES : DÉFINITIONS DU COURS (CHARRON)',
+    cours: 'Bornée : \\(\\exists A&gt;0,\\ \\forall n,\\ |u_n|\\leq A\\) (le \\(A\\) d’abord, pour tous les \\(n\\))<br><span class="math">Convergence</span> : \\(\\forall\\varepsilon&gt;0,\\ \\exists n_0,\\ \\forall n\\geq n_0,\\ |u_n-\\ell|\\leq\\varepsilon\\) (le \\(\\varepsilon\\) d’abord, puis \\(n_0\\))<br>Limite unique ; bornée × tend vers 0 donne 0 ; \\(u_n&gt;0\\) et \\(u_n\\to\\ell\\) donnent \\(\\ell\\geq0\\)<br><span class="math">Gendarmes</span>, <span class="math">limite monotone</span>, <span class="math">adjacentes</span>, <span class="math">point fixe</span> \\(f(\\ell)=\\ell\\) (\\(f\\) continue)<br><span class="math">Suites extraites</span> : \\(u_n\\to\\ell\\) donne toute extraite \\(\\to\\ell\\) ; deux extraites en désaccord donnent divergence',
+  },
+  {
+    id: 'suites', title: '§14 — SUITES : THÉORÈMES DE LA FICHE MÉMO',
     cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|&lt;1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature)<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
   },
   {
-    id: 'series', title: '§14 — SÉRIES NUMÉRIQUES',
+    id: 'series', title: '§15 — SÉRIES NUMÉRIQUES',
     cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|&lt;1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha&gt;1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L&lt;1\\) CV, \\(L&gt;1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
   },
 ];
