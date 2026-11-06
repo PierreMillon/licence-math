@@ -681,6 +681,830 @@ const EXERCISES = [
       2: 'Le nombre de valeurs nécessaires dépend du degré du polynôme en jeu, qui n’est pas borné a priori — 51 n’est pas un seuil magique garantissant quoi que ce soit.',
     },
   },
+
+  // ===== §8 — STRUCTURE D'ESPACE VECTORIEL =====
+  {
+    id: 'ex51', section: 'ev-structure',
+    statement: 'Parmi les 10 conditions qui définissent un \\(K\\)-espace vectoriel \\((E,+,.)\\), laquelle porte sur la loi EXTERNE \\(.\\) (et non sur la loi interne \\(+\\)) ?',
+    options: [
+      '\\(\\forall u\\in E,\\ 1.u=u\\)',
+      '\\(\\forall u,v\\in E,\\ u+v=v+u\\)',
+      'Il existe un unique \\(0_E\\in E\\) tel que \\(\\forall u\\in E,\\ u+0_E=u\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Les 5 premières conditions (loi interne, commutativité, associativité, neutre, opposé) portent sur \\(+\\) ; les 5 suivantes (loi externe, 2 distributivités, associativité mixte, \\(1.u=u\\)) portent sur \\(.\\) et son interaction avec \\(+\\).',
+    wrongExplain: {
+      1: 'La commutativité \\(u+v=v+u\\) est une condition sur la loi INTERNE \\(+\\), pas sur la loi externe \\(.\\).',
+      2: 'L’existence du vecteur nul \\(0_E\\) est une condition sur la loi INTERNE \\(+\\) (c’est son élément neutre), pas sur \\(.\\).',
+    },
+  },
+  {
+    id: 'ex52', section: 'ev-structure',
+    statement: 'Dans un espace vectoriel \\(E\\), un élément de \\(K\\) est appelé :',
+    options: [
+      'un scalaire',
+      'un vecteur',
+      'un sous-espace vectoriel',
+    ],
+    correctIndex: 0,
+    explain: 'Par opposition : un élément de \\(E\\) est un vecteur, un élément de \\(K\\) (le corps de base) est un scalaire — souvent noté avec une lettre grecque.',
+    wrongExplain: {
+      1: 'C’est l’inverse : « vecteur » désigne un élément de \\(E\\), pas de \\(K\\).',
+      2: 'Un sous-espace vectoriel est une PARTIE de \\(E\\) (un ensemble de vecteurs), pas un simple nombre de \\(K\\).',
+    },
+  },
+  {
+    id: 'ex53', section: 'ev-structure',
+    statement: 'Pour \\(a\\in K\\) et \\(u\\in E\\), l’égalité \\(au=0_E\\) équivaut à :',
+    options: [
+      '\\(a=0\\) ou \\(u=0_E\\)',
+      '\\(a=0\\) et \\(u=0_E\\) nécessairement',
+      '\\(a=1\\) ou \\(u=0_E\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Propriété élémentaire du cours : \\(\\forall a\\in K,\\forall u\\in E,\\ au=0_E \\Leftrightarrow a=0\\) ou \\(u=0_E\\) — un « ou » inclusif, pas un « et ».',
+    wrongExplain: {
+      1: 'C’est trop fort : il suffit qu’UN SEUL des deux facteurs soit nul, pas forcément les deux à la fois (ex. \\(0.u=0_E\\) pour n’importe quel \\(u\\)).',
+      2: '\\(a=1\\) ne joue aucun rôle particulier ici (\\(1.u=u\\), pas \\(0_E\\) sauf si \\(u=0_E\\)) — c’est bien \\(a=0\\) qu’il faut.',
+    },
+  },
+  {
+    id: 'ex54', section: 'ev-structure',
+    statement: 'Pour tout vecteur \\(u\\) d’un espace vectoriel \\(E\\), l’opposé \\(-u\\) est égal à :',
+    options: [
+      '\\((-1)u\\)',
+      '\\(1-u\\) (qui n’a pas de sens ici)',
+      '\\(0_E-u\\) uniquement, sans autre expression possible',
+    ],
+    correctIndex: 0,
+    explain: 'Propriété élémentaire du cours : \\(\\forall u\\in E,\\ -u=(-1)u\\) — l’opposé d’un vecteur est son produit externe par le scalaire \\(-1\\).',
+    wrongExplain: {
+      1: '\\(1-u\\) mélangerait un scalaire (\\(1\\)) et un vecteur (\\(u\\)) par une soustraction directe, qui n’est définie ni dans \\(K\\) ni dans \\(E\\) — expression dépourvue de sens.',
+      2: '\\(0_E-u\\) est bien égal à \\(-u\\) (c’est même la définition \\(48\\) de la différence), mais ce n’est pas la SEULE expression possible : \\((-1)u\\) en est une autre, plus utile en pratique.',
+    },
+  },
+  {
+    id: 'ex55', section: 'ev-structure',
+    statement: 'Si \\(\\alpha_1,\\ldots,\\alpha_n\\in K\\) et \\(u_1,\\ldots,u_n\\in E\\), le vecteur \\(\\alpha_1u_1+\\cdots+\\alpha_nu_n\\) est appelé :',
+    options: [
+      'une combinaison linéaire des vecteurs \\(u_1,\\ldots,u_n\\)',
+      'une famille génératrice de \\(E\\)',
+      'une base de \\(E\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours : c’est l’opération fondamentale de toute l’algèbre linéaire, de coefficients \\(\\alpha_1,\\ldots,\\alpha_n\\).',
+    wrongExplain: {
+      1: 'Une famille génératrice est une notion différente : c’est une famille de vecteurs dont TOUTES les combinaisons linéaires possibles reconstituent un espace donné — une combinaison linéaire isolée n’est qu’UN vecteur, pas une famille.',
+      2: 'Une base est une famille libre ET génératrice — une combinaison linéaire isolée n’est qu’un résultat, pas une famille de vecteurs à qualifier de base.',
+    },
+  },
+
+  // ===== §9 — EXEMPLES D'ESPACES VECTORIELS =====
+  {
+    id: 'ex56', section: 'ev-exemples',
+    statement: 'Pour les lois usuelles sur \\(\\mathbb{R}^2\\), à quoi est égal \\((5,4)+(3,-3)\\) ?',
+    options: [
+      '\\((8,1)\\)',
+      '\\((15,-12)\\)',
+      '\\((2,7)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Les lois usuelles sur \\(\\mathbb{R}^2\\) s’effectuent composante par composante : \\((x,y)+(x\',y\')=(x+x\',y+y\')\\), donc \\((5+3,4-3)=(8,1)\\).',
+    wrongExplain: {
+      1: '\\((15,-12)\\) serait le résultat d’une multiplication composante par composante, pas d’une addition — ce n’est pas l’opération demandée.',
+      2: '\\((2,7)\\) inverse les rôles (soustraction sur la 1ère composante, addition sur la 2e) — il faut additionner les DEUX composantes séparément.',
+    },
+  },
+  {
+    id: 'ex57', section: 'ev-exemples',
+    statement: 'Quand on parle, sans plus de précision, de « l’espace vectoriel \\(K^n\\) », on désigne en pratique :',
+    options: [
+      'l’espace vectoriel canonique (lois usuelles composante par composante)',
+      'un espace vectoriel différent à chaque exercice, impossible à deviner',
+      'toujours \\(\\mathbb{R}^n\\), jamais \\(\\mathbb{C}^n\\) ni \\(\\mathbb{Q}^n\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours : dans l’écrasante majorité des cas rencontrés en pratique, \\(K^n\\) sans précision désigne l’espace vectoriel CANONIQUE (lois usuelles), même si d’autres lois sont en théorie possibles sur le même ensemble.',
+    wrongExplain: {
+      1: 'Il y a bien une convention implicite par défaut (les lois usuelles/canoniques) — ce n’est pas arbitraire ni imprévisible.',
+      2: '\\(K\\) est fixé en début de chapitre à \\(\\mathbb{Q}\\), \\(\\mathbb{R}\\) ou \\(\\mathbb{C}\\) selon le contexte — \\(K^n\\) n’est pas réservé à \\(\\mathbb{R}^n\\).',
+    },
+  },
+  {
+    id: 'ex58', section: 'ev-exemples',
+    statement: 'Pour que \\(\\mathbb{C}\\) soit un espace vectoriel SUR \\(\\mathbb{R}\\), la multiplication externe utilisée est :',
+    options: [
+      '\\(\\forall r\\in\\mathbb{R},\\forall z\\in\\mathbb{C},\\ r.z=r\\times z\\) (produit d’un réel et d’un complexe)',
+      'le produit de deux nombres complexes quelconques',
+      'la partie réelle du produit \\(r\\times z\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le scalaire \\(r\\) doit rester dans le corps de base \\(\\mathbb{R}\\) (pas dans \\(\\mathbb{C}\\) tout entier) — c’est précisément ce qui distingue le \\(\\mathbb{R}\\)-espace vectoriel \\(\\mathbb{C}\\) du \\(\\mathbb{C}\\)-espace vectoriel \\(\\mathbb{C}\\) (deux structures différentes sur le même ensemble).',
+    wrongExplain: {
+      1: 'Si le scalaire pouvait être n’importe quel complexe, on obtiendrait le \\(\\mathbb{C}\\)-espace vectoriel \\(\\mathbb{C}\\) (qui existe aussi, cf. §56), pas le \\(\\mathbb{R}\\)-espace vectoriel visé ici.',
+      2: 'Garder seulement la partie réelle ferait sortir du résultat de \\(\\mathbb{C}\\) — la multiplication externe doit renvoyer un vecteur de \\(E=\\mathbb{C}\\), pas un réel.',
+    },
+  },
+  {
+    id: 'ex59', section: 'ev-exemples',
+    statement: 'Sur l’ensemble \\(F(X,E)\\) de toutes les applications de \\(X\\) dans un espace vectoriel \\(E\\), deux applications \\(f\\) et \\(g\\) sont dites égales si et seulement si :',
+    options: [
+      '\\(\\forall x\\in X,\\ f(x)=g(x)\\)',
+      'elles ont la même formule algébrique d’écriture',
+      'elles ont le même ensemble de départ \\(X\\), peu importe les images',
+    ],
+    correctIndex: 0,
+    explain: 'Rappel du cours (§57), indispensable en pratique : deux applications sont égales ssi elles coïncident en TOUT point de leur ensemble de départ — c’est la seule caractérisation utilisable, pas une question de « formule ».',
+    wrongExplain: {
+      1: 'Deux formules différentes peuvent définir la MÊME application (ex. \\(x\\mapsto (x+1)^2\\) et \\(x\\mapsto x^2+2x+1\\)) — ce n’est pas l’écriture qui compte, mais les valeurs prises en chaque point.',
+      2: 'Avoir le même ensemble de départ ne dit rien des images — deux fonctions sur le même \\(X\\) peuvent être totalement différentes.',
+    },
+  },
+  {
+    id: 'ex60', section: 'ev-exemples',
+    statement: 'L’ensemble des suites réelles, muni de l’addition terme à terme, correspond à l’espace \\(F(X,E)\\) du cours avec :',
+    options: [
+      '\\(X=\\mathbb{N}\\) et \\(E=\\mathbb{R}\\)',
+      '\\(X=\\mathbb{R}\\) et \\(E=\\mathbb{N}\\)',
+      '\\(X=E=\\mathbb{R}\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Une suite réelle est une application de \\(\\mathbb{N}\\) (les indices \\(n\\)) vers \\(\\mathbb{R}\\) (les valeurs \\(u_n\\)) — c’est exactement le cas particulier \\(X=\\mathbb{N}\\), \\(E=\\mathbb{R}\\) de \\(F(X,E)\\) cité dans le cours.',
+    wrongExplain: {
+      1: '\\(\\mathbb{N}\\) n’est même pas un espace vectoriel (pas stable par opposé) — il ne peut pas jouer le rôle de \\(E\\), l’espace d’ARRIVÉE.',
+      2: '\\(X=\\mathbb{R}\\) donnerait l’espace de TOUTES les fonctions de \\(\\mathbb{R}\\) dans \\(\\mathbb{R}\\) (cas \\(F(\\mathbb{R},\\mathbb{R})\\) du cours), pas spécifiquement les suites, qui sont indexées par \\(\\mathbb{N}\\).',
+    },
+  },
+  {
+    id: 'ex61', section: 'ev-exemples',
+    statement: 'Dans l’espace vectoriel \\(\\mathbb{R}[X]\\) des polynômes à coefficients réels, le vecteur nul est :',
+    options: [
+      'le polynôme nul',
+      'le polynôme constant égal à \\(1\\)',
+      'le polynôme \\(X\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Comme pour tout espace vectoriel, le vecteur nul \\(0_E\\) est l’élément neutre pour l’addition — ici, c’est le polynôme identiquement nul (tous ses coefficients valent \\(0\\)).',
+    wrongExplain: {
+      1: 'Le polynôme constant \\(1\\) est le neutre pour la MULTIPLICATION des polynômes, pas pour l’addition — ce n’est pas le vecteur nul de cette structure d’espace vectoriel (où seule l’addition compte).',
+      2: '\\(X\\) est un vecteur ordinaire de \\(\\mathbb{R}[X]\\), sans aucune propriété de neutralité — rien ne le distingue comme « nul ».',
+    },
+  },
+  {
+    id: 'ex62', section: 'ev-exemples',
+    statement: 'Si \\(E\\) et \\(F\\) sont deux \\(K\\)-espaces vectoriels, l’espace-produit \\(G=E\\times F\\) est muni de l’addition :',
+    options: [
+      '\\((a,b)+(c,d)=(a+c,b+d)\\)',
+      '\\((a,b)+(c,d)=(a+d,b+c)\\)',
+      '\\((a,b)+(c,d)=(ac,bd)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'L’espace-produit additionne les deux composantes SÉPARÉMENT, chacune dans son propre espace (\\(a+c\\) dans \\(E\\), \\(b+d\\) dans \\(F\\)) — exactement comme pour \\(\\mathbb{R}^2=\\mathbb{R}\\times\\mathbb{R}\\).',
+    wrongExplain: {
+      1: 'Échanger les composantes (\\(a\\) avec \\(d\\), \\(b\\) avec \\(c\\)) n’a aucun sens si \\(E\\neq F\\) : \\(a\\) et \\(d\\) ne vivent pas forcément dans le même espace, l’addition \\(a+d\\) peut même ne pas être définie.',
+      2: '\\((ac,bd)\\) serait une multiplication composante par composante, pas une addition — et ce n’est de toute façon pas l’opération qui structure l’espace-produit.',
+    },
+  },
+
+  // ===== §10 — SOUS-ESPACES VECTORIELS =====
+  {
+    id: 'ex63', section: 'ev-sev',
+    statement: 'Pour qu’une partie \\(F\\) de \\(E\\) soit un sous-espace vectoriel, il FAUT en particulier que :',
+    options: [
+      '\\(0_E\\in F\\)',
+      '\\(F\\) contienne au moins deux vecteurs distincts',
+      '\\(F\\) soit un ensemble fini',
+    ],
+    correctIndex: 0,
+    explain: 'Première des 3 conditions de la définition (§63) : \\(0_E\\in F\\). C’est d’ailleurs souvent LE test le plus rapide pour exclure qu’une partie soit un sev (si \\(0_E\\notin F\\), c’est terminé).',
+    wrongExplain: {
+      1: '\\(\\{0_E\\}\\) à lui seul est un sous-espace vectoriel (le sev trivial) — un seul vecteur suffit, il n’y a aucune exigence de cardinal minimal au-delà de ça.',
+      2: 'Un sev peut très bien être infini (c’est même le cas général, ex. une droite ou un plan vectoriel) — rien n’impose la finitude.',
+    },
+  },
+  {
+    id: 'ex64', section: 'ev-sev',
+    statement: 'Les conditions ii) et iii) de la définition d’un sous-espace vectoriel (\\(\\forall x,y\\in F, x+y\\in F\\) et \\(\\forall x\\in F,\\forall\\alpha\\in K,\\alpha x\\in F\\)) peuvent être remplacées, de façon équivalente, par l’unique condition :',
+    options: [
+      '\\(\\forall x,y\\in F,\\forall\\alpha\\in K,\\ \\alpha x+y\\in F\\)',
+      '\\(\\forall x\\in F,\\ x+x\\in F\\) seulement',
+      '\\(\\exists x\\in F,\\forall\\alpha\\in K,\\ \\alpha x\\in F\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§64) : regrouper stabilité par somme et par produit externe en une seule condition \\(\\alpha x+y\\in F\\) (ou, de façon équivalente, \\(\\alpha x+\\beta y\\in F\\)) — c’est le critère pratique le plus utilisé pour démontrer qu’une partie est un sev.',
+    wrongExplain: {
+      1: '\\(x+x\\in F\\) ne teste que le cas particulier \\(\\alpha=2\\), \\(y=x\\) — ça ne couvre ni la stabilité par somme de deux vecteurs DIFFÉRENTS, ni la stabilité par un scalaire quelconque.',
+      2: 'Le quantificateur doit être universel (\\(\\forall x\\in F\\)), pas existentiel — sinon la condition ne porterait que sur UN vecteur particulier de \\(F\\), pas sur tous.',
+    },
+  },
+  {
+    id: 'ex65', section: 'ev-sev',
+    statement: 'Dans un espace vectoriel \\(E\\), quels sont les sous-espaces vectoriels dits « triviaux » ?',
+    options: [
+      '\\(\\{0_E\\}\\) et \\(E\\) lui-même',
+      'uniquement \\(\\{0_E\\}\\), jamais \\(E\\)',
+      'uniquement les droites vectorielles',
+    ],
+    correctIndex: 0,
+    explain: 'Le cours (§65) cite les deux : \\(\\{0_E\\}\\) et \\(E\\) sont toujours des sev de \\(E\\) (même si certaines sources ne considèrent \\(\\{0_E\\}\\) comme trivial) — ce sont les deux cas « sans intérêt » aux extrêmes.',
+    wrongExplain: {
+      1: '\\(E\\) tout entier est bien aussi un sev trivial de lui-même — la remarque du cours sur « certaines sources » ne retire JAMAIS \\(E\\) de la liste, elle retire éventuellement \\(\\{0_E\\}\\).',
+      2: 'Les droites vectorielles ne sont « triviales » dans aucun sens du terme — ce sont des sev non triviaux typiques en dimension \\(\\geq2\\) (cf. §101).',
+    },
+  },
+  {
+    id: 'ex66', section: 'ev-sev',
+    statement: 'L’ensemble \\(K_n[X]\\) des polynômes de degré au plus \\(n\\) est :',
+    options: [
+      'un sous-espace vectoriel de \\(K[X]\\)',
+      'égal à \\(K[X]\\) tout entier',
+      'stable par somme mais pas par produit externe',
+    ],
+    correctIndex: 0,
+    explain: 'Résultat du cours (§66) : \\(K_n[X]=\\{P\\in K[X]\\,;\\,d°(P)\\leq n\\}\\) est un sev de \\(K[X]\\) — la somme de deux polynômes de degré \\(\\leq n\\) reste de degré \\(\\leq n\\), de même pour un multiple scalaire.',
+    wrongExplain: {
+      1: '\\(K[X]\\) contient des polynômes de TOUS les degrés (ex. \\(X^{n+1}\\notin K_n[X]\\)) — \\(K_n[X]\\) est une partie STRICTE de \\(K[X]\\), pas l’espace entier.',
+      2: 'La stabilité est vraie pour les DEUX lois : un multiple scalaire d’un polynôme de degré \\(\\leq n\\) reste de degré \\(\\leq n\\) (le degré ne peut qu’être inférieur ou égal, jamais augmenté par un scalaire).',
+    },
+  },
+  {
+    id: 'ex67', section: 'ev-sev',
+    statement: 'Pour démontrer qu’un sous-espace vectoriel \\(F\\) de \\(E\\) vérifie \\(F=\\{0_E\\}\\), la méthode pratique du cours consiste à :',
+    options: [
+      'démontrer seulement l’inclusion \\(F\\subseteq\\{0_E\\}\\) (i.e. \\(v\\in F\\Rightarrow v=0_E\\))',
+      'démontrer les deux inclusions \\(F\\subseteq\\{0_E\\}\\) et \\(\\{0_E\\}\\subseteq F\\) séparément et avec le même effort',
+      'vérifier que \\(F\\) contient un vecteur non nul, puis conclure par l’absurde',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§68) : l’inclusion \\(\\{0_E\\}\\subseteq F\\) est TOUJOURS automatique (car \\(F\\) est un sev, donc contient \\(0_E\\)) — il ne reste donc qu’une seule inclusion à démontrer réellement, pas une double preuve.',
+    wrongExplain: {
+      1: 'C’est justement la double preuve qui est évitée : \\(\\{0_E\\}\\subseteq F\\) ne coûte rien à établir (c’est automatique pour tout sev), pas la peine d’y consacrer un effort symétrique.',
+      2: 'Trouver un vecteur non nul dans \\(F\\) prouverait au contraire \\(F\\neq\\{0_E\\}\\) — ce n’est pas la méthode pour établir l’égalité, mais celle qui la contredirait.',
+    },
+  },
+  {
+    id: 'ex68', section: 'ev-sev',
+    statement: 'Les sous-espaces vectoriels NON triviaux de l’espace \\(\\mathbb{R}^3\\) sont, à titre heuristique :',
+    options: [
+      'des droites ou des plans contenant \\((0,0,0)\\)',
+      'n’importe quel sous-ensemble de \\(\\mathbb{R}^3\\)',
+      'uniquement des plans, jamais des droites',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§69) : en dimension 3, les sev non triviaux sont géométriquement des droites ou des plans passant par l’origine — jamais une sphère, un cône, ou toute autre partie qui ne contiendrait pas \\((0,0,0)\\) ou ne serait pas « plate ».',
+    wrongExplain: {
+      1: 'Un sous-ensemble quelconque n’a aucune raison d’être stable par somme/produit externe (ex. une sphère centrée en \\((0,0,0)\\) ne l’est pas) — tous les sous-ensembles ne sont PAS des sev.',
+      2: 'Les droites vectorielles (engendrées par un seul vecteur non nul, §101) sont aussi des sev non triviaux de \\(\\mathbb{R}^3\\) — les plans n’ont pas l’exclusivité.',
+    },
+  },
+  {
+    id: 'ex69', section: 'ev-sev',
+    statement: 'Si \\(F\\) et \\(G\\) sont deux sous-espaces vectoriels de \\(E\\), dire que « \\(F\\) est un sous-espace vectoriel de \\(G\\) » équivaut exactement à :',
+    options: [
+      '\\(F\\subseteq G\\)',
+      '\\(F=G\\)',
+      '\\(F\\cap G=\\{0_E\\}\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§71) : « \\(F\\) sev de \\(G\\) » est tout simplement équivalent à l’inclusion ensembliste \\(F\\subseteq G\\) — aucune condition supplémentaire n’est nécessaire (les lois de \\(F\\) sont de toute façon celles induites par \\(E\\), donc aussi par \\(G\\)).',
+    wrongExplain: {
+      1: 'Exiger l’égalité serait beaucoup trop fort : \\(F\\) peut être un sev STRICT de \\(G\\) (ex. une droite incluse dans un plan) sans lui être égal.',
+      2: '\\(F\\cap G=\\{0_E\\}\\) est au contraire la situation où \\(F\\) et \\(G\\) n’ont presque rien en commun — c’est l’opposé d’une relation d’inclusion entre les deux.',
+    },
+  },
+  {
+    id: 'ex70', section: 'ev-sev',
+    statement: 'L’ensemble \\(F_3=\\{(x,y)\\in\\mathbb{R}^2\\,;\\,5x-3y=1\\}\\) n’est PAS un sous-espace vectoriel de \\(\\mathbb{R}^2\\) car :',
+    options: [
+      '\\((0,0)\\notin F_3\\)',
+      '\\(F_3\\) a une infinité d’éléments',
+      '\\(5\\) et \\(3\\) ne sont pas premiers entre eux',
+    ],
+    correctIndex: 0,
+    explain: 'Le test le plus rapide (voir ex70) : \\(5\\times0-3\\times0=0\\neq1\\), donc \\((0,0)\\notin F_3\\) — la toute première condition de la définition d’un sev échoue immédiatement, inutile d’aller plus loin.',
+    wrongExplain: {
+      1: 'Avoir une infinité d’éléments n’empêche rien : un sev non trivial (une droite par exemple) a lui aussi une infinité d’éléments — ce n’est pas le problème ici.',
+      2: 'Le fait que \\(5x-3y=1\\) (membre de droite non nul) plutôt que \\(=0\\) est LA vraie cause — la valeur arithmétique de \\(5\\) et \\(3\\) (premiers entre eux ou non) n’a aucun rapport avec la question.',
+    },
+  },
+
+  // ===== §11 — SOUS-ESPACE VECTORIEL ENGENDRÉ =====
+  {
+    id: 'ex71', section: 'ev-engendre',
+    statement: 'Pour une partie \\(X\\) de \\(E\\), l’ensemble \\(\\text{vect}(X)\\) est défini comme :',
+    options: [
+      'l’ensemble de toutes les combinaisons linéaires (finies) de vecteurs de \\(X\\)',
+      'l’ensemble \\(X\\) lui-même, sans rien ajouter',
+      'le plus GRAND sous-espace vectoriel de \\(E\\) contenu dans \\(X\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§72) : \\(\\text{vect}(X)=\\{\\alpha_1u_1+\\cdots+\\alpha_pu_p\\,;\\,p\\in\\mathbb{N},\\alpha_i\\in K,u_i\\in X\\}\\) — l’ensemble de TOUTES les combinaisons linéaires possibles, de longueur quelconque.',
+    wrongExplain: {
+      1: '\\(X\\subseteq\\text{vect}(X)\\) (§73) mais l’inclusion est en général STRICTE : \\(\\text{vect}(X)\\) ajoute toutes les combinaisons linéaires, qui ne sont pas forcément déjà dans \\(X\\).',
+      2: 'C’est l’inverse : \\(\\text{vect}(X)\\) est le plus PETIT sev contenant \\(X\\) (lemme d’expansion, §76), pas le plus grand sev CONTENU dans \\(X\\) (qui n’aurait d’ailleurs souvent aucun sens si \\(X\\) n’est pas déjà un sev).',
+    },
+  },
+  {
+    id: 'ex72', section: 'ev-engendre',
+    statement: 'Le « lemme d’expansion » du cours affirme que si \\(F\\) est un sous-espace vectoriel de \\(E\\) tel que \\(X\\subseteq F\\), alors :',
+    options: [
+      '\\(\\text{vect}(X)\\subseteq F\\)',
+      '\\(F\\subseteq\\text{vect}(X)\\)',
+      '\\(F=\\text{vect}(X)\\) nécessairement',
+    ],
+    correctIndex: 0,
+    explain: 'Lemme d’expansion (§76) : \\(\\text{vect}(X)\\) est le PLUS PETIT sev contenant \\(X\\) — donc tout autre sev \\(F\\) contenant \\(X\\) doit nécessairement contenir \\(\\text{vect}(X)\\) tout entier.',
+    wrongExplain: {
+      1: 'C’est le sens inverse : comme \\(\\text{vect}(X)\\) est le PLUS PETIT sev contenant \\(X\\), c’est lui qui est inclus dans \\(F\\), pas \\(F\\) qui serait inclus dans lui.',
+      2: 'Rien n’impose l’égalité : \\(F\\) peut être un sev beaucoup plus grand que \\(\\text{vect}(X)\\) tout en contenant \\(X\\) (ex. \\(F=E\\) tout entier convient toujours).',
+    },
+  },
+  {
+    id: 'ex73', section: 'ev-engendre',
+    statement: 'Si \\(X\\subseteq Y\\) sont deux parties de \\(E\\), alors :',
+    options: [
+      '\\(\\text{vect}(X)\\subseteq\\text{vect}(Y)\\)',
+      '\\(\\text{vect}(Y)\\subseteq\\text{vect}(X)\\)',
+      'on ne peut rien dire en général sur l’inclusion entre \\(\\text{vect}(X)\\) et \\(\\text{vect}(Y)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§77) : \\(X\\subseteq Y\\Rightarrow\\text{vect}(X)\\subseteq\\text{vect}(Y)\\) — engendrer à partir d’une partie plus petite ne peut donner qu’un sev plus petit (ou égal).',
+    wrongExplain: {
+      1: 'Ce serait l’inverse d’une inclusion croissante : plus \\(X\\) grandit, plus \\(\\text{vect}(X)\\) grandit (ou reste égal), jamais le contraire.',
+      2: 'Au contraire, c’est une propriété GARANTIE à chaque fois, pas un cas indéterminé — l’inclusion \\(X\\subseteq Y\\) suffit toujours à la conclure.',
+    },
+  },
+  {
+    id: 'ex74', section: 'ev-engendre',
+    statement: 'Dire qu’une partie \\(X\\) de \\(E\\) est une « partie génératrice de \\(E\\) » signifie que :',
+    options: [
+      '\\(\\text{vect}(X)=E\\)',
+      '\\(X=E\\)',
+      '\\(X\\) est une famille libre',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§81) : \\(X\\) génère \\(E\\) si \\(\\text{vect}(X)=E\\) — en pratique, seule l’inclusion \\(E\\subseteq\\text{vect}(X)\\) est à démontrer, l’autre (\\(\\text{vect}(X)\\subseteq E\\)) étant toujours automatique.',
+    wrongExplain: {
+      1: '\\(X\\) peut être une partie génératrice BEAUCOUP plus petite que \\(E\\) (ex. 2 vecteurs suffisent à engendrer \\(\\mathbb{R}^2\\), qui a une infinité d’éléments) — pas besoin que \\(X=E\\).',
+      2: 'Être génératrice et être libre sont deux notions INDÉPENDANTES (§92-93) — une partie génératrice peut très bien être liée (avoir des vecteurs « en trop »).',
+    },
+  },
+  {
+    id: 'ex75', section: 'ev-engendre',
+    statement: 'On appelle « droite vectorielle » de \\(E\\) tout sous-espace vectoriel de la forme :',
+    options: [
+      '\\(\\text{vect}(u)\\) pour un vecteur \\(u\\) NON NUL de \\(E\\)',
+      '\\(\\text{vect}(u)\\) pour n’importe quel vecteur \\(u\\), y compris \\(0_E\\)',
+      '\\(\\text{vect}(u,v)\\) pour deux vecteurs non colinéaires',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§101) : une droite vectorielle est engendrée par UN SEUL vecteur non nul — \\(D=\\text{vect}(u)=\\{ku\\,;\\,k\\in K\\}\\).',
+    wrongExplain: {
+      1: 'Si \\(u=0_E\\), alors \\(\\text{vect}(u)=\\{0_E\\}\\), le sev trivial — ce n’est pas une droite, la condition « \\(u\\) non nul » est essentielle.',
+      2: 'C’est la définition d’un PLAN vectoriel (§102, deux vecteurs non colinéaires), pas d’une droite, qui n’a besoin que d’UN seul générateur.',
+    },
+  },
+  {
+    id: 'ex76', section: 'ev-engendre',
+    statement: 'Pour des vecteurs \\(a_1,\\ldots,a_p,b_1,\\ldots,b_q\\) de \\(E\\), la proposition du cours donne :',
+    options: [
+      '\\(\\text{vect}(a_1,\\ldots,a_p)+\\text{vect}(b_1,\\ldots,b_q)=\\text{vect}(a_1,\\ldots,a_p,b_1,\\ldots,b_q)\\)',
+      '\\(\\text{vect}(a_1,\\ldots,a_p)+\\text{vect}(b_1,\\ldots,b_q)=\\text{vect}(a_1,\\ldots,a_p)\\cap\\text{vect}(b_1,\\ldots,b_q)\\)',
+      'cette somme n’est en général pas un sous-espace vectoriel',
+    ],
+    correctIndex: 0,
+    explain: 'Proposition du cours (§103) : la somme de deux sev ENGENDRÉS s’obtient très simplement en réunissant tous les générateurs dans un seul \\(\\text{vect}\\) — un moyen très commode en pratique pour calculer une somme.',
+    wrongExplain: {
+      1: 'La somme \\(F+G\\) et l’intersection \\(F\\cap G\\) sont deux opérations complètement différentes sur les sev (voir §83 et §85) — cette proposition porte sur la SOMME, pas sur l’intersection.',
+      2: 'La somme de deux sev est TOUJOURS un sous-espace vectoriel de \\(E\\) (résultat du §85) — rien d’incertain ici.',
+    },
+  },
+  {
+    id: 'ex77', section: 'ev-engendre',
+    statement: 'Si \\((u_1,\\ldots,u_n)\\) est une famille de \\(E\\) et \\(u\\in\\text{vect}(u_1,\\ldots,u_n)\\), alors « générateur redondant » signifie que :',
+    options: [
+      '\\(\\text{vect}(u_1,\\ldots,u_n,u)=\\text{vect}(u_1,\\ldots,u_n)\\)',
+      'ajouter \\(u\\) agrandit strictement l’espace engendré',
+      '\\(u\\) doit être nécessairement égal à l’un des \\(u_i\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Résultat du cours (§104) : ajouter à une famille un vecteur déjà dans son espace engendré ne change RIEN à cet espace engendré — \\(u\\) n’apporte aucun générateur « nouveau ».',
+    wrongExplain: {
+      1: 'C’est l’inverse de ce que dit le résultat : puisque \\(u\\) est DÉJÀ une combinaison linéaire des \\(u_i\\), l’espace engendré reste EXACTEMENT le même, il ne peut pas s’agrandir.',
+      2: '\\(u\\) peut être n’importe quelle combinaison linéaire des \\(u_i\\) (ex. \\(u=u_1+u_2\\)) sans être égal à l’un d’eux précisément — la seule condition est \\(u\\in\\text{vect}(u_1,\\ldots,u_n)\\).',
+    },
+  },
+  {
+    id: 'ex78', section: 'ev-engendre',
+    statement: 'Dans \\(\\mathbb{R}^2\\), les vecteurs \\(u=(1,0)\\) et \\(v=(2,0)\\) engendrent-ils \\(\\mathbb{R}^2\\) ?',
+    options: [
+      'Non, car \\(u\\) et \\(v\\) sont colinéaires, donc \\(\\text{vect}(u,v)\\) n’est qu’une droite',
+      'Oui, car deux vecteurs suffisent toujours à engendrer \\(\\mathbb{R}^2\\)',
+      'Oui, car \\(u\\neq v\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Même type de piège que l’exercice d’entraînement 2(b) du cours : \\(v=2u\\), donc \\(\\text{vect}(u,v)=\\text{vect}(u)\\) (générateur redondant, voir question précédente) — on n’obtient qu’une droite (ex. \\((0,1)\\notin\\text{vect}(u,v)\\)), pas tout \\(\\mathbb{R}^2\\).',
+    wrongExplain: {
+      1: 'Le NOMBRE de vecteurs ne suffit pas : il faut aussi qu’ils soient « assez indépendants » (non colinéaires ici) — deux vecteurs colinéaires n’engendrent jamais plus qu’une droite.',
+      2: '\\(u\\neq v\\) n’empêche absolument pas la colinéarité (\\(v=2u\\) avec \\(u\\neq v\\) puisque \\(2\\neq1\\)) — être distincts et être colinéaires sont deux choses compatibles.',
+    },
+  },
+
+  // ===== §12 — INTERSECTION, SOMME DE SOUS-ESPACES VECTORIELS =====
+  {
+    id: 'ex79', section: 'ev-somme',
+    statement: 'Si \\(F\\) et \\(G\\) sont deux sous-espaces vectoriels de \\(E\\), alors \\(F\\cap G\\) est :',
+    options: [
+      'toujours un sous-espace vectoriel de \\(E\\)',
+      'un sous-espace vectoriel seulement si \\(F\\subseteq G\\) ou \\(G\\subseteq F\\)',
+      'jamais un sous-espace vectoriel (sauf cas particuliers)',
+    ],
+    correctIndex: 0,
+    explain: 'Théorème du cours (§83) : l’intersection de deux (ou plusieurs, §84) sev de \\(E\\) est TOUJOURS un sev de \\(E\\), sans aucune condition supplémentaire.',
+    wrongExplain: {
+      1: 'Aucune condition d’inclusion n’est nécessaire — le théorème s’applique à \\(F\\) et \\(G\\) QUELCONQUES, même si ni l’un ni l’autre n’est inclus dans l’autre.',
+      2: 'C’est l’inverse : c’est un résultat GÉNÉRAL et systématique, pas une exception rare.',
+    },
+  },
+  {
+    id: 'ex80', section: 'ev-somme',
+    statement: 'Pour deux sous-espaces vectoriels \\(F\\) et \\(G\\) de \\(E\\), on a toujours :',
+    options: [
+      '\\(F\\subseteq F+G\\) et \\(G\\subseteq F+G\\)',
+      '\\(F+G\\subseteq F\\) et \\(F+G\\subseteq G\\)',
+      '\\(F+G=F\\cap G\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§86) : il est immédiat que \\(F\\subseteq F+G\\) (prendre \\(y=0_E\\in G\\)) et de même \\(G\\subseteq F+G\\) — la somme ne peut qu’AGRANDIR, jamais rétrécir.',
+    wrongExplain: {
+      1: 'C’est l’inverse : \\(F\\) et \\(G\\) sont inclus dans leur SOMME \\(F+G\\), pas le contraire — \\(F+G\\) est en général plus grand que \\(F\\) ou \\(G\\) pris séparément.',
+      2: 'La somme \\(F+G\\) et l’intersection \\(F\\cap G\\) ne coïncident en général PAS — elles sont égales uniquement dans des cas très particuliers (ex. \\(F=G\\)), pas systématiquement.',
+    },
+  },
+  {
+    id: 'ex81', section: 'ev-somme',
+    statement: 'Si \\(u\\in F+G\\), peut-on affirmer que la décomposition \\(u=x+y\\) (\\(x\\in F,y\\in G\\)) est UNIQUE ?',
+    options: [
+      'Non, en général elle ne l’est pas — il peut exister un autre couple \\((x\',y\')\\) qui convient aussi',
+      'Oui, toujours, quels que soient \\(F\\) et \\(G\\)',
+      'Oui, mais seulement si \\(F\\) et \\(G\\) sont tous les deux des droites vectorielles',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§88) : la non-unicité est le cas général pour une simple SOMME \\(F+G\\) — c’est justement ce qui distingue une somme quelconque d’une somme SUPPLÉMENTAIRE (§89), où l’unicité est, elle, garantie par définition.',
+    wrongExplain: {
+      1: 'C’est l’inverse de ce qu’énonce le cours : l’unicité n’est PAS automatique pour une somme quelconque — elle ne devient vraie que dans le cas particulier d’une somme supplémentaire.',
+      2: 'La nature géométrique précise de \\(F\\) et \\(G\\) (droites ou non) n’est pas le critère — c’est la condition \\(F\\cap G=\\{0_E\\}\\) (caractérisation du §90) qui garantit l’unicité, pas le fait que ce soient des droites.',
+    },
+  },
+  {
+    id: 'ex82', section: 'ev-somme',
+    statement: 'Dire que \\(F\\) et \\(G\\) sont des sous-espaces SUPPLÉMENTAIRES dans \\(E\\) (noté \\(E=F\\oplus G\\)) signifie que :',
+    options: [
+      'tout \\(u\\in E\\) s’écrit de façon UNIQUE \\(u=x+y\\) avec \\(x\\in F,y\\in G\\)',
+      'tout \\(u\\in E\\) s’écrit d’au moins une façon \\(u=x+y\\), l’unicité important peu',
+      '\\(F\\) et \\(G\\) ont la même dimension',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§89) : le mot-clé est l’existence ET l’unicité de la décomposition — c’est précisément ce qui distingue « supplémentaires » d’une simple somme \\(F+G=E\\).',
+    wrongExplain: {
+      1: 'C’est au contraire l’UNICITÉ qui fait toute la différence avec une simple somme \\(F+G=E\\) (voir question précédente) — sans elle, on parlerait juste de somme, pas de supplémentarité.',
+      2: 'Rien dans la définition ne porte sur une égalité de dimension — la supplémentarité est une question de décomposition unique de CHAQUE vecteur, pas de taille comparée des deux sev.',
+    },
+  },
+  {
+    id: 'ex83', section: 'ev-somme',
+    statement: 'Pour deux sous-espaces vectoriels \\(F\\) et \\(G\\) de \\(E\\), la caractérisation pratique de \\(E=F\\oplus G\\) est :',
+    options: [
+      '\\(F+G=E\\) ET \\(F\\cap G=\\{0_E\\}\\)',
+      '\\(F+G=E\\) seulement, sans autre condition',
+      '\\(F\\cap G=\\{0_E\\}\\) seulement, sans autre condition',
+    ],
+    correctIndex: 0,
+    explain: 'Cas particulier du cours pour deux sev (§90) : les DEUX conditions sont nécessaires simultanément — \\(F+G=E\\) seul ne garantit pas l’unicité de la décomposition, et \\(F\\cap G=\\{0_E\\}\\) seul ne garantit pas que la somme couvre tout \\(E\\).',
+    wrongExplain: {
+      1: '\\(F+G=E\\) seul permet une décomposition, mais sans \\(F\\cap G=\\{0_E\\}\\) cette décomposition n’a aucune raison d’être UNIQUE — il manquerait la condition d’unicité.',
+      2: '\\(F\\cap G=\\{0_E\\}\\) seul garantit l’unicité d’une éventuelle décomposition, mais sans \\(F+G=E\\) rien ne dit que TOUT vecteur de \\(E\\) puisse effectivement se décomposer.',
+    },
+  },
+  {
+    id: 'ex84', section: 'ev-somme',
+    statement: 'Dans \\(\\mathbb{R}^2\\), \\(F=\\text{vect}((1,2))\\) et \\(G=\\text{vect}((1,1))\\). Que peut-on dire de \\(F\\) et \\(G\\) ?',
+    options: [
+      'Ce sont deux droites vectorielles distinctes, donc \\(F\\cap G=\\{(0,0)\\}\\) et \\(F+G=\\mathbb{R}^2\\) : elles sont supplémentaires',
+      'Elles sont forcément égales puisque ce sont deux droites de \\(\\mathbb{R}^2\\)',
+      'On ne peut rien conclure sans calculer explicitement \\(F\\cap G\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Deux droites vectorielles DISTINCTES de \\(\\mathbb{R}^2\\) (ici, \\((1,2)\\) et \\((1,1)\\) ne sont pas colinéaires) ne peuvent se couper qu’en \\((0,0)\\), et leur somme, de dimension \\(1+1=2\\), remplit nécessairement tout le plan — exactement l’exercice 8 du cours.',
+    wrongExplain: {
+      1: 'Deux droites vectorielles DIFFÉRENTES de \\(\\mathbb{R}^2\\) ne sont jamais égales entre elles — « être une droite » ne les rend pas identiques, seule une direction commune (colinéarité) le ferait.',
+      2: 'Le simple fait que \\((1,2)\\) et \\((1,1)\\) ne soient pas colinéaires suffit à conclure géométriquement, sans calcul supplémentaire — deux droites vectorielles distinctes de \\(\\mathbb{R}^2\\) ne se coupent toujours qu’en l’origine.',
+    },
+  },
+
+  // ===== §13 — FAMILLES GÉNÉRATRICES, LIBRES, LIÉES =====
+  {
+    id: 'ex85', section: 'ev-familles',
+    statement: 'Une famille \\(F=(u_1,\\ldots,u_p)\\) de vecteurs de \\(E\\) est dite LIBRE si :',
+    options: [
+      'toute combinaison linéaire des \\(u_i\\) qui vaut \\(0_E\\) a nécessairement TOUS ses coefficients nuls',
+      'il existe une combinaison linéaire nulle à coefficients non tous nuls',
+      'les vecteurs \\(u_1,\\ldots,u_p\\) sont deux à deux distincts',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§94) : \\(\\forall\\alpha_1,\\ldots,\\alpha_p\\in K,\\ (\\alpha_1u_1+\\cdots+\\alpha_pu_p=0_E\\Rightarrow\\alpha_1=\\cdots=\\alpha_p=0)\\) — un quantificateur UNIVERSEL sur les coefficients, c’est la seule combinaison nulle possible qui est la triviale.',
+    wrongExplain: {
+      1: 'C’est exactement la définition d’une famille LIÉE (son contraire) — l’existence d’une combinaison nulle non triviale est ce qui rend une famille liée, pas libre.',
+      2: 'Des vecteurs deux à deux distincts peuvent très bien être liés (ex. \\(u\\) et \\(2u\\) sont distincts si \\(u\\neq0_E\\), mais colinéaires donc liés) — la distinction deux à deux n’a rien à voir avec la liberté.',
+    },
+  },
+  {
+    id: 'ex86', section: 'ev-familles',
+    statement: 'Une famille qui n’est pas libre est dite :',
+    options: [
+      'liée',
+      'génératrice',
+      'canonique',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§94, fin) : « libre » et « liée » sont les deux seules possibilités, strictement opposées l’une de l’autre.',
+    wrongExplain: {
+      1: '« Génératrice » est une notion totalement INDÉPENDANTE de libre/liée (§93) — elle porte sur le fait d’engendrer un sev donné, pas sur l’absence de relation de dépendance.',
+      2: '« Canonique » qualifie certaines bases particulières remarquables (§116-118), ce n’est en aucun cas le contraire de « libre ».',
+    },
+  },
+  {
+    id: 'ex87', section: 'ev-familles',
+    statement: 'Pour \\(x,y\\in E\\setminus\\{0_E\\}\\), la famille \\((x,y)\\) est liée si et seulement si :',
+    options: [
+      '\\(\\exists\\alpha\\in K,\\ x=\\alpha y\\) ou \\(y=\\alpha x\\)',
+      '\\(x=y\\) exactement',
+      '\\(x\\) et \\(y\\) appartiennent à des espaces vectoriels différents',
+    ],
+    correctIndex: 0,
+    explain: 'Caractérisation pratique du cours (§95.ii) pour deux vecteurs non nuls : liée ssi l’un est un multiple scalaire de l’autre (colinéarité) — c’est la version la plus utilisée en pratique pour une famille de longueur 2.',
+    wrongExplain: {
+      1: '\\(x=y\\) est un cas TRÈS particulier de colinéarité (\\(\\alpha=1\\)), mais la liaison est bien plus générale : \\(x=5y\\) suffit aussi, sans que \\(x\\) et \\(y\\) soient égaux.',
+      2: 'La notion de famille liée n’a de sens que pour des vecteurs d’un MÊME espace vectoriel \\(E\\) — comparer des vecteurs d’espaces différents n’a pas de sens ici.',
+    },
+  },
+  {
+    id: 'ex88', section: 'ev-familles',
+    statement: 'Si une famille de vecteurs contient le vecteur nul \\(0_E\\), alors cette famille est :',
+    options: [
+      'toujours liée',
+      'toujours libre',
+      'libre ou liée selon les autres vecteurs de la famille',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§95.iii) : une famille contenant \\(0_E\\) est TOUJOURS liée — il suffit de prendre le coefficient \\(1\\) devant \\(0_E\\) et \\(0\\) devant tous les autres pour obtenir une combinaison nulle non triviale.',
+    wrongExplain: {
+      1: 'C’est l’inverse exact de la remarque du cours — la présence de \\(0_E\\) rend la famille liée à coup sûr, jamais libre.',
+      2: 'Aucune dépendance aux « autres vecteurs » : la seule présence de \\(0_E\\) dans la famille suffit systématiquement à la rendre liée, quels que soient les autres vecteurs.',
+    },
+  },
+  {
+    id: 'ex89', section: 'ev-familles',
+    statement: 'Dire qu’une famille \\(F=(u_1,\\ldots,u_p)\\) est liée équivaut à dire que :',
+    options: [
+      'il existe une « relation de liaison non triviale » : \\(\\exists\\alpha_1,\\ldots,\\alpha_p\\in K\\) non tous nuls tels que \\(\\alpha_1u_1+\\cdots+\\alpha_pu_p=0_E\\)',
+      'tous les vecteurs \\(u_1,\\ldots,u_p\\) sont nuls',
+      'aucun des \\(u_i\\) n’est combinaison linéaire des autres',
+    ],
+    correctIndex: 0,
+    explain: 'Caractérisation du cours (§95.vi) : une famille liée équivaut exactement à l’existence d’une relation de liaison NON TRIVIALE — et cela équivaut aussi à dire qu’un des vecteurs est combinaison linéaire des autres.',
+    wrongExplain: {
+      1: 'Il suffit qu’UN SEUL coefficient soit non nul dans la relation de liaison (pas tous les vecteurs nuls) — ex. \\((u,2u)\\) est liée sans qu’aucun des deux vecteurs ne soit nul.',
+      2: 'C’est exactement l’inverse : une famille liée signifie justement qu’il EXISTE un \\(u_i\\) qui EST combinaison linéaire des autres (§95.vi, fin) — pas qu’aucun ne l’est.',
+    },
+  },
+  {
+    id: 'ex90', section: 'ev-familles',
+    statement: 'Pour \\(u,v\\in E\\), l’assertion \\(\\exists\\alpha,\\beta\\in K,\\ \\alpha u+\\beta v=0_E\\) est :',
+    options: [
+      'toujours vraie (il suffit de choisir \\(\\alpha=\\beta=0\\)), et ne prouve donc RIEN sur la liberté de \\((u,v)\\)',
+      'une preuve que la famille \\((u,v)\\) est liée',
+      'fausse en général, sauf si \\(u=v\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Piège explicite du cours (§98) : le quantificateur existentiel sur les coefficients rend cette assertion TOUJOURS vraie (\\(\\alpha=\\beta=0\\) convient toujours) — ce n’est donc jamais un test de liberté/liaison, qui exige un quantificateur UNIVERSEL (§94).',
+    wrongExplain: {
+      1: 'Confondre \\(\\exists\\) et \\(\\forall\\) est exactement le piège à éviter (§98) : la définition de « liée » exige l’existence de coefficients NON TOUS NULS, pas juste l’existence de N’IMPORTE QUELS coefficients (dont \\(0,0\\) qui marchent toujours).',
+      2: 'L’assertion est vraie pour TOUS \\(u,v\\in E\\), peu importe qu’ils soient égaux ou non — le couple \\(\\alpha=\\beta=0\\) fonctionne systématiquement.',
+    },
+  },
+  {
+    id: 'ex91', section: 'ev-familles',
+    statement: 'Si \\((u_1,\\ldots,u_p)\\) est une famille LIBRE et si \\(u\\notin\\text{vect}(u_1,\\ldots,u_p)\\), alors la famille étendue \\((u_1,\\ldots,u_p,u)\\) est :',
+    options: [
+      'encore libre',
+      'nécessairement liée',
+      'libre seulement si \\(u\\) est non nul ET colinéaire à l’un des \\(u_i\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§95.v) : ajouter un vecteur qui n’appartient PAS déjà à l’espace engendré par une famille libre préserve la liberté de la famille étendue — c’est une technique courante pour construire une base pas à pas.',
+    wrongExplain: {
+      1: 'C’est l’inverse de la remarque du cours : c’est justement la condition \\(u\\notin\\text{vect}(u_1,\\ldots,u_p)\\) qui GARANTIT que la famille reste libre, pas qu’elle devient liée.',
+      2: 'Si \\(u\\) était colinéaire à l’un des \\(u_i\\), il serait alors DANS \\(\\text{vect}(u_1,\\ldots,u_p)\\) — ce qui contredit directement l’hypothèse \\(u\\notin\\text{vect}(u_1,\\ldots,u_p)\\) de la question.',
+    },
+  },
+  {
+    id: 'ex92', section: 'ev-familles',
+    statement: 'Dire qu’une famille \\((u_1,\\ldots,u_p)\\) de vecteurs de \\(F\\) est GÉNÉRATRICE de \\(F\\) signifie que :',
+    options: [
+      '\\(\\text{vect}(u_1,\\ldots,u_p)=F\\)',
+      'la famille est nécessairement libre',
+      '\\(p\\) est forcément égal au nombre d’éléments de \\(F\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§93) : une famille est génératrice de \\(F\\) si l’espace qu’elle engendre coïncide exactement avec \\(F\\) — notion totalement indépendante du caractère libre ou non de la famille.',
+    wrongExplain: {
+      1: 'Être génératrice n’implique PAS d’être libre (§96, voir aussi §93-94) : une famille génératrice peut très bien contenir des vecteurs redondants (donc être liée) tout en engendrant quand même tout \\(F\\).',
+      2: '\\(F\\) a en général une infinité d’éléments (sauf \\(F=\\{0_E\\}\\)) — \\(p\\), lui, est un entier fini (la longueur de la famille), les deux notions de « taille » ne sont pas comparables ainsi.',
+    },
+  },
+  {
+    id: 'ex93', section: 'ev-familles',
+    statement: 'Parler de « famille génératrice » TOUT COURT, sans préciser de quel sous-espace, a-t-il un sens ?',
+    options: [
+      'Non, en général — il faut toujours préciser DE QUEL sous-espace vectoriel la famille est génératrice',
+      'Oui, ça signifie toujours « génératrice de \\(E\\) tout entier »',
+      'Oui, ça signifie toujours « génératrice de \\(\\{0_E\\}\\) »',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque explicite du cours (§99) : « génératrice » est une notion relative à un sev précis — la même famille peut être génératrice de \\(\\text{vect}\\) de ses propres vecteurs sans être génératrice de \\(E\\) tout entier.',
+    wrongExplain: {
+      1: 'C’est un abus fréquent mais inexact selon le cours : sans précision, l’énoncé reste incomplet — il FAUT préciser le sous-espace visé pour que l’affirmation ait un sens rigoureux.',
+      2: 'Aucune famille non vide ne peut engendrer \\(\\{0_E\\}\\) sauf si tous ses vecteurs sont nuls — ce n’est certainement pas le sens par défaut de l’expression.',
+    },
+  },
+  {
+    id: 'ex94', section: 'ev-familles',
+    statement: 'La famille \\(F=(u_1,u_2,u_3)\\) où \\(u_1=(1,-1,2)\\), \\(u_2=(1,1,-1)\\), \\(u_3=(-1,-5,7)\\) de \\(\\mathbb{R}^3\\) vérifie \\(u_3=-3u_1+2u_2\\). Que peut-on en conclure ?',
+    options: [
+      '\\(F\\) est liée, puisqu’on a exhibé une relation de liaison non triviale entre ses vecteurs',
+      'Rien du tout, une seule relation ne suffit jamais à conclure',
+      '\\(F\\) est libre, car \\(u_3\\) est une combinaison linéaire « valide » des deux autres',
+    ],
+    correctIndex: 0,
+    explain: 'Exactement l’esprit de l’exercice 11 du cours : \\(u_3=-3u_1+2u_2\\) s’écrit \\(3u_1-2u_2+u_3=0_{\\mathbb{R}^3}\\), une relation de liaison NON TRIVIALE (coefficients \\(3,-2,1\\), non tous nuls) — par la caractérisation du §95.vi, \\(F\\) est donc liée.',
+    wrongExplain: {
+      1: 'Une seule relation de liaison non triviale suffit amplement : la définition même d’une famille liée (§94) exige seulement l’EXISTENCE d’une telle relation, pas plusieurs.',
+      2: 'C’est l’inverse : qu’un vecteur de la famille s’écrive comme combinaison linéaire des autres est exactement la caractéristique d’une famille LIÉE (§95.vi), pas libre.',
+    },
+  },
+
+  // ===== §14 — BASES, COORDONNÉES =====
+  {
+    id: 'ex95', section: 'ev-bases',
+    statement: 'Une famille \\(B\\) est une base d’un sous-espace vectoriel \\(F\\) si et seulement si :',
+    options: [
+      '\\(B\\) est à la fois libre ET génératrice de \\(F\\)',
+      '\\(B\\) est seulement génératrice de \\(F\\), la liberté n’est pas nécessaire',
+      '\\(B\\) est seulement libre, sans devoir engendrer \\(F\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§105) : une base combine les DEUX propriétés simultanément — libre (pas de redondance) et génératrice (couvre tout \\(F\\)).',
+    wrongExplain: {
+      1: 'Une famille génératrice mais LIÉE a des vecteurs redondants — elle engendre bien \\(F\\), mais chaque vecteur n’a pas de coordonnées UNIQUES, ce n’est pas une base.',
+      2: 'Une famille libre mais pas génératrice n’engendre qu’une PARTIE de \\(F\\) — elle est libre, mais ne couvre pas tout \\(F\\), ce n’est pas une base de \\(F\\).',
+    },
+  },
+  {
+    id: 'ex96', section: 'ev-bases',
+    statement: 'Pour établir que \\(B=(e_1,\\ldots,e_n)\\) est une base de \\(F\\), le critère pratique du cours (§106) consiste à montrer :',
+    options: [
+      'chaque \\(e_i\\in F\\), ET pour tout \\(x\\in F\\) il existe une UNIQUE famille \\((x_1,\\ldots,x_n)\\in K^n\\) telle que \\(x=x_1e_1+\\cdots+x_ne_n\\)',
+      'seulement que chaque \\(e_i\\) appartient à \\(F\\)',
+      'seulement qu’il existe AU MOINS une décomposition pour chaque \\(x\\in F\\), sans se soucier de l’unicité',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§106) : c’est une reformulation équivalente de « libre + génératrice » — l’EXISTENCE d’une décomposition traduit le caractère générateur, et son UNICITÉ traduit le caractère libre.',
+    wrongExplain: {
+      1: 'Ça ne garantit que l’appartenance des \\(e_i\\) à \\(F\\), mais rien sur le fait qu’ils engendrent \\(F\\) ni qu’ils soient libres — très insuffisant pour conclure que \\(B\\) est une base.',
+      2: 'Oublier l’UNICITÉ revient à ne vérifier que le caractère générateur, pas le caractère libre — une famille génératrice mais liée satisferait ce critère affaibli sans être une base.',
+    },
+  },
+  {
+    id: 'ex97', section: 'ev-bases',
+    statement: 'L’ensemble \\(M_{n,1}(K)\\) des vecteurs-colonnes à \\(n\\) lignes, muni de l’addition et de la multiplication externe usuelles, est :',
+    options: [
+      'un \\(K\\)-espace vectoriel',
+      'seulement un ensemble, sans structure d’espace vectoriel possible',
+      'un sous-espace vectoriel de \\(K_n[X]\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Proposition du cours (§110) : \\(M_{n,1}(K)\\), muni de l’addition et du produit externe terme à terme, est bien un \\(K\\)-espace vectoriel — essentiellement une autre façon d’écrire \\(K^n\\).',
+    wrongExplain: {
+      1: 'Le cours démontre explicitement (§110) que ces lois lui donnent une vraie structure de \\(K\\)-espace vectoriel — ce n’est pas qu’un ensemble brut sans structure.',
+      2: '\\(M_{n,1}(K)\\) (vecteurs-colonnes de scalaires) et \\(K_n[X]\\) (polynômes de degré \\(\\leq n\\)) sont deux espaces vectoriels totalement DIFFÉRENTS, ni l’un n’est un sev de l’autre.',
+    },
+  },
+  {
+    id: 'ex98', section: 'ev-bases',
+    statement: 'Si \\(B=(e_1,\\ldots,e_n)\\) est une base de \\(E\\) et \\(x\\in E\\), les coordonnées de \\(x\\) dans \\(B\\) sont :',
+    options: [
+      'l’UNIQUE \\(n\\)-uplet \\((x_1,\\ldots,x_n)\\in K^n\\) tel que \\(x=x_1e_1+\\cdots+x_ne_n\\)',
+      'n’importe quel \\(n\\)-uplet qui vérifie \\(x=x_1e_1+\\cdots+x_ne_n\\), il peut y en avoir plusieurs',
+      'les coefficients d’une combinaison linéaire des \\(e_i\\) qui vaudrait \\(0_E\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Définition du cours (§111) : l’UNICITÉ du \\(n\\)-uplet \\((x_1,\\ldots,x_n)\\) est garantie précisément parce que \\(B\\) est une BASE (donc libre) — sans cette liberté, les coordonnées ne seraient pas bien définies.',
+    wrongExplain: {
+      1: 'L’unicité n’est pas accessoire : c’est exactement le caractère LIBRE de la base \\(B\\) qui la garantit — s’il pouvait y avoir plusieurs \\(n\\)-uplets, la notion même de « coordonnées » n’aurait pas de sens.',
+      2: 'Une combinaison linéaire nulle des \\(e_i\\) à coefficients TOUS NULS (puisque \\(B\\) est libre) n’a rien à voir avec les coordonnées d’un vecteur \\(x\\) quelconque — c’est un cas très particulier (\\(x=0_E\\)), pas la définition générale.',
+    },
+  },
+  {
+    id: 'ex99', section: 'ev-bases',
+    statement: 'Si \\(x,y\\in E\\) et \\(\\alpha\\in K\\), les coordonnées dans une base \\(B\\) vérifient :',
+    options: [
+      '\\([x+y]_B=[x]_B+[y]_B\\) et \\([\\alpha x]_B=\\alpha[x]_B\\)',
+      '\\([x+y]_B=[x]_B\\times[y]_B\\)',
+      'il n’existe aucune relation simple entre \\([x]_B\\), \\([y]_B\\) et \\([x+y]_B\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Proposition du cours (§113) : prendre les coordonnées dans une base préserve l’addition et la multiplication externe — c’est ce qui permet de calculer AVEC les coordonnées plutôt qu’avec les vecteurs eux-mêmes.',
+    wrongExplain: {
+      1: 'Il n’existe pas de produit « terme à terme » naturel entre deux vecteurs-colonnes de coordonnées dans ce contexte — la relation porte sur l’ADDITION, pas sur un produit.',
+      2: 'C’est au contraire une propriété TRÈS simple et systématique (§113) — les coordonnées se comportent exactement comme les vecteurs eux-mêmes pour \\(+\\) et \\(.\\).',
+    },
+  },
+  {
+    id: 'ex100', section: 'ev-bases',
+    statement: 'Un vecteur \\(x\\in E\\) est égal à \\(0_E\\) si et seulement si :',
+    options: [
+      'ses coordonnées dans N’IMPORTE QUELLE base de \\(E\\) sont toutes nulles',
+      'ses coordonnées sont toutes nulles, mais seulement dans LA base canonique',
+      'au moins une de ses coordonnées est nulle, dans une base au choix',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque du cours (§114) : cette caractérisation est vraie dans TOUTE base, pas seulement une base particulière — \\(x=0_E\\Leftrightarrow\\) toutes ses coordonnées valent \\(0\\), quelle que soit la base choisie.',
+    wrongExplain: {
+      1: 'Le résultat ne dépend pas du choix d’une base « privilégiée » comme la canonique — il reste vrai pour N’IMPORTE QUELLE base de \\(E\\) (et un espace général n’a d’ailleurs pas toujours de base canonique, §119).',
+      2: 'Une seule coordonnée nulle ne dit rien sur les autres — il faut que TOUTES les coordonnées soient nulles simultanément pour conclure \\(x=0_E\\).',
+    },
+  },
+  {
+    id: 'ex101', section: 'ev-bases',
+    statement: 'La base canonique de \\(K_n[X]\\) (polynômes de degré \\(\\leq n\\)) est \\((1,X,\\ldots,X^n)\\). Combien de polynômes contient-elle ?',
+    options: [
+      '\\(n+1\\) polynômes',
+      '\\(n\\) polynômes',
+      '\\(n-1\\) polynômes',
+    ],
+    correctIndex: 0,
+    explain: 'Piège signalé explicitement dans le cours (§117) : la liste \\(1,X,X^2,\\ldots,X^n\\) contient \\(n+1\\) éléments (de l’exposant \\(0\\) à l’exposant \\(n\\) inclus), PAS \\(n\\) — un décompte naïf oublie souvent le \\(1=X^0\\) du début.',
+    wrongExplain: {
+      1: 'C’est exactement l’erreur de décompte que le cours signale explicitement : on oublie le terme \\(1=X^0\\), ce qui fait perdre un élément — il y a bien \\(n+1\\) polynômes, pas \\(n\\).',
+      2: '\\(n-1\\) sous-estime encore plus largement — même en comptant seulement \\(X,X^2,\\ldots,X^n\\) sans le \\(1\\), on obtiendrait déjà \\(n\\) éléments, pas \\(n-1\\).',
+    },
+  },
+  {
+    id: 'ex102', section: 'ev-bases',
+    statement: 'La famille \\((1,i)\\) est appelée « base canonique » du \\(\\mathbb{R}\\)-espace vectoriel \\(\\mathbb{C}\\). Si \\(z=a+bi\\) (\\(a,b\\in\\mathbb{R}\\)), ses coordonnées dans cette base sont :',
+    options: [
+      '\\(a\\) et \\(b\\)',
+      '\\(a\\) et \\(bi\\)',
+      'uniquement le module \\(|z|\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Résultat du cours (§118) : dans la base \\((1,i)\\), les coordonnées de \\(z=a+bi\\) sont les deux RÉELS \\(a\\) et \\(b\\) (pas \\(bi\\), qui n’est pas un scalaire de \\(\\mathbb{R}\\) multiplié par rien d’autre que lui-même).',
+    wrongExplain: {
+      1: 'Les coordonnées doivent être des SCALAIRES du corps de base, ici \\(\\mathbb{R}\\) — \\(bi\\) est un nombre complexe (sauf si \\(b=0\\)), pas un réel, donc ce n’est pas une coordonnée valide dans ce \\(\\mathbb{R}\\)-espace vectoriel.',
+      2: 'Le module \\(|z|=\\sqrt{a^2+b^2}\\) est un UNIQUE nombre réel — il ne peut à lui seul reconstituer \\(z=a+bi\\) (deux valeurs de \\(a,b\\) différentes peuvent donner le même module), ce n’est pas un couple de coordonnées dans une base à 2 vecteurs.',
+    },
+  },
+  {
+    id: 'ex103', section: 'ev-bases',
+    statement: 'La notion de « base canonique » (comme celle de \\(K^n\\) ou de \\(\\mathbb{C}\\)) existe-t-elle pour TOUT espace vectoriel ?',
+    options: [
+      'Non — un espace vectoriel « général » n’a, en général, pas de base canonique privilégiée',
+      'Oui, toujours, par un procédé universel applicable à n’importe quel espace',
+      'Oui, mais uniquement si l’espace est de dimension 1',
+    ],
+    correctIndex: 0,
+    explain: 'Remarque explicite du cours (§119) : seul un petit nombre d’espaces bien identifiés (\\(K^n\\), \\(\\mathbb{C}\\), \\(K_n[X]\\)...) ont une base dite « canonique » — la notion n’est PAS universelle à tous les espaces vectoriels.',
+    wrongExplain: {
+      1: 'C’est exactement l’inverse de la remarque du cours : il n’existe aucun procédé universel garantissant une base canonique pour un espace vectoriel quelconque.',
+      2: 'La dimension 1 ne change rien à l’affaire — un espace de dimension 1 « abstrait », sans structure particulière reconnue, n’a pas plus de base canonique naturelle qu’un autre.',
+    },
+  },
+  {
+    id: 'ex104', section: 'ev-bases',
+    statement: 'Si \\(F=(f_1,\\ldots,f_p)\\) est une base de \\(F\\) et \\(G=(g_1,\\ldots,g_q)\\) une base de \\(G\\), le théorème du cours affirme que \\(E=F\\oplus G\\) si et seulement si :',
+    options: [
+      'la famille réunie \\((f_1,\\ldots,f_p,g_1,\\ldots,g_q)\\) est une base de \\(E\\)',
+      '\\(p=q\\) nécessairement',
+      'les familles \\(F\\) et \\(G\\) sont identiques',
+    ],
+    correctIndex: 0,
+    explain: 'Théorème du cours (§122, caractérisation de la supplémentarité par des bases) : réunir une base de \\(F\\) et une base de \\(G\\) donne une base de \\(E\\) exactement quand \\(F\\) et \\(G\\) sont supplémentaires — un moyen fréquent de prouver la supplémentarité ou de construire une base de \\(E\\).',
+    wrongExplain: {
+      1: 'Rien n’impose que \\(F\\) et \\(G\\) aient le même nombre de vecteurs dans leur base — ex. une droite (\\(p=1\\)) et un plan (\\(q=2\\)) peuvent très bien être supplémentaires dans un espace de dimension 3.',
+      2: 'Si \\(F\\) et \\(G\\) étaient identiques, elles ne pourraient pas être supplémentaires (sauf cas trivial \\(F=G=\\{0_E\\}\\)) : la supplémentarité exige au contraire \\(F\\cap G=\\{0_E\\}\\), donc des familles très différentes en général.',
+    },
+  },
 ];
 
 const SECTIONS = [
@@ -711,6 +1535,35 @@ const SECTIONS = [
   {
     id: 'polynomes', title: '§7 — POLYNÔMES (CHAPITRE II)',
     cours: '<span class="math">Racines infinies</span> : un polynôme non nul a un nombre de racines borné par son degré — en avoir une infinité impose \\(Q=0\\) (argument clé, réutilisé plusieurs fois)<br>Équation fonctionnelle sur un polynôme : évaluer en des points bien choisis révèle des racines ; factoriser par ces racines connues, puis réappliquer l’argument « racines infinies » au facteur restant<br><span class="math">Relations de Viète</span> (degré 3, racines \\(a,b,c\\)) : \\(P=X^3-\\sigma_1X^2+\\sigma_2X-\\sigma_3\\) avec \\(\\sigma_1=a+b+c\\), \\(\\sigma_2=ab+bc+ca\\), \\(\\sigma_3=abc\\) — identification coefficient par coefficient<br>Si \\(a\\) est racine de \\(P\\), réinjecter directement \\(P(a)=0\\) est souvent plus rapide que Viète<br><span class="math">Division euclidienne</span> \\(A=BQ+R\\) : évaluer en une racine \\(\\alpha\\) de \\(B\\) donne directement \\(A(\\alpha)=R(\\alpha)\\)<br>Construire un polynôme qui s’annule sur des points donnés : un PRODUIT de \\((X-k)\\) ; l’élever au carré double le degré sans changer l’ensemble des racines',
+  },
+
+  {
+    id: 'ev-structure', title: '§8 — STRUCTURE D\'ESPACE VECTORIEL (CHAPITRE III)',
+    cours: '<span class="math">Espace vectoriel</span> \\((E,+,.)\\) sur \\(K\\) : 10 conditions — 5 sur \\(+\\) (loi interne, commutative, associative, vecteur nul \\(0_E\\), opposé \\(-u\\)), 5 sur \\(.\\) (loi externe \\(K\\times E\\to E\\), 2 distributivités mixtes, associativité mixte \\((\\alpha\\beta)u=\\alpha(\\beta u)\\), \\(1.u=u\\))<br>Vocabulaire : élément de \\(E\\) = vecteur, élément de \\(K\\) = scalaire<br>Propriétés élémentaires : \\(au=0_E\\Leftrightarrow a=0\\) ou \\(u=0_E\\) ; \\(-u=(-1)u\\) ; \\((a-b)u=au-bu\\)<br><span class="math">Combinaison linéaire</span> de \\(u_1,\\ldots,u_n\\) : \\(\\alpha_1u_1+\\cdots+\\alpha_nu_n\\) — opération fondamentale de l\'algèbre linéaire',
+  },
+  {
+    id: 'ev-exemples', title: '§9 — EXEMPLES D\'ESPACES VECTORIELS',
+    cours: '<span class="math">\\(K^n\\) canonique</span> : lois composante par composante — sans précision, « \\(K^n\\) » désigne toujours cette structure canonique<br><span class="math">\\(\\mathbb{R}\\)-espace \\(\\mathbb{C}\\)</span> : addition usuelle + produit externe \\(r.z=r\\times z\\) pour \\(r\\in\\mathbb{R}\\) SEULEMENT (distinct du \\(\\mathbb{C}\\)-espace \\(\\mathbb{C}\\))<br><span class="math">\\(F(X,E)\\)</span> : applications de \\(X\\) dans \\(E\\), lois définies point par point — théorème : c\'est un espace vectoriel. Suites réelles = cas particulier \\(X=\\mathbb{N}\\)<br><span class="math">\\(\\mathbb{R}[X]\\)</span> : polynômes, addition et produit externe évidents, vecteur nul = polynôme nul<br><span class="math">Espace-produit</span> \\(E\\times F\\) : \\((a,b)+(c,d)=(a+c,b+d)\\), chaque composante dans son propre espace',
+  },
+  {
+    id: 'ev-sev', title: '§10 — SOUS-ESPACES VECTORIELS',
+    cours: '<span class="math">Définition</span> \\(F\\subseteq E\\) est un sev si \\(0_E\\in F\\), \\(F\\) stable par \\(+\\), \\(F\\) stable par \\(.\\) — critère allégé : \\(\\forall x,y\\in F,\\forall\\alpha\\in K,\\ \\alpha x+y\\in F\\)<br>Sev triviaux : \\(\\{0_E\\}\\) et \\(E\\) ; \\(K_n[X]\\) (degré \\(\\leq n\\)) est un sev de \\(K[X]\\)<br>Pour prouver \\(F=\\{0_E\\}\\) : seule l\'inclusion \\(F\\subseteq\\{0_E\\}\\) est à démontrer (l\'autre est automatique)<br>Géométriquement en dimension \\(\\leq3\\) : sev non triviaux = droites/plans passant par l\'origine<br>« \\(F\\) sev de \\(G\\) » \\(\\Leftrightarrow\\) \\(F\\subseteq G\\)<br>Piège : \\(F_3=\\{(x,y);5x-3y=1\\}\\) n\'est PAS un sev (\\((0,0)\\notin F_3\\))',
+  },
+  {
+    id: 'ev-engendre', title: '§11 — SOUS-ESPACE VECTORIEL ENGENDRÉ',
+    cours: '<span class="math">\\(\\text{vect}(X)\\)</span> : ensemble de toutes les combinaisons linéaires (finies) de vecteurs de \\(X\\) — c\'est un sev de \\(E\\)<br><span class="math">Lemme d\'expansion</span> : \\(\\text{vect}(X)\\) est le PLUS PETIT sev de \\(E\\) contenant \\(X\\) ; \\(X\\subseteq Y\\Rightarrow\\text{vect}(X)\\subseteq\\text{vect}(Y)\\)<br><span class="math">Partie génératrice</span> de \\(E\\) : \\(\\text{vect}(X)=E\\) (seule l\'inclusion \\(E\\subseteq\\text{vect}(X)\\) est à montrer)<br><span class="math">Droite vectorielle</span> \\(\\text{vect}(u)\\) pour \\(u\\neq0_E\\) ; <span class="math">plan vectoriel</span> \\(\\text{vect}(u,v)\\) pour \\((u,v)\\) non colinéaires<br>\\(\\text{vect}(a_1,\\ldots,a_p)+\\text{vect}(b_1,\\ldots,b_q)=\\text{vect}(a_1,\\ldots,a_p,b_1,\\ldots,b_q)\\) : moyen pratique de calculer une somme de sev<br><span class="math">Générateur redondant</span> : si \\(u\\in\\text{vect}(u_1,\\ldots,u_n)\\), ajouter \\(u\\) à la famille ne change pas l\'espace engendré — attention aux vecteurs colinéaires qui n\'engendrent jamais plus qu\'une droite',
+  },
+  {
+    id: 'ev-somme', title: '§12 — INTERSECTION, SOMME DE SOUS-ESPACES VECTORIELS',
+    cours: '\\(F\\cap G\\) est TOUJOURS un sev de \\(E\\) (se généralise à plus de deux sev)<br><span class="math">Somme</span> \\(F+G=\\{x+y;x\\in F,y\\in G\\}\\) : sev de \\(E\\), avec \\(F\\subseteq F+G\\) et \\(G\\subseteq F+G\\)<br>Décomposition \\(u=x+y\\) dans \\(F+G\\) : NON unique en général<br><span class="math">Sev supplémentaires</span> \\(E=F\\oplus G\\) : décomposition UNIQUE pour tout \\(u\\in E\\)<br>Caractérisation pratique : \\(E=F\\oplus G\\Leftrightarrow F+G=E\\) ET \\(F\\cap G=\\{0_E\\}\\) (les deux conditions ensemble, aucune ne suffit seule)',
+  },
+  {
+    id: 'ev-familles', title: '§13 — FAMILLES GÉNÉRATRICES, LIBRES, LIÉES',
+    cours: '<span class="math">Famille génératrice</span> de \\(F\\) : \\(\\text{vect}(u_1,\\ldots,u_p)=F\\) — notion indépendante de libre/liée, et toujours relative à UN sev précis<br><span class="math">Famille libre</span> : \\(\\forall\\alpha_i\\in K,\\ \\alpha_1u_1+\\cdots+\\alpha_pu_p=0_E\\Rightarrow\\) tous les \\(\\alpha_i=0\\) (quantificateur universel) ; sinon <span class="math">liée</span><br>Deux vecteurs non nuls \\(x,y\\) <span class="math">colinéaires</span> \\(\\Leftrightarrow\\exists\\alpha,\\ x=\\alpha y\\) ou \\(y=\\alpha x\\)<br>Une famille contenant \\(0_E\\) est TOUJOURS liée<br>Liée \\(\\Leftrightarrow\\) relation de liaison non triviale (coefficients non tous nuls) \\(\\Leftrightarrow\\) un vecteur = combinaison linéaire des autres<br>Piège de quantificateur : \\(\\exists\\alpha,\\beta,\\ \\alpha u+\\beta v=0_E\\) est TOUJOURS vraie (\\(\\alpha=\\beta=0\\)) — ne prouve RIEN sur la liberté, il faut le \\(\\forall\\)<br>Si \\((u_1,\\ldots,u_p)\\) libre et \\(u\\notin\\text{vect}(u_1,\\ldots,u_p)\\), la famille étendue \\((u_1,\\ldots,u_p,u)\\) reste libre',
+  },
+  {
+    id: 'ev-bases', title: '§14 — BASES, COORDONNÉES',
+    cours: '<span class="math">Base</span> de \\(F\\) : famille LIBRE ET GÉNÉRATRICE de \\(F\\) — ou, de façon équivalente, chaque \\(e_i\\in F\\) et tout \\(x\\in F\\) a une UNIQUE décomposition sur \\(B\\)<br><span class="math">Coordonnées</span> \\([x]_B\\) de \\(x\\) dans \\(B=(e_1,\\ldots,e_n)\\) : l\'unique \\(n\\)-uplet tel que \\(x=x_1e_1+\\cdots+x_ne_n\\) ; \\([x+y]_B=[x]_B+[y]_B\\), \\([\\alpha x]_B=\\alpha[x]_B\\)<br>\\(x=0_E\\Leftrightarrow\\) toutes ses coordonnées sont nulles, dans N\'IMPORTE QUELLE base<br>Toute base d\'un même espace a la MÊME longueur \\(n\\)<br>Bases canoniques (existent seulement pour quelques espaces précis, PAS pour un espace général) : \\(K^n\\) ; \\(K_n[X]=(1,X,\\ldots,X^n)\\), attention \\(n+1\\) polynômes et non \\(n\\) ; \\(\\mathbb{C}=(1,i)\\)<br><span class="math">Caractérisation de la supplémentarité par des bases</span> : si \\(F=(f_1,\\ldots,f_p)\\) base de \\(F\\) et \\(G=(g_1,\\ldots,g_q)\\) base de \\(G\\), alors \\(E=F\\oplus G\\Leftrightarrow(f_1,\\ldots,f_p,g_1,\\ldots,g_q)\\) est une base de \\(E\\)',
   },
 ];
 

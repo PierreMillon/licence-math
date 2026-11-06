@@ -1992,3 +1992,84 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   vocal) — besoin de lui demander explicitement QUELS chapitres ont
   avancé et avec quel contenu/document avant de toucher à quoi que ce
   soit, pas assez d'information pour agir seul sur ce point.
+
+## ALGÈBRE Chapitre III (Espaces vectoriels), 54 questions (06/11/2026, demande explicite)
+
+- Suite de la demande du 04/11/2026 : Pierre a précisé où en est
+  chaque cours (vocal, reformulé en cours de message) — ANALYSE : sur
+  les suites (déjà couvert, §13 suites/§14 séries depuis le
+  09/09/2026, rien à ajouter faute de nouveau document/signalement de
+  problème) ; ALGÈBRE : Polynômes (chapitre II) fait, et « on est en
+  train de faire » Espaces vectoriels (chapitre III). Demande
+  explicite en plus : questions « vachement précises », « il faut que
+  je maîtrise chaque ligne » — pris au pied de la lettre, une
+  question par définition/théorème/remarque testable du cours, pas
+  seulement les plus importantes.
+- Source : même document que les chapitres I et II, `algebre_lineaire1.pdf`
+  (Pascal Ortiz, Drive) — chapitre III (p.70-94), 7 sections numérotées
+  par l'auteur (46 à 123 en numérotation continue du cours) :
+  structure d'espace vectoriel, exemples, sous-espaces vectoriels,
+  sous-espace engendré, intersection/somme, familles génératrices/
+  libres/liées, bases/coordonnées. Contrairement aux chapitres I et
+  II, ce chapitre n'a PAS de section « mémento des formules » séparée
+  — l'exposé complet (texte rédigé, pas juste des titres) a servi
+  directement de source, section par section.
+- `fiches/algebre.js` : 7 nouvelles sections (§8 à §14, ids
+  `ev-structure`/`ev-exemples`/`ev-sev`/`ev-engendre`/`ev-somme`/
+  `ev-familles`/`ev-bases`), 54 nouveaux exercices (`ex51`-`ex104`,
+  continuant après le dernier id existant). Répartition : §8 (5),
+  §9 (7), §10 (8), §11 (8), §12 (6), §13 (10), §14 (10) — à peu près
+  une question par définition/théorème numéroté du cours, plus
+  quelques pièges explicitement signalés comme tels dans le
+  polycopié lui-même (ex. §98 « ne pas confondre \\(\\exists\\) et
+  \\(\\forall\\) » dans la définition de famille libre ; §117 « \\(n+1\\)
+  polynômes et non \\(n\\) » dans la base canonique de \\(K_n[X]\\)) et 2-3
+  questions tirées des « petits exercices d'entraînement » corrigés
+  dans le cours (ex. deux vecteurs colinéaires n'engendrent jamais
+  \\(\\mathbb{R}^2\\)). Total ALGÈBRE : 50 → **104 exercices**, 7 → **14
+  sections**.
+- `chapters.js` (`algebre.total: 104`) et `fiches/algebre.html`
+  (`SCORE : 0/104`) mis à jour. Chapitre ALGÈBRE déjà `active:true`
+  (donné depuis le 08/09/2026) — ce nouveau contenu est donc visible
+  immédiatement, pas de bascule à faire comme pour un chapitre encore
+  masqué.
+- **Piège d'insertion mécanique rencontré en écrivant le script de
+  fusion** : le fichier source se terminait déjà par une virgule de
+  fin de tableau (`  },\n];`) avant le dernier exercice/la dernière
+  section existante — un premier essai d'insertion du nouveau contenu
+  a ajouté une virgule SUPPLÉMENTAIRE avant le nouveau bloc,
+  produisant `},,` (double virgule), syntaxiquement invalide en JS
+  mais qui aurait pu silencieusement créer un objet `{}` fantôme sans
+  `id` dans le tableau si la suite du parsing l'avait toléré (repéré
+  avant livraison par le script de validation : 105 exercices au lieu
+  des 104 attendus, avec un id vide dans la liste). Corrigé en
+  retirant la virgule en trop à l'identique aux deux endroits
+  touchés (fin du tableau `EXERCISES`, fin du tableau `SECTIONS`).
+  Réflexe à garder pour toute future insertion mécanique en fin de
+  tableau JS : vérifier s'il y a déjà une virgule de fin avant
+  d'en ajouter une soi-même.
+- `reflexe-data.js` PAS régénéré cette fois : ce nouveau contenu est
+  ajouté à la fin du fichier (`ex51` et au-delà), les exercices déjà
+  copiés dans le pool réflexe (`ex39`-`ex50`, section `polynomes`)
+  n'ont pas été modifiés — rien à resynchroniser, contrairement au
+  22/10/2026 où le contenu COPIÉ avait lui-même été corrigé.
+- Testé (Playwright, 320/390px, paginé/continu) : 104 exercices
+  rendus, 14 sections, zéro `<`/`>` brut, zéro `.katex-error`, zéro
+  débordement, `scripts/check-content-escaping.js` et la validation
+  Node (comptage, ids dupliqués, sections orphelines, `wrongExplain`
+  manquant) toutes au vert ; réponse fausse vérifiée sur le piège de
+  quantificateur (§13) avec explication spécifique affichée
+  correctement (formule KaTeX incluse), réponse correcte vérifiée sur
+  le piège \\(n+1\\) polynômes (§14).
+- **Rebase découvert au moment de shipper** (même situation que le
+  15/09/2026, voir plus haut « toujours fetch avant de bumper ») :
+  `origin/main` avait déjà avancé à v162 via une AUTRE session Claude
+  (PR #7, même jour) qui a traité EXACTEMENT la partie ANALYSE/suites
+  du message de Pierre — confirmant que ce point n'avait pas besoin
+  d'être retraité ici (cf. note plus haut). `git stash`, fast-forward
+  sur `origin/main`, `git stash pop` — 2 conflits (`chapters.js` :
+  fusion des deux nouveaux totaux `algebre.total:104` ET
+  `analyse.total:103` ; `changelog.js` : mes deux entrées replacées en
+  v163/v162 dans l'ordre), tous les fichiers `?v=` et `menu.js`/`sw.js`
+  fusionnés automatiquement sans conflit. Version finale livrée : v163
+  (pas v162, déjà pris).
