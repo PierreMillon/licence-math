@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 164, date: "10/11/2026", desc: "ANALYSE : 46 questions sur valeur absolue, partie entière et limites de suites, tirées des TD" },
   { v: 163, date: "06/11/2026", desc: "ALGÈBRE : nouveau chapitre Espaces vectoriels (54 questions), à partir du vrai polycopié" },
   { v: 162, date: "04/11/2026", desc: "ANALYSE : nouvelle section Suites du cours de Charron (définitions, limite, théorèmes), 19 questions" },
   { v: 161, date: "04/11/2026", desc: "Titres de cours mal alignés avec leur formule sur LOGIQUE/ANALYSE/ALGÈBRE (listes de formules collées à la suite) : corrigé, une ligne par notion" },
