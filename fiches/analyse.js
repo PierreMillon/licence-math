@@ -1237,6 +1237,696 @@ const EXERCISES = [
     correctIndex: 0,
     explain: 'Et par contraposée : si \\(\\sum u_n\\) diverge, alors \\(\\sum v_n\\) diverge aussi — un majorant convergent entraîne la convergence du plus petit.',
   },
+  {
+    id: 'ex104', section: 'valeur-absolue-td',
+    statement: 'Résoudre \\(|x+4|&lt;-1\\).',
+    options: [
+      'Aucune solution : \\(S=\\emptyset\\)',
+      '\\(S=]-5,-3[\\)',
+      '\\(S=\\mathbb{R}\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Une valeur absolue est toujours \\(\\geq0\\), donc elle ne peut jamais être strictement inférieure à un nombre négatif. Réflexe : regarder le signe du membre de droite AVANT de calculer quoi que ce soit.',
+    wrongExplain: {
+      1: 'C’est ce qu’on obtiendrait avec \\(|x+4|&lt;1\\). Ici le membre de droite est \\(-1\\) : aucune valeur absolue ne peut être plus petite.',
+      2: 'Une valeur absolue n’est jamais négative : l’inégalité est donc fausse pour TOUT \\(x\\), pas vraie pour tout \\(x\\).',
+    },
+  },
+  {
+    id: 'ex105', section: 'valeur-absolue-td',
+    statement: 'Résoudre \\(|x+2|&gt;5\\).',
+    options: [
+      '\\(S=]-\\infty,-7[\\ \\cup\\ ]3,+\\infty[\\)',
+      '\\(S=]-7,3[\\)',
+      '\\(S=]-\\infty,-3[\\ \\cup\\ ]7,+\\infty[\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|u|&gt;R \\Leftrightarrow u&gt;R\\) ou \\(u&lt;-R\\) : ici \\(x+2&gt;5\\) donne \\(x&gt;3\\), et \\(x+2&lt;-5\\) donne \\(x&lt;-7\\). Le « supérieur à » donne deux morceaux à l’EXTÉRIEUR, le « inférieur à » un seul intervalle au milieu.',
+    wrongExplain: {
+      1: 'C’est la solution de \\(|x+2|&lt;5\\) (un seul intervalle centré en \\(-2\\)). Ici c’est « strictement supérieur à », donc l’extérieur.',
+      2: 'Ce sont les bornes de \\(|x-2|&gt;5\\)… et encore, avec un signe à l’envers. Pour \\(|x+2|\\), le centre est \\(-2\\), donc \\(-2\\pm5=-7\\) et \\(3\\).',
+    },
+  },
+  {
+    id: 'ex106', section: 'valeur-absolue-td',
+    statement: 'Résoudre « \\(|x+1|&lt;1\\) OU \\(|x+2|\\leq4\\) ».',
+    options: [
+      '\\(S=[-6,2]\\)',
+      '\\(S=]-2,0[\\)',
+      '\\(S=]-6,2[\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|x+1|&lt;1\\) donne \\(]-2,0[\\) et \\(|x+2|\\leq4\\) donne \\([-6,2]\\). Avec « OU », on prend la RÉUNION : le premier intervalle est contenu dans le second, donc \\(S=[-6,2]\\) (bornes fermées, car l’inégalité est large dans le second).',
+    wrongExplain: {
+      1: 'C’est seulement l’ensemble de la première condition. Avec « ou », il faut ajouter les solutions de la seconde.',
+      2: 'Les bornes \\(-6\\) et \\(2\\) sont atteintes par la seconde inégalité (large \\(\\leq\\)), donc elles restent dans l’ensemble.',
+    },
+  },
+  {
+    id: 'ex107', section: 'valeur-absolue-td',
+    statement: 'Résoudre « \\(|x-5|&lt;2\\) ET \\(|x+1|\\leq1\\) ».',
+    options: [
+      '\\(S=\\emptyset\\)',
+      '\\(S=[-2,7[\\)',
+      '\\(S=]3,7[\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|x-5|&lt;2\\) donne \\(]3,7[\\) et \\(|x+1|\\leq1\\) donne \\([-2,0]\\). Avec « ET », on prend l’INTERSECTION : les deux intervalles sont disjoints, donc \\(S=\\emptyset\\). Réflexe : dessiner les deux intervalles sur une droite.',
+    wrongExplain: {
+      1: 'C’est l’enveloppe des deux intervalles, comme si on avait un « ou » et qu’on remplissait le trou. Un « et » demande les deux conditions simultanément.',
+      2: 'C’est la solution de la première condition seule, il faut aussi vérifier la seconde.',
+    },
+  },
+  {
+    id: 'ex108', section: 'valeur-absolue-td',
+    statement: 'Résoudre \\(|2x-1|=|x+2|\\).',
+    options: [
+      '\\(S=\\left\\{3,\\,-\\tfrac13\\right\\}\\)',
+      '\\(S=\\{3\\}\\)',
+      '\\(S=\\left\\{3,\\,\\tfrac13\\right\\}\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|A|=|B| \\Leftrightarrow A=B\\) ou \\(A=-B\\). Cas 1 : \\(2x-1=x+2\\) donne \\(x=3\\). Cas 2 : \\(2x-1=-(x+2)\\) donne \\(3x=-1\\), soit \\(x=-\\tfrac13\\). Vérification : \\(|{-\\tfrac23}-1|=\\tfrac53=|{-\\tfrac13}+2|\\).',
+    wrongExplain: {
+      1: 'Il manque le cas \\(A=-B\\) : une égalité de valeurs absolues donne TOUJOURS deux équations.',
+      2: 'Erreur de signe dans le cas \\(A=-B\\) : \\(2x-1=-x-2\\) donne \\(3x=-1\\), donc \\(x=-\\tfrac13\\) et non \\(+\\tfrac13\\).',
+    },
+  },
+  {
+    id: 'ex109', section: 'valeur-absolue-td',
+    statement: 'Résoudre \\(|2x-1|\\leq|2x+1|\\) en élevant au carré.',
+    options: [
+      '\\(S=[0,+\\infty[\\)',
+      '\\(S=]-\\infty,0]\\)',
+      '\\(S=\\mathbb{R}\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\((2x-1)^2\\leq(2x+1)^2 \\Leftrightarrow 4x^2-4x+1\\leq4x^2+4x+1 \\Leftrightarrow -4x\\leq4x \\Leftrightarrow x\\geq0\\). Les \\(4x^2\\) et les \\(1\\) se simplifient, il ne reste que le terme croisé.',
+    wrongExplain: {
+      1: 'Inégalité retournée : \\(-4x\\leq4x\\) donne \\(8x\\geq0\\), donc \\(x\\geq0\\) et non \\(x\\leq0\\). Test : \\(x=1\\) donne \\(1\\leq3\\), vrai.',
+      2: 'L’inégalité n’est pas vraie partout : pour \\(x=-1\\) on obtient \\(3\\leq1\\), faux.',
+    },
+  },
+  {
+    id: 'ex110', section: 'valeur-absolue-td',
+    statement: 'Pourquoi peut-on passer de \\(|A|\\leq|B|\\) à \\(A^2\\leq B^2\\) sans perdre l’équivalence ?',
+    options: [
+      'Car \\(|A|^2=A^2\\) et \\(t\\mapsto t^2\\) est croissante sur \\(\\mathbb{R}_+\\), où vivent \\(|A|\\) et \\(|B|\\)',
+      'Car élever au carré conserve toujours une inégalité',
+      'Car \\(|A|\\leq|B|\\) est la même chose que \\(A\\leq B\\)',
+    ],
+    correctIndex: 0,
+    explain: 'On élève au carré deux quantités POSITIVES (\\(|A|\\) et \\(|B|\\)), sur \\(\\mathbb{R}_+\\) le carré est strictement croissant, donc on a bien une équivalence. C’est pour ça que la méthode marche avec des valeurs absolues, et pas avec des \\(A\\) et \\(B\\) de signe quelconque.',
+    wrongExplain: {
+      1: 'Faux en général : \\(-3\\leq1\\) mais \\(9\\leq1\\) est faux. La croissance du carré n’est valable que sur les positifs.',
+      2: 'Faux : \\(|{-3}|\\leq|1|\\) est faux alors que \\(-3\\leq1\\) est vrai. La valeur absolue efface le signe.',
+    },
+  },
+  {
+    id: 'ex111', section: 'valeur-absolue-td',
+    statement: 'Résoudre \\(2x^2-7|x|-4&lt;0\\). Quel changement de variable est le bon réflexe ?',
+    options: [
+      '\\(X=|x|\\), on résout \\(2X^2-7X-4&lt;0\\) avec \\(X\\geq0\\) : \\(S=]-4,4[\\)',
+      '\\(X=|x|\\), et on garde \\(X\\in]-\\tfrac12,4[\\) : \\(S=]-\\tfrac12,4[\\)',
+      '\\(X=|x|\\) : \\(S=]-\\infty,-4[\\ \\cup\\ ]4,+\\infty[\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Comme \\(x^2=|x|^2\\), on obtient un trinôme en \\(X=|x|\\) : \\(2X^2-7X-4&lt;0\\), racines \\(4\\) et \\(-\\tfrac12\\), donc \\(-\\tfrac12&lt;X&lt;4\\). Mais \\(X=|x|\\geq0\\) : on garde \\(0\\leq X&lt;4\\), soit \\(|x|&lt;4\\) et \\(S=]-4,4[\\).',
+    wrongExplain: {
+      1: 'On a oublié de revenir à \\(x\\) : la solution en \\(X\\) est \\(]-\\tfrac12,4[\\), mais l’inconnue est \\(x\\), avec la contrainte \\(X=|x|\\geq0\\).',
+      2: 'Signe du trinôme oublié : il est négatif ENTRE les racines (coefficient dominant positif), pas à l’extérieur.',
+    },
+  },
+  {
+    id: 'ex112', section: 'valeur-absolue-td',
+    statement: 'On sait \\(|a|\\in[2,4]\\) et \\(|b|\\in[5,6]\\). Quel encadrement de \\(|a+b|\\) obtient-on ?',
+    options: [
+      '\\(1\\leq|a+b|\\leq10\\)',
+      '\\(3\\leq|a+b|\\leq10\\)',
+      '\\(1\\leq|a+b|\\leq6\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Majorant : \\(|a+b|\\leq|a|+|b|\\leq4+6=10\\). Minorant : seconde inégalité triangulaire, \\(|a+b|\\geq\\big||b|-|a|\\big|\\geq5-4=1\\), le pire cas étant \\(|b|\\) le plus petit et \\(|a|\\) le plus grand.',
+    wrongExplain: {
+      1: 'Le minorant \\(3=5-2\\) mélange les mauvaises bornes : pour minorer \\(|b|-|a|\\), il faut prendre \\(|b|\\) minimal (5) ET \\(|a|\\) maximal (4), donc \\(1\\).',
+      2: 'Le majorant est \\(|a|+|b|\\leq4+6=10\\), pas \\(6\\) : il faut additionner les majorants des deux termes.',
+    },
+  },
+  {
+    id: 'ex113', section: 'valeur-absolue-td',
+    statement: 'Même hypothèses (\\(|a|\\in[2,4]\\), \\(|b|\\in[5,6]\\)). Quel encadrement de \\(|a+2b|\\) ?',
+    options: [
+      '\\(6\\leq|a+2b|\\leq16\\)',
+      '\\(8\\leq|a+2b|\\leq16\\)',
+      '\\(6\\leq|a+2b|\\leq12\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Majorant : \\(|a|+2|b|\\leq4+12=16\\). Minorant : \\(|a+2b|\\geq2|b|-|a|\\geq10-4=6\\). Attention au facteur \\(2\\) : il porte sur \\(|b|\\), pas sur \\(|a|\\).',
+    wrongExplain: {
+      1: '\\(8=10-2\\) utilise \\(|a|\\) minimal alors qu’il faut le maximal pour minorer \\(2|b|-|a|\\) : le pire cas est \\(10-4=6\\).',
+      2: '\\(12\\) correspond à \\(2|b|\\) seul : on a oublié d’ajouter \\(|a|\\leq4\\) pour le majorant.',
+    },
+  },
+  {
+    id: 'ex114', section: 'valeur-absolue-td',
+    statement: 'Pour MAJORER \\(\\dfrac{a^2\\,|b+1|}{|a-2b|}\\) (même cadre), que faut-il faire ?',
+    options: [
+      'Majorer le numérateur ET minorer le dénominateur',
+      'Majorer le numérateur ET majorer le dénominateur',
+      'Minorer le numérateur ET majorer le dénominateur',
+    ],
+    correctIndex: 0,
+    explain: 'Une fraction est la plus grande quand le numérateur est grand et le dénominateur PETIT. Ici : numérateur \\(\\leq16\\times7=112\\), dénominateur \\(\\geq2|b|-|a|\\geq6\\), donc quotient \\(\\leq\\dfrac{112}{6}=\\dfrac{56}{3}\\).',
+    wrongExplain: {
+      1: 'Majorer le dénominateur ferait baisser la fraction : cela donnerait un majorant du numérateur sur un majorant du dénominateur, qui ne majore rien.',
+      2: 'C’est la méthode pour MINORER la fraction (numérateur petit, dénominateur grand), pas pour la majorer.',
+    },
+  },
+  {
+    id: 'ex115', section: 'valeur-absolue-td',
+    statement: 'Pour montrer \\(|x|+|y|\\leq|x+y|+|x-y|\\), quelle idée fonctionne ?',
+    options: [
+      'Poser \\(a=x+y\\), \\(b=x-y\\), écrire \\(x=\\tfrac{a+b}2\\), \\(y=\\tfrac{a-b}2\\) et appliquer l’inégalité triangulaire',
+      'Supposer \\(x,y\\geq0\\) seulement, le cas général est impossible',
+      'Appliquer la seconde inégalité triangulaire à \\(x\\) et \\(y\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|x|+|y|\\leq\\tfrac{|a|+|b|}2+\\tfrac{|a|+|b|}2=|a|+|b|=|x+y|+|x-y|\\). Réflexe : quand l’inégalité à montrer fait apparaître \\(x+y\\) et \\(x-y\\), on les nomme et on exprime \\(x,y\\) en fonction d’eux.',
+    wrongExplain: {
+      1: 'Le cas général n’est pas impossible, il est prouvé par ce changement de variable. Se limiter à \\(x,y\\geq0\\) ne démontre rien pour les autres signes.',
+      2: 'La seconde inégalité donne une minoration de \\(|x-y|\\), pas le lien avec \\(|x+y|+|x-y|\\). Il faut revenir à \\(x\\) et \\(y\\) par demi-somme et demi-différence.',
+    },
+  },
+  {
+    id: 'ex116', section: 'valeur-absolue-td',
+    statement: 'Quand y a-t-il égalité dans \\(|a+b+c|\\leq|a|+|b|+|c|\\) ?',
+    options: [
+      'Quand \\(a,b,c\\) sont tous \\(\\geq0\\) ou tous \\(\\leq0\\)',
+      'Jamais',
+      'Dès que deux des trois sont positifs',
+    ],
+    correctIndex: 0,
+    explain: 'On démontre l’inégalité en l’appliquant deux fois : \\(|(a+b)+c|\\leq|a+b|+|c|\\leq|a|+|b|+|c|\\). Il y a égalité aux deux étapes seulement si tous les nombres sont de même signe (au sens large).',
+    wrongExplain: {
+      1: 'L’égalité est atteinte, par exemple avec \\(a=b=c=1\\) : \\(3=3\\).',
+      2: 'Contre-exemple : \\(a=b=1\\), \\(c=-1\\) donne \\(|a+b+c|=1&lt;3\\). Il faut que les TROIS aient le même signe.',
+    },
+  },
+  {
+    id: 'ex117', section: 'valeur-absolue-td',
+    statement: 'Pour quelles valeurs de \\(x\\) a-t-on \\(\\dfrac{|x|}{1+x^2}=\\dfrac12\\) ?',
+    options: [
+      '\\(x=1\\) et \\(x=-1\\)',
+      '\\(x=0\\)',
+      '\\(x=1\\) uniquement',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\dfrac{|x|}{1+x^2}\\leq\\dfrac12 \\Leftrightarrow 1+x^2-2|x|\\geq0 \\Leftrightarrow (|x|-1)^2\\geq0\\), toujours vrai. L’égalité a lieu quand \\((|x|-1)^2=0\\), donc \\(|x|=1\\) : les deux valeurs \\(\\pm1\\).',
+    wrongExplain: {
+      1: 'En \\(x=0\\) on trouve \\(0\\), loin de \\(\\tfrac12\\). C’est le MINIMUM de la fraction, pas son maximum.',
+      2: 'La fonction est paire (elle ne dépend que de \\(|x|\\)) : si \\(x=1\\) convient, \\(x=-1\\) aussi.',
+    },
+  },
+  {
+    id: 'ex118', section: 'valeur-absolue-td',
+    statement: 'Pour \\(|x|\\leq1\\) et \\(|y|\\leq1\\), on veut \\(\\left|\\dfrac{x+y}{1+xy}\\right|\\leq1\\). Quelle identité conclut ?',
+    options: [
+      '\\((1+xy)^2-(x+y)^2=(1-x^2)(1-y^2)\\geq0\\)',
+      '\\((1+xy)^2-(x+y)^2=(1+x^2)(1+y^2)\\)',
+      '\\((1+xy)^2-(x+y)^2=(1-x)(1-y)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'En développant : \\(1+2xy+x^2y^2-x^2-2xy-y^2=1-x^2-y^2+x^2y^2=(1-x^2)(1-y^2)\\). Comme \\(|x|,|y|\\leq1\\), les deux facteurs sont \\(\\geq0\\), donc \\((x+y)^2\\leq(1+xy)^2\\), c’est-à-dire \\(|x+y|\\leq|1+xy|\\).',
+    wrongExplain: {
+      1: 'Le signe est faux : le terme en \\(x^2\\) est \\(-x^2\\), pas \\(+x^2\\). Cette identité ne servirait d’ailleurs pas à conclure.',
+      2: 'Les degrés ne collent pas : le membre de gauche contient un terme en \\(x^2y^2\\), qui n’apparaît pas dans \\((1-x)(1-y)\\).',
+    },
+  },
+  {
+    id: 'ex119', section: 'partie-entiere-td',
+    statement: 'Quel encadrement de \\(E(x)\\) en fonction de \\(x\\) est correct ?',
+    options: [
+      '\\(x-1&lt;E(x)\\leq x\\)',
+      '\\(x\\leq E(x)&lt;x+1\\)',
+      '\\(x-1\\leq E(x)&lt;x\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Par définition \\(E(x)\\leq x&lt;E(x)+1\\), donc \\(E(x)\\leq x\\) et \\(E(x)&gt;x-1\\). Les bornes strictes/larges comptent : \\(E(x)=x\\) quand \\(x\\) est entier, d’où le « \\(\\leq x\\) » à droite.',
+    wrongExplain: {
+      1: 'C’est l’encadrement de \\(x\\) en fonction de \\(E(x)\\) à l’envers : \\(E(x)\\) est plus petit que \\(x\\) (ou égal), jamais plus grand.',
+      2: 'La borne droite est large : pour \\(x=3\\), \\(E(x)=3=x\\), donc \\(E(x)&lt;x\\) serait faux.',
+    },
+  },
+  {
+    id: 'ex120', section: 'partie-entiere-td',
+    statement: 'Pour \\(x\\notin\\mathbb{Z}\\), la partie entière par excès \\(\\lceil x\\rceil\\) vaut…',
+    options: [
+      '\\(E(x)+1\\)',
+      '\\(E(x)\\)',
+      '\\(E(x)-1\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\lceil x\\rceil\\) est le plus petit entier \\(\\geq x\\). Si \\(x\\) n’est pas entier, c’est l’entier juste au-dessus de \\(x\\), soit \\(E(x)+1\\) (ex. \\(\\lceil2{,}3\\rceil=3=E(2{,}3)+1\\)). Si \\(x\\) est entier, \\(\\lceil x\\rceil=x=E(x)\\).',
+    wrongExplain: {
+      1: 'Cela n’arrive que si \\(x\\) est entier. Pour \\(2{,}3\\), \\(E=2\\) mais \\(\\lceil2{,}3\\rceil=3\\).',
+      2: '\\(E(x)-1\\) serait plus petit que \\(x\\) : ce n’est jamais un entier \\(\\geq x\\).',
+    },
+  },
+  {
+    id: 'ex121', section: 'partie-entiere-td',
+    statement: 'Que vaut \\(\\lceil-2{,}3\\rceil\\), sachant que \\(\\lceil x\\rceil=-E(-x)\\) ?',
+    options: [
+      '\\(-2\\)',
+      '\\(-3\\)',
+      '\\(2\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\lceil-2{,}3\\rceil=-E(2{,}3)=-2\\). Vérification directe : le plus petit entier \\(\\geq-2{,}3\\) est bien \\(-2\\). Attention, \\(E(-2{,}3)=-3\\) : la partie entière « classique » d’un négatif s’éloigne de zéro.',
+    wrongExplain: {
+      1: '\\(-3\\) est \\(E(-2{,}3)\\), la partie entière par défaut. La partie entière par excès est l’entier juste au-dessus, \\(-2\\).',
+      2: 'Signe oublié : \\(\\lceil x\\rceil=-E(-x)\\), donc le résultat est \\(-E(2{,}3)=-2\\).',
+    },
+  },
+  {
+    id: 'ex122', section: 'partie-entiere-td',
+    statement: 'Pour \\(x\\notin\\mathbb{Z}\\), que vaut \\(E(-x)\\) ?',
+    options: [
+      '\\(-E(x)-1\\)',
+      '\\(-E(x)\\)',
+      '\\(-E(x)+1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Exemple : \\(x=2{,}3\\), \\(E(x)=2\\), \\(E(-x)=E(-2{,}3)=-3=-2-1\\). Écrire \\(x=n+f\\) avec \\(0&lt;f&lt;1\\) : \\(-x=-(n+1)+(1-f)\\) avec \\(0&lt;1-f&lt;1\\), donc \\(E(-x)=-n-1\\). Pour \\(x\\in\\mathbb{Z}\\), en revanche, \\(E(-x)=-E(x)\\).',
+    wrongExplain: {
+      1: 'Cela n’est vrai que pour \\(x\\) entier. Contre-exemple : \\(x=2{,}3\\) donne \\(E(-x)=-3\\neq-2\\).',
+      2: 'Ce serait un entier plus grand que \\(-x\\) : mais \\(E(-x)\\leq-x\\), le « +1 » est donc impossible ici.',
+    },
+  },
+  {
+    id: 'ex123', section: 'partie-entiere-td',
+    statement: 'Quelle est la partie fractionnaire \\(\\{-1{,}3\\}=-1{,}3-E(-1{,}3)\\) ?',
+    options: [
+      '\\(0{,}7\\)',
+      '\\(0{,}3\\)',
+      '\\(-0{,}3\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(E(-1{,}3)=-2\\), donc \\(\\{-1{,}3\\}=-1{,}3+2=0{,}7\\). La partie fractionnaire est TOUJOURS dans \\([0,1[\\) : un résultat négatif signale une erreur sur \\(E\\).',
+    wrongExplain: {
+      1: '\\(0{,}3\\) serait la distance à l’entier \\(-1\\), obtenue avec \\(E(-1{,}3)=-1\\) à tort : \\(E(-1{,}3)=-2\\).',
+      2: 'Une partie fractionnaire est toujours \\(\\geq0\\) (elle vaut \\(x-E(x)\\) avec \\(E(x)\\leq x\\)).',
+    },
+  },
+  {
+    id: 'ex124', section: 'partie-entiere-td',
+    statement: 'Pour \\(x,y\\) réels, \\(E(x+y)=E(x)+E(y)+1\\) exactement quand…',
+    options: [
+      '\\(\\{x\\}+\\{y\\}\\geq1\\)',
+      '\\(\\{x\\}+\\{y\\}&gt;1\\)',
+      '\\(x\\) et \\(y\\) sont de signes contraires',
+    ],
+    correctIndex: 0,
+    explain: 'Avec \\(x=E(x)+\\{x\\}\\) et \\(y=E(y)+\\{y\\}\\) : \\(x+y=E(x)+E(y)+(\\{x\\}+\\{y\\})\\), où \\(\\{x\\}+\\{y\\}\\in[0,2[\\). Si la somme est \\(&lt;1\\), on a \\(E(x+y)=E(x)+E(y)\\) ; si elle est \\(\\geq1\\) (égalité comprise), on gagne un entier.',
+    wrongExplain: {
+      1: 'L’égalité est incluse : \\(\\{x\\}+\\{y\\}=1\\) donne un entier exact, par exemple \\(0{,}5+0{,}5=1\\) et \\(E(1)=1\\).',
+      2: 'Le signe de \\(x\\) et \\(y\\) n’intervient pas : seules les parties fractionnaires comptent.',
+    },
+  },
+  {
+    id: 'ex125', section: 'partie-entiere-td',
+    statement: 'Si \\(\\{x\\}\\geq\\tfrac12\\), que vaut \\(E(2x)\\) ?',
+    options: [
+      '\\(2E(x)+1\\)',
+      '\\(2E(x)\\)',
+      '\\(2E(x)-1\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(2x=2E(x)+2\\{x\\}\\) avec \\(2\\{x\\}\\in[1,2[\\), donc \\(E(2x)=2E(x)+1\\). Si \\(\\{x\\}&lt;\\tfrac12\\), \\(2\\{x\\}\\in[0,1[\\) et \\(E(2x)=2E(x)\\). Test : \\(x=3{,}7\\) donne \\(E(7{,}4)=7=2\\times3+1\\).',
+    wrongExplain: {
+      1: 'C’est le cas \\(\\{x\\}&lt;\\tfrac12\\). Test : \\(x=3{,}7\\), \\(2E(x)=6\\) mais \\(E(2x)=E(7{,}4)=7\\).',
+      2: 'Le terme \\(2\\{x\\}\\) est dans \\([1,2[\\), donc on gagne un entier, on n’en perd pas.',
+    },
+  },
+  {
+    id: 'ex126', section: 'partie-entiere-td',
+    statement: 'À quelle condition a-t-on \\(E\\!\\left(x+\\tfrac12\\right)=E(x)\\) ?',
+    options: [
+      '\\(\\{x\\}&lt;\\tfrac12\\)',
+      '\\(\\{x\\}\\geq\\tfrac12\\)',
+      '\\(x\\in\\mathbb{Z}\\) uniquement',
+    ],
+    correctIndex: 0,
+    explain: '\\(x+\\tfrac12=E(x)+\\{x\\}+\\tfrac12\\) : on reste dans le même entier tant que \\(\\{x\\}+\\tfrac12&lt;1\\), soit \\(\\{x\\}&lt;\\tfrac12\\). C’est l’arrondi à l’entier le plus proche : \\(E(x+\\tfrac12)\\) arrondit, \\(E(x)\\) tronque.',
+    wrongExplain: {
+      1: 'C’est la condition pour que \\(E(x+\\tfrac12)=E(x)+1\\) : dans ce cas on franchit l’entier suivant.',
+      2: 'Pour \\(x\\) entier c’est vrai, mais aussi pour tout \\(x\\) de partie fractionnaire \\(&lt;\\tfrac12\\), comme \\(3{,}2\\).',
+    },
+  },
+  {
+    id: 'ex127', section: 'partie-entiere-td',
+    statement: 'Résoudre \\(E(2x)=5+E(-x)\\), pour \\(x\\notin\\mathbb{Z}\\). Quel est l’ensemble des solutions ?',
+    options: [
+      '\\(\\left[\\tfrac32,2\\right[\\)',
+      '\\([1,2[\\)',
+      '\\(\\left[1,\\tfrac32\\right[\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Avec \\(E(-x)=-E(x)-1\\) et \\(E(2x)=2E(x)+\\varepsilon\\) (\\(\\varepsilon\\in\\{0,1\\}\\)) : \\(3E(x)+\\varepsilon=4\\), donc \\(\\varepsilon=1\\) et \\(E(x)=1\\). \\(\\varepsilon=1\\) veut dire \\(\\{x\\}\\geq\\tfrac12\\), d’où \\(x\\in[\\tfrac32,2[\\). Le cas \\(x\\in\\mathbb{Z}\\) ne donne rien (\\(3n=5\\)).',
+    wrongExplain: {
+      1: 'On a oublié la condition sur \\(\\{x\\}\\) : \\(\\varepsilon=1\\) impose \\(\\{x\\}\\geq\\tfrac12\\), donc \\(x\\geq\\tfrac32\\).',
+      2: 'Ici \\(E(x)=1\\) mais \\(\\varepsilon=1\\) force \\(\\{x\\}\\geq\\tfrac12\\) : \\(x\\in[1,\\tfrac32[\\) correspondrait à \\(\\varepsilon=0\\), qui n’est pas solution.',
+    },
+  },
+  {
+    id: 'ex128', section: 'partie-entiere-td',
+    statement: 'Pour un entier \\(k\\geq1\\), que vaut \\(E\\!\\left(\\dfrac{E(kx)}{k}\\right)\\) ?',
+    options: [
+      '\\(E(x)\\)',
+      '\\(E(kx)\\)',
+      '\\(kE(x)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Avec \\(n=E(x)\\), on a \\(kn\\leq E(kx)\\leq kn+k-1\\), donc \\(n\\leq\\dfrac{E(kx)}k&lt;n+1\\) et la partie entière de ce quotient est \\(n=E(x)\\). Test : \\(k=2\\), \\(x=3{,}7\\) : \\(E(7{,}4)/2=3{,}5\\) et \\(E(3{,}5)=3=E(x)\\).',
+    wrongExplain: {
+      1: 'C’est \\(E(kx)\\) lui-même, avant la division par \\(k\\). Le quotient \\(\\tfrac{E(kx)}k\\) est plus petit.',
+      2: '\\(kE(x)\\) est ce qu’on trouverait en multipliant au lieu de diviser : le quotient est de l’ordre de \\(x\\), pas de \\(kx\\).',
+    },
+  },
+  {
+    id: 'ex129', section: 'partie-entiere-td',
+    statement: 'Pour \\(x=0{,}9\\), que valent \\(E(x)+E(2x)+E(3x)\\) et \\(E(6x)\\) ?',
+    options: [
+      '\\(3\\) et \\(5\\)',
+      '\\(0\\) et \\(5\\)',
+      '\\(3\\) et \\(6\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(E(0{,}9)=0\\), \\(E(1{,}8)=1\\), \\(E(2{,}7)=2\\), somme \\(3\\) ; \\(E(5{,}4)=5\\). On vérifie bien \\(E(x)+E(2x)+E(3x)\\leq E(6x)\\), avec une inégalité STRICTE ici : pas d’égalité en général.',
+    wrongExplain: {
+      1: '\\(E(2x)=E(1{,}8)=1\\) et \\(E(3x)=E(2{,}7)=2\\) : on ne peut pas les remplacer par \\(0\\).',
+      2: '\\(E(6x)=E(5{,}4)=5\\), pas \\(6\\) : \\(6\\) serait la valeur de \\(6x\\) arrondie au plus proche, pas tronquée.',
+    },
+  },
+  {
+    id: 'ex130', section: 'partie-entiere-td',
+    statement: 'Quelle est l’allure du graphe de la partie fractionnaire \\(x\\mapsto x-E(x)\\) ?',
+    options: [
+      'Dents de scie : périodique de période \\(1\\), valeurs dans \\([0,1[\\), saut en chaque entier',
+      'Une droite de pente \\(1\\)',
+      'Un escalier à marches de hauteur \\(1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Sur chaque \\([n,n+1[\\), \\(E(x)=n\\) et la fonction vaut \\(x-n\\) : un segment de pente \\(1\\) de \\(0\\) (inclus) à \\(1\\) (exclu), qui se répète à l’identique. L’escalier est le graphe de \\(E\\), et la droite celui de \\(x\\mapsto x\\) : la partie fractionnaire est leur différence.',
+    wrongExplain: {
+      1: 'C’est le graphe de \\(x\\mapsto x\\), sans la soustraction de \\(E(x)\\). La soustraction « casse » la droite en morceaux.',
+      2: 'Un escalier est le graphe de \\(E(x)\\). En soustrayant \\(E(x)\\) à \\(x\\), les marches disparaissent et il reste des dents de scie.',
+    },
+  },
+  {
+    id: 'ex131', section: 'limites-reflexes',
+    statement: 'Parmi ces écritures, laquelle est une forme indéterminée ?',
+    options: [
+      '\\(+\\infty-\\infty\\)',
+      '\\(+\\infty+\\infty\\)',
+      '\\(\\dfrac{1}{+\\infty}\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(+\\infty-\\infty\\) ne permet pas de conclure (tout dépend des vitesses de croissance). \\(+\\infty+\\infty=+\\infty\\) et \\(\\tfrac1{+\\infty}=0\\) sont des limites déterminées. Les autres formes indéterminées : \\(0\\times\\infty\\), \\(\\tfrac\\infty\\infty\\), \\(\\tfrac00\\), \\(1^\\infty\\).',
+    wrongExplain: {
+      1: 'C’est une limite déterminée : deux termes qui tendent vers \\(+\\infty\\) s’additionnent en \\(+\\infty\\).',
+      2: 'C’est une limite déterminée valant \\(0\\) : le dénominateur géant écrase le numérateur.',
+    },
+  },
+  {
+    id: 'ex132', section: 'limites-reflexes',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\sqrt{n+1}-\\sqrt n\\right)\\) ?',
+    options: [
+      '\\(0\\)',
+      '\\(+\\infty\\)',
+      '\\(1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Forme \\(\\infty-\\infty\\) : on multiplie par la quantité conjuguée. \\(\\sqrt{n+1}-\\sqrt n=\\dfrac{(n+1)-n}{\\sqrt{n+1}+\\sqrt n}=\\dfrac{1}{\\sqrt{n+1}+\\sqrt n}\\to0\\).',
+    wrongExplain: {
+      1: 'Les deux racines tendent vers \\(+\\infty\\), mais leur différence est très petite : la conjuguée montre que c’est \\(\\tfrac1{2\\sqrt n}\\) environ.',
+      2: '\\(1\\) est la différence \\((n+1)-n\\), avant extraction des racines. Elle devient le numérateur de la fraction, qui a un dénominateur géant.',
+    },
+  },
+  {
+    id: 'ex133', section: 'limites-reflexes',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}\\frac{3n^2-n+1}{n^2+5}\\) ?',
+    options: [
+      '\\(3\\)',
+      '\\(+\\infty\\)',
+      '\\(0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Forme \\(\\tfrac\\infty\\infty\\) : on factorise le terme dominant en haut et en bas. \\(\\dfrac{n^2(3-\\tfrac1n+\\tfrac1{n^2})}{n^2(1+\\tfrac5{n^2})}\\to\\dfrac31=3\\). Même degré : le quotient tend vers le quotient des coefficients dominants.',
+    wrongExplain: {
+      1: 'Même degré en haut et en bas : le numérateur ne l’emporte pas sur le dénominateur.',
+      2: 'Ce serait le cas si le dénominateur était de degré strictement plus grand. Ici les degrés sont égaux.',
+    },
+  },
+  {
+    id: 'ex134', section: 'limites-reflexes',
+    statement: 'Que dire de la suite \\(\\left((-2)^n\\right)\\) ?',
+    options: [
+      'Elle n’a pas de limite',
+      'Elle tend vers \\(-\\infty\\)',
+      'Elle tend vers \\(0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Pour une raison \\(\\rho&lt;-1\\), les termes alternent de signe tout en grandissant en valeur absolue : \\(|(-2)^n|\\to+\\infty\\) mais le signe oscille, donc ni \\(+\\infty\\) ni \\(-\\infty\\), ni limite finie.',
+    wrongExplain: {
+      1: 'Les termes d’indice pair sont positifs (\\(4,16,\\dots\\)) : la suite ne peut pas tendre vers \\(-\\infty\\).',
+      2: 'Il faudrait \\(|\\rho|&lt;1\\) pour que \\(\\rho^n\\to0\\). Ici \\(|\\rho|=2&gt;1\\).',
+    },
+  },
+  {
+    id: 'ex135', section: 'limites-reflexes',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}n\\,(0{,}9)^n\\) ?',
+    options: [
+      '\\(0\\)',
+      '\\(+\\infty\\)',
+      'Il n’y a pas de limite : forme indéterminée donc pas de conclusion possible',
+    ],
+    correctIndex: 0,
+    explain: 'C’est une forme \\(\\infty\\times0\\), mais les croissances comparées tranchent : \\(n^k q^n\\to0\\) pour \\(|q|&lt;1\\) (l’exponentielle décroissante l’emporte sur toute puissance de \\(n\\)).',
+    wrongExplain: {
+      1: 'Le facteur \\(n\\) croît, mais \\((0{,}9)^n\\) décroît plus vite que n’importe quelle puissance de \\(n\\) ne croît.',
+      2: 'Une forme indéterminée se LÈVE avec un théorème (ici croissances comparées) : cela ne signifie pas que la limite n’existe pas.',
+    },
+  },
+  {
+    id: 'ex136', section: 'limites-reflexes',
+    statement: 'Pour prouver \\(\\dfrac{\\sin n}{n}\\to0\\), quel théorème et quelle majoration utilise-t-on ?',
+    options: [
+      'Les gendarmes avec \\(\\left|\\dfrac{\\sin n}n\\right|\\leq\\dfrac1n\\)',
+      'Suite monotone bornée, car \\(\\sin n\\) est bornée',
+      '« \\(\\sin n\\to0\\) donc le quotient tend vers \\(0\\) »',
+    ],
+    correctIndex: 0,
+    explain: '\\(|\\sin n|\\leq1\\) donne \\(\\left|\\dfrac{\\sin n}n\\right|\\leq\\dfrac1n\\to0\\), donc \\(\\dfrac{\\sin n}n\\to0\\) par gendarmes. (Variante : suite bornée × suite qui tend vers \\(0\\).)',
+    wrongExplain: {
+      1: 'La suite n’est pas monotone (le sinus oscille). Une suite bornée peut diverger : monotonie ET bornée sont nécessaires.',
+      2: '\\(\\sin n\\) ne tend PAS vers \\(0\\) : elle n’a pas de limite. Le raisonnement est faux même si le résultat est juste.',
+    },
+  },
+  {
+    id: 'ex137', section: 'limites-reflexes',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}\\frac{(-1)^n}{n}\\) ?',
+    options: [
+      '\\(0\\)',
+      'Il n’y a pas de limite, car \\((-1)^n\\) n’en a pas',
+      '\\(\\pm1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Théorème : si \\((u_n)\\) est bornée et \\(v_n\\to0\\), alors \\(u_nv_n\\to0\\). Ici \\(u_n=(-1)^n\\) est bornée par \\(1\\) et \\(v_n=\\tfrac1n\\to0\\). Autre route : \\(\\left|\\tfrac{(-1)^n}n\\right|=\\tfrac1n\\to0\\).',
+    wrongExplain: {
+      1: 'Un produit n’a pas de limite seulement si ses facteurs « gênent » ensemble : ici l’un est borné et l’autre tend vers \\(0\\), et le résultat tend vers \\(0\\).',
+      2: '\\(\\pm1\\) sont les valeurs de \\((-1)^n\\) : on les divise par un \\(n\\) de plus en plus grand, donc on s’approche de \\(0\\).',
+    },
+  },
+  {
+    id: 'ex138', section: 'limites-reflexes',
+    statement: 'Quelle est la négation de « \\(u_n\\to\\ell\\) », c’est-à-dire de \\(\\forall\\varepsilon&gt;0,\\ \\exists n_0,\\ \\forall n\\geq n_0,\\ |u_n-\\ell|\\leq\\varepsilon\\) ?',
+    options: [
+      '\\(\\exists\\varepsilon&gt;0,\\ \\forall n_0,\\ \\exists n\\geq n_0,\\ |u_n-\\ell|&gt;\\varepsilon\\)',
+      '\\(\\forall\\varepsilon&gt;0,\\ \\exists n_0,\\ \\forall n\\geq n_0,\\ |u_n-\\ell|&gt;\\varepsilon\\)',
+      '\\(\\exists\\varepsilon&gt;0,\\ \\exists n_0,\\ \\forall n\\geq n_0,\\ |u_n-\\ell|&gt;\\varepsilon\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Négation : chaque \\(\\forall\\) devient \\(\\exists\\), chaque \\(\\exists\\) devient \\(\\forall\\), et on nie la conclusion (\\(\\leq\\) devient \\(&gt;\\)). On obtient : il existe un \\(\\varepsilon\\) tel que, quel que soit le rang \\(n_0\\), il y a encore des termes à distance \\(&gt;\\varepsilon\\) de \\(\\ell\\) (infiniment souvent).',
+    wrongExplain: {
+      1: 'Les quantificateurs n’ont pas été échangés : cela dirait que TOUS les termes finissent loin de \\(\\ell\\) pour tout \\(\\varepsilon\\), bien plus fort que la négation.',
+      2: 'Le \\(\\forall n_0\\) est devenu un \\(\\exists n_0\\) : cela dirait « à partir d’un certain rang, tous les termes sont loin », plus fort que la négation (qui dit juste « il y en a toujours encore »).',
+    },
+  },
+  {
+    id: 'ex139', section: 'limites-reflexes',
+    statement: 'Une suite croissante est majorée par \\(2\\). Que peut-on conclure ?',
+    options: [
+      'Elle converge vers une limite \\(\\ell\\leq2\\) (pas forcément \\(2\\))',
+      'Elle converge vers \\(2\\)',
+      'On ne peut rien conclure',
+    ],
+    correctIndex: 0,
+    explain: 'Théorème de la limite monotone : croissante et majorée implique convergente, avec \\(\\ell\\leq\\) tout majorant. Contre-exemple pour « \\(=2\\) » : \\(u_n=1-\\tfrac1n\\) est croissante, majorée par \\(2\\), et converge vers \\(1\\).',
+    wrongExplain: {
+      1: '\\(2\\) est UN majorant, pas forcément le plus petit : \\(1-\\tfrac1n\\) converge vers \\(1&lt;2\\).',
+      2: 'On peut conclure : monotone ET bornée du bon côté (croissante majorée) garantit la convergence.',
+    },
+  },
+  {
+    id: 'ex140', section: 'limites-reflexes',
+    statement: 'La suite définie par \\(u_{n+1}=\\sqrt{2+u_n}\\), \\(u_0=0\\), converge vers \\(\\ell\\). Que vaut \\(\\ell\\) ?',
+    options: [
+      '\\(2\\)',
+      '\\(-1\\)',
+      '\\(2\\) ou \\(-1\\), les deux conviennent',
+    ],
+    correctIndex: 0,
+    explain: '\\(f(x)=\\sqrt{2+x}\\) est continue, donc \\(\\ell=f(\\ell)\\) : \\(\\ell^2=2+\\ell\\), soit \\(\\ell^2-\\ell-2=0\\), racines \\(2\\) et \\(-1\\). Tous les \\(u_n\\) sont \\(\\geq0\\) (racines carrées), donc \\(\\ell\\geq0\\) et \\(\\ell=2\\). Réflexe : toujours rejeter la racine qui contredit le signe de la suite.',
+    wrongExplain: {
+      1: '\\(-1\\) est racine de l’équation de point fixe, mais la suite est positive, donc sa limite l’est aussi (passage à la limite dans \\(u_n\\geq0\\)).',
+      2: 'Une suite n’a qu’UNE limite. Les deux racines sont des points fixes possibles, mais une seule est compatible avec \\(u_n\\geq0\\).',
+    },
+  },
+  {
+    id: 'ex141', section: 'limites-reflexes',
+    statement: 'Si \\(u_n&lt;v_n\\) pour tout \\(n\\), avec \\(u_n\\to\\ell\\) et \\(v_n\\to\\ell\'\\), que peut-on affirmer ?',
+    options: [
+      '\\(\\ell\\leq\\ell\'\\)',
+      '\\(\\ell&lt;\\ell\'\\)',
+      '\\(\\ell\\geq\\ell\'\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le passage à la limite transforme une inégalité stricte en inégalité LARGE. Contre-exemple pour le strict : \\(u_n=\\tfrac1n&lt;v_n=\\tfrac2n\\), mais les deux tendent vers \\(0\\), donc \\(\\ell=\\ell\'\\).',
+    wrongExplain: {
+      1: 'Le strict ne passe pas à la limite : \\(\\tfrac1n&lt;\\tfrac2n\\) pour tout \\(n\\) mais les deux limites sont égales à \\(0\\).',
+      2: 'Le sens est faux : si \\(u_n\\) est toujours plus petit que \\(v_n\\), sa limite ne peut pas être plus grande que celle de \\(v_n\\).',
+    },
+  },
+  {
+    id: 'ex142', section: 'synthese-va-pe-lim',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}\\frac{E(nx)}n\\), pour \\(x\\) réel fixé ?',
+    options: [
+      '\\(x\\)',
+      '\\(E(x)\\)',
+      '\\(0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Encadrement : \\(nx-1&lt;E(nx)\\leq nx\\), donc \\(x-\\tfrac1n&lt;\\dfrac{E(nx)}n\\leq x\\). Les deux bornes tendent vers \\(x\\) : gendarmes, la limite est \\(x\\) (pas \\(E(x)\\)).',
+    wrongExplain: {
+      1: '\\(E(x)\\) est la partie entière de \\(x\\), mais on divise par \\(n\\) la partie entière de \\(nx\\) : cela donne une valeur de plus en plus proche de \\(x\\) lui-même.',
+      2: '\\(E(nx)\\) est de l’ordre de \\(nx\\), qu’on divise par \\(n\\) : le quotient ne tend pas vers \\(0\\) sauf si \\(x=0\\).',
+    },
+  },
+  {
+    id: 'ex143', section: 'synthese-va-pe-lim',
+    statement: 'Si \\(|u_n|\\to0\\), que dire de \\((u_n)\\) ?',
+    options: [
+      '\\(u_n\\to0\\)',
+      'On ne peut rien dire',
+      '\\(u_n\\) converge vers \\(0\\) ou vers un autre nombre de même valeur absolue',
+    ],
+    correctIndex: 0,
+    explain: '\\(|u_n-0|=|u_n|\\) : dire que \\(|u_n|\\to0\\) est EXACTEMENT dire que \\(u_n\\to0\\) (même définition avec \\(\\varepsilon\\)). Le \\(0\\) est le seul cas où la réciproque marche, car \\(-0=0\\).',
+    wrongExplain: {
+      1: 'Au contraire, on peut conclure : \\(||u_n|-0|=|u_n-0|\\), les deux énoncés ont la même définition.',
+      2: 'Il n’y a pas d’autre nombre de même valeur absolue que \\(0\\), donc cette formulation n’a pas de sens ici.',
+    },
+  },
+  {
+    id: 'ex144', section: 'synthese-va-pe-lim',
+    statement: 'Si \\(|u_n|\\to1\\), que peut-on affirmer sur \\((u_n)\\) ?',
+    options: [
+      'Rien de sûr : par exemple \\(u_n=(-1)^n\\) vérifie \\(|u_n|=1\\) sans avoir de limite',
+      '\\(u_n\\to1\\)',
+      '\\(u_n\\to1\\) ou \\(u_n\\to-1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La valeur absolue efface le signe : \\(|u_n|\\to\\ell\\) n’implique pas \\(u_n\\to\\ell\\) quand \\(\\ell\\neq0\\). Contre-exemple : \\((-1)^n\\), de valeur absolue constante \\(1\\), mais sans limite. Réciproque vraie : \\(u_n\\to\\ell\\Rightarrow|u_n|\\to|\\ell|\\).',
+    wrongExplain: {
+      1: 'Le contre-exemple \\((-1)^n\\) montre que le signe peut osciller.',
+      2: 'Le même contre-exemple \\((-1)^n\\) n’a aucune limite : il ne tend ni vers \\(1\\) ni vers \\(-1\\).',
+    },
+  },
+  {
+    id: 'ex145', section: 'synthese-va-pe-lim',
+    statement: 'Quelle inégalité permet de démontrer que \\(u_n\\to\\ell\\) implique \\(|u_n|\\to|\\ell|\\) ?',
+    options: [
+      'La seconde inégalité triangulaire : \\(\\big||u_n|-|\\ell|\\big|\\leq|u_n-\\ell|\\)',
+      'La première inégalité triangulaire : \\(|u_n+\\ell|\\leq|u_n|+|\\ell|\\)',
+      '\\(|x|\\geq x\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Si \\(|u_n-\\ell|\\leq\\varepsilon\\), alors \\(\\big||u_n|-|\\ell|\\big|\\leq|u_n-\\ell|\\leq\\varepsilon\\) : le même rang \\(n_0\\) convient pour \\(|u_n|\\) et \\(|\\ell|\\). C’est la seconde inégalité triangulaire (celle qui contrôle une DIFFÉRENCE de valeurs absolues).',
+    wrongExplain: {
+      1: 'Elle majore une somme, alors qu’on veut contrôler une différence \\(|u_n|-|\\ell|\\).',
+      2: '\\(|x|\\geq x\\) ne relie pas \\(|u_n|-|\\ell|\\) à \\(|u_n-\\ell|\\) : il manque une information sur la différence.',
+    },
+  },
+  {
+    id: 'ex146', section: 'synthese-va-pe-lim',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}\\frac{E(\\sqrt n)}{\\sqrt n}\\) ?',
+    options: [
+      '\\(1\\)',
+      '\\(0\\)',
+      '\\(+\\infty\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\sqrt n-1&lt;E(\\sqrt n)\\leq\\sqrt n\\), donc \\(1-\\dfrac1{\\sqrt n}&lt;\\dfrac{E(\\sqrt n)}{\\sqrt n}\\leq1\\). Gendarmes : limite \\(1\\). (Même mécanisme que \\(E(x)/x\\to1\\) quand \\(x\\to+\\infty\\).)',
+    wrongExplain: {
+      1: 'Numérateur et dénominateur sont du même ordre : \\(E(\\sqrt n)\\) ne diffère de \\(\\sqrt n\\) que de moins de \\(1\\), ce qui devient négligeable.',
+      2: 'C’est un quotient de deux quantités équivalentes, donc il ne tend ni vers \\(0\\) ni vers \\(+\\infty\\).',
+    },
+  },
+  {
+    id: 'ex147', section: 'synthese-va-pe-lim',
+    statement: 'Résoudre \\(|E(x)|=2\\).',
+    options: [
+      '\\(S=[-2,-1[\\ \\cup\\ [2,3[\\)',
+      '\\(S=\\{-2,2\\}\\)',
+      '\\(S=]-3,-2]\\ \\cup\\ [2,3[\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|E(x)|=2\\Leftrightarrow E(x)=2\\) ou \\(E(x)=-2\\). \\(E(x)=2\\Leftrightarrow x\\in[2,3[\\) et \\(E(x)=-2\\Leftrightarrow x\\in[-2,-1[\\) (la partie entière « tronque vers le bas », même pour un négatif).',
+    wrongExplain: {
+      1: '\\(\\{-2,2\\}\\) serait la solution de \\(|x|=2\\). Ici c’est \\(E(x)\\) qui vaut \\(\\pm2\\) : tout un intervalle de réels donne la même partie entière.',
+      2: '\\(E(x)=-2\\) signifie \\(-2\\leq x&lt;-1\\) et non \\(-3&lt;x\\leq-2\\) : la partie entière est la borne INFÉRIEURE de la marche.',
+    },
+  },
+  {
+    id: 'ex148', section: 'synthese-va-pe-lim',
+    statement: 'Si \\(|x-3|&lt;\\tfrac12\\), que vaut \\(E(x)\\) ?',
+    options: [
+      '\\(2\\) ou \\(3\\), selon la position de \\(x\\)',
+      '\\(3\\)',
+      '\\(2\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|x-3|&lt;\\tfrac12\\Leftrightarrow x\\in]2{,}5;3{,}5[\\). Pour \\(x\\in]2{,}5;3[\\), \\(E(x)=2\\) ; pour \\(x\\in[3;3{,}5[\\), \\(E(x)=3\\). Une valeur approchée à \\(\\tfrac12\\) près ne détermine pas la partie entière : elle peut basculer en traversant l’entier.',
+    wrongExplain: {
+      1: '\\(3\\) n’est vrai que pour \\(x\\geq3\\). Avec \\(x=2{,}8\\), \\(|x-3|=0{,}2&lt;\\tfrac12\\) et pourtant \\(E(x)=2\\).',
+      2: '\\(2\\) n’est vrai que pour \\(x&lt;3\\). Avec \\(x=3{,}2\\), \\(E(x)=3\\) alors que \\(|x-3|&lt;\\tfrac12\\).',
+    },
+  },
+  {
+    id: 'ex149', section: 'synthese-va-pe-lim',
+    statement: 'Que vaut \\(\\displaystyle\\lim_{n\\to+\\infty}\\left|\\,n-\\sqrt{n^2+1}\\,\\right|\\) ?',
+    options: [
+      '\\(0\\)',
+      '\\(1\\)',
+      '\\(+\\infty\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Quantité conjuguée : \\(\\sqrt{n^2+1}-n=\\dfrac{(n^2+1)-n^2}{\\sqrt{n^2+1}+n}=\\dfrac1{\\sqrt{n^2+1}+n}\\to0\\). La valeur absolue (ici \\(\\sqrt{n^2+1}&gt;n\\) donc sans effet) ne change rien : \\(|v_n|\\to|0|=0\\).',
+    wrongExplain: {
+      1: '\\(1\\) est le numérateur après multiplication par la conjuguée. Il est divisé par un dénominateur qui tend vers \\(+\\infty\\).',
+      2: 'Les deux termes tendent vers \\(+\\infty\\), mais leur différence tend vers \\(0\\) : on reconnaît la forme \\(\\infty-\\infty\\) qu’on lève par la conjuguée.',
+    },
+  },
 ];
 
 const SECTIONS = [
@@ -1261,43 +1951,59 @@ const SECTIONS = [
     cours: 'Mélange volontaire des §1 à §4 — chaque question combine au moins deux techniques vues séparément plus haut (encadrement + limite, composition par une fonction monotone + cas particulier, etc.), difficulté croissante au fil des questions.',
   },
   {
-    id: 'limites', title: '§6 — LIMITES',
+    id: 'valeur-absolue-td', title: '§6 — VALEUR ABSOLUE : MÉTHODES DE TD',
+    cours: '<span class="math">|x|</span> \\(=\\sqrt{x^2}\\) ; \\(|x|\\geq0\\) toujours (un second membre négatif dans \\(|u|&lt;c\\) donne \\(\\emptyset\\))<br><span class="math">|u|&lt;R</span> \\(\\Leftrightarrow -R&lt;u&lt;R\\) (un intervalle centré) ; <span class="math">|u|&gt;R</span> \\(\\Leftrightarrow u&gt;R\\) ou \\(u&lt;-R\\) (deux morceaux à l’extérieur)<br><span class="math">|A|=|B|</span> \\(\\Leftrightarrow A=B\\) ou \\(A=-B\\) ; <span class="math">|A|\\leq|B|</span> \\(\\Leftrightarrow A^2\\leq B^2\\) (les deux côtés sont positifs)<br><span class="math">Inégalités triangulaires</span> \\(\\big||x|-|y|\\big|\\leq|x+y|\\leq|x|+|y|\\) ; égalité à droite si \\(xy\\geq0\\)<br>« ET » = intersection, « OU » = réunion : dessiner les intervalles sur une droite<br>Pour encadrer un quotient : majorer le numérateur ET minorer le dénominateur (et inversement pour minorer)',
+  },
+  {
+    id: 'partie-entiere-td', title: '§7 — PARTIE ENTIÈRE : MÉTHODES DE TD',
+    cours: '<span class="math">Partie entière</span> \\(E(x)\\) : \\(E(x)\\leq x&lt;E(x)+1\\), soit \\(x-1&lt;E(x)\\leq x\\)<br><span class="math">Partie fractionnaire</span> \\(\\{x\\}=x-E(x)\\in[0,1[\\) ; réflexe : écrire \\(x=E(x)+\\{x\\}\\) puis discuter selon la position de \\(\\{x\\}\\)<br>\\(E(x+y)=E(x)+E(y)\\) si \\(\\{x\\}+\\{y\\}&lt;1\\), \\(=E(x)+E(y)+1\\) sinon<br>\\(E(2x)=2E(x)\\) si \\(\\{x\\}&lt;\\tfrac12\\), \\(2E(x)+1\\) sinon ; \\(E(x+\\tfrac12)=E(x)\\Leftrightarrow\\{x\\}&lt;\\tfrac12\\)<br>Pour \\(x\\notin\\mathbb{Z}\\) : \\(E(-x)=-E(x)-1\\) et \\(\\lceil x\\rceil=E(x)+1\\) ; en général \\(\\lceil x\\rceil=-E(-x)\\)<br>\\(E\\!\\left(\\dfrac{E(kx)}k\\right)=E(x)\\) pour \\(k\\in\\mathbb{N}^*\\)',
+  },
+  {
+    id: 'limites-reflexes', title: '§8 — LIMITES DE SUITES : CALCULS ET RÉFLEXES',
+    cours: '<span class="math">Formes indéterminées</span> : \\(\\infty-\\infty\\), \\(0\\times\\infty\\), \\(\\tfrac\\infty\\infty\\), \\(\\tfrac00\\), \\(1^\\infty\\) — on les LÈVE (conjuguée, factorisation du dominant, croissances comparées), elles ne disent pas « pas de limite »<br><span class="math">Géométrique</span> \\(\\rho^n\\) : \\(\\to0\\) si \\(|\\rho|&lt;1\\), \\(\\to+\\infty\\) si \\(\\rho&gt;1\\), pas de limite si \\(\\rho\\leq-1\\)<br><span class="math">Gendarmes</span> : \\(|u_n-\\ell|\\leq v_n\\to0\\Rightarrow u_n\\to\\ell\\) ; <span class="math">bornée × \\(\\to0\\)</span> \\(\\Rightarrow\\to0\\)<br><span class="math">Limite monotone</span> : croissante majorée converge, avec \\(\\ell\\leq\\) tout majorant<br><span class="math">Point fixe</span> : \\(u_{n+1}=f(u_n)\\), \\(f\\) continue, \\(u_n\\to\\ell\\Rightarrow f(\\ell)=\\ell\\) (puis rejeter les racines incompatibles avec le signe/domaine)<br><span class="math">Passage à la limite</span> : \\(u_n&lt;v_n\\Rightarrow\\ell\\leq\\ell\'\\) (le strict devient large)',
+  },
+  {
+    id: 'synthese-va-pe-lim', title: '§9 — SYNTHÈSE : VALEUR ABSOLUE, PARTIE ENTIÈRE, LIMITES',
+    cours: 'Mélange volontaire des trois sections précédentes (valeur absolue, partie entière, limites de suites) : chaque question combine au moins deux techniques — encadrement par la partie entière + gendarmes, valeur absolue + limite, partie entière + équation, etc. Difficulté croissante.',
+  },
+  {
+    id: 'limites', title: '§10 — LIMITES',
     cours: '\\(\\lim_{x \\to a} f(x) = l\\) : \\(\\forall \\varepsilon&gt;0, \\exists \\alpha&gt;0, |x-a|&lt;\\alpha \\Rightarrow |f(x)-l|&lt;\\varepsilon\\)<br>Limite finie en \\(a\\) \\(\\Rightarrow\\) \\(f\\) localement bornée<br><span class="math">Théorème des gendarmes</span> (encadrement)<br>\\(f \\mathop{\\sim}\\limits_{a} g \\Leftrightarrow \\lim_{x \\to a} f/g = 1\\), et alors mêmes limites',
   },
   {
-    id: 'continuite', title: '§7 — CONTINUITÉ',
+    id: 'continuite', title: '§11 — CONTINUITÉ',
     cours: '\\(f\\) continue en \\(a\\) \\(\\Leftrightarrow\\) \\(\\lim_{x \\to a} f(x) = f(a)\\)<br><span class="math">Théorème des valeurs intermédiaires</span> : \\(f\\) continue sur \\([a,b]\\), \\(y\\) entre \\(f(a)\\) et \\(f(b)\\) \\(\\Rightarrow\\) \\(\\exists c, f(c)=y\\)<br>\\(f\\) continue sur \\([a,b]\\) \\(\\Rightarrow\\) \\(f\\) bornée et atteint ses bornes',
   },
   {
-    id: 'derivation', title: '§8 — DÉRIVATION',
+    id: 'derivation', title: '§12 — DÉRIVATION',
     cours: '\\(f\\) dérivable en \\(a\\) \\(\\Leftrightarrow\\) \\(\\lim_{x \\to a} \\dfrac{f(x)-f(a)}{x-a}\\) existe\\(= f\'(a)\\)<br>Dérivable \\(\\Rightarrow\\) continue (réciproque fausse : \\(|x|\\) en 0)<br><span class="math">Théorème de Rolle</span> : \\(f(a)=f(b)\\) \\(\\Rightarrow\\) \\(\\exists c \\in ]a,b[, f\'(c)=0\\)<br><span class="math">TAF</span> : \\(f(b)-f(a) = (b-a)f\'(c)\\)',
   },
   {
-    id: 'usuelles', title: '§9 — FONCTIONS USUELLES (ARCCOS, ARCSIN, ARCTAN)',
+    id: 'usuelles', title: '§13 — FONCTIONS USUELLES (ARCCOS, ARCSIN, ARCTAN)',
     cours: '<span class="math">Arccos</span> \\(\\arccos : [-1,1] \\to [0,\\pi]\\)<br><span class="math">Arcsin</span> \\(\\arcsin : [-1,1] \\to [-\\pi/2,\\pi/2]\\)<br><span class="math">Arctan</span> \\(\\arctan : \\mathbb{R} \\to \\ ]-\\pi/2,\\pi/2[\\)<br>\\(\\arccos x + \\arcsin x = \\pi/2\\)<br>\\((\\arctan)\'(x) = \\dfrac{1}{1+x^2}\\)',
   },
   {
-    id: 'dl', title: '§10 — DÉVELOPPEMENTS LIMITÉS',
+    id: 'dl', title: '§14 — DÉVELOPPEMENTS LIMITÉS',
     cours: '<span class="math">Taylor-Young</span> : \\(f(t) = \\displaystyle\\sum_{k=0}^{n} \\dfrac{f^{(k)}(a)}{k!}(t-a)^k + o((t-a)^n)\\)<br>DL usuels en 0 : \\(e^x = 1+x+\\dfrac{x^2}{2}+\\cdots\\), \\(\\sin x = x - \\dfrac{x^3}{6}+\\cdots\\), \\(\\cos x = 1 - \\dfrac{x^2}{2}+\\cdots\\)<br>DL \\(\\to\\) équivalent : premier terme non nul du DL',
   },
   {
-    id: 'integration', title: '§11 — INTÉGRATION SUR UN SEGMENT',
+    id: 'integration', title: '§15 — INTÉGRATION SUR UN SEGMENT',
     cours: '\\(f\\) continue sur \\([a,b]\\) \\(\\Rightarrow\\) \\(F(x)=\\int_a^x f(t)\\,dt\\) est \\(C^1\\) et \\(F\'=f\\)<br>\\(\\int_a^b f(t)\\,dt = \\Phi(b)-\\Phi(a)\\) où \\(\\Phi\\) est une primitive de \\(f\\)<br><span class="math">Relation de Chasles</span> : \\(\\int_u^v f = \\int_u^w f + \\int_w^v f\\)',
   },
   {
-    id: 'primitives', title: '§12 — PRIMITIVES',
+    id: 'primitives', title: '§16 — PRIMITIVES',
     cours: 'Primitive de \\(x^\\alpha\\) (\\(\\alpha \\neq -1\\)) : \\(\\dfrac{x^{\\alpha+1}}{\\alpha+1}\\) ; primitive de \\(1/x\\) : \\(\\ln|x|\\)<br><span class="math">Changement de variable</span> : \\(x=\\varphi(t)\\), \\(dx = \\varphi\'(t)\\,dt\\)<br>Deux primitives d’une même fonction diffèrent d’une constante',
   },
   {
-    id: 'suites-cours', title: '§13 — SUITES : DÉFINITIONS DU COURS (CHARRON)',
+    id: 'suites-cours', title: '§17 — SUITES : DÉFINITIONS DU COURS (CHARRON)',
     cours: 'Bornée : \\(\\exists A&gt;0,\\ \\forall n,\\ |u_n|\\leq A\\) (le \\(A\\) d’abord, pour tous les \\(n\\))<br><span class="math">Convergence</span> : \\(\\forall\\varepsilon&gt;0,\\ \\exists n_0,\\ \\forall n\\geq n_0,\\ |u_n-\\ell|\\leq\\varepsilon\\) (le \\(\\varepsilon\\) d’abord, puis \\(n_0\\))<br>Limite unique ; bornée × tend vers 0 donne 0 ; \\(u_n&gt;0\\) et \\(u_n\\to\\ell\\) donnent \\(\\ell\\geq0\\)<br><span class="math">Gendarmes</span>, <span class="math">limite monotone</span>, <span class="math">adjacentes</span>, <span class="math">point fixe</span> \\(f(\\ell)=\\ell\\) (\\(f\\) continue)<br><span class="math">Suites extraites</span> : \\(u_n\\to\\ell\\) donne toute extraite \\(\\to\\ell\\) ; deux extraites en désaccord donnent divergence',
   },
   {
-    id: 'suites', title: '§14 — SUITES : THÉORÈMES DE LA FICHE MÉMO',
+    id: 'suites', title: '§18 — SUITES : THÉORÈMES DE LA FICHE MÉMO',
     cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|&lt;1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature)<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
   },
   {
-    id: 'series', title: '§15 — SÉRIES NUMÉRIQUES',
+    id: 'series', title: '§19 — SÉRIES NUMÉRIQUES',
     cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|&lt;1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha&gt;1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L&lt;1\\) CV, \\(L&gt;1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
   },
 ];
