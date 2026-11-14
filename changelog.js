@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 167, date: "14/11/2026", desc: "ANALYSE : 41 questions — relations/ordre, fonctions de référence, suites extraites, borne sup/inf, tirées du cours Charron" },
   { v: 166, date: "14/11/2026", desc: "CALCULUS : 39 questions sur les systèmes linéaires (pivot de Gauss) et les sommes (Σ), tirées de la Séance 8" },
   { v: 165, date: "14/11/2026", desc: "Nouveau chapitre RÉFLEXES LÉVY (44 questions) : discours formel, astuces de calcul, pièges de rédaction des séances avec M. Lévy" },
   { v: 164, date: "10/11/2026", desc: "ANALYSE : 46 questions sur valeur absolue, partie entière et limites de suites, tirées des TD" },

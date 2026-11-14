@@ -2220,3 +2220,103 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   `scripts/check-content-escaping.js` au vert ; comptage Node (ids
   dupliqués, sections orphelines, `wrongExplain` manquant, options≠3)
   tous à zéro.
+
+## ANALYSE étoffée : relations/ordre, fonctions de référence, suites extraites, borne sup/inf (14/11/2026, suite autonome)
+
+- Suite directe du chantier CALCULUS ci-dessus, même recherche Drive :
+  « COURS ANALYSE L1 14 novembre 2025 2026.pdf » (A. CHARRON, INU
+  Champollion), un document bien plus récent/étoffé que le cours déjà
+  utilisé le 21/10/2026 (« cours analyse L1 p1-9 12/10/26 moodle.pdf »),
+  organisé en 4 « Parties » : Relations binaires, Fonctions de
+  référence, Suites numériques, Borne supérieure/inférieure.
+- **Vérifié avant d'écrire du contenu** (réflexe du 08/09/2026, "AJOUT
+  vs VERSION RÉVISÉE") : chaque partie comparée section par section au
+  contenu déjà présent dans `fiches/analyse.js`, pour n'ajouter QUE ce
+  qui manque réellement, jamais redonder :
+  - Partie 1 (Relations binaires, ordre sur ℝ, applications) :
+    entièrement NOUVELLE, rien d'équivalent déjà présent.
+  - Partie 2 (Fonctions de référence : parité, périodicité, exp/ln
+    approfondis) : le cœur des croissances comparées exp/ln/puissance
+    était déjà couvert (§3, compilation du 21/10/2026) — seuls les
+    points vraiment absents ont été ajoutés (parité/périodicité
+    générales, tangente de exp en 0, dérivée de ln, log de base a).
+  - Partie 3 (Suites extraites, suites négligeables/équivalentes) :
+    la quasi-totalité était DÉJÀ couverte par §17/§18 (suites-cours/
+    suites, compilation du 09/09/2026) — seuls l'extractrice \(\sigma\)
+    elle-même (définition, \\(\\sigma(n)\\geq n\\)), le caractère
+    réflexif/symétrique/transitif de \\(\\sim\\), et deux pièges
+    explicitement signalés dans ce cours (addition/soustraction
+    d'équivalents interdite ; composition avec exp/ln interdite)
+    manquaient — ajoutés comme EXERCICES SUPPLÉMENTAIRES dans la
+    section `suites` existante (`ex175`-`ex182`), pas une section à
+    part : inutile de dupliquer une section déjà riche de 19+19
+    questions pour quelques pièges isolés.
+  - Partie 4 (Borne supérieure, borne inférieure) : entièrement
+    NOUVELLE, aucune section équivalente n'existait.
+- 3 nouvelles sections ajoutées **après** §19 SÉRIES (pas insérées au
+  milieu comme les sections préliminaires du 21/10/2026) — réflexe
+  délibérément différent cette fois : avec 19 sections déjà en place,
+  insérer au début aurait exigé de renuméroter tous les titres
+  existants (§1→§4, etc.), un risque inutile pour un contenu qui n'est
+  pas un prérequis des sections précédentes (contrairement au bloc
+  préliminaire d'ANALYSE du 21/10/2026, qui lui précédait logiquement
+  la suite). Numérotation choisie : §20/§21/§22.
+- **§20 — RELATIONS, ORDRE SUR ℝ, APPLICATIONS** (14 questions,
+  `ex150`-`ex163`) : stabilité de ℚ (et non-stabilité des irrationnels,
+  contre-exemples \\(\\pi+(1-\\pi)=1\\) et \\(\\sqrt2\\times\\sqrt2=2\\)),
+  partie entière (existence/unicité, croissance non stricte), piège
+  \\(\\mathbb{R}^*\\) n'est pas un intervalle (la règle de composition
+  par une fonction monotone — ici l'inverse — ne s'y applique pas
+  globalement), définition d'une application (différente d'une
+  fonction partielle), valeur approchée à \\(\\varepsilon\\) près,
+  deuxième inégalité triangulaire.
+- **§21 — FONCTIONS DE RÉFÉRENCE** (11 questions, `ex164`-`ex174`) :
+  parité/périodicité générales (domaine symétrique obligatoire, mais
+  pas suffisant pour garantir parité/imparité), tangente de \\(\\exp\\)
+  en 0 (\\(y=x+1\\)), dérivée de \\(\\ln\\), primitive de \\(1/(x-a)\\)
+  (piège : valeur absolue nécessaire pour couvrir tout
+  \\(\\mathbb{R}\\setminus\\{a\\}\\)), \\(a^x\\) et \\(\\log_a\\).
+- **Suites, compléments** (8 questions, `ex175`-`ex182`, ajoutées à la
+  section `suites` existante) : extractrice \\(\\sigma\\) strictement
+  croissante, relation d'équivalence symétrique, les deux pièges
+  signalés explicitement dans le cours (addition/soustraction et
+  composition exp/ln d'équivalents), opérations sur les suites
+  divergentes (\\(1/u_n\\to0\\) si \\(u_n\\to\\pm\\infty\\) ; \\(1/u_n\\)
+  diverge si \\(u_n\\to0\\)).
+- **§22 — BORNE SUPÉRIEURE, BORNE INFÉRIEURE** (8 questions,
+  `ex183`-`ex190`) : définitions (plus petit majorant / plus grand
+  minorant), théorème d'existence (admis), distinction max/sup
+  (max toujours atteint, sup pas forcément — exemple
+  \\([a;b]\\cup[c;d[\\)), caractérisation par les \\(\\varepsilon\\)
+  (un SEUL élément de \\(A\\) suffit à chaque fois, pas tous).
+- Total ANALYSE : 149 → **190 exercices**, 19 → **22 sections**.
+  `chapters.js` (`analyse.total:190`) et `fiches/analyse.html`
+  (`SCORE : 0/190`) mis à jour.
+- **Débordement de 123px/53px détecté puis écarté comme non-bug**
+  (mode continu, 320/390px) : enquête complète via Playwright montre
+  qu'il s'agit entièrement d'artefacts KaTeX internes déjà PRÉEXISTANTS
+  (chaîne \\(\\mathbb{N}\\subset\\mathbb{Z}\\subset\\cdots\\) du §1,
+  compilation du 21/10/2026 — déjà documentée à l'époque comme un 9px
+  résiduel à 320px — plus des `.pstrut` KaTeX de largeur NULLE, des
+  éléments de positionnement interne invisibles utilisés pour l'aligne-
+  ment vertical des radicaux/fractions) répartis dans des sections que
+  je n'ai PAS touchées (croissances-comparees, valeur-absolue-td,
+  partie-entiere-td, limites-reflexes, derivation, dl, primitives,
+  suites-cours, suites). Confirmé par comparaison : en mode PAGINÉ (le
+  mode par défaut, ce que voient réellement les visiteurs), le
+  débordement retombe à 9px/0px — exactement la valeur déjà connue et
+  acceptée en 2026-10-21, inchangée par ce chantier. Aucune de mes 3
+  nouvelles sections n'apparaît dans la liste des éléments en cause.
+  Pas de régression introduite — réflexe à garder : avant de conclure
+  qu'un débordement mesuré en mode continu est un bug, toujours
+  vérifier (1) s'il existe déjà en mode paginé par défaut, et (2) si
+  l'élément en cause est à l'intérieur d'un `.math-scroll` (overflow-x
+  scrollable, contenu intentionnellement plus large que la boîte
+  visible — pas un bug) avant de chercher plus loin.
+- Testé (Playwright, 320/390px, mode continu) : 190 exercices/22
+  sections rendus, zéro `\\(`/`\\)` brut, zéro `.katex-error` ;
+  `scripts/check-versions.sh` et `scripts/check-content-escaping.js`
+  au vert ; comptage Node (ids dupliqués, sections orphelines,
+  `wrongExplain` manquant, options≠3) tous à zéro sur le contenu
+  ajouté ; réponse testée en direct sur `ex190` (option fausse →
+  `wrongExplain` affiché, KaTeX rendu).

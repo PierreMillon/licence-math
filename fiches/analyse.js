@@ -1927,6 +1927,549 @@ const EXERCISES = [
       2: 'Les deux termes tendent vers \\(+\\infty\\), mais leur différence tend vers \\(0\\) : on reconnaît la forme \\(\\infty-\\infty\\) qu’on lève par la conjuguée.',
     },
   },
+  // ---------- §20 — RELATIONS, ORDRE SUR ℝ, APPLICATIONS (cours Charron, Partie 1) ----------
+  {
+    id: 'ex150', section: 'relations-ordre-applications',
+    statement: '\\(\\mathbb{Q}\\) (l’ensemble des rationnels) est stable pour quelles opérations ?',
+    options: [
+      'L’addition ET la multiplication (la somme ou le produit de deux rationnels est toujours un rationnel)',
+      'Seulement l’addition',
+      'Aucune : \\(\\mathbb{Q}\\) n’est stable pour aucune opération',
+    ],
+    correctIndex: 0,
+    explain: 'La somme et le produit de deux fractions restent toujours des fractions : \\(\\mathbb{Q}\\) est stable pour les deux opérations.',
+    wrongExplain: {
+      1: 'Le produit de deux rationnels est aussi toujours un rationnel — la stabilité ne se limite pas à l’addition.',
+      2: '\\(\\mathbb{Q}\\) est au contraire stable pour les deux opérations usuelles : la somme et le produit de deux fractions restent des fractions.',
+    },
+  },
+  {
+    id: 'ex151', section: 'relations-ordre-applications',
+    statement: 'L’ensemble des irrationnels est-il stable pour l’addition ?',
+    options: [
+      'Non — par exemple \\(\\pi+(1-\\pi)=1\\), qui est rationnel, bien que \\(\\pi\\) et \\(1-\\pi\\) soient irrationnels',
+      'Oui, la somme de deux irrationnels est toujours irrationnelle',
+      'Oui, mais seulement si les deux irrationnels sont égaux',
+    ],
+    correctIndex: 0,
+    explain: 'Contrairement à \\(\\mathbb{Q}\\), l’ensemble des irrationnels n’est stable ni pour l’addition ni pour la multiplication — ce contre-exemple le montre directement.',
+    wrongExplain: {
+      1: 'Le contre-exemple \\(\\pi+(1-\\pi)=1\\) suffit à montrer que ce n’est pas toujours vrai : la somme de deux irrationnels peut être rationnelle.',
+      2: 'Le contre-exemple n’a rien à voir avec l’égalité des deux irrationnels — \\(\\pi\\) et \\(1-\\pi\\) sont bien distincts.',
+    },
+  },
+  {
+    id: 'ex152', section: 'relations-ordre-applications',
+    statement: 'Le produit \\(\\sqrt{2}\\times\\sqrt{2}=2\\) illustre que :',
+    options: [
+      'Le produit de deux irrationnels n’est pas forcément irrationnel (ici \\(\\sqrt2\\) est irrationnel, mais le produit vaut \\(2\\), qui est rationnel)',
+      '\\(\\sqrt2\\) n’est en réalité pas irrationnel',
+      'Le produit de deux irrationnels est toujours rationnel',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\sqrt2\\) est bien irrationnel, et pourtant \\(\\sqrt2\\times\\sqrt2=2\\in\\mathbb{Q}\\) : ce contre-exemple montre que l’ensemble des irrationnels n’est pas stable pour la multiplication.',
+    wrongExplain: {
+      1: '\\(\\sqrt2\\) est un irrationnel bien connu — ce n’est pas ça qui est en cause dans ce contre-exemple.',
+      2: 'Ce n’est vrai que dans CE cas particulier (\\(\\sqrt2\\times\\sqrt2\\)) — en général, le produit de deux irrationnels distincts reste souvent irrationnel, il n’y a pas de règle générale.',
+    },
+  },
+  {
+    id: 'ex153', section: 'relations-ordre-applications',
+    statement: 'La somme d’un rationnel et d’un irrationnel est toujours :',
+    options: ['Irrationnelle', 'Rationnelle', 'Cela dépend des nombres choisis, aucune règle générale'],
+    correctIndex: 0,
+    explain: 'Si la somme était rationnelle, on pourrait isoler l’irrationnel comme différence de deux rationnels — ce qui serait contradictoire : la somme est donc toujours irrationnelle.',
+    wrongExplain: {
+      1: 'Si cette somme était rationnelle, on pourrait en déduire que l’irrationnel de départ est aussi rationnel (par soustraction) — contradiction.',
+      2: 'C’est au contraire une règle générale, toujours vraie, sans exception : un rationnel plus un irrationnel donne toujours un irrationnel.',
+    },
+  },
+  {
+    id: 'ex154', section: 'relations-ordre-applications',
+    statement: 'Entre deux réels \\(x\\) et \\(y\\) tels que \\(0\\leq x&lt;y\\), il existe toujours :',
+    options: [
+      'Un nombre rationnel \\(q\\) tel que \\(x&lt;q&lt;y\\)',
+      'Un nombre entier \\(n\\) tel que \\(x&lt;n&lt;y\\), dans tous les cas',
+      'Aucun autre nombre réel entre les deux',
+    ],
+    correctIndex: 0,
+    explain: '\\(\\mathbb{Q}\\) est « dense » dans \\(\\mathbb{R}\\) : entre deux réels distincts, on peut toujours trouver un rationnel (et même un irrationnel).',
+    wrongExplain: {
+      1: 'Rien ne garantit la présence d’un ENTIER entre \\(x\\) et \\(y\\) si l’écart entre eux est petit (par exemple \\(x=0{,}1\\) et \\(y=0{,}2\\)) — c’est un rationnel qui est toujours garanti, pas un entier.',
+      2: 'Il existe au contraire une infinité de réels (rationnels et irrationnels) entre deux réels distincts quelconques.',
+    },
+  },
+  {
+    id: 'ex155', section: 'relations-ordre-applications',
+    statement: 'Le théorème d’existence de la partie entière affirme que pour tout réel \\(x\\), il existe un UNIQUE entier \\(n\\) tel que :',
+    options: ['\\(n\\leq x&lt;n+1\\)', '\\(n\\leq x\\leq n+1\\)', '\\(n&lt;x&lt;n+1\\)'],
+    correctIndex: 0,
+    explain: 'La borne de gauche est large (\\(\\leq\\), \\(x\\) peut être égal à \\(n\\)), la borne de droite est stricte (\\(&lt;\\), \\(x\\) ne peut pas atteindre \\(n+1\\)) — c’est cette dissymétrie qui garantit l’unicité de \\(n\\).',
+    wrongExplain: {
+      1: 'Avec deux bornes larges, un \\(x\\) entier (par exemple \\(x=3\\)) satisferait AUSSI \\(n=x-1\\) (\\(x-1\\leq x\\leq x\\)) — l’unicité serait perdue.',
+      2: 'Avec deux bornes strictes, un \\(x\\) entier (par exemple \\(x=3\\)) ne satisferait AUCUN \\(n\\) (ni \\(n=3\\), ni \\(n=2\\)) — l’existence serait perdue.',
+    },
+  },
+  {
+    id: 'ex156', section: 'relations-ordre-applications',
+    statement: 'La fonction partie entière \\(E\\) est :',
+    options: ['Croissante sur \\(\\mathbb{R}\\) (pas strictement)', 'Strictement croissante sur \\(\\mathbb{R}\\)', 'Décroissante sur \\(\\mathbb{R}\\)'],
+    correctIndex: 0,
+    explain: '\\(E\\) est constante par paliers (par exemple \\(E(2{,}3)=E(2{,}7)=2\\)) : elle est croissante au sens large, jamais strictement croissante.',
+    wrongExplain: {
+      1: 'Deux réels distincts dans le même palier (ex. \\(2{,}3\\) et \\(2{,}7\\)) ont la MÊME partie entière — la croissance ne peut donc pas être stricte.',
+      2: '\\(E\\) ne diminue jamais quand \\(x\\) augmente — c’est une fonction croissante, pas décroissante.',
+    },
+  },
+  {
+    id: 'ex157', section: 'relations-ordre-applications',
+    statement: 'L’assertion « \\(\\forall(a,b)\\in(\\mathbb{R}^*)^2,\\ a&lt;b\\Leftrightarrow 1/a&gt;1/b\\) » est FAUSSE, alors que la fonction inverse est bien strictement décroissante sur \\(\\mathbb{R}_+^*\\) et sur \\(\\mathbb{R}_-^*\\) séparément. Pourquoi ?',
+    options: [
+      '\\(\\mathbb{R}^*\\) (\\(\\mathbb{R}\\) privé de \\(0\\)) n’est PAS un intervalle : la monotonie stricte ne s’applique qu’à l’intérieur d’UN intervalle, pas d’une réunion de deux intervalles séparés',
+      'La fonction inverse n’est en réalité pas strictement décroissante',
+      'L’assertion est en réalité vraie, sans aucune exception',
+    ],
+    correctIndex: 0,
+    explain: 'Un contre-exemple : \\(a=-1&lt;b=1\\), mais \\(1/a=-1\\) n’est pas \\(&gt;1/b=1\\). La règle de monotonie suppose implicitement que \\(a\\) et \\(b\\) sont dans le MÊME intervalle de monotonie — ici \\(\\mathbb{R}^*\\) n’en est pas un, car il « saute » par-dessus \\(0\\).',
+    wrongExplain: {
+      1: 'La fonction inverse EST bien strictement décroissante, mais seulement sur \\(\\mathbb{R}_+^*\\) et séparément sur \\(\\mathbb{R}_-^*\\) — pas sur leur réunion \\(\\mathbb{R}^*\\), qui n’est pas un intervalle.',
+      2: 'Le contre-exemple \\(a=-1,b=1\\) montre que l’assertion est bien fausse en général — elle n’est valable que si \\(a\\) et \\(b\\) sont du même signe.',
+    },
+  },
+  {
+    id: 'ex158', section: 'relations-ordre-applications',
+    statement: 'Pour tout \\(k\\in\\mathbb{R}\\), on a \\(a&lt;b\\Leftrightarrow a+k&lt;b+k\\), car la fonction \\(x\\mapsto x+k\\) est :',
+    options: [
+      'Strictement croissante (translation), quel que soit le signe de \\(k\\)',
+      'Strictement croissante seulement si \\(k&gt;0\\)',
+      'Strictement décroissante si \\(k&lt;0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Une translation ne change jamais le sens de variation : \\(x\\mapsto x+k\\) est toujours strictement croissante, que \\(k\\) soit positif, négatif ou nul.',
+    wrongExplain: {
+      1: 'Le signe de \\(k\\) décale la courbe vers le haut ou le bas, mais ne change pas son sens de variation — la translation reste croissante quel que soit \\(k\\).',
+      2: 'Une translation ne devient jamais décroissante, quel que soit le signe de \\(k\\) — c’est une multiplication par un nombre négatif qui renverserait le sens, pas une addition.',
+    },
+  },
+  {
+    id: 'ex159', section: 'relations-ordre-applications',
+    statement: 'Pour \\(k&lt;0\\), on a \\(a&lt;b\\Leftrightarrow ka&gt;kb\\) (et pas \\(ka&lt;kb\\)), car :',
+    options: [
+      'La fonction \\(x\\mapsto kx\\) est strictement DÉCROISSANTE quand \\(k&lt;0\\) : elle renverse donc le sens de l’inégalité',
+      'Multiplier par un nombre négatif ne change jamais le sens d’une inégalité',
+      'C’est une erreur : en réalité \\(ka&lt;kb\\) même pour \\(k&lt;0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Une fonction strictement décroissante renverse le sens des inégalités : c’est exactement ce qui se passe pour \\(x\\mapsto kx\\) quand \\(k&lt;0\\).',
+    wrongExplain: {
+      1: 'C’est l’inverse : multiplier par un nombre strictement négatif renverse TOUJOURS le sens de l’inégalité — c’est une erreur fréquente de l’oublier.',
+      2: 'Un contre-exemple numérique (\\(a=1&lt;b=2\\), \\(k=-1\\) : \\(ka=-1\\), \\(kb=-2\\), et \\(-1&gt;-2\\)) confirme que c’est bien \\(ka&gt;kb\\), pas l’inverse.',
+    },
+  },
+  {
+    id: 'ex160', section: 'relations-ordre-applications',
+    statement: 'Une application de \\(E\\) dans \\(F\\) (au sens strict) est caractérisée par :',
+    options: [
+      'Pour tout \\(x\\in E\\), il existe UN ET UN SEUL élément \\(y\\in F\\) tel que \\(y=f(x)\\) — chaque \\(x\\) de \\(E\\) a une image garantie et unique',
+      'Il existe au moins un \\(x\\in E\\) qui a une image dans \\(F\\)',
+      'Chaque élément de \\(F\\) doit avoir un antécédent dans \\(E\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Une application est une fonction dont le domaine de définition est TOUT \\(E\\) (pas seulement une partie) : chaque élément de \\(E\\), sans exception, a une image unique dans \\(F\\).',
+    wrongExplain: {
+      1: 'Une application exige que TOUS les éléments de \\(E\\) aient une image, pas seulement « au moins un » — c’est beaucoup plus fort.',
+      2: 'Cette condition décrirait la SURJECTIVITÉ, une propriété différente — une application n’exige rien sur les antécédents des éléments de \\(F\\).',
+    },
+  },
+  {
+    id: 'ex161', section: 'relations-ordre-applications',
+    statement: '\\(|x-y|\\) représente géométriquement :',
+    options: [
+      'La distance entre les points d’abscisses \\(x\\) et \\(y\\) sur la droite des réels',
+      'La somme des positions de \\(x\\) et \\(y\\) sur la droite',
+      'Toujours une valeur négative si \\(x&lt;y\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\(|x-y|\\) mesure l’écart entre les deux nombres, sans tenir compte de qui est le plus grand — c’est exactement la distance entre leurs deux points sur la droite réelle.',
+    wrongExplain: {
+      1: 'Une valeur absolue mesure un écart, pas une somme — \\(|x-y|\\) n’a rien à voir avec \\(x+y\\).',
+      2: 'Une valeur absolue est TOUJOURS positive ou nulle, par définition — jamais négative, quel que soit l’ordre de \\(x\\) et \\(y\\).',
+    },
+  },
+  {
+    id: 'ex162', section: 'relations-ordre-applications',
+    statement: 'Dire que « \\(a\\) est une valeur approchée de \\(x\\) à \\(\\varepsilon\\) près » signifie précisément que :',
+    options: ['\\(|x-a|\\leq\\varepsilon\\)', '\\(a=x\\) exactement', '\\(|x-a|\\geq\\varepsilon\\)'],
+    correctIndex: 0,
+    explain: 'C’est la définition même d’une approximation à une précision donnée : l’écart entre la vraie valeur \\(x\\) et l’approximation \\(a\\) ne dépasse pas \\(\\varepsilon\\).',
+    wrongExplain: {
+      1: 'Une valeur APPROCHÉE n’est justement pas la valeur exacte — sinon la précision \\(\\varepsilon\\) n’aurait aucun sens à préciser.',
+      2: 'Cette inégalité dirait que l’écart est AU MOINS \\(\\varepsilon\\), donc que l’approximation est mauvaise — c’est l’inverse de ce qu’on veut.',
+    },
+  },
+  {
+    id: 'ex163', section: 'relations-ordre-applications',
+    statement: 'La deuxième inégalité triangulaire s’écrit :',
+    options: ['\\(\\big||x|-|y|\\big|\\leq|x-y|\\)', '\\(\\big||x|-|y|\\big|\\leq|x+y|\\)', '\\(\\big||x|+|y|\\big|\\leq|x-y|\\)'],
+    correctIndex: 0,
+    explain: 'Elle découle de la première (\\(|x|=|(x-y)+y|\\leq|x-y|+|y|\\), donc \\(|x|-|y|\\leq|x-y|\\), et par symétrie \\(|y|-|x|\\leq|x-y|\\) aussi) : c’est bien \\(|x-y|\\) qui majore l’écart des deux valeurs absolues.',
+    wrongExplain: {
+      1: 'C’est \\(|x-y|\\), pas \\(|x+y|\\), qui majore \\(\\big||x|-|y|\\big|\\) — on l’obtient en appliquant la première inégalité triangulaire à \\(x=(x-y)+y\\).',
+      2: '\\(\\big||x|+|y|\\big|=|x|+|y|\\) (toujours positif) : cette expression correspond à la PREMIÈRE inégalité triangulaire (\\(|x+y|\\leq|x|+|y|\\)), pas à la deuxième.',
+    },
+  },
+  // ---------- §21 — FONCTIONS DE RÉFÉRENCE : PARITÉ, PÉRIODICITÉ, EXP/LN (cours Charron, Partie 2) ----------
+  {
+    id: 'ex164', section: 'fonctions-reference',
+    statement: 'Pour parler de la parité d’une fonction \\(f\\) sur un ensemble \\(E\\), quelle condition \\(E\\) doit-il impérativement vérifier ?',
+    options: [
+      '\\(E\\) doit être symétrique par rapport à \\(0\\) (\\(\\forall x\\in E,\\ -x\\in E\\) aussi)',
+      '\\(E\\) doit contenir \\(0\\)',
+      'Aucune condition particulière : on peut toujours parler de parité',
+    ],
+    correctIndex: 0,
+    explain: 'Si \\(-x\\) n’appartient pas à \\(E\\) pour un \\(x\\in E\\), la comparaison \\(f(-x)\\) contre \\(f(x)\\) n’a même pas de sens — la parité exige un domaine symétrique.',
+    wrongExplain: {
+      1: 'Le domaine peut très bien ne pas contenir \\(0\\) (par exemple \\([-2,-1]\\cup[1,2]\\)) tout en étant symétrique — ce n’est pas \\(0\\in E\\) qui compte, mais la symétrie globale de \\(E\\).',
+      2: 'Sans domaine symétrique, parler de parité n’a tout simplement aucun sens : \\(f(-x)\\) pourrait ne même pas être défini.',
+    },
+  },
+  {
+    id: 'ex165', section: 'fonctions-reference',
+    statement: 'Une fonction définie sur un domaine symétrique par rapport à \\(0\\) est-elle forcément paire ou impaire ?',
+    options: [
+      'Non — elle peut très bien n’être NI paire NI impaire, même sur un domaine symétrique',
+      'Oui, toute fonction sur un domaine symétrique est nécessairement l’un ou l’autre',
+      'Oui, mais seulement si elle est continue',
+    ],
+    correctIndex: 0,
+    explain: 'La symétrie du domaine est une condition NÉCESSAIRE pour pouvoir parler de parité, mais elle ne garantit pas que la fonction soit effectivement paire ou impaire (par exemple \\(x\\mapsto x+1\\) sur \\(\\mathbb{R}\\)).',
+    wrongExplain: {
+      1: 'Un contre-exemple simple comme \\(f(x)=x+1\\) (domaine \\(\\mathbb{R}\\), bien symétrique) n’est ni paire ni impaire — \\(f(-x)=-x+1\\) n’est égal ni à \\(f(x)\\) ni à \\(-f(x)\\).',
+      2: 'La continuité n’a aucun rapport avec la parité — une fonction continue peut très bien n’être ni paire ni impaire.',
+    },
+  },
+  {
+    id: 'ex166', section: 'fonctions-reference',
+    statement: 'Graphiquement, une fonction impaire a une représentation graphique symétrique par rapport à :',
+    options: ['L’origine du repère', 'L’axe des ordonnées', 'L’axe des abscisses'],
+    correctIndex: 0,
+    explain: '\\(f(-x)=-f(x)\\) traduit une symétrie centrale (rotation de \\(180°\\)) autour de l’origine — c’est la fonction PAIRE qui est symétrique par rapport à l’axe des ordonnées.',
+    wrongExplain: {
+      1: 'C’est la fonction PAIRE qui a cette symétrie-là (\\(f(-x)=f(x)\\)) — l’impaire a une symétrie centrale, pas axiale.',
+      2: 'Une symétrie par rapport à l’axe des abscisses inverserait le signe de \\(y\\) pour un même \\(x\\), ce qui n’est pas ce que traduit \\(f(-x)=-f(x)\\).',
+    },
+  },
+  {
+    id: 'ex167', section: 'fonctions-reference',
+    statement: 'Si une fonction \\(f\\) est \\(t\\)-périodique (\\(t\\in\\mathbb{R}^*\\)), alors pour tout \\(n\\in\\mathbb{Z}^*\\), \\(f\\) est aussi :',
+    options: ['\\(nt\\)-périodique', '\\(t/n\\)-périodique', 'Seulement \\(2t\\)-périodique, jamais un autre multiple'],
+    correctIndex: 0,
+    explain: 'En répétant le décalage de \\(t\\) \\(n\\) fois (ou \\(|n|\\) fois dans l’autre sens si \\(n&lt;0\\)), on obtient que \\(f\\) revient aussi à elle-même sur un décalage de \\(nt\\) — valable pour n’importe quel entier non nul \\(n\\), pas seulement \\(n=2\\).',
+    wrongExplain: {
+      1: 'C’est l’inverse d’une division : répéter le motif \\(n\\) fois MULTIPLIE la période par \\(n\\), ça ne la divise pas.',
+      2: 'La propriété est valable pour TOUT entier \\(n\\) non nul, pas seulement \\(n=2\\) — \\(3t\\), \\(4t\\), etc. sont aussi des périodes.',
+    },
+  },
+  {
+    id: 'ex168', section: 'fonctions-reference',
+    statement: 'La limite du taux d’accroissement de \\(\\exp\\) en \\(0\\), \\(\\displaystyle\\lim_{x\\to0}\\dfrac{e^x-1}{x}\\), vaut :',
+    options: ['\\(1\\)', '\\(0\\)', '\\(e\\)'],
+    correctIndex: 0,
+    explain: 'Cette limite est par définition \\(\\exp\'(0)\\), et \\(\\exp\'=\\exp\\), donc \\(\\exp\'(0)=e^0=1\\).',
+    wrongExplain: {
+      1: 'Cette limite est le NOMBRE DÉRIVÉ de \\(\\exp\\) en \\(0\\), pas la valeur de la fonction elle-même en un point qui s’annulerait.',
+      2: '\\(e\\) serait \\(\\exp(1)\\), sans lien avec ce taux d’accroissement EN \\(0\\) — c’est \\(\\exp\'(0)=1\\) qui est la bonne valeur.',
+    },
+  },
+  {
+    id: 'ex169', section: 'fonctions-reference',
+    statement: 'L’équation de la tangente à la courbe de \\(\\exp\\) au point \\(x=0\\) est :',
+    options: ['\\(y=x+1\\)', '\\(y=x\\)', '\\(y=ex\\)'],
+    correctIndex: 0,
+    explain: 'La tangente en \\(0\\) a pour coefficient directeur \\(\\exp\'(0)=1\\) et passe par le point \\((0,\\exp(0))=(0,1)\\) : équation \\(y=1\\cdot(x-0)+1=x+1\\).',
+    wrongExplain: {
+      1: 'Il manque le \\(+1\\) : la tangente passe par le point \\((0,1)\\) (car \\(\\exp(0)=1\\)), pas par l’origine.',
+      2: 'Le coefficient directeur de la tangente EN \\(0\\) est \\(\\exp\'(0)=1\\), pas \\(e=\\exp(1)\\) — ce serait le coefficient directeur en \\(x=1\\), pas en \\(0\\).',
+    },
+  },
+  {
+    id: 'ex170', section: 'fonctions-reference',
+    statement: 'La fonction \\(\\ln\\) est dérivable sur \\(\\mathbb{R}_+^*\\), avec \\(\\ln\'(x)=\\)',
+    options: ['\\(\\dfrac{1}{x}\\)', '\\(x\\)', '\\(\\dfrac{\\ln x}{x}\\)'],
+    correctIndex: 0,
+    explain: 'C’est la dérivée de référence de \\(\\ln\\), valable sur tout \\(\\mathbb{R}_+^*\\) — à savoir par cœur.',
+    wrongExplain: {
+      1: 'Cette expression ressemble à la fonction identité, sans lien avec la dérivée de \\(\\ln\\).',
+      2: 'Cette expression ne correspond à aucune règle de dérivation standard appliquée à \\(\\ln\\) — la dérivée de \\(\\ln\\) est simplement \\(1/x\\).',
+    },
+  },
+  {
+    id: 'ex171', section: 'fonctions-reference',
+    statement: 'Une primitive de \\(x\\mapsto\\dfrac{1}{x-a}\\) sur \\(\\mathbb{R}\\setminus\\{a\\}\\) (tout entier, des deux côtés de \\(a\\)) est :',
+    options: ['\\(F(x)=\\ln|x-a|\\)', '\\(F(x)=\\ln(x-a)\\)', '\\(F(x)=\\dfrac{1}{\\ln(x-a)}\\)'],
+    correctIndex: 0,
+    explain: 'Sans la valeur absolue, \\(\\ln(x-a)\\) n’est défini que pour \\(x&gt;a\\) — pour une primitive valable sur TOUT \\(\\mathbb{R}\\setminus\\{a\\}\\) (y compris pour \\(x&lt;a\\)), il faut \\(\\ln|x-a|\\).',
+    wrongExplain: {
+      1: '\\(\\ln(x-a)\\) n’est défini que pour \\(x&gt;a\\) (l’intérieur du logarithme doit être strictement positif) — ça ne couvre pas tout \\(\\mathbb{R}\\setminus\\{a\\}\\), contrairement à \\(\\ln|x-a|\\).',
+      2: 'Cette expression n’est même pas définie quand \\(\\ln(x-a)=0\\) (soit \\(x=a+1\\)) — ce n’est de toute façon pas une primitive valide de \\(1/(x-a)\\).',
+    },
+  },
+  {
+    id: 'ex172', section: 'fonctions-reference',
+    statement: 'Pour \\(a&gt;1\\), \\(\\displaystyle\\lim_{x\\to+\\infty}a^x=\\)',
+    options: ['\\(+\\infty\\)', '\\(0\\)', '\\(1\\)'],
+    correctIndex: 0,
+    explain: '\\(a^x=e^{x\\ln a}\\), et pour \\(a&gt;1\\), \\(\\ln a&gt;0\\) : l’exposant \\(x\\ln a\\) tend vers \\(+\\infty\\), donc \\(a^x\\) aussi.',
+    wrongExplain: {
+      1: '\\(0\\) serait la limite si \\(0&lt;a&lt;1\\) (exposant qui tend vers \\(-\\infty\\)) — pas pour \\(a&gt;1\\).',
+      2: '\\(1\\) serait la limite si \\(a=1\\) (fonction constante) — pas pour \\(a&gt;1\\), où la fonction croît sans borne.',
+    },
+  },
+  {
+    id: 'ex173', section: 'fonctions-reference',
+    statement: 'Pour \\(0&lt;a&lt;1\\), \\(\\displaystyle\\lim_{x\\to+\\infty}a^x=\\)',
+    options: ['\\(0\\)', '\\(+\\infty\\)', '\\(a\\)'],
+    correctIndex: 0,
+    explain: 'Pour \\(0&lt;a&lt;1\\), \\(\\ln a&lt;0\\) : l’exposant \\(x\\ln a=x\\ln a\\) tend vers \\(-\\infty\\) quand \\(x\\to+\\infty\\), donc \\(a^x=e^{x\\ln a}\\to0\\).',
+    wrongExplain: {
+      1: '\\(+\\infty\\) serait la limite si \\(a&gt;1\\) — pour \\(0&lt;a&lt;1\\), la fonction décroît vers \\(0\\), elle ne diverge pas.',
+      2: 'La limite ne vaut jamais la base \\(a\\) elle-même en \\(+\\infty\\) — \\(a^x\\) s’écrase vers \\(0\\) quand \\(0&lt;a&lt;1\\).',
+    },
+  },
+  {
+    id: 'ex174', section: 'fonctions-reference',
+    statement: 'Le logarithme de base \\(a\\) (\\(a\\in\\mathbb{R}_+^*\\setminus\\{1\\}\\)), noté \\(\\log_a\\), est défini par :',
+    options: ['\\(\\log_a(x)=\\dfrac{\\ln x}{\\ln a}\\)', '\\(\\log_a(x)=\\ln(x)\\times\\ln(a)\\)', '\\(\\log_a(x)=\\ln(x)-\\ln(a)\\)'],
+    correctIndex: 0,
+    explain: 'C’est la définition même du changement de base d’un logarithme — on « ramène » le logarithme de base \\(a\\) au logarithme népérien par ce quotient.',
+    wrongExplain: {
+      1: 'Un produit de logarithmes ne correspond à aucune propriété usuelle des logarithmes — le changement de base se fait par un QUOTIENT, pas un produit.',
+      2: '\\(\\ln(x)-\\ln(a)=\\ln(x/a)\\), une expression différente qui n’a rien à voir avec le logarithme de base \\(a\\) de \\(x\\).',
+    },
+  },
+  // ---------- Compléments SUITES (Partie 3 du cours Charron : extractrices, pièges sur o/∼) ----------
+  {
+    id: 'ex175', section: 'suites',
+    statement: 'Une suite extraite (ou sous-suite) de \\((u_n)\\) est définie via une extractrice \\(\\sigma\\), qui doit être :',
+    options: [
+      'Une application strictement croissante de \\(\\mathbb{N}\\) dans \\(\\mathbb{N}\\)',
+      'Une application quelconque de \\(\\mathbb{N}\\) dans \\(\\mathbb{N}\\), sans condition',
+      'Une application décroissante de \\(\\mathbb{N}\\) dans \\(\\mathbb{N}\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La stricte croissance de \\(\\sigma\\) garantit que les indices \\(\\sigma(0)&lt;\\sigma(1)&lt;\\cdots\\) extraient bien une VRAIE sous-suite, dans l’ordre, sans répétition.',
+    wrongExplain: {
+      1: 'Sans la stricte croissance, \\(\\sigma\\) pourrait répéter des indices ou les prendre dans le désordre — ce ne serait plus une extraction cohérente de la suite.',
+      2: 'Une extractrice décroissante ne garantirait même pas \\(\\sigma(n)\\geq n\\), une propriété essentielle utilisée dans tous les théorèmes sur les suites extraites.',
+    },
+  },
+  {
+    id: 'ex176', section: 'suites',
+    statement: 'Une conséquence immédiate (par récurrence) du fait que l’extractrice \\(\\sigma\\) soit strictement croissante est que :',
+    options: ['\\(\\forall n\\in\\mathbb{N},\\ \\sigma(n)\\geq n\\)', '\\(\\forall n\\in\\mathbb{N},\\ \\sigma(n)=n\\)', '\\(\\forall n\\in\\mathbb{N},\\ \\sigma(n)\\leq n\\)'],
+    correctIndex: 0,
+    explain: 'Comme \\(\\sigma\\) est à valeurs entières et strictement croissante, elle « avance » au moins aussi vite que \\(n\\) : une récurrence simple donne \\(\\sigma(n)\\geq n\\) pour tout \\(n\\).',
+    wrongExplain: {
+      1: 'Rien n’impose \\(\\sigma(n)=n\\) — \\(\\sigma\\) peut très bien « sauter » des indices (par exemple \\(\\sigma(n)=2n\\)), tout en restant strictement croissante.',
+      2: 'C’est l’inverse : la stricte croissance à valeurs entières force \\(\\sigma(n)\\geq n\\), jamais \\(\\sigma(n)\\leq n\\) en général (sauf égalité possible seulement en \\(n=0\\)).',
+    },
+  },
+  {
+    id: 'ex177', section: 'suites',
+    statement: 'La relation \\(u_n\\sim v_n\\) entre suites est réflexive, symétrique et transitive (relation d’équivalence). Que signifie « symétrique » ici ?',
+    options: [
+      '\\(u_n\\sim v_n\\) implique \\(v_n\\sim u_n\\)',
+      '\\(u_n\\sim u_n\\), pour toute suite',
+      '\\(u_n\\sim v_n\\) et \\(v_n\\sim w_n\\) impliquent \\(u_n\\sim w_n\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La symétrie dit que la relation « va dans les deux sens » : si \\(u_n\\) est équivalente à \\(v_n\\), alors \\(v_n\\) est aussi équivalente à \\(u_n\\).',
+    wrongExplain: {
+      1: 'C’est la définition de la RÉFLEXIVITÉ (\\(u_n\\sim u_n\\)), pas de la symétrie.',
+      2: 'C’est la définition de la TRANSITIVITÉ, pas de la symétrie.',
+    },
+  },
+  {
+    id: 'ex178', section: 'suites',
+    statement: 'Piège signalé : avec \\(u_n=n^2\\) et \\(v_n=n^2-n\\), on a \\(u_n\\sim v_n\\). Peut-on en déduire que \\(u_n-v_n\\) est équivalent à \\(0\\) ?',
+    options: [
+      'Non — \\(u_n-v_n=n\\), qui n’est PAS équivalent à \\(0\\) : on ne peut pas soustraire des équivalents comme on le voudrait',
+      'Oui, la soustraction d’équivalents donne toujours un résultat équivalent à \\(0\\)',
+      'Cette question n’a pas de sens, \\(u_n\\) et \\(v_n\\) ne sont pas équivalents',
+    ],
+    correctIndex: 0,
+    explain: '\\(u_n/v_n=n^2/(n^2-n)\\to1\\), donc \\(u_n\\sim v_n\\) est bien vrai — mais leur DIFFÉRENCE \\(n\\) tend vers \\(+\\infty\\), pas vers \\(0\\) : l’addition et la soustraction d’équivalents sont des opérations « défaillantes », à proscrire.',
+    wrongExplain: {
+      1: 'C’est exactement le piège à éviter : la relation d’équivalence ne se comporte PAS bien avec l’addition/soustraction, contrairement à la multiplication.',
+      2: '\\(u_n\\sim v_n\\) est bien vrai ici (leur rapport tend vers \\(1\\)) — la question porte sur leur DIFFÉRENCE, qui elle n’est pas équivalente à \\(0\\).',
+    },
+  },
+  {
+    id: 'ex179', section: 'suites',
+    statement: 'Piège signalé : si \\(u_n\\sim v_n\\), peut-on toujours en déduire que \\(e^{u_n}\\sim e^{v_n}\\) ?',
+    options: [
+      'Non — on ne peut pas composer des équivalents avec la fonction exponentielle (ni le logarithme) en général',
+      'Oui, composer un équivalent avec n’importe quelle fonction donne toujours un équivalent',
+      'Oui, mais seulement avec le logarithme, pas l’exponentielle',
+    ],
+    correctIndex: 0,
+    explain: 'Avec \\(u_n=n\\) et \\(v_n=n+\\sqrt n\\), on a \\(u_n\\sim v_n\\), mais \\(e^{u_n}\\) n’est pas équivalent à \\(e^{v_n}\\) — composer des équivalents avec \\(\\exp\\) ou \\(\\ln\\) n’est en général pas valide.',
+    wrongExplain: {
+      1: 'Ce contre-exemple (\\(u_n=n\\), \\(v_n=n+\\sqrt n\\)) montre précisément que ce n’est PAS toujours vrai pour l’exponentielle — ni d’ailleurs pour le logarithme.',
+      2: 'Le piège concerne aussi bien l’exponentielle QUE le logarithme — aucune des deux ne se compose correctement avec une relation d’équivalence en général.',
+    },
+  },
+  {
+    id: 'ex180', section: 'suites',
+    statement: 'La suite \\((u_n)\\) diverge vers \\(+\\infty\\) si, par définition :',
+    options: [
+      '\\(\\forall A&gt;0,\\ \\exists n_0\\in\\mathbb{N},\\ \\forall n\\geq n_0,\\ u_n\\geq A\\)',
+      '\\(\\exists A&gt;0,\\ \\forall n\\in\\mathbb{N},\\ u_n\\geq A\\)',
+      '\\(\\forall A&gt;0,\\ \\exists n_0\\in\\mathbb{N},\\ \\exists n\\geq n_0,\\ u_n\\geq A\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Pour TOUT seuil \\(A\\), aussi grand soit-il, il faut un rang \\(n_0\\) à partir duquel TOUS les termes dépassent \\(A\\) — pas seulement un seul terme isolé.',
+    wrongExplain: {
+      1: 'Cette formulation avec « \\(\\exists A\\) » dirait qu’il existe UN seuil dépassé par tous les termes — ce qui décrirait plutôt une suite minorée, pas une divergence vers \\(+\\infty\\).',
+      2: 'Avec « \\(\\exists n\\geq n_0\\) » (au lieu de « \\(\\forall n\\geq n_0\\) »), un seul terme isolé dépassant \\(A\\) suffirait — ça ne garantit pas que TOUS les termes suivants restent au-dessus de \\(A\\).',
+    },
+  },
+  {
+    id: 'ex181', section: 'suites',
+    statement: 'Si \\((u_n)\\) diverge vers \\(+\\infty\\) ou vers \\(-\\infty\\), alors la suite \\((1/u_n)\\) :',
+    options: ['Converge vers \\(0\\)', 'Diverge aussi vers \\(+\\infty\\) ou \\(-\\infty\\)', 'N’a jamais de limite'],
+    correctIndex: 0,
+    explain: 'Quand \\(|u_n|\\) devient arbitrairement grand, \\(1/u_n\\) devient arbitrairement petit : la suite inverse converge systématiquement vers \\(0\\).',
+    wrongExplain: {
+      1: 'C’est l’inverse : plus \\(u_n\\) devient grand (en valeur absolue), plus \\(1/u_n\\) se rapproche de \\(0\\) — l’inverse ne diverge pas, il converge.',
+      2: 'Au contraire, cette situation garantit une limite précise : \\(0\\), pas une absence de limite.',
+    },
+  },
+  {
+    id: 'ex182', section: 'suites',
+    statement: 'Si \\((u_n)\\) converge vers \\(0\\) (et ne s’annule jamais), alors la suite \\((1/u_n)\\) :',
+    options: ['Diverge', 'Converge vers \\(0\\) aussi', 'Converge toujours vers \\(+\\infty\\)'],
+    correctIndex: 0,
+    explain: '\\(1/u_n\\) devient arbitrairement grand en valeur absolue quand \\(u_n\\) se rapproche de \\(0\\) — la suite inverse diverge (pas nécessairement vers \\(+\\infty\\) seul : elle peut aussi osciller en signe).',
+    wrongExplain: {
+      1: 'C’est l’inverse : plus \\(u_n\\) se rapproche de \\(0\\), plus \\(1/u_n\\) devient grand en valeur absolue — l’inverse ne peut pas converger vers \\(0\\) dans ce cas.',
+      2: 'Rien ne garantit que \\(u_n\\) reste de signe constant : si \\(u_n\\) change de signe en s’approchant de \\(0\\) (par exemple \\(u_n=(-1)^n/n\\)), \\(1/u_n\\) oscille entre \\(+\\infty\\) et \\(-\\infty\\) sans converger nulle part, y compris vers \\(+\\infty\\) seul.',
+    },
+  },
+  // ---------- §22 — BORNE SUPÉRIEURE, BORNE INFÉRIEURE (cours Charron, Partie 4) ----------
+  {
+    id: 'ex183', section: 'borne-sup-inf',
+    statement: 'La borne supérieure d’une partie \\(A\\) de \\(\\mathbb{R}\\) est, par définition :',
+    options: ['Le plus petit des majorants de \\(A\\)', 'Le plus grand élément de \\(A\\)', 'Le plus grand des minorants de \\(A\\)'],
+    correctIndex: 0,
+    explain: 'Parmi tous les majorants possibles de \\(A\\) (des réels qui dominent tous les éléments de \\(A\\)), la borne supérieure est le plus petit d’entre eux.',
+    wrongExplain: {
+      1: 'Le plus grand élément de \\(A\\) est le MAXIMUM, qui n’existe pas toujours — la borne supérieure, elle, existe dès que \\(A\\) est majorée, qu’elle soit atteinte ou non.',
+      2: 'C’est la définition de la borne INFÉRIEURE, pas de la borne supérieure.',
+    },
+  },
+  {
+    id: 'ex184', section: 'borne-sup-inf',
+    statement: 'La borne inférieure d’une partie \\(A\\) de \\(\\mathbb{R}\\) est, par définition :',
+    options: ['Le plus grand des minorants de \\(A\\)', 'Le plus petit élément de \\(A\\)', 'Le plus petit des majorants de \\(A\\)'],
+    correctIndex: 0,
+    explain: 'Parmi tous les minorants possibles de \\(A\\), la borne inférieure est le plus grand d’entre eux — symétrique de la définition de la borne supérieure.',
+    wrongExplain: {
+      1: 'Le plus petit élément de \\(A\\) est le MINIMUM, qui n’existe pas toujours — la borne inférieure, elle, existe dès que \\(A\\) est minorée.',
+      2: 'C’est la définition de la borne SUPÉRIEURE, pas de la borne inférieure.',
+    },
+  },
+  {
+    id: 'ex185', section: 'borne-sup-inf',
+    statement: 'Le théorème fondamental de la borne supérieure affirme que :',
+    options: [
+      'Toute partie de \\(\\mathbb{R}\\) NON VIDE et MAJORÉE possède une borne supérieure',
+      'Toute partie de \\(\\mathbb{R}\\) possède une borne supérieure, qu’elle soit majorée ou non',
+      'Seules les parties FINIES de \\(\\mathbb{R}\\) possèdent une borne supérieure',
+    ],
+    correctIndex: 0,
+    explain: 'C’est une propriété fondamentale (admise) de \\(\\mathbb{R}\\) : non-vide et majorée sont les deux hypothèses exactes et nécessaires pour garantir l’existence d’une borne supérieure.',
+    wrongExplain: {
+      1: 'Une partie NON majorée (comme \\(\\mathbb{R}\\) lui-même, ou \\(\\mathbb{N}\\)) n’a pas de borne supérieure — l’hypothèse « majorée » est indispensable.',
+      2: 'Beaucoup de parties infinies (comme \\([0,1]\\)) ont pourtant une borne supérieure — ce n’est pas réservé aux parties finies, loin de là.',
+    },
+  },
+  {
+    id: 'ex186', section: 'borne-sup-inf',
+    statement: 'Si \\(M=\\max A\\) (le maximum de \\(A\\) existe et vaut \\(M\\)), alors :',
+    options: [
+      '\\(M=\\sup A\\) — mais la réciproque est fausse : \\(\\sup A\\) peut exister sans que \\(\\max A\\) existe',
+      '\\(\\sup A\\) et \\(\\max A\\) sont deux notions totalement indépendantes, sans lien entre elles',
+      '\\(\\max A\\) n’existe jamais si \\(\\sup A\\) existe',
+    ],
+    correctIndex: 0,
+    explain: 'Si le maximum existe, il est forcément AUSSI la borne supérieure (c’est le plus petit majorant, puisqu’il appartient à \\(A\\) lui-même) — mais l’inverse n’est pas garanti : la borne sup peut exister sans être atteinte dans \\(A\\).',
+    wrongExplain: {
+      1: 'Il y a un lien fort entre les deux : dès que le maximum existe, il coïncide EXACTEMENT avec la borne supérieure.',
+      2: 'C’est l’inverse : quand le maximum existe, la borne supérieure existe aussi (et lui est égale) — les deux peuvent très bien coexister.',
+    },
+  },
+  {
+    id: 'ex187', section: 'borne-sup-inf',
+    statement: 'Avec \\(A=[a;b]\\cup[c;d[\\) (\\(a&lt;b&lt;c&lt;d\\)), la borne supérieure de \\(A\\) est :',
+    options: [
+      '\\(d\\) — mais \\(\\max A\\) n’existe PAS, car \\(d\\) n’appartient pas à l’intervalle \\([c;d[\\) (ouvert en \\(d\\))',
+      '\\(d\\), et \\(\\max A=d\\) aussi',
+      '\\(b\\), car c’est la borne du premier intervalle fermé',
+    ],
+    correctIndex: 0,
+    explain: '\\(d\\) est bien le plus petit majorant de \\(A\\) (sup), mais il n’est jamais ATTEINT puisque l’intervalle \\([c;d[\\) exclut \\(d\\) lui-même — exemple classique de borne sup non atteinte.',
+    wrongExplain: {
+      1: 'Justement pas : \\([c;d[\\) est ouvert en \\(d\\), donc \\(d\\notin A\\) — le maximum de \\(A\\) n’existe pas, même si la borne supérieure, elle, existe et vaut \\(d\\).',
+      2: '\\(b\\) n’est qu’une borne de l’un des deux sous-intervalles — la borne supérieure de toute la réunion \\(A\\) est la plus grande de toutes ses bornes, soit \\(d\\).',
+    },
+  },
+  {
+    id: 'ex188', section: 'borne-sup-inf',
+    statement: 'La caractérisation de \\(M=\\sup A\\) (\\(A\\) non vide, majorée) par les \\(\\varepsilon\\) s’écrit : \\(\\forall x\\in A, x\\leq M\\) ET :',
+    options: [
+      '\\(\\forall\\varepsilon&gt;0,\\ \\exists x\\in A,\\ M-\\varepsilon&lt;x\\)',
+      '\\(\\forall\\varepsilon&gt;0,\\ \\forall x\\in A,\\ M-\\varepsilon&lt;x\\)',
+      '\\(\\exists\\varepsilon&gt;0,\\ \\exists x\\in A,\\ M-\\varepsilon&lt;x\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Il faut qu’AUCUN majorant strictement plus petit que \\(M\\) ne convienne : pour tout \\(\\varepsilon&gt;0\\), on doit pouvoir trouver au moins UN élément de \\(A\\) qui dépasse \\(M-\\varepsilon\\) — c’est ce qui fait de \\(M\\) le plus PETIT des majorants.',
+    wrongExplain: {
+      1: 'Exiger que TOUS les éléments de \\(A\\) dépassent \\(M-\\varepsilon\\) serait beaucoup trop fort — il suffit qu’UN SEUL élément s’approche suffisamment de \\(M\\).',
+      2: 'Avec « \\(\\exists\\varepsilon\\) » (au lieu de « \\(\\forall\\varepsilon\\) »), la condition ne porterait que sur UN SEUL écart particulier, pas sur tous les écarts possibles — ça ne caractérise pas le PLUS PETIT majorant.',
+    },
+  },
+  {
+    id: 'ex189', section: 'borne-sup-inf',
+    statement: 'Dans la caractérisation de la borne sup par les \\(\\varepsilon\\), pourquoi faut-il « \\(\\exists x\\in A\\) » (et pas « \\(\\forall x\\in A\\) ») pour la deuxième condition ?',
+    options: [
+      'Il suffit qu’UN élément de \\(A\\) s’approche de \\(M\\) à moins de \\(\\varepsilon\\) — ce n’est pas tous les éléments de \\(A\\) qui doivent être aussi proches de \\(M\\)',
+      'C’est une erreur, il faudrait écrire \\(\\forall x\\in A\\)',
+      'Parce qu’aucun élément de \\(A\\) ne peut jamais être proche de \\(M\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La plupart des éléments de \\(A\\) peuvent être très éloignés de \\(M\\) (par exemple les petits éléments d’un intervalle) — seule l’EXISTENCE d’éléments arbitrairement proches de \\(M\\) est requise, pas une proximité uniforme.',
+    wrongExplain: {
+      1: 'Ce n’est pas une erreur : exiger « \\(\\forall x\\in A\\) » serait bien plus fort que nécessaire, et faux pour la plupart des ensembles usuels (par exemple \\([0;1]\\), où \\(0\\) est loin de \\(M=1\\)).',
+      2: 'C’est au contraire garanti par le théorème : pour tout \\(\\varepsilon&gt;0\\), il existe toujours au moins un élément de \\(A\\) à moins de \\(\\varepsilon\\) de \\(M\\) — c’est précisément ce que dit la caractérisation.',
+    },
+  },
+  {
+    id: 'ex190', section: 'borne-sup-inf',
+    statement: 'La différence essentielle entre « \\(\\max A\\) » et « \\(\\sup A\\) » est que :',
+    options: [
+      'Le maximum, s’il existe, est TOUJOURS atteint (il appartient à \\(A\\)) — la borne supérieure, elle, n’est pas toujours atteinte',
+      'Il n’y a aucune différence, ces deux notions sont toujours identiques',
+      '\\(\\sup A\\) est toujours strictement plus grand que \\(\\max A\\)',
+    ],
+    correctIndex: 0,
+    explain: 'C’est LA distinction à retenir : le maximum est un élément de \\(A\\) par définition, alors que la borne supérieure peut être une limite jamais réellement atteinte par aucun élément de \\(A\\).',
+    wrongExplain: {
+      1: 'Elles coïncident SEULEMENT quand le maximum existe — sinon (comme pour \\(]0;1[\\), dont le sup est \\(1\\) mais qui n’a pas de maximum), les deux notions diffèrent.',
+      2: 'Quand le maximum existe, il est exactement ÉGAL à la borne supérieure, jamais strictement inférieur à elle.',
+    },
+  },
 ];
 
 const SECTIONS = [
@@ -2000,11 +2543,23 @@ const SECTIONS = [
   },
   {
     id: 'suites', title: '§18 — SUITES : THÉORÈMES DE LA FICHE MÉMO',
-    cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|&lt;1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature)<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
+    cours: '<span class="math">Suite monotone bornée</span> \\(\\Rightarrow\\) converge ; monotone non bornée \\(\\Rightarrow\\) diverge<br>Géométrique de raison \\(\\rho\\) : converge \\(\\Leftrightarrow |\\rho|&lt;1\\) ou \\(\\rho=1\\)<br>Sous-suites de limites différentes \\(\\Rightarrow\\) divergence ; \\((u_{2n})\\) et \\((u_{2n+1})\\) vers la même limite \\(\\Rightarrow\\) convergence<br><span class="math">Gendarmes</span> : \\(v_n\\leq u_n\\leq w_n\\), \\(v_n,w_n\\to l\\) \\(\\Rightarrow\\) \\(u_n\\to l\\)<br><span class="math">Suites adjacentes</span> : \\(u_n\\) croissante, \\(v_n\\) décroissante, \\(v_n-u_n\\to0\\) \\(\\Rightarrow\\) même limite<br>\\(u_n=o(v_n)\\Leftrightarrow u_n/v_n\\to0\\) ; \\(u_n\\sim v_n\\Leftrightarrow u_n/v_n\\to1\\) (même nature) — relation d’équivalence réflexive/symétrique/transitive<br><span class="math">Pièges</span> : addition/soustraction d’équivalents interdite ; composition avec \\(\\exp\\)/\\(\\ln\\) interdite<br><span class="math">Extractrice</span> \\(\\sigma:\\mathbb{N}\\to\\mathbb{N}\\) strictement croissante (donc \\(\\sigma(n)\\geq n\\)) ; \\(u_n\\to\\pm\\infty\\Rightarrow1/u_n\\to0\\) ; \\(u_n\\to0\\Rightarrow1/u_n\\) diverge<br>Croissances comparées : exponentielle \\(\\gg\\) puissance \\(\\gg\\) logarithme',
   },
   {
     id: 'series', title: '§19 — SÉRIES NUMÉRIQUES',
     cours: 'Divergence grossière : \\(u_n\\not\\to0 \\Rightarrow \\sum u_n\\) diverge (condition nécessaire, PAS suffisante)<br><span class="math">Série géométrique</span> \\(\\sum\\rho^n\\) : converge \\(\\Leftrightarrow|\\rho|&lt;1\\), somme \\(=\\dfrac{1}{1-\\rho}\\)<br><span class="math">Série de Riemann</span> \\(\\sum1/n^\\alpha\\) : converge \\(\\Leftrightarrow\\alpha&gt;1\\)<br><span class="math">Séries alternées</span> : \\(u_n\\to0\\) ET \\((u_n)\\) décroissante \\(\\Rightarrow\\) convergence<br>Convergence absolue (\\(\\sum|u_n|\\) CV) \\(\\Rightarrow\\) convergence simple<br><span class="math">d\'Alembert</span> : \\(|u_{n+1}/u_n|\\to L\\) — \\(L&lt;1\\) CV, \\(L&gt;1\\) DV, \\(L=1\\) indéterminé<br><span class="math">Cauchy</span> : \\(\\sqrt[n]{u_n}\\to L\\), même conclusion selon \\(L\\)<br>Comparaison (termes positifs) : \\(0\\leq u_n\\leq v_n\\), \\(\\sum v_n\\) CV \\(\\Rightarrow\\) \\(\\sum u_n\\) CV',
+  },
+  {
+    id: 'relations-ordre-applications', title: '§20 — RELATIONS, ORDRE SUR ℝ, APPLICATIONS',
+    cours: '<span class="math">ℚ</span> stable pour \\(+\\) et \\(\\times\\) ; les irrationnels NE le sont pas (\\(\\pi+(1-\\pi)=1\\), \\(\\sqrt2\\times\\sqrt2=2\\)) ; rationnel+irrationnel = irrationnel<br><span class="math">Partie entière</span> \\(E(x)\\) : unique \\(n\\in\\mathbb{Z}\\) tel que \\(n\\leq x&lt;n+1\\) ; croissante (pas stricte)<br><span class="math">Modifier une inégalité</span> : translation (\\(+k\\)) toujours valide ; multiplication par \\(k&gt;0\\) préserve, par \\(k&lt;0\\) renverse — piège : \\(\\mathbb{R}^*\\) n’est PAS un intervalle, la règle de l’inverse n’y vaut pas globalement<br><span class="math">Application</span> \\(E\\to F\\) : chaque \\(x\\in E\\) a UNE ET UNE SEULE image (contrairement à une fonction, partielle)<br>\\(|x-y|\\) = distance ; <span class="math">valeur approchée</span> à \\(\\varepsilon\\) près : \\(|x-a|\\leq\\varepsilon\\) ; 2ᵉ inégalité triangulaire \\(\\big||x|-|y|\\big|\\leq|x-y|\\)',
+  },
+  {
+    id: 'fonctions-reference', title: '§21 — FONCTIONS DE RÉFÉRENCE : PARITÉ, PÉRIODICITÉ, EXP/LN',
+    cours: '<span class="math">Parité</span> : exige un domaine symétrique par rapport à \\(0\\) ; sur un tel domaine, une fonction peut rester ni paire ni impaire<br><span class="math">Périodicité</span> : \\(f\\) \\(t\\)-périodique \\(\\Rightarrow\\) \\(f\\) aussi \\(nt\\)-périodique, pour tout \\(n\\in\\mathbb{Z}^*\\)<br><span class="math">Tangente de exp en 0</span> : \\(\\lim_{x\\to0}(e^x-1)/x=1\\), tangente \\(y=x+1\\)<br>\\(\\ln\\) continue et dérivable sur \\(\\mathbb{R}_+^*\\), \\(\\ln\'(x)=1/x\\) ; primitive de \\(1/(x-a)\\) : \\(\\ln|x-a|\\)<br>\\(a^x=e^{x\\ln a}\\) : limites en \\(+\\infty\\) selon \\(a&gt;1\\) ou \\(0&lt;a&lt;1\\) ; \\(\\log_a(x)=\\ln(x)/\\ln(a)\\)',
+  },
+  {
+    id: 'borne-sup-inf', title: '§22 — BORNE SUPÉRIEURE, BORNE INFÉRIEURE',
+    cours: '<span class="math">Borne sup</span> = plus petit des majorants ; <span class="math">borne inf</span> = plus grand des minorants<br><span class="math">Théorème</span> (admis) : toute partie de \\(\\mathbb{R}\\) non vide et majorée a une borne sup (minorée \\(\\to\\) borne inf)<br>\\(\\max A\\) existe \\(\\Rightarrow\\) \\(\\max A=\\sup A\\), mais la réciproque est FAUSSE : le sup peut exister sans être atteint<br><span class="math">Caractérisation ε</span> de \\(M=\\sup A\\) : \\(\\forall x\\in A,x\\leq M\\) ET \\(\\forall\\varepsilon&gt;0,\\exists x\\in A,M-\\varepsilon&lt;x\\) (un SEUL élément suffit à chaque fois)',
   },
 ];
 
