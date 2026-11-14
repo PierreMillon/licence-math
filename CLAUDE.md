@@ -2320,3 +2320,45 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   `wrongExplain` manquant, options≠3) tous à zéro sur le contenu
   ajouté ; réponse testée en direct sur `ex190` (option fausse →
   `wrongExplain` affiché, KaTeX rendu).
+
+## ALGÈBRE §7 POLYNÔMES étoffée depuis un bilan de révision CC2 (14/11/2026, suite autonome)
+
+- Dernier document Drive trouvé dans cette même recherche élargie :
+  « Bilan de révisions pour le CC2.pdf » (Algèbre linéaire 1) — PAS un
+  cours ni un TD, mais un tableau de compétences attendues pour le
+  contrôle, chacune renvoyant à des numéros d'exercices de TD
+  (auxquels je n'ai pas accès directement, seulement la liste des
+  intitulés). Même méthode que CALCULUS §1 le 08/09/2026 (feuille qui
+  ne donne que des titres de règles) : contenu rédigé à partir des
+  intitulés de compétences, en connaissance mathématique standard, pas
+  extrait d'un corrigé.
+- Comparé aux 12 exercices déjà présents en §7 POLYNÔMES (photos de
+  tableau, 21/10/2026) : 4 compétences du bilan déjà couvertes
+  (trouver un polynôme vérifiant des conditions, prouver qu'un
+  polynôme en divise un autre via l'évaluation, déterminer si un
+  nombre est racine, division euclidienne via l'astuce
+  \(A(\alpha)=R(\alpha)\)) — rien ajouté pour celles-là. 2 compétences
+  manquaient entièrement : **ordre de multiplicité d'une racine**
+  et **décomposition dans \(\mathbb{R}[X]\) et \(\mathbb{C}[X]\)** —
+  jamais mentionnées jusque-là. 2 autres étaient seulement partielles :
+  **degré d'un polynôme à paramètre** (discuter l'annulation du
+  coefficient dominant) et **division euclidienne posée en toute
+  généralité** (condition \(\deg(R)&lt;\deg(B)\), pas seulement
+  l'astuce d'évaluation).
+- 11 nouveaux exercices (`ex105`-`ex115`) : degré paramétré (2,
+  exemple concret \(P=(m-2)X^3+X+1\)), preuve de divisibilité
+  générale + cas particulier \((X-a)\) (2), condition sur le reste de
+  la division euclidienne (1), multiplicité — définition par
+  factorisation ET caractérisation par les dérivées successives (2),
+  théorème fondamental de l'algèbre dans \(\mathbb{C}[X]\) (1),
+  décomposition dans \(\mathbb{R}[X]\) + racines complexes conjuguées
+  d'un polynôme réel + irréductibilité d'un facteur du second degré
+  (discriminant négatif) (3). Total ALGÈBRE : 104 → **115 exercices**
+  (§7 POLYNÔMES : 12 → 23). `chapters.js` (`algebre.total:115`) et
+  `fiches/algebre.html` (`SCORE : 0/115`) mis à jour.
+- Testé (Playwright, 320/390px, mode continu) : 115 exercices/14
+  sections rendus, zéro `\(`/`\)` brut, zéro `.katex-error`, zéro
+  erreur console ; `scripts/check-versions.sh` et
+  `scripts/check-content-escaping.js` au vert ; comptage Node (ids
+  dupliqués, sections orphelines, `wrongExplain` manquant, options≠3)
+  tous à zéro.

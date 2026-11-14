@@ -1505,6 +1505,172 @@ const EXERCISES = [
       2: 'Si \\(F\\) et \\(G\\) étaient identiques, elles ne pourraient pas être supplémentaires (sauf cas trivial \\(F=G=\\{0_E\\}\\)) : la supplémentarité exige au contraire \\(F\\cap G=\\{0_E\\}\\), donc des familles très différentes en général.',
     },
   },
+  // ---------- §7 — POLYNÔMES, complément (Bilan de révision CC2 : degré, division, multiplicité, R[X]/C[X]) ----------
+  {
+    id: 'ex105', section: 'polynomes',
+    statement: 'Pour un polynôme dont les coefficients dépendent d’un paramètre \\(m\\) (par exemple \\(P=(m-2)X^3+X+1\\)), comment déterminer son degré ?',
+    options: [
+      'Identifier le coefficient DOMINANT (celui du terme de plus haut degré en l’absence d’annulation) et discuter selon qu’il s’annule ou non pour certaines valeurs de \\(m\\)',
+      'Le degré est toujours \\(3\\), quelle que soit la valeur de \\(m\\)',
+      'Remplacer systématiquement \\(m\\) par \\(0\\) pour déterminer le degré',
+    ],
+    correctIndex: 0,
+    explain: 'Le degré d’un polynôme est le plus haut exposant dont le coefficient est NON NUL — dès qu’un coefficient dépend d’un paramètre, il faut vérifier s’il peut s’annuler, ce qui ferait chuter le degré.',
+    wrongExplain: {
+      1: 'Si \\(m-2\\) s’annule (donc \\(m=2\\)), le terme en \\(X^3\\) disparaît et le degré chute — ce n’est donc pas toujours \\(3\\).',
+      2: 'Remplacer \\(m\\) par \\(0\\) ne donnerait qu’UN cas particulier (ici \\(P=-2X^3+X+1\\), degré \\(3\\)) — il faut étudier TOUTES les valeurs de \\(m\\) qui annulent un coefficient, pas une seule choisie arbitrairement.',
+    },
+  },
+  {
+    id: 'ex106', section: 'polynomes',
+    statement: 'Dans l’exemple \\(P=(m-2)X^3+X+1\\), que devient le degré de \\(P\\) si \\(m=2\\) ?',
+    options: [
+      'Le terme en \\(X^3\\) disparaît (coefficient nul) : \\(P=X+1\\), degré \\(1\\) (pas \\(3\\))',
+      'Le degré reste \\(3\\), le coefficient \\((m-2)\\) ne change rien',
+      'Le polynôme devient nul',
+    ],
+    correctIndex: 0,
+    explain: 'Pour \\(m=2\\), \\((m-2)=0\\) : le terme dominant s’annule et \\(P\\) se réduit à \\(X+1\\), un polynôme de degré \\(1\\) — c’est exactement le cas particulier à ne jamais oublier de discuter.',
+    wrongExplain: {
+      1: 'C’est précisément l’erreur à éviter : quand \\(m=2\\), le coefficient du terme de plus haut degré devient nul, donc ce terme disparaît et ne compte plus pour le degré.',
+      2: '\\(X+1\\) n’est pas le polynôme nul (il vaut \\(1\\) en \\(X=0\\), par exemple) — seul le terme en \\(X^3\\) a disparu, pas tout le polynôme.',
+    },
+  },
+  {
+    id: 'ex107', section: 'polynomes',
+    statement: 'Pour prouver qu’un polynôme \\(A\\) divise un polynôme \\(B\\), une méthode générale consiste à :',
+    options: [
+      'Effectuer la division euclidienne de \\(B\\) par \\(A\\) et vérifier que le reste \\(R\\) est nul',
+      'Vérifier seulement que \\(A\\) et \\(B\\) ont le même degré',
+      'Vérifier que \\(B(0)=A(0)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Par définition, \\(A\\) divise \\(B\\) si et seulement si le reste de la division euclidienne de \\(B\\) par \\(A\\) est nul (\\(B=AQ+0=AQ\\)) — c’est la méthode générale, valable quels que soient les degrés de \\(A\\) et \\(B\\).',
+    wrongExplain: {
+      1: 'Le degré de \\(A\\) et \\(B\\) n’a aucun rapport direct avec la divisibilité — \\(A\\) doit en général avoir un degré STRICTEMENT plus petit que \\(B\\) pour que la question ait un intérêt, mais l’égalité des degrés ne prouve ni n’empêche la divisibilité.',
+      2: 'Une seule évaluation en \\(0\\) ne donne qu’une information très partielle — ça ne suffit absolument pas à garantir que TOUT le polynôme \\(A\\) divise \\(B\\).',
+    },
+  },
+  {
+    id: 'ex108', section: 'polynomes',
+    statement: 'Pour prouver qu’un facteur \\((X-a)\\) divise un polynôme \\(B\\), une méthode plus rapide que la division euclidienne complète consiste à :',
+    options: [
+      'Vérifier que \\(B(a)=0\\) (\\(a\\) est racine de \\(B\\))',
+      'Calculer \\(B\'(a)\\)',
+      'Vérifier que \\(\\deg(B)\\) est un multiple de \\(\\deg(X-a)\\)',
+    ],
+    correctIndex: 0,
+    explain: '\\((X-a)\\) divise \\(B\\) si et seulement si \\(a\\) est racine de \\(B\\), c’est-à-dire \\(B(a)=0\\) — une simple évaluation, bien plus rapide qu’une division euclidienne complète pour ce cas particulier.',
+    wrongExplain: {
+      1: '\\(B\'(a)\\) renseigne sur la pente de \\(B\\) en \\(a\\), pas sur le fait que \\((X-a)\\) le divise — c’est \\(B(a)=0\\) qui est le bon critère (sauf pour tester une multiplicité supérieure, voir plus loin).',
+      2: '\\(\\deg(X-a)=1\\) divise toujours n’importe quel degré entier — cette condition est automatiquement vérifiée et ne dit donc rien sur la divisibilité réelle.',
+    },
+  },
+  {
+    id: 'ex109', section: 'polynomes',
+    statement: 'En posant la division euclidienne \\(A=BQ+R\\), à quelle condition le reste \\(R\\) obtenu est-il valide ?',
+    options: [
+      '\\(\\deg(R)&lt;\\deg(B)\\) (ou \\(R=0\\))',
+      '\\(\\deg(R)&lt;\\deg(A)\\)',
+      '\\(\\deg(R)\\geq\\deg(B)\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La division euclidienne de polynômes exige que le reste soit de degré STRICTEMENT inférieur à celui du DIVISEUR \\(B\\) (ou nul) — c’est cette condition qui garantit l’unicité du couple \\((Q,R)\\).',
+    wrongExplain: {
+      1: 'C’est par rapport au diviseur \\(B\\), pas au dividende \\(A\\), que le degré du reste doit être comparé — une comparaison à \\(\\deg(A)\\) ne garantirait pas l’arrêt de l’algorithme de division.',
+      2: 'Si le reste avait un degré supérieur ou égal à celui de \\(B\\), on pourrait continuer à diviser : la division ne serait pas terminée, le couple \\((Q,R)\\) ne serait donc pas le bon.',
+    },
+  },
+  {
+    id: 'ex110', section: 'polynomes',
+    statement: 'L’ordre de multiplicité d’une racine \\(a\\) d’un polynôme \\(P\\) est l’entier \\(k\\) tel que :',
+    options: [
+      '\\(P(X)=(X-a)^k Q(X)\\) avec \\(Q(a)\\neq0\\) (la plus grande puissance de \\((X-a)\\) qui divise \\(P\\))',
+      '\\(P(X)=(X-a)^k\\), sans aucun autre facteur',
+      '\\(k\\) est le degré total de \\(P\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La multiplicité mesure combien de fois \\((X-a)\\) « sort » de \\(P\\) en facteur — la condition \\(Q(a)\\neq0\\) garantit que \\(k\\) est bien la puissance MAXIMALE, pas une puissance quelconque qui diviserait aussi \\(P\\).',
+    wrongExplain: {
+      1: '\\(P\\) peut très bien avoir d’AUTRES facteurs en plus de \\((X-a)^k\\) (par exemple d’autres racines) — ce n’est que le facteur \\((X-a)^k\\), pas tout \\(P\\), qui est isolé par la définition.',
+      2: 'La multiplicité d’UNE racine n’a aucune raison d’être égale au degré TOTAL du polynôme, qui peut avoir plusieurs racines distinctes, chacune avec sa propre multiplicité.',
+    },
+  },
+  {
+    id: 'ex111', section: 'polynomes',
+    statement: 'Une caractérisation équivalente, par les dérivées, de « \\(a\\) est racine de \\(P\\) de multiplicité EXACTEMENT \\(k\\) » est :',
+    options: [
+      '\\(P(a)=P\'(a)=\\cdots=P^{(k-1)}(a)=0\\) ET \\(P^{(k)}(a)\\neq0\\)',
+      '\\(P(a)=0\\) seulement, peu importe les dérivées',
+      '\\(P^{(k)}(a)=0\\) et toutes les autres dérivées sont non nulles',
+    ],
+    correctIndex: 0,
+    explain: 'La racine \\(a\\) et ses \\(k-1\\) premières dérivées s’annulent toutes en \\(a\\), et c’est la dérivée d’ORDRE \\(k\\) qui est la première à ne PAS s’annuler — cette suite de conditions encadre exactement la multiplicité \\(k\\).',
+    wrongExplain: {
+      1: '\\(P(a)=0\\) seul donne juste la multiplicité \\(\\geq1\\) — pour savoir qu’elle vaut EXACTEMENT \\(k\\), il faut aussi vérifier l’annulation des dérivées jusqu’à l’ordre \\(k-1\\), et la non-annulation à l’ordre \\(k\\).',
+      2: 'C’est l’inverse : ce sont les dérivées d’ordre \\(0\\) à \\(k-1\\) qui s’annulent, et c’est celle d’ordre \\(k\\) qui ne s’annule PAS — pas le contraire.',
+    },
+  },
+  {
+    id: 'ex112', section: 'polynomes',
+    statement: 'D’après le théorème fondamental de l’algèbre, dans \\(\\mathbb{C}[X]\\), tout polynôme non constant se décompose en :',
+    options: [
+      'Un produit de facteurs du premier degré \\((X-\\text{racine})\\), comptés avec leur multiplicité',
+      'Un produit de facteurs irréductibles de degré \\(1\\) OU \\(2\\) selon les cas',
+      'Il n’existe pas de décomposition générale dans \\(\\mathbb{C}[X]\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Dans \\(\\mathbb{C}\\), TOUT polynôme non constant admet autant de racines (comptées avec multiplicité) que son degré — il se factorise donc toujours entièrement en facteurs du premier degré.',
+    wrongExplain: {
+      1: 'C’est la situation dans \\(\\mathbb{R}[X]\\) (où des facteurs de degré \\(2\\) irréductibles peuvent subsister) — dans \\(\\mathbb{C}[X]\\), on peut TOUJOURS pousser la factorisation jusqu’au premier degré.',
+      2: 'C’est au contraire l’un des résultats les plus importants sur \\(\\mathbb{C}[X]\\) : une décomposition complète en facteurs du premier degré existe toujours, sans exception.',
+    },
+  },
+  {
+    id: 'ex113', section: 'polynomes',
+    statement: 'Dans \\(\\mathbb{R}[X]\\), un polynôme à coefficients réels se décompose en un produit de facteurs :',
+    options: [
+      'Du premier degré (racines réelles) ET du second degré à discriminant NÉGATIF (irréductibles sur \\(\\mathbb{R}\\))',
+      'Uniquement du premier degré, comme dans \\(\\mathbb{C}[X]\\)',
+      'Uniquement du second degré, jamais du premier',
+    ],
+    correctIndex: 0,
+    explain: 'Les racines complexes non réelles se regroupent par paires conjuguées, chaque paire donnant un facteur du second degré à discriminant négatif (irréductible sur \\(\\mathbb{R}\\)) — les racines réelles, elles, donnent directement des facteurs du premier degré.',
+    wrongExplain: {
+      1: 'Ce n’est vrai QUE si toutes les racines de \\(P\\) sont réelles — dès qu’il y a des racines complexes non réelles, elles ne peuvent apparaître qu’associées par paires, dans des facteurs de degré \\(2\\).',
+      2: 'Toute racine RÉELLE de \\(P\\) donne bien un facteur du premier degré — la décomposition dans \\(\\mathbb{R}[X]\\) peut très bien contenir des facteurs de degré \\(1\\).',
+    },
+  },
+  {
+    id: 'ex114', section: 'polynomes',
+    statement: 'Si un polynôme à coefficients RÉELS admet un nombre complexe non réel \\(z\\) comme racine, alors :',
+    options: [
+      'Son conjugué \\(\\bar z\\) est AUSSI racine, avec la même multiplicité',
+      '\\(\\bar z\\) n’est racine que si \\(z\\) est réel',
+      'Seul \\(z\\) est racine, \\(\\bar z\\) ne l’est pas forcément',
+    ],
+    correctIndex: 0,
+    explain: 'En conjuguant l’égalité \\(P(z)=0\\) et en utilisant le fait que les coefficients de \\(P\\) sont réels (donc égaux à leur propre conjugué), on obtient \\(P(\\bar z)=0\\) : \\(\\bar z\\) est racine elle aussi, avec la même multiplicité que \\(z\\).',
+    wrongExplain: {
+      1: 'La question porte justement sur le cas où \\(z\\) n’est PAS réel — la conjugaison des racines complexes n’a d’intérêt (et de contenu) que dans ce cas précis.',
+      2: 'C’est une conséquence directe de la réalité des coefficients de \\(P\\) : conjuguer toute l’équation \\(P(z)=0\\) donne automatiquement \\(P(\\bar z)=0\\), donc \\(\\bar z\\) EST forcément racine aussi.',
+    },
+  },
+  {
+    id: 'ex115', section: 'polynomes',
+    statement: 'Un facteur du second degré \\(aX^2+bX+c\\) (\\(a\\neq0\\), coefficients réels) est irréductible sur \\(\\mathbb{R}\\) si et seulement si :',
+    options: [
+      'Son discriminant est strictement négatif',
+      'Son discriminant est strictement positif',
+      '\\(a=1\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Un discriminant strictement négatif signifie qu’il n’existe AUCUNE racine réelle : le trinôme ne peut donc pas se factoriser en facteurs réels du premier degré, il reste irréductible sur \\(\\mathbb{R}\\).',
+    wrongExplain: {
+      1: 'Un discriminant strictement POSITIF donne deux racines réelles DISTINCTES — le trinôme se factorise alors en deux facteurs du premier degré, il n’est donc PAS irréductible dans ce cas.',
+      2: 'La valeur du coefficient dominant \\(a\\) (qu’il vaille \\(1\\) ou non) n’a aucune influence sur l’irréductibilité — seul le signe du discriminant compte.',
+    },
+  },
 ];
 
 const SECTIONS = [
@@ -1534,7 +1700,7 @@ const SECTIONS = [
   },
   {
     id: 'polynomes', title: '§7 — POLYNÔMES (CHAPITRE II)',
-    cours: '<span class="math">Racines infinies</span> : un polynôme non nul a un nombre de racines borné par son degré — en avoir une infinité impose \\(Q=0\\) (argument clé, réutilisé plusieurs fois)<br>Équation fonctionnelle sur un polynôme : évaluer en des points bien choisis révèle des racines ; factoriser par ces racines connues, puis réappliquer l’argument « racines infinies » au facteur restant<br><span class="math">Relations de Viète</span> (degré 3, racines \\(a,b,c\\)) : \\(P=X^3-\\sigma_1X^2+\\sigma_2X-\\sigma_3\\) avec \\(\\sigma_1=a+b+c\\), \\(\\sigma_2=ab+bc+ca\\), \\(\\sigma_3=abc\\) — identification coefficient par coefficient<br>Si \\(a\\) est racine de \\(P\\), réinjecter directement \\(P(a)=0\\) est souvent plus rapide que Viète<br><span class="math">Division euclidienne</span> \\(A=BQ+R\\) : évaluer en une racine \\(\\alpha\\) de \\(B\\) donne directement \\(A(\\alpha)=R(\\alpha)\\)<br>Construire un polynôme qui s’annule sur des points donnés : un PRODUIT de \\((X-k)\\) ; l’élever au carré double le degré sans changer l’ensemble des racines',
+    cours: '<span class="math">Degré</span> : coefficient DOMINANT non nul — avec un paramètre, discuter les valeurs qui l’annulent (le degré chute)<br><span class="math">Racines infinies</span> : un polynôme non nul a un nombre de racines borné par son degré — en avoir une infinité impose \\(Q=0\\) (argument clé, réutilisé plusieurs fois)<br>Équation fonctionnelle sur un polynôme : évaluer en des points bien choisis révèle des racines ; factoriser par ces racines connues, puis réappliquer l’argument « racines infinies » au facteur restant<br><span class="math">Relations de Viète</span> (degré 3, racines \\(a,b,c\\)) : \\(P=X^3-\\sigma_1X^2+\\sigma_2X-\\sigma_3\\) avec \\(\\sigma_1=a+b+c\\), \\(\\sigma_2=ab+bc+ca\\), \\(\\sigma_3=abc\\) — identification coefficient par coefficient<br>Si \\(a\\) est racine de \\(P\\), réinjecter directement \\(P(a)=0\\) est souvent plus rapide que Viète<br><span class="math">Division euclidienne</span> \\(A=BQ+R\\), \\(\\deg(R)&lt;\\deg(B)\\) : évaluer en une racine \\(\\alpha\\) de \\(B\\) donne directement \\(A(\\alpha)=R(\\alpha)\\) ; \\((X-a)\\) divise \\(B\\) \\(\\Leftrightarrow\\) \\(B(a)=0\\)<br><span class="math">Multiplicité</span> \\(k\\) d’une racine \\(a\\) : \\(P=(X-a)^kQ\\) avec \\(Q(a)\\neq0\\), ou \\(P(a)=\\cdots=P^{(k-1)}(a)=0\\) et \\(P^{(k)}(a)\\neq0\\)<br>Décomposition : dans \\(\\mathbb{C}[X]\\), toujours en facteurs de degré \\(1\\) ; dans \\(\\mathbb{R}[X]\\), degré \\(1\\) (racines réelles) ET degré \\(2\\) à discriminant négatif (paires conjuguées \\(z,\\bar z\\))<br>Construire un polynôme qui s’annule sur des points donnés : un PRODUIT de \\((X-k)\\) ; l’élever au carré double le degré sans changer l’ensemble des racines',
   },
 
   {

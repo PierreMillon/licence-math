@@ -6,6 +6,7 @@
    ============================================================ */
 
 const VERSIONS = [
+  { v: 168, date: "14/11/2026", desc: "ALGÈBRE : 11 questions sur les polynômes — degré paramétré, division, multiplicité, décomposition R[X]/C[X]" },
   { v: 167, date: "14/11/2026", desc: "ANALYSE : 41 questions — relations/ordre, fonctions de référence, suites extraites, borne sup/inf, tirées du cours Charron" },
   { v: 166, date: "14/11/2026", desc: "CALCULUS : 39 questions sur les systèmes linéaires (pivot de Gauss) et les sommes (Σ), tirées de la Séance 8" },
   { v: 165, date: "14/11/2026", desc: "Nouveau chapitre RÉFLEXES LÉVY (44 questions) : discours formel, astuces de calcul, pièges de rédaction des séances avec M. Lévy" },
