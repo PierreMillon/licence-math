@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<script src="../chapters.js?v=165"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>RÉFLEXES LÉVY // SYNTHÈSE L1 MATHS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Silkscreen&family=Jersey+10&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../style.css?v=165">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<script defer src="../vendor/katex/katex.min.js"></script>
+<script defer src="../vendor/katex/auto-render.min.js"></script>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/icon-16.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="L1 Maths">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+</head>
+<body>
+<a href="../index.html" class="menu-btn" aria-label="Menu"><svg class="heart-icon" viewBox="0 0 7 6" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/></svg></a>
+<div class="crt">
+
+  <header class="site-header">
+    <h1 class="fiche-title">RÉFLEXES LÉVY</h1>
+    <div class="fiche-total-score" id="ficheScore">SCORE : 0/44</div>
+    <div class="exo-progress-bar" id="exoProgressBar" aria-label="Progression des exercices"></div>
+    <div class="exo-progress-bar__hint">Cliquer un carré = exercice correspondant</div>
+  </header>
+
+  <div class="fiche-piece-block">
+    <div class="fiche-piece-name" id="fichePieceName"></div>
+    <div class="fiche-piece-badge" id="fichePieceBadge" aria-hidden="true"></div>
+    <div class="fiche-piece-label">ÉQUIPEMENT GAGNÉ CETTE SEMAINE</div>
+  </div>
+
+  <main id="sectionsContainer">
+    <!-- injecté par levy.js -->
+  </main>
+
+  <div class="fiche-pager" id="fichePager"></div>
+
+  <footer class="site-footer">
+    <div class="footer-reveal" id="footerReveal">
+      <div class="pixel-rule">════════════════════════════════════════════════</div>
+      <div id="ficheEndPhrase">FIN DE FICHE</div>
+    </div>
+    <nav class="chapter-nav" id="chapterNav" aria-label="Chapitre précédent / suivant"></nav>
+    <button class="reset-btn" id="resetChapterBtn" type="button">REMETTRE LE SCORE À ZÉRO DU CHAPITRE<svg class="skull-icon" viewBox="0 0 7 8" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/></svg></button>
+  </footer>
+
+</div>
+<script src="../menu.js?v=165"></script>
+<script src="../pwa.js?v=165"></script>
+<script src="../tooltips.js?v=165"></script>
+<script src="../weekly.js?v=165"></script>
+<script src="../music.js?v=165"></script>
+<script src="../creature.js?v=165"></script>
+<script src="../knight-svgs.js?v=165"></script>
+<script src="../knight.js?v=165"></script>
+<script src="fiche-engine.js?v=165"></script>
+<script src="levy.js?v=165"></script>
+<script data-goatcounter="https://mathprogramme.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

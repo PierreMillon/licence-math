@@ -2073,3 +2073,73 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   v163/v162 dans l'ordre), tous les fichiers `?v=` et `menu.js`/`sw.js`
   fusionnés automatiquement sans conflit. Version finale livrée : v163
   (pas v162, déjà pris).
+
+## Nouveau chapitre RÉFLEXES LÉVY (14/11/2026, demande explicite)
+
+- Demande (en plein milieu d'une recherche de nouveau contenu sur le
+  Drive, voir plus bas) : « ajoute une catégorie chapitre réflexes M.
+  Lévy avec des notions qu'il me fait travailler ». M. Lévy est un
+  tuteur qui donne à Pierre des séances individuelles le vendredi
+  soir, indépendantes du programme officiel des autres chapitres —
+  réflexes de rédaction mathématique et astuces de calcul récurrentes,
+  avec des pièges relevés en direct sur ses propres copies (pas un
+  cours suivi en amphi comme les autres chapitres).
+- Source : deux docs Drive rédigés par Pierre lui-même à partir de ces
+  séances — « Fiches Lévy — Réflexes à savoir par cœur » (Fiche 0 à
+  5 : discours formel — fixer une variable, exhiber un ∃, bon signe
+  entre deux affirmations, ordre des quantificateurs, conclure ;
+  l'équivalence \(&lt;\varepsilon\)/\(\leq\varepsilon\) et l'astuce
+  \(\varepsilon/2\) ; la quantité conjuguée ; majorer une fraction en
+  encadrant numérateur/dénominateur ; une fonction comme ensemble de
+  couples (image/antécédent) ; la règle des entiers \(a&gt;b\Rightarrow
+  a\geq b+1\)) et « Fiches Lévy — Partie 2 : tableau Miro » (Fiche 6 et
+  7, déchiffrées du tableau Miro des séances : l'image d'un intervalle
+  par une fonction continue — corrigée en direct par M. Lévy, verdict
+  « TROP RAPIDE » sur un tableau de variations seul, jugé insuffisant
+  sans les 4 justifications complètes ; les deux écritures d'ensemble
+  type-condition/forme-type). Les deux docs se terminent explicitement
+  par « à compléter après chaque séance » — chapitre destiné à
+  grossir au fil de l'année, comme CALCULUS/ALGÈBRE/ANALYSE.
+- Nouveau fichier `fiches/levy.js` (44 questions, 9 sections : les 8
+  fiches sources + une section finale `synthese-levy` qui combine
+  explicitement deux fiches entre elles dans une même question —
+  convention du 21/10/2026 pour tout nouveau bloc de contenu, reprise
+  ici des liens que les docs sources signalent déjà eux-mêmes : la
+  Fiche 3 réutilise la Fiche 2, la Fiche 6 réutilise la Fiche 4).
+  `wrongExplain` sur les 44 questions (2 options fausses chacune),
+  convention du 21/09/2026.
+- Chapitre ajouté à `chapters.js` (`id: 'levy'`, `active: true`
+  d'emblée — contrairement aux chapitres de cours classiques, ce
+  chapitre n'a pas de notion de "pas encore donné cette année" : les
+  séances avec M. Lévy sont déjà en cours). Suit exactement le même
+  câblage que tout nouveau chapitre : `CHAPTER_STATE_KEYS` (menu.js,
+  `l1maths_levy_state`), `CHAPTER_FICHE_FILES`/`ACTIVE_CHAPTER_IDS`
+  (sw.js), `fiches/levy.html` cloné du gabarit standard (même bloc
+  KaTeX, même bloc armure/pièce hebdo, même pied de page). `app.js`/
+  `weekly.js`/`progression.js` n'ont rien demandé de plus : tout est
+  dérivé automatiquement de `chapters.js` (voir refactor du
+  19/08/2026) — seul `CHAPTER_STATE_KEYS`, resté un objet écrit à la
+  main (pas dérivé de `chapters.js`), a dû être complété manuellement.
+- Convention `&lt;`/`&gt;` (22/10/2026) particulièrement sollicitée
+  ici : le contenu Lévy est très riche en inégalités strictes
+  (définitions \(\varepsilon\)-\(N\), \(a&gt;b\), \(x&gt;1\)…) — chaque
+  occurrence écrite en entité, y compris dans les COMMENTAIRES de
+  section du fichier (`scripts/check-content-escaping.js` scanne tout
+  le texte après `const EXERCISES`, commentaires inclus, sans
+  distinguer code mort de contenu réellement affiché — deux `<`/`>`
+  bruts trouvés dans des commentaires de séparation de section lors de
+  la vérification, reformulés pour ne plus en contenir du tout plutôt
+  que de les échapper inutilement dans un commentaire).
+- Testé (Playwright, 320/390px, paginé/continu) : 44 exercices/9
+  sections rendus, zéro `\(`/`\)` brut, zéro `.katex-error`, zéro
+  débordement horizontal ; grille d'accueil et tiroir de menu
+  affichent bien RÉFLEXES LÉVY ; navigation précédent/suivant boucle
+  correctement (dernier chapitre actif, revient à LOGIQUE) ; réponse
+  testée en direct (option fausse → `wrongExplain` affiché avec KaTeX
+  rendu, mode confirmation avec bouton VALIDER comme les autres
+  fiches) ; `scripts/check-versions.sh` et
+  `scripts/check-content-escaping.js` au vert.
+- Reste à faire, sur demande explicite de Pierre (« à compléter après
+  chaque séance avec M. Lévy ») : pas un chantier figé — revenir
+  ajouter des fiches à ce chapitre après de nouvelles séances, comme
+  pour tout chapitre de cours classique qui avance au fil de l'année.

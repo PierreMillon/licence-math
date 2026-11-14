@@ -32,6 +32,7 @@ const CHAPTERS = [
   { id: 'statistiques', name: 'STATISTIQUES',  file: 'statistiques.html', total: 17, active: false },
   { id: 'java',         name: 'JAVA',          file: 'java.html',         total: 52, active: false },
   { id: 'python',       name: 'PYTHON',        file: 'python.html',       total: 49, active: true },
+  { id: 'levy',         name: 'RÉFLEXES LÉVY', file: 'levy.html',         total: 44, active: true },
 ];
 
 /* Garde d'accès direct : si la page courante est la fiche d'un
