@@ -2143,3 +2143,80 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   chaque séance avec M. Lévy ») : pas un chantier figé — revenir
   ajouter des fiches à ce chapitre après de nouvelles séances, comme
   pour tout chapitre de cours classique qui avance au fil de l'année.
+
+## CALCULUS étoffée : systèmes linéaires + sommes, Séance 8 (14/11/2026, suite autonome après le chapitre Lévy)
+
+- Suite directe de la demande "regarde les dernières notions
+  abordées... et avance sur les quiz" (même session que le chapitre
+  RÉFLEXES LÉVY ci-dessus) : recherche Drive élargie après ce premier
+  chantier, qui a trouvé plusieurs documents de la Séance 8 de
+  CALCULUS (Champollion, M. Leroux/M. Meunier/M. Pascaud), jamais
+  traités alors que les sections §6 SOMMES et §9 SYSTÈMES LINÉAIRES
+  existaient déjà dans `fiches/calculus.js` mais réduites à 3 questions
+  génériques chacune (écrites de mémoire, avant la méthode "extraire
+  d'un vrai document" du 08/09/2026).
+- Sources : « Fiche à imprimer — Systèmes linéaires : de zéro à
+  au-delà du TD (Séance 8) V2 » (Google Doc rédigé par Pierre
+  lui-même, synthèse structurée en « Niveaux » 0 à 8 — même format
+  pédagogique que les fiches Lévy), plus en vérification croisée
+  « TD 08 - Systèmes linéraires.pdf », son corrigé et « Annexe
+  Systèmes linéaires.pdf » (la fiche de Pierre cite elle-même ces
+  deux PDF comme ses propres sources). Pour les sommes :
+  « TD 08 - Sommes.pdf » (« Séance 8, deuxième partie — Sommes »,
+  notation \(\Sigma\), changement d'indice, télescopage) et sa
+  correction (« TD 08 - systèmes - sommes corr.pdf », qui contient en
+  réalité les deux corrigés dans le même fichier).
+- **Les 6 exercices génériques déjà présents (`ex32`-`ex34` sommes,
+  `ex41`-`ex43` systèmes) laissés inchangés** (corrects, juste moins
+  détaillés) — nouveau contenu ajouté À LA SUITE avec des ids
+  continuant après le dernier existant (`ex52` et au-delà), jamais de
+  renumérotation, même réflexe que tous les chantiers de contenu
+  précédents (ALGÈBRE Ch. III, CALCULUS §2...).
+- **§9 SYSTÈMES LINÉAIRES** : 23 nouvelles questions (`ex52`-`ex74`)
+  suivant la structure « Niveaux » de la fiche source — vocabulaire
+  (solution, linéarité), les 3 gestes autorisés et l'interdiction de
+  multiplier par 0, le pivot de Gauss (règle d'or : une ligne-pivot ne
+  change plus), élimination sans fraction (\(aL_k-bL_i\), avec
+  l'exemple exact du cours \(3L_1+2L_2\)), les 3 issues possibles et
+  le piège \(0=0\) vs \(0=C\), cas 2×2, système à paramètre \(m\) avec
+  séparation en cas, interprétation géométrique (droites sécantes/
+  parallèles/confondues), piège des « systèmes fragiles » (TD Ex.6,
+  un coefficient \(40\to41\) change tout), check-list de rédaction,
+  échange de colonnes. Total CALCULUS systèmes : 3 → **26 questions**.
+- **§6 SOMMES** : 16 nouvelles questions (`ex75`-`ex90`) — notation
+  \(\Sigma\), changement d'indice (justification : mêmes termes,
+  bornes décalées), piège du nombre de termes (\(q-p+1\), pas
+  \(q-p\)), somme d'une constante répétée, parité pour une somme
+  alternée, formule du binôme appliquée à \(a=b=1\) (\(2^n\)) et à
+  \(a=1,b=-1\) (\(0\), SAUF \(n=0\) où \(0^0=1\) — piège signalé
+  explicitement dans la correction du TD), changement d'indice sur
+  deux exercices réels du TD (Ex.3), télescopage (\((k+1)^3-k^3\),
+  calculé des deux façons pour retrouver la formule de \(\sum k^2\) —
+  exactement la méthode du TD Ex.6), somme géométrique, piège du signe
+  alterné dépendant de la parité de \(n\) (Ex.1, \(S_5\)). Total
+  CALCULUS sommes : 3 → **19 questions**.
+- Total CALCULUS : 51 → **90 exercices** (23+16=39 nouvelles
+  questions). `chapters.js` (`calculus.total:90`) et
+  `fiches/calculus.html` (`SCORE : 0/90`) mis à jour — seul endroit à
+  toucher en plus du fichier de contenu lui-même, CALCULUS étant déjà
+  `active:true` depuis le 08/09/2026.
+- `cours` des deux sections réécrit pour refléter la nouvelle
+  profondeur (règle d'or du pivot, télescopage...), toujours un bloc
+  par notion avec `<span class="math">` + `<br>`, jamais de liste à
+  virgules (convention du 04/11/2026).
+- `reflexe-data.js` PAS régénéré : les exercices déjà copiés dans le
+  pool réflexe (`ex20`-`ex21`/`ex44`-`ex51`, section `trinome`
+  uniquement) n'ont pas été modifiés — rien à resynchroniser. Les
+  nouvelles sections `sommes`/`systemes`, elles, ne sont pas
+  « TD-sourcées » au sens strict du pool réflexe (défini le
+  21/10/2026 comme les sections dont la source documentée est un
+  TD/corrigé) — en fait elles LE SONT maintenant (Séance 8 du TD,
+  comme §1/§2) : à ajouter au pool réflexe sur demande explicite si
+  Pierre le souhaite, pas fait d'office ici (changement de périmètre
+  d'une fonctionnalité existante, pas juste un ajout de contenu).
+- Testé (Playwright, 320/390px, mode continu) : 90 exercices rendus,
+  9 sections, zéro `<`/`>` brut, zéro `.katex-error`, zéro
+  débordement ; `scripts/check-versions.sh` et
+  `scripts/check-content-escaping.js` au vert ; comptage Node (ids
+  dupliqués, sections orphelines, `wrongExplain` manquant, options≠3)
+  tous à zéro.

@@ -552,6 +552,227 @@ const EXERCISES = [
       2: 'Cette expression n’a pas de lien avec le développement du binôme — elle ne fait même pas apparaître de somme sur \\(k\\).',
     },
   },
+  // ---------- §6 — SOMMES, étoffée (Séance 8, 2e partie) ----------
+  {
+    id: 'ex75', section: 'sommes',
+    statement: 'La notation \\(\\displaystyle\\sum_{k=0}^{n} x_k\\) signifie :',
+    options: [
+      'La somme \\(x_0+x_1+\\cdots+x_n\\)',
+      'Le produit \\(x_0 \\times x_1 \\times \\cdots \\times x_n\\)',
+      'La plus grande valeur parmi \\(x_0,\\ldots,x_n\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le symbole \\(\\Sigma\\) (sigma majuscule) désigne toujours une SOMME de termes, un pour chaque valeur de l’indice entre les bornes indiquées.',
+    wrongExplain: {
+      1: 'Un produit se note avec \\(\\Pi\\) (pi majuscule), pas \\(\\Sigma\\) — \\(\\Sigma\\) désigne toujours une addition de termes.',
+      2: 'La notation \\(\\Sigma\\) additionne tous les termes, elle ne sélectionne pas le plus grand parmi eux — ce serait une autre notation (max).',
+    },
+  },
+  {
+    id: 'ex76', section: 'sommes',
+    statement: 'On peut réécrire \\(\\displaystyle\\sum_{k=0}^{n} x_k\\) en \\(\\displaystyle\\sum_{k=1}^{n+1} x_{k-1}\\). Pourquoi ces deux écritures désignent-elles exactement la même somme ?',
+    options: [
+      'Quand \\(k\\) parcourt \\(1\\) à \\(n+1\\), \\(k-1\\) parcourt exactement \\(0\\) à \\(n\\) : ce sont les mêmes termes, juste renommés',
+      'Parce que la lettre d’indice n’a jamais d’importance, qu’on change les bornes ou pas',
+      'Ce ne sont pas la même somme : la deuxième a un terme de plus',
+    ],
+    correctIndex: 0,
+    explain: 'Changer d’indice (ici \\(k \\to k-1\\)) ne change pas les TERMES additionnés, seulement la façon de les numéroter — les bornes doivent être décalées en conséquence pour que ça reste cohérent.',
+    wrongExplain: {
+      1: 'La lettre d’indice n’a effectivement pas d’importance, mais les BORNES, elles, doivent être adaptées en même temps que le décalage d’indice — sinon on changerait réellement la somme.',
+      2: 'Les deux sommes ont exactement le même nombre de termes (\\(n+1\\) termes chacune) : \\(k\\) de \\(1\\) à \\(n+1\\) et \\(k-1\\) de \\(0\\) à \\(n\\) couvrent les mêmes valeurs.',
+    },
+  },
+  {
+    id: 'ex77', section: 'sommes',
+    statement: 'La somme \\(\\displaystyle S_1=\\sum_{k=3}^{100} k\\) (et non \\(\\sum_{k=1}^{100}\\)) contient combien de termes ?',
+    options: [
+      '\\(98\\) termes (de \\(k=3\\) à \\(k=100\\) inclus, soit \\(100-3+1\\))',
+      '\\(100\\) termes',
+      '\\(97\\) termes',
+    ],
+    correctIndex: 0,
+    explain: 'Le nombre de termes d’une somme \\(\\sum_{k=p}^{q}\\) est \\(q-p+1\\) (les deux bornes incluses) — ici \\(100-3+1=98\\).',
+    wrongExplain: {
+      1: '\\(100\\) serait le nombre de termes si la somme commençait à \\(k=1\\) — ici elle commence à \\(k=3\\), il y a donc moins de termes.',
+      2: 'La formule \\(q-p+1\\) inclut les DEUX bornes — oublier le « \\(+1\\) » donne \\(97\\) au lieu des \\(98\\) termes réels.',
+    },
+  },
+  {
+    id: 'ex78', section: 'sommes',
+    statement: '\\(\\displaystyle\\sum_{k=1}^{n} 4\\) (une constante répétée \\(n\\) fois) vaut :',
+    options: ['\\(4n\\)', '\\(4\\)', '\\(4/n\\)'],
+    correctIndex: 0,
+    explain: 'Additionner une même constante \\(n\\) fois donne cette constante multipliée par \\(n\\) : \\(4+4+\\cdots+4\\) (\\(n\\) fois) \\(=4n\\).',
+    wrongExplain: {
+      1: '\\(4\\) serait la valeur d’UN seul terme — la somme additionne \\(n\\) termes identiques, pas un seul.',
+      2: 'Diviser par \\(n\\) n’a pas de sens ici : additionner \\(n\\) fois la même constante MULTIPLIE sa valeur par \\(n\\), ça ne la divise pas.',
+    },
+  },
+  {
+    id: 'ex79', section: 'sommes',
+    statement: '\\(\\displaystyle\\sum_{k=5}^{n} 4\\) vaut :',
+    options: [
+      '\\(4(n-4)\\)',
+      '\\(4(n-5)\\)',
+      '\\(4n\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Il y a \\(n-5+1=n-4\\) termes (de \\(k=5\\) à \\(k=n\\)), chacun valant \\(4\\) : la somme vaut \\(4\\times(n-4)\\).',
+    wrongExplain: {
+      1: 'Oublier le « \\(+1\\) » dans le compte des termes (\\(n-5+1\\), pas \\(n-5\\)) donne cette réponse incorrecte.',
+      2: '\\(4n\\) correspondrait à une somme qui commence à \\(k=1\\) — ici elle commence à \\(k=5\\), il y a donc moins de termes qu’avec \\(4n\\).',
+    },
+  },
+  {
+    id: 'ex80', section: 'sommes',
+    statement: '\\(\\displaystyle\\sum_{k=1}^{n} (-1)^k\\) dépend de la parité de \\(n\\). Si \\(n\\) est PAIR, elle vaut :',
+    options: ['\\(0\\)', '\\(1\\)', '\\(-1\\)'],
+    correctIndex: 0,
+    explain: 'Les termes s’annulent deux par deux (\\(-1+1=0\\), \\(-1+1=0\\)…) : avec \\(n\\) pair, il y a un nombre entier de paires, donc la somme totale vaut \\(0\\).',
+    wrongExplain: {
+      1: 'Avec \\(n\\) pair, toutes les paires \\((-1,+1)\\) s’annulent exactement — il ne reste aucun terme isolé qui vaudrait \\(1\\).',
+      2: 'C’est la valeur obtenue quand \\(n\\) est IMPAIR (un dernier terme \\(-1\\) non annulé reste) — pas quand \\(n\\) est pair.',
+    },
+  },
+  {
+    id: 'ex81', section: 'sommes',
+    statement: '\\(\\displaystyle\\sum_{k=0}^{n} \\dfrac{1}{n}\\) (la constante \\(1/n\\) répétée \\(n+1\\) fois, de \\(k=0\\) à \\(k=n\\)) vaut :',
+    options: ['\\(\\dfrac{n+1}{n}\\)', '\\(1\\)', '\\(n+1\\)'],
+    correctIndex: 0,
+    explain: 'Il y a \\(n+1\\) termes (de \\(k=0\\) à \\(k=n\\)), chacun valant \\(1/n\\) : la somme vaut \\((n+1)\\times\\dfrac{1}{n}\\).',
+    wrongExplain: {
+      1: 'La somme vaudrait exactement \\(1\\) seulement s’il y avait \\(n\\) termes (pas \\(n+1\\)) — ici l’indice va de \\(0\\) à \\(n\\), ce qui donne un terme de plus.',
+      2: '\\(n+1\\) oublie de diviser par \\(n\\) : chaque terme vaut \\(1/n\\), pas \\(1\\) — il faut multiplier le nombre de termes PAR \\(1/n\\), pas juste compter les termes.',
+    },
+  },
+  {
+    id: 'ex82', section: 'sommes',
+    statement: 'En appliquant la formule du binôme avec \\(a=1\\) et \\(b=1\\), on retrouve que \\(\\displaystyle\\sum_{k=0}^{n} \\binom{n}{k}\\) vaut :',
+    options: ['\\(2^n\\)', '\\(n^2\\)', '\\(n!\\)'],
+    correctIndex: 0,
+    explain: '\\((1+1)^n=\\sum_{k=0}^{n}\\binom{n}{k}1^k1^{n-k}=\\sum_{k=0}^{n}\\binom{n}{k}\\), et \\((1+1)^n=2^n\\) : la somme des coefficients binomiaux d’une ligne vaut toujours \\(2^n\\).',
+    wrongExplain: {
+      1: '\\(n^2\\) ne correspond à aucune évaluation simple de la formule du binôme — c’est \\((1+1)^n=2^n\\) qui donne directement la valeur de cette somme.',
+      2: '\\(n!\\) apparaît dans la définition de \\(\\binom{n}{k}\\) elle-même, pas comme résultat de leur somme — la bonne valeur vient de \\((1+1)^n\\).',
+    },
+  },
+  {
+    id: 'ex83', section: 'sommes',
+    statement: 'Pour \\(n\\geq1\\), \\(\\displaystyle\\sum_{k=0}^{n} \\binom{n}{k}(-1)^k\\) vaut :',
+    options: ['\\(0\\)', '\\(1\\)', '\\((-1)^n\\)'],
+    correctIndex: 0,
+    explain: 'C’est \\((1+(-1))^n=0^n\\) par la formule du binôme avec \\(a=1\\), \\(b=-1\\) — et \\(0^n=0\\) dès que \\(n\\geq1\\).',
+    wrongExplain: {
+      1: '\\(1\\) est la valeur EXCEPTIONNELLE obtenue seulement pour \\(n=0\\) (où \\(0^0=1\\) par convention) — pour \\(n\\geq1\\), la somme vaut bien \\(0\\).',
+      2: 'La formule du binôme donne directement \\(0^n\\), une puissance de \\(0\\) — \\((-1)^n\\) ne correspond à aucune étape de ce calcul.',
+    },
+  },
+  {
+    id: 'ex84', section: 'sommes',
+    statement: 'Piège signalé dans la correction : \\(\\displaystyle\\sum_{k=0}^{n} \\binom{n}{k}(-1)^k=(1-1)^n=0^n\\). Pourquoi faut-il préciser « pour \\(n\\geq1\\) » quand on affirme que cette somme vaut \\(0\\) ?',
+    options: [
+      'Car \\(0^0\\) vaut \\(1\\) par convention : pour \\(n=0\\), la somme vaut donc exceptionnellement \\(1\\), pas \\(0\\)',
+      'Il n’y a aucune exception, la formule vaut toujours \\(0\\)',
+      'Parce que la formule du binôme ne s’applique pas pour \\(n=0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le cas \\(n=0\\) réduit la somme à son unique terme \\(\\binom{0}{0}(-1)^0=1\\) — cohérent avec la convention \\(0^0=1\\), mais différent de \\(0\\) : un cas particulier à part des autres \\(n\\geq1\\).',
+    wrongExplain: {
+      1: 'C’est justement le piège à éviter : la formule vaut \\(0\\) pour \\(n\\geq1\\), mais PAS pour \\(n=0\\), où elle vaut exceptionnellement \\(1\\).',
+      2: 'La formule du binôme s’applique très bien pour \\(n=0\\) (un développement à un seul terme) — c’est seulement sa VALEUR qui diffère des autres cas, pas son applicabilité.',
+    },
+  },
+  {
+    id: 'ex85', section: 'sommes',
+    statement: 'Pour exprimer \\(\\displaystyle\\sum_{k=2}^{10} \\dfrac{1}{k-1}\\) comme une somme de \\(1/j\\), quel changement d’indice poser ?',
+    options: [
+      '\\(j=k-1\\) (donc \\(k=j+1\\)), ce qui donne \\(\\displaystyle\\sum_{j=1}^{9} \\dfrac{1}{j}\\)',
+      '\\(j=k\\), sans aucun changement',
+      '\\(j=k+1\\), ce qui donne \\(\\displaystyle\\sum_{j=3}^{11} \\dfrac{1}{j}\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Avec \\(j=k-1\\) : quand \\(k\\) va de \\(2\\) à \\(10\\), \\(j\\) va de \\(1\\) à \\(9\\), et \\(1/(k-1)\\) devient \\(1/j\\) — exactement la forme voulue.',
+    wrongExplain: {
+      1: 'Sans changement d’indice, le terme reste \\(1/(k-1)\\), pas \\(1/j\\) tout court — c’est justement la substitution \\(j=k-1\\) qui simplifie l’écriture.',
+      2: '\\(j=k+1\\) irait dans le mauvais sens : ça éloignerait encore plus l’indice du dénominateur recherché, et les bornes obtenues ne correspondent pas non plus.',
+    },
+  },
+  {
+    id: 'ex86', section: 'sommes',
+    statement: 'Pour faire commencer \\(\\displaystyle\\sum_{k=2}^{10} \\dfrac{k}{k-1}\\) à l’indice \\(0\\), quel changement d’indice poser, et quelles bornes obtient-on ?',
+    options: [
+      '\\(i=k-2\\) (donc \\(k=i+2\\)), ce qui donne \\(\\displaystyle\\sum_{i=0}^{8} \\dfrac{i+2}{i+1}\\)',
+      '\\(i=k\\), sans changement, bornes \\(2\\) à \\(10\\)',
+      '\\(i=k-1\\), bornes \\(1\\) à \\(9\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Avec \\(i=k-2\\) : quand \\(k\\) va de \\(2\\) à \\(10\\), \\(i\\) va bien de \\(0\\) à \\(8\\) — c’est le décalage exact qui fait démarrer l’indice à \\(0\\) comme demandé.',
+    wrongExplain: {
+      1: 'Sans changement d’indice, la somme démarre toujours à \\(k=2\\), pas à l’indice \\(0\\) demandé — il faut un vrai décalage.',
+      2: 'Avec \\(i=k-1\\), l’indice démarrerait à \\(1\\) (pas à \\(0\\)) quand \\(k=2\\) — ce décalage ne suffit pas, il faut \\(i=k-2\\).',
+    },
+  },
+  {
+    id: 'ex87', section: 'sommes',
+    statement: 'Pour calculer \\(\\displaystyle\\sum_{k=1}^{n} \\left[(k+1)^3-k^3\\right]\\) de façon simple, sans développer chaque terme un par un, on remarque que :',
+    options: [
+      'Les termes se télescopent : il ne reste que \\((n+1)^3-1^3\\) (le dernier terme et le tout premier de la chaîne)',
+      'Il faut développer chaque \\((k+1)^3-k^3\\) séparément puis sommer le tout terme à terme',
+      'Cette somme ne peut pas se calculer sans connaître \\(n\\) à l’avance',
+    ],
+    correctIndex: 0,
+    explain: 'Chaque terme \\((k+1)^3\\) de la somme s’annule avec le \\(-k^3\\) du terme SUIVANT (ou précédent) : tout s’annule en chaîne, sauf le tout premier \\(-1^3\\) et le tout dernier \\((n+1)^3\\) — c’est une somme télescopique.',
+    wrongExplain: {
+      1: 'Développer chaque terme un par un marche aussi, mais perd l’intérêt du télescopage : la quasi-totalité des termes s’annulent d’eux-mêmes sans qu’il faille les développer.',
+      2: 'La formule télescopique \\((n+1)^3-1\\) donne un résultat EXACT, valable pour n’importe quelle valeur de \\(n\\) — elle n’exige pas de connaître \\(n\\) à l’avance.',
+    },
+  },
+  {
+    id: 'ex88', section: 'sommes',
+    statement: 'La même somme \\(\\displaystyle\\sum_{k=1}^{n} \\left[(k+1)^3-k^3\\right]\\), calculée cette fois en développant \\((k+1)^3-k^3=3k^2+3k+1\\), permet de retrouver quelle formule déjà connue ?',
+    options: [
+      'La formule de \\(\\displaystyle\\sum k^2\\) (en utilisant aussi la formule déjà connue de \\(\\sum k\\))',
+      'La formule de \\(\\displaystyle\\sum k\\) seule',
+      'Aucune formule connue, c’est un résultat totalement nouveau',
+    ],
+    correctIndex: 0,
+    explain: 'En égalant les deux calculs de la même somme (télescopage d’un côté, développement de \\(3k^2+3k+1\\) de l’autre), on isole \\(\\sum k^2\\) en fonction de \\(\\sum k\\) et de \\(n\\) — c’est exactement la méthode qui redémontre la formule \\(n(n+1)(2n+1)/6\\).',
+    wrongExplain: {
+      1: 'La formule de \\(\\sum k\\) est déjà connue et REÇUE dans le calcul (elle sert d’ingrédient) — ce que cette méthode permet de retrouver, c’est \\(\\sum k^2\\), pas \\(\\sum k\\).',
+      2: 'C’est au contraire une méthode classique pour RETROUVER une formule déjà connue (\\(\\sum k^2\\)) à partir d’une astuce de télescopage, pas un résultat inédit.',
+    },
+  },
+  {
+    id: 'ex89', section: 'sommes',
+    statement: 'Pour calculer \\(\\displaystyle\\sum_{k=1}^{10} 2\\times3^{k-1}\\) (une suite géométrique de raison \\(3\\neq1\\)), on applique la formule :',
+    options: [
+      'Premier terme \\(\\times \\dfrac{1-\\text{raison}^{\\text{nombre de termes}}}{1-\\text{raison}}\\)',
+      'Premier terme \\(\\times\\, \\text{raison}^{\\text{nombre de termes}}\\)',
+      'Cette somme ne se calcule qu’en additionnant les \\(10\\) termes un par un, aucune formule ne s’applique',
+    ],
+    correctIndex: 0,
+    explain: 'Pour une suite géométrique de raison différente de \\(1\\), la somme de ses \\(N\\) premiers termes vaut toujours premier terme \\(\\times \\dfrac{1-\\text{raison}^N}{1-\\text{raison}}\\) — une formule directe, sans addition terme à terme.',
+    wrongExplain: {
+      1: 'Cette expression donnerait plutôt le DERNIER terme de la suite (ou presque), pas la somme de tous ses termes — il manque la fraction caractéristique de la formule géométrique.',
+      2: 'La formule de la somme géométrique existe précisément pour éviter d’additionner chaque terme un par un — elle s’applique dès que la raison est différente de \\(1\\).',
+    },
+  },
+  {
+    id: 'ex90', section: 'sommes',
+    statement: 'Pour écrire \\(S=1-\\dfrac{1}{2}+\\dfrac{1}{3}-\\cdots\\pm\\dfrac{1}{n}\\) avec le signe \\(\\Sigma\\), quelle précision est indispensable ?',
+    options: [
+      'Déterminer si le dernier signe est \\(+\\) ou \\(-\\) selon que \\(n\\) est pair ou impair, pour écrire correctement \\((-1)^{k+1}\\) ou \\((-1)^{k-1}\\)',
+      'Aucune précision n’est nécessaire, le signe alterné est toujours le même quel que soit \\(n\\)',
+      'Il faut remplacer tous les signes moins par des signes plus',
+    ],
+    correctIndex: 0,
+    explain: 'Le signe du dernier terme dépend de la parité de \\(n\\) (le terme \\(1/n\\) est précédé de \\(+\\) si \\(n\\) est impair, de \\(-\\) s’il est pair, dans cette suite qui commence par \\(+1\\)) — une écriture correcte avec \\(\\Sigma\\) doit en tenir compte, sinon le signe du dernier terme peut être faux.',
+    wrongExplain: {
+      1: 'Le signe du terme \\(1/n\\) dépend justement de la parité de \\(n\\) (pair ou impair) — ce n’est pas toujours le même signe, contrairement à ce que cette option affirme.',
+      2: 'Remplacer tous les signes moins changerait complètement la valeur de la somme — l’alternance des signes fait partie intégrante de la définition de cette suite.',
+    },
+  },
   {
     id: 'ex35', section: 'factorisation',
     statement: '\\(a^3 - b^3\\) se factorise en :',
@@ -667,6 +888,336 @@ const EXERCISES = [
       2: 'Un paramètre ne peut pas être ignoré : sa valeur peut changer complètement la nature du système — il faut au contraire l’étudier avec soin.',
     },
   },
+  // ---------- §9 — SYSTÈMES LINÉAIRES, étoffée (Séance 8, 1re partie) ----------
+  {
+    id: 'ex52', section: 'systemes',
+    statement: 'Une solution d’un système d’équations est :',
+    options: [
+      'Un jeu de valeurs qui vérifie TOUTES les équations du système en même temps',
+      'Un jeu de valeurs qui vérifie au moins une des équations',
+      'N’importe quel couple de nombres réels',
+    ],
+    correctIndex: 0,
+    explain: 'Une solution doit satisfaire simultanément chaque équation du système — pas une seule d’entre elles, toutes à la fois.',
+    wrongExplain: {
+      1: 'Vérifier une seule équation ne suffit pas : une vraie solution doit satisfaire TOUTES les équations du système en même temps.',
+      2: 'La plupart des couples de réels ne vérifient aucune des équations — une solution est un jeu de valeurs précis, pas n’importe lequel.',
+    },
+  },
+  {
+    id: 'ex53', section: 'systemes',
+    statement: 'Un système est dit « linéaire » quand :',
+    options: [
+      'Chaque inconnue apparaît seule, multipliée par un nombre (pas de \\(x^2\\), pas de \\(xy\\), pas de \\(\\ln x\\))',
+      'Il a au moins deux inconnues',
+      'Il contient uniquement des nombres entiers',
+    ],
+    correctIndex: 0,
+    explain: 'La linéarité porte sur la FORME des équations : chaque inconnue n’apparaît qu’à la puissance 1, jamais multipliée par une autre inconnue ni passée dans une fonction.',
+    wrongExplain: {
+      1: 'Le nombre d’inconnues ne définit pas la linéarité — un système à une seule inconnue (ou à dix) peut être linéaire ou pas, selon la forme des équations.',
+      2: 'Les coefficients peuvent être n’importe quel réel (fractions, irrationnels…) — ce n’est pas le fait d’avoir des entiers qui rend un système linéaire.',
+    },
+  },
+  {
+    id: 'ex54', section: 'systemes',
+    statement: 'Les trois seuls gestes autorisés pour transformer un système sans changer ses solutions (système équivalent) sont :',
+    options: [
+      'Multiplier une ligne par un nombre non nul ; ajouter à une ligne un multiple d’une autre ligne ; échanger deux lignes',
+      'Multiplier une ligne par n’importe quel nombre, y compris \\(0\\)',
+      'Ajouter deux lignes entre elles seulement si elles ont le même nombre de termes',
+    ],
+    correctIndex: 0,
+    explain: 'Ces trois opérations (multiplication par un nombre non nul, combinaison linéaire, échange) préservent exactement l’ensemble des solutions — aucune autre opération n’est garantie de le faire.',
+    wrongExplain: {
+      1: 'Multiplier par \\(0\\) est justement INTERDIT : ça effacerait toute l’information portée par la ligne, ce qui changerait les solutions du système.',
+      2: 'Rien n’exige que les lignes aient le même nombre de termes — on peut combiner des lignes de longueurs différentes, le geste reste valide.',
+    },
+  },
+  {
+    id: 'ex55', section: 'systemes',
+    statement: 'Pourquoi est-il interdit de multiplier une ligne d’un système par \\(0\\) ?',
+    options: [
+      'Ça efface complètement l’information portée par cette ligne (une équation disparaît), ce qui change les solutions du système',
+      'Ce n’est jamais interdit, \\(0\\) est un nombre comme un autre',
+      'C’est interdit seulement si la ligne contient déjà un \\(0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Une ligne multipliée par \\(0\\) devient « \\(0=0\\) », toujours vraie : l’équation d’origine ne contraint plus rien, le système équivalent obtenu peut alors avoir PLUS de solutions que l’original.',
+    wrongExplain: {
+      1: 'Contrairement aux deux autres gestes autorisés, multiplier par \\(0\\) ne préserve PAS les solutions — c’est la seule des quatre opérations imaginables qui soit interdite.',
+      2: 'La présence d’un \\(0\\) dans la ligne de départ n’a rien à voir avec l’interdiction : c’est multiplier TOUTE la ligne par le facteur \\(0\\) qui pose problème, dans tous les cas.',
+    },
+  },
+  {
+    id: 'ex56', section: 'systemes',
+    statement: 'Dans le pivot de Gauss, pourquoi préfère-t-on choisir un coefficient \\(1\\) ou \\(-1\\) comme pivot, quand c’est possible ?',
+    options: [
+      'Ça évite d’introduire des fractions dans les calculs qui suivent',
+      'C’est obligatoire : aucun autre coefficient ne peut servir de pivot',
+      'Ça change la solution du système, ce qui simplifie le résultat final',
+    ],
+    correctIndex: 0,
+    explain: 'N’importe quel coefficient non nul peut servir de pivot, mais \\(1\\) ou \\(-1\\) gardent les calculs d’élimination entiers, sans fraction à manipuler.',
+    wrongExplain: {
+      1: 'N’importe quel coefficient non nul peut en principe servir de pivot — \\(1\\)/\\(-1\\) sont préférés pour la simplicité des calculs, pas par obligation.',
+      2: 'Un pivot de Gauss, par définition (gestes autorisés), ne change JAMAIS les solutions du système — choisir un pivot simple facilite le calcul, pas le résultat lui-même.',
+    },
+  },
+  {
+    id: 'ex57', section: 'systemes',
+    statement: '« Règle d’or » du pivot de Gauss : une ligne qui a déjà porté un pivot...',
+    options: [
+      'Ne change plus jamais par la suite',
+      'Peut être librement modifiée à l’étape suivante',
+      'Doit être remultipliée par le pivot à chaque nouvelle étape',
+    ],
+    correctIndex: 0,
+    explain: 'Une fois utilisée pour éliminer une inconnue dans les lignes du dessous, une ligne-pivot est fixée pour le reste de la résolution — la retoucher risquerait de réintroduire l’inconnue qu’elle venait d’éliminer ailleurs.',
+    wrongExplain: {
+      1: 'C’est l’inverse : modifier une ligne-pivot après coup risquerait d’annuler le travail d’élimination déjà fait sur les lignes du dessous.',
+      2: 'Une ligne-pivot ne se « remultiplie » pas à chaque étape — une fois posée, elle reste telle quelle jusqu’à la fin de la résolution.',
+    },
+  },
+  {
+    id: 'ex58', section: 'systemes',
+    statement: 'Quand le pivot est \\(a\\) (dans la ligne \\(L_i\\)) et qu’une autre ligne \\(L_k\\) contient \\(b\\) devant la même inconnue, pour l’éliminer SANS introduire de fraction, on remplace \\(L_k\\) par :',
+    options: [
+      '\\(a \\cdot L_k - b \\cdot L_i\\)',
+      '\\(L_k - L_i\\)',
+      '\\(b \\cdot L_k - a \\cdot L_i\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Le coefficient de l’inconnue devient \\(a\\times b - b\\times a = 0\\) : elle disparaît exactement, sans aucune division.',
+    wrongExplain: {
+      1: 'Cette combinaison n’élimine l’inconnue que si \\(a\\) et \\(b\\) sont égaux — en général elle laisse un terme résiduel \\((a-b)\\) devant l’inconnue.',
+      2: 'Cette combinaison donne un coefficient \\((b^2-a^2)\\) devant l’inconnue, qui ne s’annule pas en général — ce n’est pas la bonne combinaison pour l’éliminer.',
+    },
+  },
+  {
+    id: 'ex59', section: 'systemes',
+    statement: 'Exemple du cours : le pivot est \\(2\\) (ligne \\(L_1\\), terme \\(2x\\)) et la ligne \\(L_2\\) contient \\(-3x\\). Quelle combinaison élimine \\(x\\) sans fraction ?',
+    options: ['\\(3L_1 + 2L_2\\)', '\\(2L_1 - 3L_2\\)', '\\(L_1 + L_2\\)'],
+    correctIndex: 0,
+    explain: 'Avec \\(a=2\\), \\(b=-3\\) : \\(a L_2 - b L_1 = 2L_2+3L_1\\), soit \\(3L_1+2L_2\\) — le terme en \\(x\\) devient \\(3(2x)+2(-3x)=0\\).',
+    wrongExplain: {
+      1: 'Cette combinaison ne correspond pas à la règle \\(aL_k-bL_i\\) avec les bons coefficients \\(2\\) et \\(-3\\) — elle ne fait pas disparaître le terme en \\(x\\) en général.',
+      2: 'Additionner simplement les deux lignes ne tient pas compte des coefficients \\(2\\) et \\(-3\\) devant \\(x\\) : le terme en \\(x\\) ne s’annule pas avec cette combinaison.',
+    },
+  },
+  {
+    id: 'ex60', section: 'systemes',
+    statement: 'Après échelonnement d’un système à 3 inconnues, il ne reste que 2 lignes « utiles » (la 3e est devenue \\(0=0\\)). Le système a alors :',
+    options: [
+      'Une infinité de solutions (une inconnue devient un paramètre libre)',
+      'Aucune solution',
+      'Exactement une solution',
+    ],
+    correctIndex: 0,
+    explain: 'Moins de lignes utiles que d’inconnues : une inconnue « secondaire » reste libre (paramètre), et les autres s’expriment en fonction d’elle — infinité de solutions.',
+    wrongExplain: {
+      1: '« \\(0=0\\) » ne signifie jamais l’absence de solution — ce serait le cas pour une ligne \\(0=C\\) avec \\(C\\neq0\\), pas pour \\(0=0\\).',
+      2: 'Une solution unique demande AUTANT de lignes utiles que d’inconnues — ici il en manque une, donc une inconnue reste indéterminée.',
+    },
+  },
+  {
+    id: 'ex61', section: 'systemes',
+    statement: 'Un système échelonné qui aboutit à une ligne « \\(0 = 5\\) » signifie :',
+    options: [
+      'Le système n’a aucune solution : \\(S=\\varnothing\\)',
+      'Le système a une infinité de solutions',
+      'Cette ligne ne sert à rien, on peut simplement la supprimer',
+    ],
+    correctIndex: 0,
+    explain: '« \\(0=5\\) » est une affirmation toujours fausse : aucun jeu de valeurs ne peut satisfaire le système, il est donc impossible.',
+    wrongExplain: {
+      1: 'Une infinité de solutions viendrait d’une ligne \\(0=0\\) (toujours vraie) — \\(0=5\\) est toujours FAUSSE, c’est l’inverse qui se produit.',
+      2: 'C’est \\(0=0\\) qui ne sert à rien et peut être supprimée — \\(0=5\\) signale au contraire une contradiction qui rend tout le système impossible.',
+    },
+  },
+  {
+    id: 'ex62', section: 'systemes',
+    statement: 'Piège à ne pas confondre : que signifie une ligne « \\(0 = 0\\) » obtenue en échelonnant ?',
+    options: [
+      'Cette ligne ne porte aucune information utile — elle n’empêche pas de résoudre le reste du système (contrairement à « \\(0=C\\) » avec \\(C\\neq0\\))',
+      'Le système n’a aucune solution',
+      'Exactement comme « \\(0=C\\) », le système est forcément impossible',
+    ],
+    correctIndex: 0,
+    explain: '« \\(0=0\\) » est une tautologie (toujours vraie) : elle signale juste qu’une équation était redondante, pas que le système est impossible.',
+    wrongExplain: {
+      1: 'C’est l’inverse d’une absence de solution : « \\(0=0\\) » est toujours vraie, elle signale une équation redondante, pas une contradiction.',
+      2: '« \\(0=0\\) » et « \\(0=C\\) » (\\(C\\neq0\\)) ont des significations opposées : la première est sans conséquence, la seconde rend le système impossible — ne jamais les confondre.',
+    },
+  },
+  {
+    id: 'ex63', section: 'systemes',
+    statement: 'Quand une inconnue « secondaire » devient un paramètre libre \\(z\\), comment exprime-t-on les inconnues « principales » restantes ?',
+    options: [
+      'En fonction de ce paramètre \\(z\\)',
+      'Elles restent indéterminées, on ne peut rien en dire',
+      'On leur attribue systématiquement la valeur \\(0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'Les lignes échelonnées restantes permettent toujours d’exprimer chaque inconnue principale comme une formule dépendant du paramètre libre — pas de les laisser totalement indéterminées.',
+    wrongExplain: {
+      1: 'On PEUT en dire quelque chose de précis : chaque inconnue principale s’exprime par une formule exacte en fonction du paramètre libre, grâce aux lignes échelonnées restantes.',
+      2: 'Rien ne justifie de fixer les inconnues principales à \\(0\\) — elles dépendent du paramètre choisi, via la formule obtenue en remontant l’échelonnement.',
+    },
+  },
+  {
+    id: 'ex64', section: 'systemes',
+    statement: 'Pour un système \\(2\\times2\\) (2 équations, 2 inconnues), une méthode efficace consiste à :',
+    options: [
+      'Éliminer chaque inconnue séparément par une combinaison adaptée, ce qui donne directement chaque valeur',
+      'Résoudre forcément par le pivot de Gauss complet, jamais autrement',
+      'Deviner les solutions par essais successifs',
+    ],
+    correctIndex: 0,
+    explain: 'Avec seulement deux inconnues, on peut combiner les deux lignes une fois pour \\(x\\), une autre fois pour \\(y\\), et obtenir chaque valeur directement, sans forcément passer par tout le formalisme de l’échelonnement.',
+    wrongExplain: {
+      1: 'Le pivot de Gauss reste valable, mais sur un système \\(2\\times2\\) une élimination directe de chaque inconnue est souvent plus rapide — ce n’est pas une obligation.',
+      2: 'Deviner par essais n’est pas une méthode fiable ni rédigée correctement — l’élimination par combinaison donne un résultat exact, justifié.',
+    },
+  },
+  {
+    id: 'ex65', section: 'systemes',
+    statement: 'Un système dépend d’un paramètre \\(m\\) ; après échelonnement, la dernière ligne devient « \\(0 = m - 3\\) ». Que doit-on faire ?',
+    options: [
+      'Séparer les cas : si \\(m\\neq3\\), aucune solution ; si \\(m=3\\), cette ligne disparaît et il reste une infinité de solutions',
+      'Remplacer \\(m\\) par \\(3\\) d’office, sans justifier',
+      'Ignorer cette ligne puisqu’elle contient un paramètre',
+    ],
+    correctIndex: 0,
+    explain: 'La ligne « \\(0=m-3\\) » n’est vraie QUE si \\(m=3\\) : il faut distinguer explicitement les deux cas et conclure chacun par son propre ensemble de solutions.',
+    wrongExplain: {
+      1: 'Fixer \\(m=3\\) sans discussion reviendrait à ignorer le cas \\(m\\neq3\\), où le système est pourtant impossible — les deux cas doivent être traités.',
+      2: 'Un paramètre dans une ligne obtenue par échelonnement porte une information essentielle : il détermine si le système a une solution ou pas — on ne peut pas l’ignorer.',
+    },
+  },
+  {
+    id: 'ex66', section: 'systemes',
+    statement: 'Pour un système à paramètre comme celui de la question précédente, quelle démarche de rédaction est attendue ?',
+    options: [
+      'Écrire « Cas 1 », « Cas 2 », et conclure chaque cas par un ensemble de solutions \\(S\\)',
+      'Donner une seule réponse valable pour toutes les valeurs de \\(m\\)',
+      'Résoudre uniquement le cas \\(m=0\\)',
+    ],
+    correctIndex: 0,
+    explain: 'La nature du système change selon \\(m\\) : la rédaction doit distinguer explicitement les cas et donner, pour chacun, l’ensemble \\(S\\) des solutions (ou \\(S=\\varnothing\\)).',
+    wrongExplain: {
+      1: 'Une seule réponse ne peut pas être valable pour toutes les valeurs de \\(m\\) dès que la nature du système change selon sa valeur — il faut distinguer les cas.',
+      2: '\\(m=0\\) n’est qu’une valeur particulière parmi toutes les possibles : rien ne justifie de s’y limiter sans examiner les autres cas.',
+    },
+  },
+  {
+    id: 'ex67', section: 'systemes',
+    statement: 'Géométriquement, dans le plan, une équation linéaire à deux inconnues représente :',
+    options: ['Une droite', 'Un cercle', 'Une parabole'],
+    correctIndex: 0,
+    explain: 'Une équation de la forme \\(ax+by=c\\) décrit exactement une droite du plan — c’est la base de l’interprétation géométrique des systèmes.',
+    wrongExplain: {
+      1: 'Un cercle correspond à une équation du type \\(x^2+y^2=r^2\\), non linéaire (présence de carrés) — une équation linéaire décrit une droite.',
+      2: 'Une parabole vient d’une équation avec un terme en \\(x^2\\) (par exemple \\(y=x^2\\)) — ce n’est pas une équation linéaire.',
+    },
+  },
+  {
+    id: 'ex68', section: 'systemes',
+    statement: 'Géométriquement, deux droites PARALLÈLES (et non confondues) correspondent à un système qui a :',
+    options: ['Aucune solution', 'Une infinité de solutions', 'Exactement une solution'],
+    correctIndex: 0,
+    explain: 'Des droites parallèles distinctes ne se croisent jamais : aucun point n’appartient aux deux à la fois, le système est impossible.',
+    wrongExplain: {
+      1: 'Une infinité de solutions correspondrait à deux droites CONFONDUES (la même droite), pas simplement parallèles et distinctes.',
+      2: 'Une solution unique correspond à deux droites SÉCANTES (qui se croisent en un point) — des droites parallèles distinctes ne se croisent jamais.',
+    },
+  },
+  {
+    id: 'ex69', section: 'systemes',
+    statement: 'Géométriquement, deux droites CONFONDUES (la même droite, décrite par deux équations différentes) correspondent à un système qui a :',
+    options: ['Une infinité de solutions', 'Aucune solution', 'Exactement une solution'],
+    correctIndex: 0,
+    explain: 'Chaque point de la droite commune vérifie les deux équations à la fois : il y a une infinité de solutions, un point pour chaque position sur la droite.',
+    wrongExplain: {
+      1: 'L’absence de solution correspond à des droites parallèles DISTINCTES — deux droites confondues partagent au contraire tous leurs points.',
+      2: 'Une solution unique correspond à deux droites SÉCANTES en un seul point — deux droites confondues partagent une infinité de points communs.',
+    },
+  },
+  {
+    id: 'ex70', section: 'systemes',
+    statement: 'Piège signalé (systèmes « fragiles ») : deux systèmes presque identiques, dont un seul coefficient change légèrement (par exemple \\(40\\) devient \\(41\\)), peuvent donner des solutions :',
+    options: [
+      'Très différentes — une petite erreur de calcul peut donc tout changer',
+      'Rigoureusement identiques, un petit changement de coefficient n’a jamais d’effet',
+      'Toujours proportionnelles entre elles',
+    ],
+    correctIndex: 0,
+    explain: 'Certains systèmes sont numériquement instables : un tout petit changement d’un coefficient peut faire basculer la solution vers des valeurs radicalement différentes — une raison supplémentaire de vérifier chaque calcul avec soin.',
+    wrongExplain: {
+      1: 'C’est justement le piège à retenir : certains systèmes sont très sensibles, un coefficient à peine modifié peut donner des solutions complètement différentes.',
+      2: 'Rien ne garantit une proportionnalité entre les deux jeux de solutions — elles peuvent être sans aucun rapport simple entre elles.',
+    },
+  },
+  {
+    id: 'ex71', section: 'systemes',
+    statement: 'Check-list de rédaction : avant de conclure la résolution d’un système, il faut toujours :',
+    options: [
+      'Vérifier la solution trouvée dans une des équations d’origine',
+      'Recommencer tout le calcul depuis le début par une autre méthode',
+      'Rien de plus : la dernière ligne obtenue suffit toujours',
+    ],
+    correctIndex: 0,
+    explain: 'Réinjecter la solution trouvée dans une équation d’origine (pas une ligne transformée) permet de détecter une éventuelle erreur de calcul avant de conclure.',
+    wrongExplain: {
+      1: 'Recommencer entièrement par une autre méthode est long et pas toujours nécessaire — une simple vérification dans une équation d’origine suffit à détecter une erreur.',
+      2: 'La dernière ligne obtenue ne garantit rien sur les étapes précédentes : seule une vérification dans l’équation D’ORIGINE confirme qu’aucune erreur ne s’est glissée en chemin.',
+    },
+  },
+  {
+    id: 'ex72', section: 'systemes',
+    statement: 'Erreur fréquente signalée : introduire des fractions inutiles pendant le pivot de Gauss vient souvent de :',
+    options: [
+      'Ne pas avoir choisi, parmi les lignes disponibles, celle avec le coefficient le plus simple (\\(1\\) ou \\(-1\\)) comme pivot',
+      'Utiliser le pivot de Gauss, qui produit toujours des fractions',
+      'Avoir trop de lignes dans le système',
+    ],
+    correctIndex: 0,
+    explain: 'Le pivot de Gauss, bien mené (en choisissant un coefficient \\(1\\)/\\(-1\\) quand c’est possible), n’oblige jamais à introduire de fraction — les fractions viennent d’un mauvais choix de pivot, pas de la méthode elle-même.',
+    wrongExplain: {
+      1: 'Le pivot de Gauss ne produit pas « toujours » des fractions — bien mené, avec un choix judicieux de pivot, les calculs peuvent rester entiers du début à la fin.',
+      2: 'Le nombre de lignes n’a pas de rapport direct avec l’apparition de fractions — c’est le choix du pivot à chaque étape qui en est responsable.',
+    },
+  },
+  {
+    id: 'ex73', section: 'systemes',
+    statement: 'Avant de commencer le pivot de Gauss, la check-list de rédaction recommande de :',
+    options: [
+      'Recopier le système avec les inconnues bien alignées (une colonne par inconnue)',
+      'Deviner directement une solution probable',
+      'Transformer immédiatement toutes les lignes à la fois, dans n’importe quel ordre',
+    ],
+    correctIndex: 0,
+    explain: 'Aligner les inconnues en colonnes évite les erreurs de lecture et facilite chaque étape d’élimination qui suit.',
+    wrongExplain: {
+      1: 'Deviner une solution ne constitue pas une démonstration — la méthode du pivot construit la solution étape par étape, de façon justifiée.',
+      2: 'Les transformations doivent se faire une étape à la fois, dans un ordre réfléchi (une inconnue éliminée avant de passer à la suivante) — pas toutes en même temps, au hasard.',
+    },
+  },
+  {
+    id: 'ex74', section: 'systemes',
+    statement: '« Échange de colonnes » dans le pivot de Gauss consiste à :',
+    options: [
+      'Échanger deux inconnues dans toutes les lignes (par exemple \\(x\\) et \\(z\\)) pour obtenir un pivot égal à \\(1\\)',
+      'Échanger deux lignes du système',
+      'Supprimer une colonne entière du système',
+    ],
+    correctIndex: 0,
+    explain: 'En renommant/réordonnant les inconnues (une opération différente de l’échange de lignes), on peut parfois faire apparaître un coefficient \\(1\\) plus pratique comme pivot — technique rare, réservée à des cas particuliers.',
+    wrongExplain: {
+      1: 'L’échange de LIGNES est l’un des trois gestes autorisés classiques — l’échange de COLONNES est une opération différente, sur les inconnues elles-mêmes, pas sur les équations.',
+      2: 'Supprimer une colonne reviendrait à supprimer une inconnue du système tout entier — l’échange de colonnes la garde, il change seulement l’ordre dans lequel les inconnues apparaissent.',
+    },
+  },
 ];
 
 const SECTIONS = [
@@ -692,7 +1243,7 @@ const SECTIONS = [
   },
   {
     id: 'sommes', title: '§6 — SOMMES',
-    cours: '\\(\\displaystyle\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}\\)<br>\\(\\displaystyle\\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}\\)<br>\\((a+b)^n = \\displaystyle\\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}\\)',
+    cours: '<span class="math">Notation Σ</span> : \\(\\sum_{k=p}^{q}x_k=x_p+\\cdots+x_q\\), avec \\(q-p+1\\) termes — changer l’indice (ex. \\(k\\to k-1\\)) ne change pas les termes, à condition de décaler aussi les bornes<br>\\(\\displaystyle\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}\\) ; \\(\\displaystyle\\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}\\) ; \\((a+b)^n = \\displaystyle\\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}\\)<br><span class="math">Suite géométrique</span> (raison \\(\\neq1\\)) : somme \\(=\\) premier terme \\(\\times\\dfrac{1-\\text{raison}^{N}}{1-\\text{raison}}\\) (\\(N\\) = nombre de termes)<br><span class="math">Télescopage</span> : \\(\\sum_{k=1}^{n}\\left[f(k+1)-f(k)\\right]=f(n+1)-f(1)\\), tous les termes intermédiaires s’annulent en chaîne',
   },
   {
     id: 'factorisation', title: '§7 — DÉVELOPPEMENT ET FACTORISATION',
@@ -704,7 +1255,7 @@ const SECTIONS = [
   },
   {
     id: 'systemes', title: '§9 — SYSTÈMES LINÉAIRES',
-    cours: 'Résolution par substitution ou combinaison (<span class="math">pivot de Gauss</span>)<br>Un système peut avoir : une solution unique, aucune, ou une infinité<br>Paramètre \\(m\\) \\(\\to\\) discuter suivant sa valeur',
+    cours: 'Système <span class="math">linéaire</span> : chaque inconnue apparaît seule, multipliée par un nombre — solution = jeu de valeurs qui vérifie TOUTES les équations<br><span class="math">Trois gestes autorisés</span> (système équivalent) : multiplier une ligne par un nombre non nul ; ajouter à une ligne un multiple d’une autre ; échanger deux lignes — jamais multiplier par \\(0\\)<br><span class="math">Pivot de Gauss</span> : une ligne-pivot ne change plus jamais ensuite ; pour l’éliminer sans fraction, \\(L_k \\leftarrow a L_k - b L_i\\) (pivot \\(a\\) en \\(L_i\\), coefficient \\(b\\) en \\(L_k\\))<br>Trois issues : solution unique, \\(S=\\varnothing\\) (ligne \\(0=C\\), \\(C\\neq0\\)), ou infinité (ligne \\(0=0\\), inconnue secondaire = paramètre libre)<br>Paramètre \\(m\\) \\(\\to\\) discuter suivant sa valeur, conclure chaque cas par un \\(S\\)<br>Géométrie : droites sécantes = 1 solution, parallèles distinctes = \\(\\varnothing\\), confondues = infinité',
   },
 ];
 
