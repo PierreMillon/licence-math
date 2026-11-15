@@ -705,7 +705,7 @@ const SECTIONS = [
     cours: 'Fixer une variable avant de l’utiliser : <span class="math">« Soit »</span> consomme le \\(\\forall\\) — \\(\\varepsilon\\) ou \\(n\\) deviennent fixés<br>Pour montrer un \\(\\exists\\), on l’exhibe : <span class="math">« Posons N = … »</span>, jamais une existence vague<br>Entre deux affirmations : \\(\\Rightarrow\\) ou \\(\\Leftrightarrow\\) ; entre deux nombres : \\(=\\), \\(\\leq\\), \\(&lt;\\) — jamais \\(\\Rightarrow\\) entre deux nombres<br><span class="math">Ordre des quantificateurs</span> : \\(\\forall\\varepsilon\\,\\exists N\\) (\\(N\\) dépend de \\(\\varepsilon\\)) \\(\\neq\\) \\(\\exists N\\,\\forall\\varepsilon\\) (plus fort)<br>Conclure : on recopie exactement l’énoncé visé au départ',
   },
   {
-    id: 'limite-epsilon', title: '§2 — LIMITE : « ≤ε » OU « &lt;ε », L’ASTUCE ε/2 (FICHE 1)',
+    id: 'limite-epsilon', title: '§2 — LIMITE : INÉGALITÉ LARGE OU STRICTE, L’ASTUCE DU DEMI-EPSILON (FICHE 1)',
     cours: '\\(\\forall\\varepsilon&gt;0,\\exists N,\\forall n\\geq N,|u_n-\\ell|&lt;\\varepsilon\\) et la version en \\(\\leq\\varepsilon\\) sont équivalentes<br>\\((&lt;)\\Rightarrow(\\leq)\\) immédiat ; \\((\\leq)\\Rightarrow(&lt;)\\) : on applique l’hypothèse à \\(\\varepsilon’=\\varepsilon/2&gt;0\\), puis \\(\\varepsilon/2&lt;\\varepsilon\\)<br><span class="math">Astuce ε/2</span> généralisable : dans un \\(\\forall\\varepsilon&gt;0\\), on choisit n’importe quel \\(\\varepsilon’&gt;0\\) bien adapté (\\(\\varepsilon/2\\), \\(\\varepsilon/3\\), \\(\\varepsilon/(2M)\\)…)',
   },
   {
@@ -721,7 +721,7 @@ const SECTIONS = [
     cours: 'Une fonction \\(f\\) de \\(E\\) dans \\(F\\) : partie \\(f\\subseteq E\\times F\\) où chaque \\(x\\) a AU PLUS une image<br>\\(D_f=\\{x\\in E:\\exists y\\in F,(x,y)\\in f\\}\\) ; \\(\\text{Im}\\,f=\\{f(x):x\\in D_f\\}\\subseteq F\\)<br>Vocabulaire : <span class="math">image</span> (une seule) / <span class="math">antécédent</span> (zéro, un ou plusieurs)<br>Pour montrer \\(y\\in\\text{Im}\\,f\\) : exhiber un \\(x\\in D_f\\) tel que \\(f(x)=y\\)',
   },
   {
-    id: 'entiers-superieur', title: '§6 — ENTIERS : « a&gt;b » DONNE « a≥b+1 » (FICHE 5)',
+    id: 'entiers-superieur', title: '§6 — ENTIERS : D’UNE INÉGALITÉ STRICTE À UN ÉCART D’AU MOINS UN (FICHE 5)',
     cours: 'Pour \\(a,b\\) entiers (\\(\\mathbb{N}\\) ou \\(\\mathbb{Z}\\)) : \\(a&gt;b\\Rightarrow a\\geq b+1\\)<br>Pourquoi : \\(a-b\\) est un entier strictement positif, donc \\(\\geq1\\) (aucun entier dans \\(]0,1[\\))<br><span class="math">Faux dans ℝ</span> : \\(2{,}5&gt;2\\) mais \\(2{,}5&lt;3\\) — toujours préciser « car ce sont des entiers »',
   },
   {

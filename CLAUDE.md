@@ -2362,3 +2362,58 @@ longues (ça a déjà été perdu une fois, cf. ci-dessous).
   `scripts/check-content-escaping.js` au vert ; comptage Node (ids
   dupliqués, sections orphelines, `wrongExplain` manquant, options≠3)
   tous à zéro.
+
+## Signes mathématiques bruts dans un TITRE de section (15/11/2026, signalé capture à l'appui)
+
+- Signalé par Pierre (capture à l'appui, chapitre RÉFLEXES LÉVY,
+  §2) : les signes \(\leq\), \(&lt;\), \(\geq\) et la fraction
+  \(\varepsilon/2\) dans le TITRE de section s'affichaient en
+  caractères Unicode bruts rendus par la police pixel du site
+  (Jersey 10/Silkscreen), pas par KaTeX — résultat illisible/moche
+  (glyphes « doublés », mal espacés). Demande explicite, formulée
+  comme une règle durable : « les signes \(\geq\) et \(/2\) doivent
+  être en LaTeX toujours ».
+- Cause : les TITRES de section (`SECTIONS[i].title`) sont bien
+  passés à `typesetMath()` comme le reste du contenu (même conteneur
+  `#sectionsContainer`), donc tout `\(...\)` qu'on y met EST rendu
+  par KaTeX — mais seuls deux titres, dans `fiches/levy.js`
+  (`limite-epsilon` et `entiers-superieur`), contenaient des signes
+  mathématiques écrits en Unicode brut au lieu de LaTeX (hérité du
+  style « citation entre guillemets » utilisé dans les docs Lévy
+  source). Vérifié par grep : AUCUN autre titre de section sur tout
+  le site (40+ titres, tous chapitres confondus) ne contient de signe
+  mathématique — ils sont tous en toutes lettres. Ce n'était donc pas
+  une classe de bug généralisée, juste ces deux titres-ci.
+- **Premier correctif essayé et rejeté** : entourer les signes de
+  `\(...\)` directement dans le titre (ex. `« \(\leq\varepsilon\) »
+  OU « \(&lt;\varepsilon\) », L'ASTUCE \(\varepsilon/2\)`) — rend
+  bien chaque fragment en KaTeX isolément, MAIS casse la mise en
+  page : plusieurs petits blocs KaTeX (insécables) entrecoupés de
+  guillemets français « » et de tirets dans un titre déjà long
+  provoquent un retour à la ligne complètement désordonné sur mobile
+  (les guillemets fermants se retrouvent seuls sur leur propre
+  ligne, les mots réordonnés visuellement) — capture vérifiée,
+  illisible.
+- **Corrigé en reformulant les deux titres entièrement en mots**,
+  sans AUCUN signe mathématique, plutôt qu'en forçant du LaTeX dans
+  un titre : « §2 — LIMITE : INÉGALITÉ LARGE OU STRICTE, L'ASTUCE DU
+  DEMI-EPSILON (FICHE 1) » et « §6 — ENTIERS : D'UNE INÉGALITÉ
+  STRICTE À UN ÉCART D'AU MOINS UN (FICHE 5) » — cohérent avec le
+  style de TOUS les autres titres du site (jamais de symbole), évite
+  par construction le piège de mise en page ci-dessus. Les signes
+  eux-mêmes restent présents (et déjà correctement en LaTeX) dans le
+  texte `cours` et les exercices juste en dessous, qui sont l'endroit
+  normal pour les formules — seul le TITRE est désormais 100% verbal.
+- **Règle à suivre pour tout nouveau titre de section à l'avenir** :
+  ne jamais mettre de signe mathématique (\(\leq,\geq,&lt;,&gt;\),
+  fraction, etc.) dans un `SECTIONS[i].title`, ni en Unicode brut
+  (illisible, police pixel) ni en LaTeX (casse le retour à la ligne
+  sur mobile) — reformuler le titre entièrement en mots, comme les
+  40+ titres déjà sur le site. Les signes ont leur place dans
+  `cours`/`statement`/`options`, jamais dans un titre.
+- Testé (Playwright, 320/390px, mode continu) : les deux titres
+  corrigés s'affichent sur plusieurs lignes proprement (pas de retour
+  à la ligne désordonné), zéro débordement, zéro erreur console ;
+  `scripts/check-versions.sh` et `scripts/check-content-escaping.js`
+  au vert ; formules de `cours`/exercices juste en dessous toujours
+  rendues correctement en KaTeX (vérifié capture d'écran).
